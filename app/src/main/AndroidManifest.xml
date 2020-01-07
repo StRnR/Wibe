@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mahaventures.wibe">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.SignInActivity" />
-        <activity android:name=".Activities.SignUp2Activity" />
+        <activity android:name=".Activities.SecondSignUpActivity" />
         <activity android:name=".Activities.SignUpActivity" />
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
