@@ -1,4 +1,4 @@
-package com.mahaventures.wibe.Activities;
+package com.mahaventures.wibe.Views;
 
 import android.os.Bundle;
 
@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mahaventures.wibe.R;
 
-public class SecondSignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup2);
+        setContentView(R.layout.activity_signup);
     }
 }

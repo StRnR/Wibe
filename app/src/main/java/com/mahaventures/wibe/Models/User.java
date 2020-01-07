@@ -8,7 +8,7 @@ public class User {
     @SerializedName("id")
     private int Id;
     @SerializedName("email")
-    private String email;
+    private String Email;
     @SerializedName("profile")
     private Profile Profile;
     @SerializedName("roles")
@@ -19,7 +19,7 @@ public class User {
     }
 
     public String getEmail() {
-        return email;
+        return Email;
     }
 
     public com.mahaventures.wibe.Models.Profile getProfile() {
