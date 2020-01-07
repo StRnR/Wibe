@@ -1,10 +1,17 @@
 package com.mahaventures.wibe.Models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Token {
+    @SerializedName("key")
     private String Key;
+    @SerializedName("email")
     private String Email;
+    @SerializedName("password")
     private String Password;
+    @SerializedName("device")
     private String Device;
+    @SerializedName("notification")
     private String Notification;
 
     public String getKey() {
