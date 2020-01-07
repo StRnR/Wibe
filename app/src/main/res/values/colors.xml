@@ -3,4 +3,11 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="skyBlue">#0ECAFF</color>
+    <color name="oceanBlue">#067BD3</color>
+    <color name="sorkhabi">#EC0271</color>
+    <color name="purple">#CE0DCC</color>
+    <color name="strnr">#5500BE</color>
+    <color name="darkStrnr">#190037</color>
+    <color name="background">#0D0D0D</color>
 </resources>
