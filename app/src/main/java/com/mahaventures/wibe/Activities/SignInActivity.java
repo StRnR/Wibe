@@ -1,9 +1,8 @@
-package com.mahaventures.wibe.Views;
+package com.mahaventures.wibe.Activities;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,9 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.mahaventures.wibe.Models.RequestModels.LoginRequestModel;
 import com.mahaventures.wibe.Models.RetrofitClientInstance;
 import com.mahaventures.wibe.Models.Token;
-import com.mahaventures.wibe.Models.User;
 import com.mahaventures.wibe.R;
-import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Services.PostDataService;
 
 import retrofit2.Call;

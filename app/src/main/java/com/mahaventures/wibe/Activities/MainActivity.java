@@ -1,4 +1,4 @@
-package com.mahaventures.wibe.Views;
+package com.mahaventures.wibe.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btn = findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener() {
+        Button signinBtn = findViewById(R.id.btn_signin);
+        signinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SignInActivity.class);

@@ -1,4 +1,4 @@
-package com.mahaventures.wibe.Views;
+package com.mahaventures.wibe.Activities;
 
 import android.os.Bundle;
 
