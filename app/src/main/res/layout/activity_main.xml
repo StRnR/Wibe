@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="13pt"
-        android:layout_marginTop="33pt"
+        android:layout_marginTop="40pt"
         android:layout_marginRight="13pt"
         android:fontFamily="@font/nexa_bold"
         android:text="Start listening to your favorite wibes."
@@ -18,12 +18,24 @@
     <Button
         android:id="@+id/btn_signin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SIGN UP" />
+        android:layout_height="25pt"
+        android:layout_marginLeft="13pt"
+        android:layout_marginTop="100pt"
+        android:layout_marginRight="13pt"
+        android:text="SIGN UP"
+        android:fontFamily="@font/nexa_bold"
+        android:textSize="10pt"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/btn_signup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SIGN IN" />
+        android:layout_height="25pt"
+        android:layout_marginLeft="13pt"
+        android:layout_marginTop="7pt"
+        android:layout_marginRight="13pt"
+        android:text="SIGN IN"
+        android:fontFamily="@font/nexa_bold"
+        android:textSize="10pt"
+        android:textColor="@color/white"/>
 </LinearLayout>
