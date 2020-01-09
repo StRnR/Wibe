@@ -21,6 +21,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         Button signUpButton = findViewById(R.id.btn_signup);
+        Button backBtn = findViewById(R.id.btn_back_signup);
         TextView passwordTxt = findViewById(R.id.txt_edit_pass_signup);
         ProgressBar bar = findViewById(R.id.passProgressBar);
         TextView weaknessTxt = findViewById(R.id.weaknessTxt);
