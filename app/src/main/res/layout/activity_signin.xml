@@ -11,8 +11,8 @@
         android:id="@+id/btn_back_signin"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginTop="35dp"
         android:layout_marginLeft="35dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,8 +21,8 @@
         android:id="@+id/txt_intro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
         android:layout_marginLeft="35dp"
+        android:layout_marginTop="70dp"
         android:layout_marginRight="35dp"
         android:fontFamily="@font/nexa_bold"
         android:text="Sign in"
@@ -36,8 +36,8 @@
         android:id="@+id/txt_signinguide"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
         android:layout_marginLeft="35dp"
+        android:layout_marginTop="18dp"
         android:layout_marginRight="35dp"
         android:fontFamily="@font/nexa_light"
         android:text="Welcome back ! enter your credentials to check out the latest hits."
@@ -47,22 +47,69 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_intro" />
 
-<!--    <EditText-->
-<!--        android:layout_width=""-->
-<!--        android:layout_height=""-->
-    
+    <EditText
+        android:id="@+id/txt_edit_email_sigin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:textColor="@color/white"
+        android:hint="Email"
+        android:fontFamily="@font/nexa_light"
+        android:textColorHint="@color/white"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp"
+        app:layout_constraintTop_toBottomOf="@id/txt_signinguide"
+        app:layout_constraintRight_toRightOf="@id/txt_signinguide"
+        app:layout_constraintLeft_toLeftOf="@id/txt_signinguide"/>
+
+    <EditText
+        android:id="@+id/txt_edit_pass_sigin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:textColor="@color/white"
+        android:hint="Password"
+        android:fontFamily="@font/nexa_light"
+        android:textColorHint="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp"
+        app:layout_constraintTop_toBottomOf="@id/txt_edit_email_sigin"
+        app:layout_constraintRight_toRightOf="@id/txt_signinguide"
+        app:layout_constraintLeft_toLeftOf="@id/txt_signinguide"/>
+
+    <Button
+        android:id="@+id/btn_forgotpass_signin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:text="FORGOT PASSWORD"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_signin"
+        app:layout_constraintLeft_toLeftOf="@id/txt_signinguide"
+        app:layout_constraintRight_toRightOf="@id/txt_signinguide"
+        app:layout_constraintTop_toBottomOf="@+id/txt_edit_pass_sigin" />
+
     <Button
         android:id="@+id/btn_signin"
-        android:background="@drawable/gradient_blue"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/gradient_blue"
         android:text="Sign In"
         android:textColor="@color/white"
         android:textSize="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_signinguide" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_forgotpass_signin" />
 </androidx.constraintlayout.widget.ConstraintLayout>
