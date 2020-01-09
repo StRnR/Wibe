@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btn_back_resetpass"
+        android:id="@+id/btn_back_confirmemail"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginLeft="35dp"
@@ -19,37 +19,37 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txt_resetpass"
+        android:id="@+id/txt_confirmemail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="70dp"
         android:layout_marginRight="35dp"
         android:fontFamily="@font/nexa_bold"
-        android:text="Reset password"
+        android:text="Confirm"
         android:textColor="@color/white"
         android:textSize="42dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_back_resetpass" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_back_confirmemail" />
 
     <TextView
-        android:id="@+id/txt_resetpassguide"
+        android:id="@+id/txt_confirmemailguide"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="35dp"
         android:fontFamily="@font/nexa_light"
-        android:text="Enter a new password for your account:"
+        android:text="we’ve emailed you a 6 digit code, please enter it here:"
         android:textColor="@color/white"
         android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="@+id/txt_resetpass"
-        app:layout_constraintStart_toStartOf="@+id/txt_resetpass"
-        app:layout_constraintTop_toBottomOf="@+id/txt_resetpass" />
+        app:layout_constraintEnd_toEndOf="@+id/txt_confirmemail"
+        app:layout_constraintStart_toStartOf="@+id/txt_confirmemail"
+        app:layout_constraintTop_toBottomOf="@+id/txt_confirmemail" />
 
     <EditText
-        android:id="@+id/txt_edit_pass_resetpass"
+        android:id="@+id/txt_edit_confirmemail"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="35dp"
@@ -58,37 +58,17 @@
         android:theme="@style/MyEditText"
         android:ems="10"
         android:fontFamily="@font/nexa_light"
-        android:hint="Password"
-        android:inputType="textPassword"
+        android:hint="Confirm code"
+        android:inputType="number"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:drawableLeft="@drawable/ic_password"
-        android:drawablePadding="10dp"
-        app:layout_constraintLeft_toLeftOf="@id/txt_resetpassguide"
-        app:layout_constraintRight_toRightOf="@id/txt_resetpassguide"
-        app:layout_constraintTop_toBottomOf="@id/txt_resetpassguide" />
+        app:layout_constraintLeft_toLeftOf="@id/txt_confirmemailguide"
+        app:layout_constraintRight_toRightOf="@id/txt_confirmemailguide"
+        app:layout_constraintTop_toBottomOf="@id/txt_confirmemailguide" />
 
-    <TextView
-        android:id="@+id/txt_resetpassguide2"
-        android:layout_width="match_parent"
-        android:layout_height="85dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="35dp"
-        android:background="@color/darkStrnr"
-        android:drawableLeft="@drawable/ic_password"
-        android:drawablePadding="30dp"
-        android:paddingTop="20dp"
-        android:fontFamily="@font/nexa_light"
-        android:text="New password can not be the same as the old one."
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="@+id/txt_resetpass"
-        app:layout_constraintStart_toStartOf="@+id/txt_resetpass"
-        app:layout_constraintTop_toBottomOf="@+id/txt_edit_pass_resetpass" />
 
     <Button
-        android:id="@+id/btn_resetpass"
+        android:id="@+id/btn_confirmemail"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="35dp"
@@ -96,7 +76,8 @@
         android:layout_marginRight="35dp"
         android:layout_marginBottom="100dp"
         android:background="@drawable/gradient_blue"
-        android:text="RESET PASSWORD"
+        android:textAllCaps="false"
+        android:text="Let’s Go!"
         android:textColor="@color/white"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"

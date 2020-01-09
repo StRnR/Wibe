@@ -15,7 +15,7 @@
             android:name=".Activities.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.SecondSignUpActivity"
+            android:name=".Activities.ConfirmEmailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.SignUpActivity"
