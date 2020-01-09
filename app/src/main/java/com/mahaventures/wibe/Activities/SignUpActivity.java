@@ -1,10 +1,12 @@
 package com.mahaventures.wibe.Activities;
 
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -99,6 +101,19 @@ public class SignUpActivity extends AppCompatActivity {
                     weaknessTxt.setTextColor(color);
                     bar.setProgress(10);
                 }
+            }
+        });
+
+        final View parent = (View) backBtn.getParent();
+        parent.post( new Runnable() {
+            public void run() {
+                final Rect rect = new Rect();
+                backBtn.getHitRect(rect);
+                rect.top -= 50;
+                rect.left -= 50;
+                rect.bottom += 50;
+                rect.right += 50;
+                parent.setTouchDelegate( new TouchDelegate( rect , backBtn));
             }
         });
 

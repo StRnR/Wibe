@@ -1,10 +1,13 @@
 package com.mahaventures.wibe.Activities;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
+import android.view.TouchDelegate;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -34,7 +37,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         Button signInButton = findViewById(R.id.btn_signin);
-        Button backButton = findViewById(R.id.btn_back_signin);
+        Button backBtn = findViewById(R.id.btn_back_signin);
         Button forgotPassBtn = findViewById(R.id.btn_forgotpass_signin);
         EditText emailTxt = findViewById(R.id.txt_edit_email_sigin);
         EditText passTxt = findViewById(R.id.txt_edit_pass_sigin);
@@ -68,17 +71,26 @@ public class SignInActivity extends AppCompatActivity {
             });
         });
 
-        backButton.setOnClickListener(v -> SignInActivity.super.onBackPressed());
+        final View parent = (View) backBtn.getParent();
+        parent.post( new Runnable() {
+            public void run() {
+                final Rect rect = new Rect();
+                backBtn.getHitRect(rect);
+                rect.top -= 50;
+                rect.left -= 50;
+                rect.bottom += 50;
+                rect.right += 50;
+                parent.setTouchDelegate( new TouchDelegate( rect , backBtn));
+            }
+        });
+
+        backBtn.setOnClickListener(v -> SignInActivity.super.onBackPressed());
 
         forgotPassBtn.setOnClickListener(v -> {
             Intent intent = new Intent(SignInActivity.this, ForgotPassActivity.class);
             SignInActivity.this.startActivity(intent);
         });
 
-        forgotPassBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-            SignInActivity.this.startActivity(intent);
-        });
 
     }
 
