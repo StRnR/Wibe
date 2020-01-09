@@ -4,6 +4,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,8 +14,22 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.mahaventures.wibe.Models.RequestModels.SignUpRequestModel;
+import com.mahaventures.wibe.Models.RetrofitClientInstance;
+import com.mahaventures.wibe.Models.TokenRegister;
 import com.mahaventures.wibe.R;
-import com.mahaventures.wibe.Services.StaticTools;
+import com.mahaventures.wibe.Services.PostDataService;
+import com.mahaventures.wibe.Tools.StaticTools;
+
+import java.lang.reflect.Type;
+import java.util.Map;
+import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity {
     @Override
@@ -86,5 +101,45 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
+
+        backBtn.setOnClickListener(v -> {
+            SignUpActivity.super.onBackPressed();
+        });
+
+        signUpButton.setOnClickListener(v -> {
+            PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
+            UUID uuid = UUID.randomUUID();
+            SignUpRequestModel model = new SignUpRequestModel(emailTxt.getText().toString(), passwordTxt.getText().toString(), uuid.toString());
+            Call<TokenRegister> call = service.SignUpUser(model);
+            call.enqueue(new Callback<TokenRegister>() {
+                @Override
+                public void onResponse(Call<TokenRegister> call, Response<TokenRegister> response) {
+                    if (response.isSuccessful()) {
+                        TokenRegister token = response.body();
+                    } else {
+                        try {
+                            byte[] bytes = response.errorBody().bytes();
+                            LogErrorMessage(bytes);
+                        } catch (Exception e) {
+                            Log.wtf("exception", e.getMessage());
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<TokenRegister> call, Throwable t) {
+
+                }
+            });
+        });
+    }
+
+    private void LogErrorMessage(byte[] bytes) {
+        Gson gson = new Gson();
+        Type type = new TypeToken<Map<String, String>>() {
+        }.getType();
+        Map<String, String> result = gson.fromJson(new String(bytes), type);
+        String str = result.get("detail");
+        Log.wtf("server response", str);
     }
 }
