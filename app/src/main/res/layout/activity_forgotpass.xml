@@ -1,6 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
-</LinearLayout>
+    <Button
+        android:id="@+id/btn_back_forgotpass"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_forgotpass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="35dp"
+        android:fontFamily="@font/nexa_bold"
+        android:text="Forgot password"
+        android:textColor="@color/white"
+        android:textSize="42dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back_forgotpass" />
+
+    <TextView
+        android:id="@+id/txt_forgotpassguide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="35dp"
+        android:fontFamily="@font/nexa_light"
+        android:text="Welcome back ! enter your credentials to check out the latest hits."
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/txt_forgotpass"
+        app:layout_constraintStart_toStartOf="@+id/txt_forgotpass"
+        app:layout_constraintTop_toBottomOf="@+id/txt_forgotpass" />
+
+    <EditText
+        android:id="@+id/txt_edit_email_forgotpass"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="35dp"
+        android:theme="@style/MyEditText"
+        android:ems="10"
+        android:fontFamily="@font/nexa_light"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:drawableLeft="@drawable/ic_email"
+        android:drawablePadding="10dp"
+        app:layout_constraintLeft_toLeftOf="@id/txt_forgotpassguide"
+        app:layout_constraintRight_toRightOf="@id/txt_forgotpassguide"
+        app:layout_constraintTop_toBottomOf="@id/txt_forgotpassguide" />
+
+
+    <Button
+        android:id="@+id/btn_sendresetlink"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/gradient_blue"
+        android:text="SEND RESET LINK"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
