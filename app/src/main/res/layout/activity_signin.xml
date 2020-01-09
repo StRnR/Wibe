@@ -9,36 +9,60 @@
 
     <Button
         android:id="@+id/btn_back_signin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="35dp"
+        android:background="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_intro"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         android:fontFamily="@font/nexa_bold"
         android:text="Sign in"
         android:textColor="@color/white"
-        android:textSize="20pt"
-        app:layout_constraintBottom_toTopOf="@+id/btn_signin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btn_signin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="195dp"
-        android:text="Sign In"
+        android:textSize="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_back_signin" />
+
+    <TextView
+        android:id="@+id/txt_signinguide"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:fontFamily="@font/nexa_light"
+        android:text="Welcome back ! enter your credentials to check out the latest hits."
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_intro" />
+
+<!--    <EditText-->
+<!--        android:layout_width=""-->
+<!--        android:layout_height=""-->
+    
+    <Button
+        android:id="@+id/btn_signin"
+        android:background="@drawable/gradient_blue"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Sign In"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_signinguide" />
 </androidx.constraintlayout.widget.ConstraintLayout>
