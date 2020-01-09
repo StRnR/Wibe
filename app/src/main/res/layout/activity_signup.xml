@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btn_signin3"
+        android:id="@+id/btn_signup"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="35dp"
@@ -67,7 +67,7 @@
         tools:layout_editor_absoluteY="166dp" />
 
     <EditText
-        android:id="@+id/txt_edit_email_sigin3"
+        android:id="@+id/txt_edit_email_signup"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="35dp"
@@ -85,7 +85,7 @@
         tools:layout_editor_absoluteY="295dp" />
 
     <EditText
-        android:id="@+id/txt_edit_pass_sigin4"
+        android:id="@+id/txt_edit_confirmpass_signup"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="35dp"
@@ -99,10 +99,10 @@
         android:textColorHint="@color/white"
         app:layout_constraintLeft_toLeftOf="@id/txt_signinguide"
         app:layout_constraintRight_toRightOf="@id/txt_signinguide"
-        app:layout_constraintTop_toBottomOf="@+id/txt_edit_pass_sigin3" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_edit_pass_signup" />
 
     <EditText
-        android:id="@+id/txt_edit_pass_sigin3"
+        android:id="@+id/txt_edit_pass_signup"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="35dp"
@@ -116,5 +116,5 @@
         android:textColorHint="@color/white"
         app:layout_constraintLeft_toLeftOf="@id/txt_signinguide"
         app:layout_constraintRight_toRightOf="@id/txt_signinguide"
-        app:layout_constraintTop_toBottomOf="@+id/txt_edit_email_sigin3" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_edit_email_signup" />
 </androidx.constraintlayout.widget.ConstraintLayout>
