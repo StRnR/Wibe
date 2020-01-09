@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/txt_intro"
@@ -13,10 +14,12 @@
         android:layout_marginRight="13pt"
         android:fontFamily="@font/nexa_bold"
         android:text="Start listening to your favorite wibes."
-        android:textSize="20pt" />
+        android:textSize="20pt"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/btn_signin"
+        android:background="@drawable/gradient_blue"
         android:layout_width="match_parent"
         android:layout_height="25pt"
         android:layout_marginLeft="13pt"
@@ -29,6 +32,7 @@
 
     <Button
         android:id="@+id/btn_signup"
+        android:background="@drawable/gradient_pink"
         android:layout_width="match_parent"
         android:layout_height="25pt"
         android:layout_marginLeft="13pt"
