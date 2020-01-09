@@ -10,8 +10,8 @@
 
     <Button
         android:id="@+id/btn_back_signup"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="35dp"
         android:layout_marginTop="35dp"
         android:background="@drawable/ic_back"
@@ -61,6 +61,8 @@
         android:inputType="textPersonName"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
+        android:drawableLeft="@drawable/ic_user"
+        android:drawablePadding="5dp"
         app:layout_constraintEnd_toEndOf="@id/txt_signupguide"
         app:layout_constraintStart_toStartOf="@id/txt_signupguide"
         app:layout_constraintTop_toBottomOf="@+id/txt_signupguide" />
@@ -78,6 +80,8 @@
         android:inputType="textEmailAddress"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
+        android:drawableLeft="@drawable/ic_email"
+        android:drawablePadding="10dp"
         app:layout_constraintEnd_toEndOf="@id/txt_signupguide"
         app:layout_constraintStart_toStartOf="@id/txt_signupguide"
         app:layout_constraintTop_toBottomOf="@+id/txt_edit_name_signup" />
@@ -95,6 +99,8 @@
         android:inputType="textPassword"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
+        android:drawableLeft="@drawable/ic_password"
+        android:drawablePadding="10dp"
         app:layout_constraintEnd_toEndOf="@id/txt_signupguide"
         app:layout_constraintStart_toStartOf="@id/txt_signupguide"
         app:layout_constraintTop_toBottomOf="@+id/txt_edit_email_signup" />
