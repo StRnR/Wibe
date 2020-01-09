@@ -9,14 +9,13 @@
 
     <TextView
         android:id="@+id/txt_intro"
-        android:height="35pt"
         android:width="250pt"
+        android:height="35pt"
         android:fontFamily="@font/nexa_bold"
         android:text="Start listening to your favorite wibes."
         android:textColor="@color/white"
         android:textSize="20pt"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_signin_main"
@@ -41,6 +40,6 @@
         android:text="SIGN IN"
         android:textColor="@color/white"
         android:textSize="10pt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txt_intro" />
+        app:layout_constraintStart_toStartOf="@id/btn_signin_main"
+        app:layout_constraintTop_toTopOf="@+id/btn_signin_main" />
 </androidx.constraintlayout.widget.ConstraintLayout>
