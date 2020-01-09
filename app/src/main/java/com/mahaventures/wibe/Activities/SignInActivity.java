@@ -1,16 +1,12 @@
 package com.mahaventures.wibe.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,7 +49,6 @@ public class SignInActivity extends AppCompatActivity {
             call.enqueue(new Callback<Token>() {
                 @Override
                 public void onResponse(Call<Token> call, Response<Token> response) {
-                    String message = response.message();
                     if (response.isSuccessful()) {
                         Token token = response.body();
                     } else {
@@ -72,6 +67,8 @@ public class SignInActivity extends AppCompatActivity {
                 }
             });
         });
+
+        backButton.setOnClickListener(v -> SignInActivity.super.onBackPressed());
 
         forgotPassBtn.setOnClickListener(v -> {
             Intent intent = new Intent(SignInActivity.this, ForgotPassActivity.class);
