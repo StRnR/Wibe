@@ -3,10 +3,13 @@ package com.mahaventures.wibe.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -39,6 +42,9 @@ public class SignInActivity extends AppCompatActivity {
         Button forgotPassBtn = findViewById(R.id.btn_forgotpass_signin);
         EditText emailTxt = findViewById(R.id.txt_edit_email_sigin);
         EditText passTxt = findViewById(R.id.txt_edit_pass_sigin);
+        SpannableString content = new SpannableString("FORGOT PASSWORD");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        forgotPassBtn.setText(content);
         signInButton.setOnClickListener(view -> {
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
             UUID uuid = UUID.randomUUID();
@@ -69,6 +75,11 @@ public class SignInActivity extends AppCompatActivity {
 
         forgotPassBtn.setOnClickListener(v -> {
             Intent intent = new Intent(SignInActivity.this, ForgotPassActivity.class);
+            SignInActivity.this.startActivity(intent);
+        });
+
+        forgotPassBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
             SignInActivity.this.startActivity(intent);
         });
 
