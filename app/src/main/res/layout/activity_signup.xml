@@ -88,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_signinguide2" />
 
     <EditText
-        android:id="@+id/txt_edit_confirmpass_signup"
+        android:id="@+id/txt_edit_name_signup"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="35dp"
@@ -96,7 +96,7 @@
         android:layout_marginRight="35dp"
         android:ems="10"
         android:fontFamily="@font/nexa_light"
-        android:hint="Confirm Password"
+        android:hint="Name"
         android:inputType="textPassword"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -143,16 +143,5 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_edit_pass_signup" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:text="Password does'nt match!"
-        android:textColor="@color/unacceptablePass"
-        app:layout_constraintStart_toStartOf="@+id/txt_edit_confirmpass_signup"
-        app:layout_constraintTop_toBottomOf="@+id/txt_edit_confirmpass_signup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
