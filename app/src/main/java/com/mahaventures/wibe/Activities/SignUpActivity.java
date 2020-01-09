@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,7 +23,9 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         Button signUpButton = findViewById(R.id.btn_signup);
         Button backBtn = findViewById(R.id.btn_back_signup);
-        TextView passwordTxt = findViewById(R.id.txt_edit_pass_signup);
+        EditText nameTxt = findViewById(R.id.txt_edit_name_signup);
+        EditText emailTxt = findViewById(R.id.txt_edit_email_signup);
+        EditText passwordTxt = findViewById(R.id.txt_edit_pass_signup);
         ProgressBar bar = findViewById(R.id.passProgressBar);
         TextView weaknessTxt = findViewById(R.id.weaknessTxt);
         weaknessTxt.setVisibility(View.GONE);
