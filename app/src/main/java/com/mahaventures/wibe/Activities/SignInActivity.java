@@ -18,7 +18,7 @@ import com.mahaventures.wibe.Models.RetrofitClientInstance;
 import com.mahaventures.wibe.Models.Token;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
-import com.mahaventures.wibe.Services.StaticTools;
+import com.mahaventures.wibe.Tools.StaticTools;
 
 import java.lang.reflect.Type;
 import java.util.Map;

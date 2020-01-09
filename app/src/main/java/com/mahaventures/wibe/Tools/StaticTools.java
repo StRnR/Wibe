@@ -1,4 +1,4 @@
-package com.mahaventures.wibe.Services;
+package com.mahaventures.wibe.Tools;
 
 import android.content.Context;
 import android.widget.Toast;
