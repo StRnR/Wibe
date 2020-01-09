@@ -31,5 +31,6 @@
         <activity
             android:name=".Activities.ResetPassActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.ForgotPassActivity" />
     </application>
 </manifest>
