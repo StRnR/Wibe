@@ -97,6 +97,7 @@
         android:layout_marginBottom="100dp"
         android:background="@drawable/gradient_blue"
         android:text="RESET PASSWORD"
+        android:fontFamily="@font/nexa_bold"
         android:textColor="@color/white"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -78,6 +78,7 @@
         android:background="@drawable/gradient_blue"
         android:textAllCaps="false"
         android:text="Let’s Go!"
+        android:fontFamily="@font/nexa_bold"
         android:textColor="@color/white"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
