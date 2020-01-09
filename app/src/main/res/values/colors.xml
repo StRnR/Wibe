@@ -10,5 +10,10 @@
     <color name="purple">#CE0DCC</color>
     <color name="strnr">#5500BE</color>
     <color name="darkStrnr">#190037</color>
+    <color name="unacceptablePass">#FF0000</color>
+    <color name="weakPass">#EB4400</color>
+    <color name="goodPass">#69F0AE</color>
+    <color name="strongPass">#00C853</color>
+    <color name="securePass">#03A9F4</color>
     <color name="background">#0D0D0D</color>
 </resources>
