@@ -21,11 +21,15 @@ import com.google.gson.reflect.TypeToken;
 import com.mahaventures.wibe.Models.RequestModels.SignUpRequestModel;
 import com.mahaventures.wibe.Models.RetrofitClientInstance;
 import com.mahaventures.wibe.Models.TokenRegister;
+import com.mahaventures.wibe.Models.User;
+import com.mahaventures.wibe.Models.UserRole;
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.StaticTools;
 
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -105,16 +109,14 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
         final View parent = (View) backBtn.getParent();
-        parent.post( new Runnable() {
-            public void run() {
-                final Rect rect = new Rect();
-                backBtn.getHitRect(rect);
-                rect.top -= 50;
-                rect.left -= 50;
-                rect.bottom += 50;
-                rect.right += 50;
-                parent.setTouchDelegate( new TouchDelegate( rect , backBtn));
-            }
+        parent.post(() -> {
+            final Rect rect = new Rect();
+            backBtn.getHitRect(rect);
+            rect.top -= 50;
+            rect.left -= 50;
+            rect.bottom += 50;
+            rect.right += 50;
+            parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
         });
 
         backBtn.setOnClickListener(v -> {
@@ -122,19 +124,24 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
         signUpButton.setOnClickListener(v -> {
+            if (!StaticTools.EmailValidation(emailTxt.getText().toString())) {
+                StaticTools.ShowToast(SignUpActivity.this, "Email is not valid.", 0);
+                return;
+            }
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
             UUID uuid = UUID.randomUUID();
-            SignUpRequestModel model = new SignUpRequestModel(emailTxt.getText().toString(), passwordTxt.getText().toString(), uuid.toString());
+            SignUpRequestModel model = new SignUpRequestModel(emailTxt.getText().toString(), passwordTxt.getText().toString(), uuid.toString(), "nid");
             Call<TokenRegister> call = service.SignUpUser(model);
             call.enqueue(new Callback<TokenRegister>() {
                 @Override
                 public void onResponse(Call<TokenRegister> call, Response<TokenRegister> response) {
                     if (response.isSuccessful()) {
                         TokenRegister token = response.body();
+                        Check(token.getKey());
                     } else {
                         try {
-                            byte[] bytes = response.errorBody().bytes();
-                            LogErrorMessage(bytes);
+                            String msg = response.errorBody().string();
+                            StaticTools.LogErrorMessage(msg);
                         } catch (Exception e) {
                             Log.wtf("exception", e.getMessage());
                         }
@@ -149,12 +156,28 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void LogErrorMessage(byte[] bytes) {
-        Gson gson = new Gson();
-        Type type = new TypeToken<Map<String, String>>() {
-        }.getType();
-        Map<String, String> result = gson.fromJson(new String(bytes), type);
-        String str = result.get("detail");
-        Log.wtf("server response", str);
+    private void Check(String key) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<User> call = service.GetUserInfo("Bearer " + key);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                try {
+                    String msg = response.errorBody().string();
+                    StaticTools.LogErrorMessage(msg);
+                } catch (Exception e) {
+                    Log.wtf("exception", e.getMessage());
+                }
+                List<UserRole> roles = response.body().getRoles();
+                boolean b = roles.stream().anyMatch(r -> r.getName().equals("EMAIL_CONFIRMED"));
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                StaticTools.LogErrorMessage(t.getMessage());
+            }
+        });
     }
+
+
 }

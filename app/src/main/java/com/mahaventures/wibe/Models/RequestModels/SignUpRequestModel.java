@@ -9,11 +9,14 @@ public class SignUpRequestModel {
     private String Password;
     @SerializedName("device")
     private String Device;
+    @SerializedName("notification")
+    private String Notification;
 
-    public SignUpRequestModel(String email, String password, String device) {
+    public SignUpRequestModel(String email, String password, String device, String notification) {
         Email = email;
         Password = password;
         Device = device;
+        Notification = notification;
     }
 
     public String getEmail() {
@@ -38,5 +41,13 @@ public class SignUpRequestModel {
 
     public void setDevice(String device) {
         Device = device;
+    }
+
+    public String getNotification() {
+        return Notification;
+    }
+
+    public void setNotification(String notification) {
+        Notification = notification;
     }
 }

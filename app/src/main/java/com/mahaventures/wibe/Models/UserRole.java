@@ -2,7 +2,7 @@ package com.mahaventures.wibe.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-class UserRole {
+public class UserRole {
     @SerializedName("user")
     private int User;
     @SerializedName("role")
