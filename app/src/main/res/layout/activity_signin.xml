@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_signin" />
 
     <EditText
-        android:id="@+id/txt_edit_email_sigin"
+        android:id="@+id/txt_edit_email_signin"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="35dp"
@@ -69,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@id/txt_signinguide" />
 
     <EditText
-        android:id="@+id/txt_edit_pass_sigin"
+        android:id="@+id/txt_edit_pass_signin"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="35dp"
@@ -86,21 +86,21 @@
         android:drawablePadding="10dp"
         app:layout_constraintLeft_toLeftOf="@id/txt_signinguide"
         app:layout_constraintRight_toRightOf="@id/txt_signinguide"
-        app:layout_constraintTop_toBottomOf="@id/txt_edit_email_sigin" />
+        app:layout_constraintTop_toBottomOf="@id/txt_edit_email_signin" />
 
     <Button
         android:id="@+id/btn_forgotpass_signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="80dp"
         android:background="@color/background"
         android:textColor="@color/white"
         android:textSize="12dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_signin"
         app:layout_constraintLeft_toLeftOf="@id/txt_signinguide"
         app:layout_constraintRight_toRightOf="@id/txt_signinguide"
-        app:layout_constraintTop_toBottomOf="@+id/txt_edit_pass_sigin" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_edit_pass_signin" />
 
     <Button
         android:id="@+id/btn_signin"
