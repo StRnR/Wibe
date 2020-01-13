@@ -1,6 +1,5 @@
 package com.mahaventures.wibe.Activities;
 
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -18,16 +17,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mahaventures.wibe.Models.RequestModels.SignUpRequestModel;
-import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Models.TokenRegister;
-import com.mahaventures.wibe.Models.User;
-import com.mahaventures.wibe.Models.UserRole;
 import com.mahaventures.wibe.R;
-import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Services.PostDataService;
+import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 
-import java.util.List;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -124,6 +119,9 @@ public class SignUpActivity extends AppCompatActivity {
             if (!StaticTools.EmailValidation(emailTxt.getText().toString())) {
                 StaticTools.ShowToast(SignUpActivity.this, "Email is not valid.", 0);
                 return;
+            }
+            if (StaticTools.CalculatePasswordStrength(passwordTxt.getText().toString()) == 0) {
+                StaticTools.ShowToast(SignUpActivity.this, "Password must be at least 6 characters", 0);
             }
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
             UUID uuid = UUID.randomUUID();

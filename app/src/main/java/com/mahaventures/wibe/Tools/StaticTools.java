@@ -6,7 +6,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.mahaventures.wibe.Activities.ConfirmEmailActivity;
-import com.mahaventures.wibe.Activities.SignUpActivity;
 import com.mahaventures.wibe.Models.User;
 import com.mahaventures.wibe.Models.UserRole;
 import com.mahaventures.wibe.Services.GetDataService;

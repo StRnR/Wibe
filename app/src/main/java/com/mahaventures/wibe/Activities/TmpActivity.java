@@ -1,9 +1,6 @@
 package com.mahaventures.wibe.Activities;
 
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.view.TouchDelegate;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;

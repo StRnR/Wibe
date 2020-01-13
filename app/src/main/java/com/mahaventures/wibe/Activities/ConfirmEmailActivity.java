@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mahaventures.wibe.R;
-import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
@@ -53,6 +52,8 @@ public class ConfirmEmailActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         Intent intent = new Intent(ConfirmEmailActivity.this, TmpActivity.class);
                         startActivity(intent);
+                    } else {
+                        StaticTools.ShowToast(ConfirmEmailActivity.this, "code is incorrect", 0);
                     }
                 }
 

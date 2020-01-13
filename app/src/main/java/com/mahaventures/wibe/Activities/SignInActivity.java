@@ -14,17 +14,13 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.mahaventures.wibe.Models.RequestModels.LoginRequestModel;
-import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Models.Token;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
+import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 
-import java.lang.reflect.Type;
-import java.util.Map;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -58,6 +54,7 @@ public class SignInActivity extends AppCompatActivity {
                     } else {
                         try {
                             StaticTools.LogErrorMessage(response.errorBody().string());
+                            StaticTools.ShowToast(SignInActivity.this, response.errorBody().string(), 0);
                         } catch (Exception e) {
                             Log.wtf("exception", e.getMessage());
                         }
