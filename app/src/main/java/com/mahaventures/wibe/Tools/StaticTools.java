@@ -1,16 +1,9 @@
 package com.mahaventures.wibe.Tools;
 
 import android.content.Context;
-import android.service.autofill.RegexValidator;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.mahaventures.wibe.Activities.SignUpActivity;
-
-import java.lang.reflect.Type;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

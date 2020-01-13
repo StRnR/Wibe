@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mahaventures.wibe.Models.RequestModels.LoginRequestModel;
-import com.mahaventures.wibe.Models.RetrofitClientInstance;
+import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Models.Token;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
@@ -72,16 +72,14 @@ public class SignInActivity extends AppCompatActivity {
         });
 
         final View parent = (View) backBtn.getParent();
-        parent.post( new Runnable() {
-            public void run() {
-                final Rect rect = new Rect();
-                backBtn.getHitRect(rect);
-                rect.top -= 50;
-                rect.left -= 50;
-                rect.bottom += 50;
-                rect.right += 50;
-                parent.setTouchDelegate( new TouchDelegate( rect , backBtn));
-            }
+        parent.post(() -> {
+            final Rect rect = new Rect();
+            backBtn.getHitRect(rect);
+            rect.top -= 50;
+            rect.left -= 50;
+            rect.bottom += 50;
+            rect.right += 50;
+            parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
         });
 
         backBtn.setOnClickListener(v -> SignInActivity.super.onBackPressed());

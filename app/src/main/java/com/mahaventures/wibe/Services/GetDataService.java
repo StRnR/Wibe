@@ -7,6 +7,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 
 public interface GetDataService {
-    @GET("/users/me/")
+    @GET("users/me/")
     Call<User> GetUserInfo(@Header("Authorization") String s);
 }
