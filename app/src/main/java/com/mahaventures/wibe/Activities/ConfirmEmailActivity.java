@@ -44,11 +44,13 @@ public class ConfirmEmailActivity extends AppCompatActivity {
         backBtn.setOnClickListener(v -> ConfirmEmailActivity.super.onBackPressed());
 
         confirmBtn.setOnClickListener(v -> {
+            confirmBtn.setEnabled(false);
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
             Call call = service.ConfirmEmail("Bearer " + key, confirmTxt.getText().toString());
             call.enqueue(new Callback() {
                 @Override
                 public void onResponse(Call call, Response response) {
+                    confirmBtn.setEnabled(true);
                     if (response.isSuccessful()) {
                         Intent intent = new Intent(ConfirmEmailActivity.this, TmpActivity.class);
                         startActivity(intent);
@@ -59,6 +61,7 @@ public class ConfirmEmailActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call call, Throwable t) {
+                    confirmBtn.setEnabled(true);
                     StaticTools.OnFailure(ConfirmEmailActivity.this);
                 }
             });
