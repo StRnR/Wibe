@@ -16,10 +16,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.mahaventures.wibe.Models.RequestModels.SignUpRequestModel;
-import com.mahaventures.wibe.Models.RetrofitClientInstance;
+import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Models.TokenRegister;
 import com.mahaventures.wibe.Models.User;
 import com.mahaventures.wibe.Models.UserRole;
@@ -28,9 +26,7 @@ import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.StaticTools;
 
-import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -162,14 +158,17 @@ public class SignUpActivity extends AppCompatActivity {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                try {
-                    String msg = response.errorBody().string();
-                    StaticTools.LogErrorMessage(msg);
-                } catch (Exception e) {
-                    Log.wtf("exception", e.getMessage());
+                if (response.isSuccessful()) {
+                    List<UserRole> roles = response.body().getRoles();
+                    boolean b = roles.stream().anyMatch(r -> r.getName().equals("EMAIL_CONFIRMED"));
+                } else {
+                    try {
+                        String msg = response.errorBody().string();
+                        StaticTools.LogErrorMessage(msg);
+                    } catch (Exception e) {
+                        Log.wtf("exception", e.getMessage());
+                    }
                 }
-                List<UserRole> roles = response.body().getRoles();
-                boolean b = roles.stream().anyMatch(r -> r.getName().equals("EMAIL_CONFIRMED"));
             }
 
             @Override

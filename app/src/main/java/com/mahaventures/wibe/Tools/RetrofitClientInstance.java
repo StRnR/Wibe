@@ -1,12 +1,14 @@
-package com.mahaventures.wibe.Models;
+package com.mahaventures.wibe.Tools;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClientInstance {
 
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://217.79.184.181/api/";
+    private static final String BASE_URL = "https://wibe.app/api/";
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
