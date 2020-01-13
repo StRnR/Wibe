@@ -66,7 +66,7 @@ public class SignInActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Token> call, Throwable t) {
-                    StaticTools.ShowToast(SignInActivity.this, "Sorry sth went wrong pls try again...", 0);
+                    StaticTools.OnFailure(SignInActivity.this);
                 }
             });
         });
