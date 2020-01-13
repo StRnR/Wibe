@@ -41,6 +41,7 @@ public class SignInActivity extends AppCompatActivity {
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         forgotPassBtn.setText(content);
         signInButton.setOnClickListener(view -> {
+            signInButton.setEnabled(false);
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
             UUID uuid = UUID.randomUUID();
             LoginRequestModel model = new LoginRequestModel(emailTxt.getText().toString(), passTxt.getText().toString(), uuid.toString(), "sd");
@@ -48,6 +49,7 @@ public class SignInActivity extends AppCompatActivity {
             call.enqueue(new Callback<Token>() {
                 @Override
                 public void onResponse(Call<Token> call, Response<Token> response) {
+                    signInButton.setEnabled(true);
                     if (response.isSuccessful()) {
                         Token token = response.body();
                         StaticTools.CheckEmailVerification(SignInActivity.this, token.getKey());
@@ -63,6 +65,7 @@ public class SignInActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Token> call, Throwable t) {
+                    signInButton.setEnabled(true);
                     StaticTools.OnFailure(SignInActivity.this);
                 }
             });

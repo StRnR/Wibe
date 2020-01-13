@@ -11,5 +11,5 @@ public interface GetDataService {
     Call<User> GetUserInfo(@Header("Authorization") String s);
 
     @GET("users/verify/email/")
-    Call SendVerificationEmail(@Header("Authorization") String s);
+    Call<Void> SendVerificationEmail(@Header("Authorization") String s);
 }

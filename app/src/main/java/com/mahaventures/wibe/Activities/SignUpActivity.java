@@ -116,6 +116,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
         signUpButton.setOnClickListener(v -> {
+            signUpButton.setEnabled(false);
             if (!StaticTools.EmailValidation(emailTxt.getText().toString())) {
                 StaticTools.ShowToast(SignUpActivity.this, "Email is not valid.", 0);
                 return;
@@ -130,6 +131,7 @@ public class SignUpActivity extends AppCompatActivity {
             call.enqueue(new Callback<TokenRegister>() {
                 @Override
                 public void onResponse(Call<TokenRegister> call, Response<TokenRegister> response) {
+                    signUpButton.setEnabled(true);
                     if (response.isSuccessful()) {
                         TokenRegister token = response.body();
                         StaticTools.CheckEmailVerification(SignUpActivity.this, token.getKey());
@@ -145,7 +147,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<TokenRegister> call, Throwable t) {
-
+                    signUpButton.setEnabled(true);
+                    StaticTools.OnFailure(SignUpActivity.this);
                 }
             });
         });
