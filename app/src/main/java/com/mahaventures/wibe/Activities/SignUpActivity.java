@@ -123,6 +123,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
             if (StaticTools.CalculatePasswordStrength(passwordTxt.getText().toString()) == 0) {
                 StaticTools.ShowToast(SignUpActivity.this, "Password must be at least 6 characters", 0);
+                return;
             }
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
             UUID uuid = UUID.randomUUID();

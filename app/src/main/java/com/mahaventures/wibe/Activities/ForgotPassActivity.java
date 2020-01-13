@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.Tools.StaticTools;
 
 public class ForgotPassActivity extends AppCompatActivity {
     @Override
@@ -30,6 +31,13 @@ public class ForgotPassActivity extends AppCompatActivity {
             rect.bottom += 50;
             rect.right += 50;
             parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
+        });
+
+        sendResetLinkBtn.setOnClickListener(v -> {
+            if (!StaticTools.EmailValidation(emailTxt.getText().toString())) {
+                StaticTools.ShowToast(ForgotPassActivity.this, "email is not valid", 0);
+                return;
+            }
         });
 
         backBtn.setOnClickListener(v -> ForgotPassActivity.super.onBackPressed());
