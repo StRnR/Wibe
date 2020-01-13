@@ -9,4 +9,7 @@ import retrofit2.http.Header;
 public interface GetDataService {
     @GET("users/me/")
     Call<User> GetUserInfo(@Header("Authorization") String s);
+
+    @GET("users/verify/email/")
+    Call SendVerificationEmail(@Header("Authorization") String s);
 }

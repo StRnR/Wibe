@@ -7,6 +7,7 @@ import com.mahaventures.wibe.Models.TokenRegister;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface PostDataService {
@@ -15,4 +16,9 @@ public interface PostDataService {
 
     @POST("users/register/")
     Call<TokenRegister> SignUpUser(@Body SignUpRequestModel requestModel);
+
+    @POST("users/verify/email/")
+    Call ConfirmEmail(@Header("Authorization") String s);
+
+
 }

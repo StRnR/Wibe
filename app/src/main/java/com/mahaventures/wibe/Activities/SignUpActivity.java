@@ -1,5 +1,6 @@
 package com.mahaventures.wibe.Activities;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -161,6 +162,9 @@ public class SignUpActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     List<UserRole> roles = response.body().getRoles();
                     boolean b = roles.stream().anyMatch(r -> r.getName().equals("EMAIL_CONFIRMED"));
+                    if (!b) {
+                        SendVerificationEmail(key);
+                    }
                 } else {
                     try {
                         String msg = response.errorBody().string();
@@ -174,6 +178,29 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 StaticTools.LogErrorMessage(t.getMessage());
+            }
+        });
+    }
+
+    private void SendVerificationEmail(String key) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call call = service.SendVerificationEmail("Bearer " + key);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.isSuccessful()) {
+                    StaticTools.ShowToast(SignUpActivity.this, "Verification Email sent.", 1);
+                    Intent intent = new Intent(SignUpActivity.this, ConfirmEmailActivity.class);
+                    intent.putExtra("key", key);
+                    startActivity(intent);
+                } else {
+                    StaticTools.LogErrorMessage("We're fucked up");
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
             }
         });
     }
