@@ -20,20 +20,8 @@ public class TmpActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tmp);
-        Button backBtn = findViewById(R.id.btn_back_tmp);
         Button signoutBtn = findViewById(R.id.btn_signout);
 
-        final View parent = (View) backBtn.getParent();
-        parent.post(() -> {
-            final Rect rect = new Rect();
-            backBtn.getHitRect(rect);
-            rect.top -= 50;
-            rect.left -= 50;
-            rect.bottom += 50;
-            rect.right += 50;
-            parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
-        });
 
-        backBtn.setOnClickListener(v -> TmpActivity.super.onBackPressed());
     }
 }
