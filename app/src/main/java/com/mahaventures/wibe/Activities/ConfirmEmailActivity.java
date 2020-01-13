@@ -58,6 +58,7 @@ public class ConfirmEmailActivity extends AppCompatActivity {
                     } else {
                         try {
                             StaticTools.ShowToast(ConfirmEmailActivity.this, response.errorBody().string(), 0);
+                            Log.wtf("verify error", response.errorBody().string());
                         } catch (Exception e) {
                             Log.wtf("exception", e.getMessage());
                         }

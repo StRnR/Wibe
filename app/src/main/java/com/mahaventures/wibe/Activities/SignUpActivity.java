@@ -140,6 +140,7 @@ public class SignUpActivity extends AppCompatActivity {
                         try {
                             String msg = response.errorBody().string();
                             StaticTools.LogErrorMessage(msg);
+                            StaticTools.ShowToast(SignUpActivity.this, msg, 0);
                         } catch (Exception e) {
                             Log.wtf("exception", e.getMessage());
                         }
