@@ -13,6 +13,10 @@ import com.mahaventures.wibe.R;
 
 public class TmpActivity extends AppCompatActivity {
     @Override
+    public void onBackPressed() {
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tmp);
@@ -27,7 +31,7 @@ public class TmpActivity extends AppCompatActivity {
             rect.left -= 50;
             rect.bottom += 50;
             rect.right += 50;
-            parent.setTouchDelegate( new TouchDelegate( rect , backBtn));
+            parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
         });
 
         backBtn.setOnClickListener(v -> TmpActivity.super.onBackPressed());

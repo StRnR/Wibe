@@ -18,7 +18,7 @@ public interface PostDataService {
     Call<TokenRegister> SignUpUser(@Body SignUpRequestModel requestModel);
 
     @POST("users/verify/email/")
-    Call ConfirmEmail(@Header("Authorization") String s);
+    Call ConfirmEmail(@Header("Authorization") String s, @Body String code);
 
 
 }

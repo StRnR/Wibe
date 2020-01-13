@@ -1,5 +1,6 @@
 package com.mahaventures.wibe.Activities;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.TouchDelegate;
@@ -12,9 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
+import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
+import com.mahaventures.wibe.Tools.StaticTools;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ConfirmEmailActivity extends AppCompatActivity {
     @Override
@@ -40,8 +45,22 @@ public class ConfirmEmailActivity extends AppCompatActivity {
         backBtn.setOnClickListener(v -> ConfirmEmailActivity.super.onBackPressed());
 
         confirmBtn.setOnClickListener(v -> {
-            GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-            Call call = service.SendVerificationEmail("Bearer " + key);
+            PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
+            Call call = service.ConfirmEmail("Bearer " + key, confirmTxt.getText().toString());
+            call.enqueue(new Callback() {
+                @Override
+                public void onResponse(Call call, Response response) {
+                    if (response.isSuccessful()) {
+                        Intent intent = new Intent(ConfirmEmailActivity.this, TmpActivity.class);
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call call, Throwable t) {
+                    StaticTools.OnFailure(ConfirmEmailActivity.this);
+                }
+            });
         });
     }
 }
