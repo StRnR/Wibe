@@ -54,6 +54,7 @@ public class SignInActivity extends AppCompatActivity {
                 public void onResponse(Call<Token> call, Response<Token> response) {
                     if (response.isSuccessful()) {
                         Token token = response.body();
+                        StaticTools.CheckEmailVerification(SignInActivity.this, token.getKey());
                     } else {
                         try {
                             StaticTools.LogErrorMessage(response.errorBody().string());
