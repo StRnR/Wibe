@@ -134,7 +134,7 @@ public class SignUpActivity extends AppCompatActivity {
                 public void onResponse(Call<TokenRegister> call, Response<TokenRegister> response) {
                     if (response.isSuccessful()) {
                         TokenRegister token = response.body();
-                        Check(token.getKey());
+                        StaticTools.CheckEmailVerification(SignUpActivity.this, token.getKey());
                     } else {
                         try {
                             String msg = response.errorBody().string();
@@ -150,58 +150,6 @@ public class SignUpActivity extends AppCompatActivity {
 
                 }
             });
-        });
-    }
-
-    private void Check(String key) {
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        Call<User> call = service.GetUserInfo("Bearer " + key);
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    List<UserRole> roles = response.body().getRoles();
-                    boolean b = roles.stream().anyMatch(r -> r.getName().equals("EMAIL_CONFIRMED"));
-                    if (!b) {
-                        SendVerificationEmail(key);
-                    }
-                } else {
-                    try {
-                        String msg = response.errorBody().string();
-                        StaticTools.LogErrorMessage(msg);
-                    } catch (Exception e) {
-                        Log.wtf("exception", e.getMessage());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                StaticTools.LogErrorMessage(t.getMessage());
-            }
-        });
-    }
-
-    private void SendVerificationEmail(String key) {
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        Call call = service.SendVerificationEmail("Bearer " + key);
-        call.enqueue(new Callback() {
-            @Override
-            public void onResponse(Call call, Response response) {
-                if (response.isSuccessful()) {
-                    StaticTools.ShowToast(SignUpActivity.this, "Verification Email sent.", 1);
-                    Intent intent = new Intent(SignUpActivity.this, ConfirmEmailActivity.class);
-                    intent.putExtra("key", key);
-                    startActivity(intent);
-                } else {
-                    StaticTools.LogErrorMessage("We're fucked up");
-                }
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
-
-            }
         });
     }
 

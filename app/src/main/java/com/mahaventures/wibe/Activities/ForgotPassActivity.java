@@ -22,16 +22,14 @@ public class ForgotPassActivity extends AppCompatActivity {
         EditText emailTxt = findViewById(R.id.txt_edit_email_forgotpass);
 
         final View parent = (View) backBtn.getParent();
-        parent.post( new Runnable() {
-            public void run() {
-                final Rect rect = new Rect();
-                backBtn.getHitRect(rect);
-                rect.top -= 50;
-                rect.left -= 50;
-                rect.bottom += 50;
-                rect.right += 50;
-                parent.setTouchDelegate( new TouchDelegate( rect , backBtn));
-            }
+        parent.post(() -> {
+            final Rect rect = new Rect();
+            backBtn.getHitRect(rect);
+            rect.top -= 50;
+            rect.left -= 50;
+            rect.bottom += 50;
+            rect.right += 50;
+            parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
         });
 
         backBtn.setOnClickListener(v -> ForgotPassActivity.super.onBackPressed());

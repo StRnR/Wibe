@@ -56,8 +56,7 @@ public class SignInActivity extends AppCompatActivity {
                         Token token = response.body();
                     } else {
                         try {
-                            byte[] bytes = response.errorBody().bytes();
-                            LogErrorMessage(bytes);
+                            StaticTools.LogErrorMessage(response.errorBody().string());
                         } catch (Exception e) {
                             Log.wtf("exception", e.getMessage());
                         }
@@ -90,14 +89,5 @@ public class SignInActivity extends AppCompatActivity {
         });
 
 
-    }
-
-    private void LogErrorMessage(byte[] bytes) {
-        Gson gson = new Gson();
-        Type type = new TypeToken<Map<String, String>>() {
-        }.getType();
-        Map<String, String> result = gson.fromJson(new String(bytes), type);
-        String str = result.get("detail");
-        Log.wtf("server response", str);
     }
 }
