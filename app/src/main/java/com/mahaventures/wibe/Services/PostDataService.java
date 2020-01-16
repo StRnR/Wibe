@@ -1,5 +1,6 @@
 package com.mahaventures.wibe.Services;
 
+import com.mahaventures.wibe.Models.EmailVerification;
 import com.mahaventures.wibe.Models.RequestModels.LoginRequestModel;
 import com.mahaventures.wibe.Models.RequestModels.SignUpRequestModel;
 import com.mahaventures.wibe.Models.Token;
@@ -18,5 +19,5 @@ public interface PostDataService {
     Call<TokenRegister> SignUpUser(@Body SignUpRequestModel requestModel);
 
     @POST("users/verify/email/")
-    Call<Void> ConfirmEmail(@Header("Authorization") String s, @Body String code);
+    Call<Void> ConfirmEmail(@Header("Authorization") String s, @Body EmailVerification code);
 }

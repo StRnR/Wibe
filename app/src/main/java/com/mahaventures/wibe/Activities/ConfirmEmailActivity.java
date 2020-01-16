@@ -12,6 +12,7 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mahaventures.wibe.Models.EmailVerification;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
@@ -47,7 +48,7 @@ public class ConfirmEmailActivity extends AppCompatActivity {
         confirmBtn.setOnClickListener(v -> {
             confirmBtn.setEnabled(false);
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
-            Call call = service.ConfirmEmail("Bearer " + key, confirmTxt.getText().toString());
+            Call call = service.ConfirmEmail("Bearer " + key, new EmailVerification(confirmTxt.getText().toString()));
             call.enqueue(new Callback() {
                 @Override
                 public void onResponse(Call call, Response response) {
