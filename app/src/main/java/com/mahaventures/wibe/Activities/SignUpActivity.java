@@ -135,7 +135,6 @@ public class SignUpActivity extends AppCompatActivity {
                     signUpButton.setEnabled(true);
                     if (response.isSuccessful()) {
                         TokenRegister token = response.body();
-                        StaticTools.CheckEmailVerification(SignUpActivity.this, token.getKey());
                     } else {
                         try {
                             String msg = response.errorBody().string();
