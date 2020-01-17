@@ -1,5 +1,6 @@
 package com.mahaventures.wibe.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -18,6 +19,11 @@ public class TmpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tmp);
         Button signoutBtn = findViewById(R.id.btn_signout);
+
+        signoutBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(TmpActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
 
 
     }
