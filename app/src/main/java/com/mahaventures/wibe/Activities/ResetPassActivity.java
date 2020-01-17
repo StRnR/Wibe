@@ -29,7 +29,7 @@ public class ResetPassActivity extends AppCompatActivity {
             rect.left -= 50;
             rect.bottom += 50;
             rect.right += 50;
-            parent.setTouchDelegate( new TouchDelegate( rect , backBtn));
+            parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
         });
 
         backBtn.setOnClickListener(v -> ResetPassActivity.super.onBackPressed());
