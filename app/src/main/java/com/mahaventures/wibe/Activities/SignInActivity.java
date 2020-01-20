@@ -52,7 +52,10 @@ public class SignInActivity extends AppCompatActivity {
                     signInButton.setEnabled(true);
                     if (response.isSuccessful()) {
                         Token token = response.body();
-                        StaticTools.CheckEmailVerification(SignInActivity.this, token.getKey());
+                        boolean result = StaticTools.CheckEmailVerification(token.getKey());
+                        if (!result) {
+                            StaticTools.SendVerificationEmail(SignInActivity.this, token.getKey());
+                        }
                     } else {
                         try {
                             StaticTools.LogErrorMessage(response.errorBody().string());

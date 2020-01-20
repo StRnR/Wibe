@@ -19,6 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class StaticTools {
+    private static boolean cvb;
     private final static int MinimumPasswordLength = 6;
 
     public static void ShowToast(Context context, String message, int length) {
@@ -65,7 +66,7 @@ public class StaticTools {
         ShowToast(context, "Something went wrong, try again", 0);
     }
 
-    public static void CheckEmailVerification(Context context, String key) {
+    public static boolean CheckEmailVerification(String key) {
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<User> call = service.GetUserInfo("Bearer " + key);
         call.enqueue(new Callback<User>() {
@@ -73,10 +74,7 @@ public class StaticTools {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
                     List<UserRole> roles = response.body().getRoles();
-                    boolean b = roles.stream().anyMatch(r -> r.getName().equals("EMAIL_CONFIRMED"));
-                    if (!b) {
-                        SendVerificationEmail(context, key);
-                    }
+                    cvb = roles.stream().anyMatch(r -> r.getName().equals("EMAIL_CONFIRMED"));
                 } else {
                     try {
                         String msg = response.errorBody().string();
@@ -92,9 +90,10 @@ public class StaticTools {
                 StaticTools.LogErrorMessage(t.getMessage());
             }
         });
+        return cvb;
     }
 
-    private static void SendVerificationEmail(Context context, String key) {
+    public static void SendVerificationEmail(Context context, String key) {
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call call = service.SendVerificationEmail("Bearer " + key);
         call.enqueue(new Callback() {
@@ -109,10 +108,8 @@ public class StaticTools {
                     StaticTools.LogErrorMessage("We're fucked up");
                 }
             }
-
             @Override
             public void onFailure(Call call, Throwable t) {
-
             }
         });
     }

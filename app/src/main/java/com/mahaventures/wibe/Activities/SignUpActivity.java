@@ -1,5 +1,6 @@
 package com.mahaventures.wibe.Activities;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -135,6 +136,10 @@ public class SignUpActivity extends AppCompatActivity {
                     signUpButton.setEnabled(true);
                     if (response.isSuccessful()) {
                         TokenRegister token = response.body();
+                        StaticTools.ShowToast(SignUpActivity.this, "Verification Email sent.", 1);
+                        Intent intent = new Intent(SignUpActivity.this, ConfirmEmailActivity.class);
+                        intent.putExtra("key", token.getKey());
+                        SignUpActivity.this.startActivity(intent);
                     } else {
                         try {
                             String msg = response.errorBody().string();
