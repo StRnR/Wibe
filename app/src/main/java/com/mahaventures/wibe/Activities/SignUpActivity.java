@@ -63,35 +63,35 @@ public class SignUpActivity extends AppCompatActivity {
                 String pass = s.toString();
                 int score = StaticTools.CalculatePasswordStrength(pass);
                 if (score == 0) {
-                    weaknessTxt.setText("!");
+                    weaknessTxt.setText("try harder!");
                     int color = getResources().getColor(R.color.unacceptablePass);
                     bar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                     bar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                     weaknessTxt.setTextColor(color);
                     bar.setProgress(2);
                 } else if (score <= 4) {
-                    weaknessTxt.setText("Weak");
+                    weaknessTxt.setText("this sucks!");
                     int color = getResources().getColor(R.color.weakPass);
                     bar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                     bar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                     weaknessTxt.setTextColor(color);
                     bar.setProgress(4);
                 } else if (score <= 6) {
-                    weaknessTxt.setText("Good");
+                    weaknessTxt.setText("ok i guess");
                     int color = getResources().getColor(R.color.goodPass);
                     bar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                     bar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                     weaknessTxt.setTextColor(color);
                     bar.setProgress(6);
                 } else if (score <= 8) {
-                    weaknessTxt.setText("Strong");
+                    weaknessTxt.setText("good one!");
                     int color = getResources().getColor(R.color.strongPass);
                     bar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                     bar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                     weaknessTxt.setTextColor(color);
                     bar.setProgress(8);
                 } else if (score >= 10) {
-                    weaknessTxt.setText("Secure");
+                    weaknessTxt.setText("mr.robot");
                     int color = getResources().getColor(R.color.securePass);
                     bar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                     bar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
