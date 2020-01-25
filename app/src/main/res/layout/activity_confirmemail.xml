@@ -19,12 +19,12 @@
 
     <TextView
         android:id="@+id/txt_confirmemail"
+        style="@style/Bold1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
         android:layout_marginTop="120dp"
-        style="@style/Bold1"
+        android:layout_marginRight="32dp"
         android:text="Confirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,26 +32,26 @@
 
     <TextView
         android:id="@+id/txt_confirmemailguide"
+        style="@style/Regular2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="32dp"
-        android:text="we’ve emailed you a 6 digit code, please enter it here:"
-        style="@style/Regular2"
         android:lineHeight="25sp"
+        android:text="we’ve emailed you a 6 digit code, please enter it here:"
         app:layout_constraintEnd_toEndOf="@+id/txt_confirmemail"
         app:layout_constraintStart_toStartOf="@+id/txt_confirmemail"
         app:layout_constraintTop_toBottomOf="@+id/txt_confirmemail" />
 
     <EditText
         android:id="@+id/txt_edit_confirmemail"
+        style="@style/Regular1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="88dp"
         android:layout_marginRight="32dp"
-        style="@style/Regular1"
         android:hint="Confirm code"
         android:inputType="number"
         android:textColorHint="@color/white"
@@ -63,13 +63,13 @@
 
     <Button
         android:id="@+id/btn_confirmemail"
+        style="@style/Bold2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
         android:layout_marginTop="64dp"
+        android:layout_marginRight="32dp"
         android:background="@drawable/gradient_blue"
-        style="@style/Bold2"
         android:text="Let’s Go!"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"

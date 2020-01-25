@@ -65,13 +65,13 @@
 
     <Button
         android:id="@+id/btn_sendresetlink"
+        style="@style/Bold2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="64dp"
         android:layout_marginRight="32dp"
         android:background="@drawable/gradient_blue"
-        style="@style/Bold2"
         android:text="SEND RESET LINK"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
