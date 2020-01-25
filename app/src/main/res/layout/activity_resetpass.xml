@@ -55,6 +55,7 @@
         android:drawablePadding="10dp"
         android:hint="Password"
         android:inputType="textPassword"
+        android:paddingLeft="6dp"
         android:textColorHint="@color/white"
         android:theme="@style/MyEditText"
         app:layout_constraintLeft_toLeftOf="@id/txt_resetpassguide"
