@@ -1,6 +1,7 @@
 package com.mahaventures.wibe.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,7 +32,6 @@ public class ConfirmEmailActivity extends AppCompatActivity {
         Button backBtn = findViewById(R.id.btn_back_confirmemail);
         Button confirmBtn = findViewById(R.id.btn_confirmemail);
         EditText confirmTxt = findViewById(R.id.txt_edit_confirmemail);
-
         final View parent = (View) backBtn.getParent();
         parent.post(() -> {
             final Rect rect = new Rect();
