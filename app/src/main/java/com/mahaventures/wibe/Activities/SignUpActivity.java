@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.TouchDelegate;
@@ -38,6 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
         Button signUpButton = findViewById(R.id.btn_signup);
         Button backBtn = findViewById(R.id.btn_back_signup);
         EditText nameTxt = findViewById(R.id.txt_edit_name_signup);
+        nameTxt.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         EditText emailTxt = findViewById(R.id.txt_edit_email_signup);
         EditText passwordTxt = findViewById(R.id.txt_edit_pass_signup);
         ProgressBar bar = findViewById(R.id.passProgressBar);
