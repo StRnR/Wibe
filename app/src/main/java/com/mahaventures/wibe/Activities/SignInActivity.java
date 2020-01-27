@@ -56,7 +56,7 @@ public class SignInActivity extends AppCompatActivity {
                         Token token = response.body();
                         boolean result = StaticTools.CheckEmailVerification(token.getKey());
                         if (!result) {
-                            StaticTools.SendVerificationEmail(SignInActivity.this, token.getKey());
+                            StaticTools.SendVerificationEmail(SignInActivity.this, token.getKey(),true);
                         }
                     } else {
                         try {
@@ -67,7 +67,6 @@ public class SignInActivity extends AppCompatActivity {
                         }
                     }
                 }
-
                 @Override
                 public void onFailure(Call<Token> call, Throwable t) {
                     signInButton.setEnabled(true);

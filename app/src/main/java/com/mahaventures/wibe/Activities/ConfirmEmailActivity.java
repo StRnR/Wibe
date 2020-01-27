@@ -21,11 +21,16 @@ import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ConfirmEmailActivity extends AppCompatActivity {
+    int sec = 30;
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(ConfirmEmailActivity.this, SignUpActivity.class));
@@ -55,9 +60,26 @@ public class ConfirmEmailActivity extends AppCompatActivity {
         });
 
         backBtn.setOnClickListener(v -> ConfirmEmailActivity.super.onBackPressed());
-
-        resendBtn.setOnClickListener(v -> StaticTools.SendVerificationEmail(ConfirmEmailActivity.this, key));
-
+        resendBtn.setOnClickListener(v -> {
+            resendBtn.setEnabled(false);
+            Timer timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    if (check()) {
+                        runOnUiThread(() -> {
+                            resendBtn.setEnabled(true);
+                            resendBtn.setText("resend code");
+                            sec = 30;
+                        });
+                        timer.cancel();
+                    } else {
+                        runOnUiThread(() -> resendBtn.setText(String.valueOf(sec)));
+                    }
+                }
+            }, 0, 1000);
+            StaticTools.SendVerificationEmail(ConfirmEmailActivity.this, key, false);
+        });
         confirmBtn.setOnClickListener(v -> {
             confirmBtn.setEnabled(false);
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
@@ -86,5 +108,14 @@ public class ConfirmEmailActivity extends AppCompatActivity {
                 }
             });
         });
+    }
+
+    private boolean check() {
+        if (sec <= 0)
+            return true;
+        else {
+            sec--;
+            return false;
+        }
     }
 }
