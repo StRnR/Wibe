@@ -69,7 +69,7 @@
         android:background="@color/background"
         android:fontFamily="@font/nexa_light"
         android:textColor="@color/white"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="@id/txt_confirmemailguide"
         app:layout_constraintRight_toRightOf="@id/txt_confirmemailguide"
         app:layout_constraintTop_toBottomOf="@+id/txt_edit_confirmemail" />
