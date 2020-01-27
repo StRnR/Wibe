@@ -119,6 +119,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         signUpButton.setOnClickListener(v -> {
             signUpButton.setEnabled(false);
+            signUpButton.setText("signing up...");
             if (!StaticTools.EmailValidation(emailTxt.getText().toString())) {
                 StaticTools.ShowToast(SignUpActivity.this, "Email is not valid.", 0);
                 return;
@@ -135,6 +136,7 @@ public class SignUpActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<TokenRegister> call, Response<TokenRegister> response) {
                     signUpButton.setEnabled(true);
+                    signUpButton.setText("sign up");
                     if (response.isSuccessful()) {
                         TokenRegister token = response.body();
                         StaticTools.ShowToast(SignUpActivity.this, "Verification Email sent.", 1);

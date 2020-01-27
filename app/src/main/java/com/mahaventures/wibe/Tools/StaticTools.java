@@ -93,7 +93,7 @@ public class StaticTools {
         return cvb;
     }
 
-    public static void SendVerificationEmail(Context context, String key) {
+    public static void SendVerificationEmail(Context context, String key ,boolean b) {
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call call = service.SendVerificationEmail("Bearer " + key);
         call.enqueue(new Callback() {
@@ -101,9 +101,11 @@ public class StaticTools {
             public void onResponse(Call call, Response response) {
                 if (response.isSuccessful()) {
                     StaticTools.ShowToast(context, "Verification Email sent.", 1);
-                    Intent intent = new Intent(context, ConfirmEmailActivity.class);
-                    intent.putExtra("key", key);
-                    context.startActivity(intent);
+                    if (b){
+                        Intent intent = new Intent(context, ConfirmEmailActivity.class);
+                        intent.putExtra("key", key);
+                        context.startActivity(intent);
+                    }
                 } else {
                     StaticTools.LogErrorMessage("We're fucked up");
                 }
