@@ -41,6 +41,7 @@ public class SignInActivity extends AppCompatActivity {
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         forgotPassBtn.setText(content);
         signInButton.setOnClickListener(view -> {
+            signInButton.setText("Signing in...");
             signInButton.setEnabled(false);
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
             UUID uuid = UUID.randomUUID();
@@ -50,6 +51,7 @@ public class SignInActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Token> call, Response<Token> response) {
                     signInButton.setEnabled(true);
+                    signInButton.setText("sign in");
                     if (response.isSuccessful()) {
                         Token token = response.body();
                         boolean result = StaticTools.CheckEmailVerification(token.getKey());

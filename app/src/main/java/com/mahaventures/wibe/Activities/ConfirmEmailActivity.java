@@ -27,6 +27,11 @@ import retrofit2.Response;
 
 public class ConfirmEmailActivity extends AppCompatActivity {
     @Override
+    public void onBackPressed() {
+        startActivity(new Intent(ConfirmEmailActivity.this, SignUpActivity.class));
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String key = getIntent().getStringExtra("key");
@@ -50,6 +55,8 @@ public class ConfirmEmailActivity extends AppCompatActivity {
         });
 
         backBtn.setOnClickListener(v -> ConfirmEmailActivity.super.onBackPressed());
+
+        resendBtn.setOnClickListener(v -> StaticTools.SendVerificationEmail(ConfirmEmailActivity.this, key));
 
         confirmBtn.setOnClickListener(v -> {
             confirmBtn.setEnabled(false);
