@@ -39,7 +39,7 @@
         android:layout_marginTop="14dp"
         android:layout_marginRight="32dp"
         android:lineHeight="25sp"
-        android:text="no worries! a link to reset your password will be emailed to you."
+        android:text="No worries! A link to reset your password will be emailed to you."
         app:layout_constraintEnd_toEndOf="@+id/txt_forgotpass"
         app:layout_constraintStart_toStartOf="@+id/txt_forgotpass"
         app:layout_constraintTop_toBottomOf="@+id/txt_forgotpass" />

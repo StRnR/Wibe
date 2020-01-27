@@ -39,7 +39,7 @@
         android:layout_marginTop="14dp"
         android:layout_marginEnd="32dp"
         android:lineHeight="25sp"
-        android:text="we’ve emailed you a 6 digit code, please enter it here:"
+        android:text="We’ve emailed you a 6 digit code, please enter it here:"
         app:layout_constraintEnd_toEndOf="@+id/txt_confirmemail"
         app:layout_constraintStart_toStartOf="@+id/txt_confirmemail"
         app:layout_constraintTop_toBottomOf="@+id/txt_confirmemail" />

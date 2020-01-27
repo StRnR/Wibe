@@ -42,7 +42,7 @@
         android:layout_marginRight="32dp"
         android:fontFamily="@font/nexa_light"
         android:lineHeight="25sp"
-        android:text="create an account to enjoy a variety of high quality music."
+        android:text="Create an account to enjoy a variety of high quality music."
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/txt_signup"

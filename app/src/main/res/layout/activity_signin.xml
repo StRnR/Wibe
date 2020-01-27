@@ -38,7 +38,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="32dp"
-        android:text="Welcome back ! enter your credentials to check out the latest hits."
+        android:text="Welcome back ! Enter your credentials to check out the latest hits."
         app:layout_constraintEnd_toEndOf="@+id/txt_signin"
         app:layout_constraintStart_toStartOf="@+id/txt_signin"
         app:layout_constraintTop_toBottomOf="@+id/txt_signin" />
