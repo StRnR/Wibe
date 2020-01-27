@@ -62,6 +62,20 @@
 
 
     <Button
+        android:id="@+id/btn_resend_confirmemail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/background"
+        android:fontFamily="@font/nexa_light"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintLeft_toLeftOf="@id/txt_confirmemailguide"
+        app:layout_constraintRight_toRightOf="@id/txt_confirmemailguide"
+        app:layout_constraintTop_toBottomOf="@+id/txt_edit_confirmemail" />
+
+
+    <Button
         android:id="@+id/btn_confirmemail"
         style="@style/Bold2"
         android:layout_width="match_parent"
@@ -74,5 +88,5 @@
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_edit_confirmemail" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_resend_confirmemail" />
 </androidx.constraintlayout.widget.ConstraintLayout>

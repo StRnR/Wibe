@@ -85,6 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@color/background"
+        android:fontFamily="@font/nexa_light"
         android:textColor="@color/white"
         android:textSize="10sp"
         app:layout_constraintLeft_toLeftOf="@id/txt_signinguide"

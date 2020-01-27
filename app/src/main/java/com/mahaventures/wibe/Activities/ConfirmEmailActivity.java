@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.TouchDelegate;
 import android.view.View;
@@ -30,8 +32,12 @@ public class ConfirmEmailActivity extends AppCompatActivity {
         String key = getIntent().getStringExtra("key");
         setContentView(R.layout.activity_confirmemail);
         Button backBtn = findViewById(R.id.btn_back_confirmemail);
+        Button resendBtn = findViewById(R.id.btn_resend_confirmemail);
         Button confirmBtn = findViewById(R.id.btn_confirmemail);
         EditText confirmTxt = findViewById(R.id.txt_edit_confirmemail);
+        SpannableString content = new SpannableString("FORGOT PASSWORD");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        resendBtn.setText(content);
         final View parent = (View) backBtn.getParent();
         parent.post(() -> {
             final Rect rect = new Rect();
