@@ -21,6 +21,8 @@ public class ResetPassActivity extends AppCompatActivity {
         Button resetPassBtn = findViewById(R.id.btn_resetpass);
         EditText newPassTxt = findViewById(R.id.txt_edit_pass_resetpass);
 
+        //todo: reset password
+
         final View parent = (View) backBtn.getParent();
         parent.post(() -> {
             final Rect rect = new Rect();
