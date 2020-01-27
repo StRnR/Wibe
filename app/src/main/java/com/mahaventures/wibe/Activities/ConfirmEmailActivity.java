@@ -72,6 +72,7 @@ public class ConfirmEmailActivity extends AppCompatActivity {
                             SpannableString content = new SpannableString("RESEND CODE");
                             content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
                             resendBtn.setText(content);
+                            //todo: set the timer for 60secs
                             sec = 30;
                         });
                         timer.cancel();
