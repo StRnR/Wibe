@@ -35,7 +35,7 @@ public class ConfirmEmailActivity extends AppCompatActivity {
         Button resendBtn = findViewById(R.id.btn_resend_confirmemail);
         Button confirmBtn = findViewById(R.id.btn_confirmemail);
         EditText confirmTxt = findViewById(R.id.txt_edit_confirmemail);
-        SpannableString content = new SpannableString("FORGOT PASSWORD");
+        SpannableString content = new SpannableString("RESEND CODE");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         resendBtn.setText(content);
         final View parent = (View) backBtn.getParent();
