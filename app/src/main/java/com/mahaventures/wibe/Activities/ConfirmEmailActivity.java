@@ -69,7 +69,9 @@ public class ConfirmEmailActivity extends AppCompatActivity {
                     if (check()) {
                         runOnUiThread(() -> {
                             resendBtn.setEnabled(true);
-                            resendBtn.setText("resend code");
+                            SpannableString content = new SpannableString("RESEND CODE");
+                            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                            resendBtn.setText(content);
                             sec = 30;
                         });
                         timer.cancel();
