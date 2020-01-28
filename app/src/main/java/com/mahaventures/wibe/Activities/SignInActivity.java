@@ -28,6 +28,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignInActivity extends AppCompatActivity {
+    public static String Email = "";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +58,18 @@ public class SignInActivity extends AppCompatActivity {
                         Token token = response.body();
                         boolean result = StaticTools.CheckEmailVerification(token.getKey());
                         if (!result) {
-                            StaticTools.SendVerificationEmail(SignInActivity.this, token.getKey(),true);
+                            StaticTools.SendVerificationEmail(SignInActivity.this, token.getKey(), true);
                         }
                     } else {
                         try {
+                            if (response.code() == 403) {
+                                Email = emailTxt.getText().toString();
+                                //todo: az oon falaj bayad beporsim ye chizi
+//                                if (StaticTools.CheckEmailVerification()){
+//
+//                                }
+                                startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                            }
                             StaticTools.LogErrorMessage(response.errorBody().string());
                             StaticTools.ShowToast(SignInActivity.this, response.errorBody().string(), 0);
                         } catch (Exception e) {
@@ -67,6 +77,7 @@ public class SignInActivity extends AppCompatActivity {
                         }
                     }
                 }
+
                 @Override
                 public void onFailure(Call<Token> call, Throwable t) {
                     signInButton.setEnabled(true);

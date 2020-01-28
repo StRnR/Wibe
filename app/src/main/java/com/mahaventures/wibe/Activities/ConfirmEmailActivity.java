@@ -29,7 +29,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ConfirmEmailActivity extends AppCompatActivity {
-    int sec = 30;
+    final int duration = 60;
+    int sec = duration;
 
     @Override
     public void onBackPressed() {
@@ -72,8 +73,7 @@ public class ConfirmEmailActivity extends AppCompatActivity {
                             SpannableString content = new SpannableString("RESEND CODE");
                             content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
                             resendBtn.setText(content);
-                            //todo: set the timer for 60secs
-                            sec = 30;
+                            sec = duration;
                         });
                         timer.cancel();
                     } else {

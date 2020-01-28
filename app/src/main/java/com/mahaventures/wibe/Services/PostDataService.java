@@ -3,12 +3,14 @@ package com.mahaventures.wibe.Services;
 import com.mahaventures.wibe.Models.EmailVerification;
 import com.mahaventures.wibe.Models.RequestModels.LoginRequestModel;
 import com.mahaventures.wibe.Models.RequestModels.SignUpRequestModel;
+import com.mahaventures.wibe.Models.ResetPassword;
 import com.mahaventures.wibe.Models.Token;
 import com.mahaventures.wibe.Models.TokenRegister;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 
 public interface PostDataService {
@@ -20,4 +22,7 @@ public interface PostDataService {
 
     @POST("users/verify/email/")
     Call<Void> ConfirmEmail(@Header("Authorization") String s, @Body EmailVerification code);
+
+    @POST("users/verify/password/")
+    Call<ResetPassword> ResetPassword(@Body ResetPassword data);
 }
