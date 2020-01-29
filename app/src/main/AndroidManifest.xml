@@ -11,6 +11,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <meta-data
+            android:name="DATABASE"
+            android:value="DB.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.mahaventures.wibe" />
+
         <activity
             android:name=".Activities.SignInActivity"
             android:screenOrientation="portrait"
