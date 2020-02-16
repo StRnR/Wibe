@@ -7,7 +7,7 @@ public class Album {
 
     @SerializedName("data")
     @Expose
-    public Data data;
+    public AlbumData data;
 
 }
 

@@ -7,7 +7,7 @@ public class Relationships {
 
     @SerializedName("artists")
     @Expose
-    public Artists artists;
+    public RelationshipArtists artists;
     @SerializedName("album")
     @Expose
     public Album album;

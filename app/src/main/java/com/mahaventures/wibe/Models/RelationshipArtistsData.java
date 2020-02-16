@@ -3,7 +3,7 @@ package com.mahaventures.wibe.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Datum_ {
+public class RelationshipArtistsData {
 
     @SerializedName("type")
     @Expose

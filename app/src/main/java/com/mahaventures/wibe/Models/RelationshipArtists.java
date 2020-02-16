@@ -3,13 +3,12 @@ package com.mahaventures.wibe.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Data {
+import java.util.List;
 
-    @SerializedName("type")
+public class RelationshipArtists {
+
+    @SerializedName("data")
     @Expose
-    public String type;
-    @SerializedName("id")
-    @Expose
-    public String id;
+    public List<RelationshipArtistsData> data = null;
 
 }

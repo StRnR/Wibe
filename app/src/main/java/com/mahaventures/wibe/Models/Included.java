@@ -13,6 +13,6 @@ public class Included {
     public String id;
     @SerializedName("attributes")
     @Expose
-    public Attributes_ attributes;
+    public IncludedAttributes attributes;
 
 }
