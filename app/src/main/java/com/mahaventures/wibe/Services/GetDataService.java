@@ -1,5 +1,6 @@
 package com.mahaventures.wibe.Services;
 
+import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.ResponseModels.ResetPasswordResponseModel;
 import com.mahaventures.wibe.Models.User;
 
@@ -17,4 +18,7 @@ public interface GetDataService {
 
     @GET("users/verify/password/")
     Call<ResetPasswordResponseModel> GetResetPasswordId(@Query("email") String email);
+
+    @GET("tracks/search")
+    Call<Track> GetTrackById(@Query("query") String id);
 }

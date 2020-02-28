@@ -1,4 +1,4 @@
-package com.mahaventures.wibe.Models;
+package com.mahaventures.wibe.Models.NewModels;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -20,5 +20,8 @@ public class Pagination {
     @SerializedName("total_pages")
     @Expose
     public Integer totalPages;
+    @SerializedName("links")
+    @Expose
+    public Links links;
 
 }
