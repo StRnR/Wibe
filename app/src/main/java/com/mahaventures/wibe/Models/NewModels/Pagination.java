@@ -22,6 +22,6 @@ public class Pagination {
     public Integer totalPages;
     @SerializedName("links")
     @Expose
-    public Links links;
+    public MetaLinks links;
 
 }

@@ -5,11 +5,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class Image {
 
-    @SerializedName("medium")
+    @SerializedName("width")
     @Expose
-    public Medium medium;
-    @SerializedName("large")
+    public Integer width;
+    @SerializedName("height")
     @Expose
-    public Large large;
+    public Integer height;
+    @SerializedName("url")
+    @Expose
+    public String url;
 
 }

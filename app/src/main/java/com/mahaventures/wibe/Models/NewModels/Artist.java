@@ -5,29 +5,20 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Track {
+public class Artist {
     @SerializedName("id")
     @Expose
     public String id;
     @SerializedName("name")
     @Expose
     public String name;
-    @SerializedName("type")
-    @Expose
-    public String type;
-    @SerializedName("file")
-    @Expose
-    public String file;
     @SerializedName("image")
     @Expose
     public Images image;
-    @SerializedName("background_color")
+    @SerializedName("type")
     @Expose
-    public String backgroundColor;
-    @SerializedName("artists")
+    public String type;
+    @SerializedName("links")
     @Expose
-    public List<Artist> artists;
-    @SerializedName("album")
-    @Expose
-    public Album album;
+    public List<OtherLinks> links;
 }
