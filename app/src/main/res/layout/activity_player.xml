@@ -60,6 +60,7 @@
         app:layout_constraintTop_toBottomOf="@id/img_cover_mainplayer" />
 
     <TextView
+        android:id="@+id/txt_artist_mainplayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -71,5 +72,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_title_mainplayer" />
+
+    <ProgressBar
+        android:id="@+id/progressbar_mainplayer"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="295dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginEnd="31dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_artist_mainplayer"
+        tools:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/txt_songtime_mainplayer"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/nexa_light"
+        android:gravity="center_horizontal"
+        android:letterSpacing="0.3sp"
+        android:textColor="#93a8b3"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@id/progressbar_mainplayer"
+        app:layout_constraintTop_toBottomOf="@id/progressbar_mainplayer" />
+
+    <TextView
+        android:id="@+id/txt_songduration_mainplayer"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/nexa_light"
+        android:gravity="center_horizontal"
+        android:letterSpacing="0.3sp"
+        android:textColor="#93a8b3"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@id/progressbar_mainplayer"
+        app:layout_constraintTop_toBottomOf="@id/progressbar_mainplayer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
