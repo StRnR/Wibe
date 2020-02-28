@@ -57,7 +57,7 @@
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:textColorHint="@color/white"
-        android:theme="@style/MyEditText"
+        android:theme="@style/UserAuthenticationEditText"
         app:layout_constraintLeft_toLeftOf="@id/txt_signinguide"
         app:layout_constraintRight_toRightOf="@id/txt_signinguide"
         app:layout_constraintTop_toBottomOf="@id/txt_signinguide" />
@@ -75,7 +75,7 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:textColorHint="@color/white"
-        android:theme="@style/MyEditText"
+        android:theme="@style/UserAuthenticationEditText"
         app:layout_constraintLeft_toLeftOf="@id/txt_signinguide"
         app:layout_constraintRight_toRightOf="@id/txt_signinguide"
         app:layout_constraintTop_toBottomOf="@id/txt_edit_email_signin" />

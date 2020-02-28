@@ -56,7 +56,7 @@
         android:hint="Confirm code"
         android:inputType="number"
         android:textColorHint="@color/white"
-        android:theme="@style/MyEditText"
+        android:theme="@style/UserAuthenticationEditText"
         app:layout_constraintLeft_toLeftOf="@id/txt_confirmemailguide"
         app:layout_constraintRight_toRightOf="@id/txt_confirmemailguide"
         app:layout_constraintTop_toBottomOf="@id/txt_confirmemailguide" />

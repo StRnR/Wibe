@@ -14,9 +14,14 @@
         <item name="android:statusBarColor">@color/background</item>
     </style>
 
-    <style name="MyEditText" parent="Theme.AppCompat.Light">
+    <style name="UserAuthenticationEditText" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/sorkhabi</item>
         <item name="colorControlActivated">@color/sorkhabi</item>
+    </style>
+
+    <style name="SearchEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/skyBlue</item>
+        <item name="colorControlActivated">@color/skyBlue</item>
     </style>
 
     <style name="Bold1">
