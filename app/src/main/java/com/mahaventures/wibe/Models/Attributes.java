@@ -14,5 +14,4 @@ public class Attributes {
     @SerializedName("file")
     @Expose
     public String file;
-
 }

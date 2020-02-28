@@ -36,4 +36,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
     implementation 'com.github.satyan:sugar:1.5'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'androidx.exifinterface:exifinterface:1.1.0'
 }
