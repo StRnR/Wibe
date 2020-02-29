@@ -23,5 +23,4 @@ public class Pagination {
     @SerializedName("links")
     @Expose
     public MetaLinks links;
-
 }

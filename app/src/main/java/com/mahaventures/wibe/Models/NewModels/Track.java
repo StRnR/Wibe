@@ -26,7 +26,7 @@ public class Track {
     public String backgroundColor;
     @SerializedName("artists")
     @Expose
-    public List<Artist> artists;
+    public Artists artists;
     @SerializedName("album")
     @Expose
     public Album album;

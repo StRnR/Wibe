@@ -11,5 +11,4 @@ public class Images {
     @SerializedName("large")
     @Expose
     public Image large;
-
 }
