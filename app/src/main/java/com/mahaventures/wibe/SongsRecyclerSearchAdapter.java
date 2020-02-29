@@ -16,8 +16,10 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
 
     @Override
     public SearchSongsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sea);
-        return null;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_songs_layout, parent, false);
+        SearchSongsViewHolder searchSongsViewHolder =  new SearchSongsViewHolder(view);
+
+        return searchSongsViewHolder;
     }
 
     @Override
