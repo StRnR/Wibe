@@ -14,5 +14,4 @@ public class Image {
     @SerializedName("url")
     @Expose
     public String url;
-
 }

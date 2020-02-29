@@ -11,5 +11,4 @@ public class MetaLinks {
     @SerializedName("previous")
     @Expose
     public String previous;
-
 }

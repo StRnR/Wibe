@@ -3,9 +3,10 @@ package com.mahaventures.wibe.Models.NewModels;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Meta {
+import java.util.List;
 
-    @SerializedName("pagination")
+public class Artists {
+    @SerializedName("data")
     @Expose
-    public Pagination pagination;
+    public List<Artist> data;
 }
