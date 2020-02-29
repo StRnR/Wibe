@@ -80,7 +80,7 @@ public class PlayerActivity extends AppCompatActivity {
         songSeekBar.setProgress(0);
         playBtn.setEnabled(false);
 
-        call.enqueue(new Callback<Track>() {
+        call.enqueue(new retrofit2.Callback<Track>() {
             @Override
             public void onResponse(Call<Track> call, Response<Track> response) {
                 if (response.isSuccessful()) {
