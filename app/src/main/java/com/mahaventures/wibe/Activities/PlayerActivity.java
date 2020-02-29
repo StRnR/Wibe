@@ -8,6 +8,7 @@ import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -120,7 +121,11 @@ public class PlayerActivity extends AppCompatActivity {
                             public void onSuccess() {
                                 //todo uncomment
                                 float shadow = 0.5F;
-                                loaded.resize(500, 1000).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
+                                DisplayMetrics displayMetrics = new DisplayMetrics();
+                                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                                int height = displayMetrics.heightPixels;
+                                int width = displayMetrics.widthPixels;
+                                loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
                                     @Override
                                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                         layout.setBackgroundDrawable(new BitmapDrawable(PlayerActivity.this.getResources(), bitmap));
