@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -90,6 +91,7 @@ public class PlayerActivity extends AppCompatActivity {
                         track = response.body().data.get(0);
                         ///media player
                         try {
+                            playBtn.setBackground(getDrawable(R.drawable.ic_pause));
                             mediaPlayer.setDataSource(track.file);
                             mediaPlayer.prepare();
                             mediaPlayer.start();
@@ -171,10 +173,12 @@ public class PlayerActivity extends AppCompatActivity {
 
         playBtn.setOnClickListener(v -> {
             if (mediaPlayer.isPlaying()) {
+                playBtn.setBackground(getDrawable(R.drawable.ic_play));
                 pos = mediaPlayer.getCurrentPosition();
                 mediaPlayer.stop();
             } else {
                 try {
+                    playBtn.setBackground(getDrawable(R.drawable.ic_pause));
                     mediaPlayer.prepare();
                     mediaPlayer.seekTo(pos);
                     mediaPlayer.start();
