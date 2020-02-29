@@ -39,7 +39,6 @@ import java.util.stream.Collectors;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PlayerActivity extends AppCompatActivity {
@@ -48,6 +47,7 @@ public class PlayerActivity extends AppCompatActivity {
     static Track track;
     int pos = 0;
     SeekBar songSeekBar;
+    boolean isPlaying = false;
 
 //    @Override
 //    public void onBackPressed() {
@@ -188,8 +188,15 @@ public class PlayerActivity extends AppCompatActivity {
         songSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser)
-                    mediaPlayer.seekTo(progress);
+                if (fromUser){
+                    try {
+                        mediaPlayer.prepare();
+                        mediaPlayer.seekTo(progress);
+                        mediaPlayer.start();
+                    }catch (Exception e){
+                        StaticTools.LogErrorMessage(e.getMessage()+" seekbar change");
+                    }
+                }
             }
 
             @Override
