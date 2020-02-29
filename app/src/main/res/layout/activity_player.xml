@@ -75,7 +75,7 @@
         app:layout_constraintTop_toBottomOf="@id/txt_title_mainplayer" />
 
     <SeekBar
-        android:id="@+id/progressbar_mainplayer"
+        android:id="@+id/seekbar_mainplayer"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="2dp"
@@ -99,7 +99,7 @@
         android:textColor="#93a8b3"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progressbar_mainplayer" />
+        app:layout_constraintTop_toBottomOf="@id/seekbar_mainplayer" />
 
     <TextView
         android:id="@+id/txt_songduration_mainplayer"
@@ -113,7 +113,7 @@
         android:textColor="#93a8b3"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progressbar_mainplayer" />
+        app:layout_constraintTop_toBottomOf="@id/seekbar_mainplayer" />
 
     <Button
         android:id="@+id/btn_play_mainplayer"
@@ -125,7 +125,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progressbar_mainplayer" />
+        app:layout_constraintTop_toBottomOf="@id/seekbar_mainplayer" />
 
     <Button
         android:id="@+id/btn_skip_mainplayer"

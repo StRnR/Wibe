@@ -12,7 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,10 +44,10 @@ import retrofit2.Response;
 
 public class PlayerActivity extends AppCompatActivity {
 
-    static MediaPlayer mediaPlayer;
+    static MediaPlayer mediaPlayer = new MediaPlayer();
     static Track track;
     int pos = 0;
-    ProgressBar songProgressBar;
+    SeekBar songProgressBar;
 
     @Override
     public void onBackPressed() {
@@ -59,8 +59,6 @@ public class PlayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
-
-
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
@@ -75,13 +73,14 @@ public class PlayerActivity extends AppCompatActivity {
         TextView artistTxt = findViewById(R.id.txt_artist_mainplayer);
         TextView songTimeTxt = findViewById(R.id.txt_songtime_mainplayer);
         TextView songDurationTxt = findViewById(R.id.txt_songduration_mainplayer);
-        songProgressBar = findViewById(R.id.progressbar_mainplayer);
+        songProgressBar = findViewById(R.id.seekbar_mainplayer);
         ImageView artwork = findViewById(R.id.img_cover_mainplayer);
         Button playBtn = findViewById(R.id.btn_play_mainplayer);
         Button skipBtn = findViewById(R.id.btn_skip_mainplayer);
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
         ConstraintLayout layout = findViewById(R.id.player_layout);
 
+        songProgressBar.setProgress(0);
         playBtn.setEnabled(false);
         call.enqueue(new retrofit2.Callback<TracksResult>() {
             @Override
@@ -89,6 +88,15 @@ public class PlayerActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     try {
                         track = response.body().data.get(0);
+                        ///media player
+                        try {
+                            mediaPlayer.setDataSource(track.file);
+                            mediaPlayer.prepare();
+                            mediaPlayer.start();
+                        } catch (Exception e) {
+                            StaticTools.LogErrorMessage(e.getMessage());
+                        }
+                        ///media player
                         int seconds = getDuration(track.file);
                         String str = String.format(Locale.getDefault(), "%d:%d", seconds / 60, seconds % 60);
                         songDurationTxt.setText(str);
@@ -102,7 +110,6 @@ public class PlayerActivity extends AppCompatActivity {
                         }
                         artistTxt.setText(artists);
                         playBtn.setEnabled(true);
-                        playBtn.performClick();
                         RequestCreator loaded = Picasso.get().load(track.image.large.url);
                         loaded.into(artwork, new Callback() {
                             @Override
@@ -147,39 +154,29 @@ public class PlayerActivity extends AppCompatActivity {
         });
 
 
-//        while (track==null){
-//            int a = 2;
-//        }
-
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                setProgress();
-            }
-        };
-        Timer timer = new Timer();
-//        timer.schedule(timerTask, 0, 100);
+        mediaPlayer.setOnPreparedListener(mp -> {
+            int duration = mediaPlayer.getDuration();
+            int amoungToupdate = duration / 100;
+            Timer mTimer = new Timer();
+            mTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    runOnUiThread(() -> {
+                        songProgressBar.setMax(mediaPlayer.getDuration());
+                        songProgressBar.setProgress(mediaPlayer.getCurrentPosition());
+                    });
+                }
+            }, 0, amoungToupdate);
+        });
 
         playBtn.setOnClickListener(v -> {
-            if (mediaPlayer != null) {
-                if (mediaPlayer.isPlaying()) {
-                    pos = mediaPlayer.getCurrentPosition();
-                    mediaPlayer.stop();
-                } else {
-                    try {
-                        mediaPlayer.prepare();
-                        mediaPlayer.seekTo(pos);
-                        mediaPlayer.start();
-                    } catch (Exception e) {
-                        StaticTools.LogErrorMessage(e.getMessage());
-                    }
-                }
+            if (mediaPlayer.isPlaying()) {
+                pos = mediaPlayer.getCurrentPosition();
+                mediaPlayer.stop();
             } else {
-                mediaPlayer = new MediaPlayer();
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 try {
-                    mediaPlayer.setDataSource(track.file);
                     mediaPlayer.prepare();
+                    mediaPlayer.seekTo(pos);
                     mediaPlayer.start();
                 } catch (Exception e) {
                     StaticTools.LogErrorMessage(e.getMessage());
@@ -200,16 +197,4 @@ public class PlayerActivity extends AppCompatActivity {
         return (minutes * 60) + seconds;
     }
 
-    void setProgress() {
-        if (mediaPlayer != null) {
-            try {
-                int position = mediaPlayer.getCurrentPosition();
-                int duration = mediaPlayer.getDuration();
-                songProgressBar.setMax(duration);
-                songProgressBar.setProgress(position);
-            } catch (Exception e) {
-                StaticTools.LogErrorMessage(e.getMessage() + " progressbar error");
-            }
-        }
-    }
 }
