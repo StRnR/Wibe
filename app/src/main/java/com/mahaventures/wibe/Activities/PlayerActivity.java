@@ -159,11 +159,6 @@ public class PlayerActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     runOnUiThread(() -> {
-//                        if (!(amoungToupdate * songProgressBar.getProgress() >= duration)) {
-//                            int p = songProgressBar.getProgress();
-//                            p += 1;
-//                            songProgressBar.setProgress(p);
-//                        }
                         songProgressBar.setMax(mediaPlayer.getDuration());
                         songProgressBar.setProgress(mediaPlayer.getCurrentPosition());
                     });
