@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -19,13 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.mahaventures.wibe.Models.NewModels.Track;
-import com.mahaventures.wibe.Models.NewModels.TracksResult;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Tools.AlphaTransformation;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
@@ -47,7 +44,7 @@ public class PlayerActivity extends AppCompatActivity {
     static Track track;
     int pos = 0;
     SeekBar songSeekBar;
-    boolean isPlaying = false;
+    boolean isPlaying;
 
 //    @Override
 //    public void onBackPressed() {
@@ -62,6 +59,8 @@ public class PlayerActivity extends AppCompatActivity {
         String trackId = getIntent().getStringExtra("id");
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         String url = String.format("https://api.musicify.ir/tracks/%s?include=artists,album", trackId);
+        mediaPlayer.stop();
+        mediaPlayer.reset();
         Call<Track> call = service.GetTrackById(url);
         //TODO: in metadata ha bara har song bayad gerefte she az api joz 2 ta avali ke khodam mizanam
         TextView srcTxt = findViewById(R.id.txt_playersrc);
@@ -92,12 +91,19 @@ public class PlayerActivity extends AppCompatActivity {
                             mediaPlayer.setDataSource(track.file);
                             mediaPlayer.prepare();
                             mediaPlayer.start();
+                            isPlaying = true;
                         } catch (Exception e) {
                             StaticTools.LogErrorMessage(e.getMessage());
                         }
                         ///media player
                         int seconds = getDuration(track.file);
-                        String str = String.format(Locale.getDefault(), "%d:%d", seconds / 60, seconds % 60);
+                        String second = "";
+                        if (String.valueOf(seconds % 60).length() == 1) {
+                            second = String.format(Locale.getDefault(), "0%d", seconds % 60);
+                        } else {
+                            second = String.valueOf(seconds % 60);
+                        }
+                        String str = String.format(Locale.getDefault(), "%d:%s", seconds / 60, second);
                         songDurationTxt.setText(str);
                         songTitleTxt.setText(track.name);
                         String artists = "";
@@ -188,13 +194,13 @@ public class PlayerActivity extends AppCompatActivity {
         songSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser){
+                if (fromUser) {
                     try {
                         mediaPlayer.prepare();
                         mediaPlayer.seekTo(progress);
                         mediaPlayer.start();
-                    }catch (Exception e){
-                        StaticTools.LogErrorMessage(e.getMessage()+" seekbar change");
+                    } catch (Exception e) {
+                        StaticTools.LogErrorMessage(e.getMessage() + " seekbar change");
                     }
                 }
             }
