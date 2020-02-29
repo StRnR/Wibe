@@ -76,7 +76,6 @@ public class PlayerActivity extends AppCompatActivity {
         Button skipBtn = findViewById(R.id.btn_skip_mainplayer);
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
         ConstraintLayout layout = findViewById(R.id.player_layout);
-
         songSeekBar.setProgress(0);
         playBtn.setEnabled(false);
 

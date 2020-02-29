@@ -22,7 +22,6 @@ import retrofit2.Response;
 public class SearchActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-
     private RecyclerView.LayoutManager layoutManager;
 
     @Override
