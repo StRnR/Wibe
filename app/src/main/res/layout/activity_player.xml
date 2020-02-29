@@ -41,6 +41,7 @@
         android:layout_height="260dp"
         android:layout_marginTop="105dp"
         android:layout_marginBottom="350dp"
+        android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,8 +118,8 @@
 
     <Button
         android:id="@+id/btn_play_mainplayer"
-        android:layout_width="21dp"
-        android:layout_height="26dp"
+        android:layout_width="27dp"
+        android:layout_height="33dp"
         android:layout_marginTop="41dp"
         android:layout_marginBottom="111dp"
         android:background="@drawable/ic_play"
@@ -129,8 +130,8 @@
 
     <Button
         android:id="@+id/btn_skip_mainplayer"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="54dp"
         android:layout_marginEnd="97dp"
         android:background="@drawable/ic_skip"
@@ -140,8 +141,8 @@
 
     <Button
         android:id="@+id/btn_rewind_mainplayer"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="97dp"
         android:layout_marginEnd="54dp"
         android:background="@drawable/ic_rewind"

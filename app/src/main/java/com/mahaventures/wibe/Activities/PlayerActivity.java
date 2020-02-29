@@ -15,10 +15,8 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.NewModels.TracksResult;
@@ -54,8 +52,6 @@ public class PlayerActivity extends AppCompatActivity {
     public void onBackPressed() {
     }
 
-    private RecyclerView recyclerView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +62,6 @@ public class PlayerActivity extends AppCompatActivity {
         String text = "man";
         String url = String.format("https://api.musicify.ir/tracks/search?query=%s&include=artists,album", text);
         Call<TracksResult> call = service.SearchTracks(url);
-        recyclerView = findViewById(R.id.recycler_search);
         //TODO: in metadata ha bara har song bayad gerefte she az api joz 2 ta avali ke khodam mizanam
         TextView srcTxt = findViewById(R.id.txt_playersrc);
         TextView srcNameTxt = findViewById(R.id.txt_srcname_mainplayer);
