@@ -1,6 +1,7 @@
 package com.mahaventures.wibe.Activities;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
@@ -8,6 +9,7 @@ import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -50,6 +52,8 @@ public class PlayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         String text = "man";
         String url = String.format("https://api.musicify.ir/tracks/search?query=%s&include=artists,album", text);
@@ -95,7 +99,7 @@ public class PlayerActivity extends AppCompatActivity {
                             public void onSuccess() {
                                 //todo uncomment
                                 float shadow = 0.5F;
-                                loaded.resize(500,1000).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 3)).transform(new AlphaTransformation(shadow)).into(new Target() {
+                                loaded.resize(500,1000).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
                                     @Override
                                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                         layout.setBackgroundDrawable(new BitmapDrawable(PlayerActivity.this.getResources(), bitmap));
