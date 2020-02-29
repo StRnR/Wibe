@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -48,6 +49,10 @@ public class PlayerActivity extends AppCompatActivity {
     SeekBar songProgressBar;
 
     @Override
+    public void onBackPressed() {
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
@@ -57,6 +62,7 @@ public class PlayerActivity extends AppCompatActivity {
         String text = "man";
         String url = String.format("https://api.musicify.ir/tracks/search?query=%s&include=artists,album", text);
         Call<TracksResult> call = service.SearchTracks(url);
+        //TODO: in metadata ha bara har song bayad gerefte she az api joz 2 ta avali ke khodam mizanam
         TextView srcTxt = findViewById(R.id.txt_playersrc);
         TextView srcNameTxt = findViewById(R.id.txt_srcname_mainplayer);
         TextView songTitleTxt = findViewById(R.id.txt_title_mainplayer);
@@ -100,10 +106,12 @@ public class PlayerActivity extends AppCompatActivity {
                         }
                         artistTxt.setText(artists);
                         playBtn.setEnabled(true);
+                        playBtn.performClick();
                         RequestCreator loaded = Picasso.get().load(track.image.large.url);
                         loaded.into(artwork, new Callback() {
                             @Override
                             public void onSuccess() {
+                                //todo uncomment
                                 float shadow = 0.5F;
                                 loaded.resize(500, 1000).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
                                     @Override
