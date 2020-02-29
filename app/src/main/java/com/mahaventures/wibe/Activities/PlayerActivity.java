@@ -106,7 +106,6 @@ public class PlayerActivity extends AppCompatActivity {
                         }
                         artistTxt.setText(artists);
                         playBtn.setEnabled(true);
-                        playBtn.performClick();
                         RequestCreator loaded = Picasso.get().load(track.image.large.url);
                         loaded.into(artwork, new Callback() {
                             @Override
