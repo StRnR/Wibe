@@ -1,5 +1,6 @@
 package com.mahaventures.wibe.Activities;
 
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -120,10 +121,14 @@ public class PlayerActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess() {
                                 //todo uncomment
-                                float shadow = 0.5F;
+                                float shadow = 0.3F;
                                 loaded.resize(500, 1000).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
                                     @Override
                                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                        int color = StaticTools.getDominantColor(bitmap);
+                                        color+=10010010;
+                                        songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
+                                        songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
                                         layout.setBackgroundDrawable(new BitmapDrawable(PlayerActivity.this.getResources(), bitmap));
                                     }
 
@@ -163,15 +168,17 @@ public class PlayerActivity extends AppCompatActivity {
             int duration = mediaPlayer.getDuration();
             int amoungToupdate = duration / 100;
             Timer mTimer = new Timer();
-            mTimer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(() -> {
-                        songSeekBar.setMax(mediaPlayer.getDuration());
-                        songSeekBar.setProgress(mediaPlayer.getCurrentPosition());
-                    });
-                }
-            }, 0, amoungToupdate);
+            if (amoungToupdate > 0) {
+                mTimer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(() -> {
+                            songSeekBar.setMax(mediaPlayer.getDuration());
+                            songSeekBar.setProgress(mediaPlayer.getCurrentPosition());
+                        });
+                    }
+                }, 0, amoungToupdate);
+            }
         });
 
         playBtn.setOnClickListener(v -> {
@@ -196,7 +203,7 @@ public class PlayerActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
                     try {
-                        mediaPlayer.prepare();
+                        int r = mediaPlayer.getCurrentPosition();
                         mediaPlayer.seekTo(progress);
                         mediaPlayer.start();
                     } catch (Exception e) {
