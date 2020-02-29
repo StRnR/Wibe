@@ -77,6 +77,7 @@ public class PlayerActivity extends AppCompatActivity {
         Button skipBtn = findViewById(R.id.btn_skip_mainplayer);
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
         ConstraintLayout layout = findViewById(R.id.player_layout);
+
         songSeekBar.setProgress(0);
         playBtn.setEnabled(false);
 
@@ -130,7 +131,13 @@ public class PlayerActivity extends AppCompatActivity {
                                     @Override
                                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                         int color = StaticTools.getDominantColor(bitmap);
-                                        color+=10010010;
+                                        int r = (color >> 16) & 0xFF;
+                                        int g = (color >> 8) & 0xFF;
+                                        int b = (color) & 0xFF;
+                                        r = (255 - r) / 2;
+                                        g = ((255 - g) * 4) / 5;
+                                        b = ((255 - b) * 3) / 4;
+                                        color = Color.rgb(r, g, b);
                                         songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
                                         songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
                                         layout.setBackgroundDrawable(new BitmapDrawable(PlayerActivity.this.getResources(), bitmap));
