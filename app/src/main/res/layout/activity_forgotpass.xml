@@ -60,7 +60,7 @@
         android:inputType="textEmailAddress"
         android:paddingLeft="7dp"
         android:textColorHint="@color/white"
-        android:theme="@style/MyEditText"
+        android:theme="@style/UserAuthenticationEditText"
         app:layout_constraintLeft_toLeftOf="@id/txt_forgotpassguide"
         app:layout_constraintRight_toRightOf="@id/txt_forgotpassguide"
         app:layout_constraintTop_toBottomOf="@id/txt_forgotpassguide" />

@@ -63,7 +63,7 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="18sp"
-        android:theme="@style/MyEditText"
+        android:theme="@style/UserAuthenticationEditText"
         app:layout_constraintEnd_toEndOf="@id/txt_signupguide"
         app:layout_constraintStart_toStartOf="@id/txt_signupguide"
         app:layout_constraintTop_toBottomOf="@+id/txt_signupguide" />
@@ -84,7 +84,7 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="18sp"
-        android:theme="@style/MyEditText"
+        android:theme="@style/UserAuthenticationEditText"
         app:layout_constraintEnd_toEndOf="@id/txt_signupguide"
         app:layout_constraintStart_toStartOf="@id/txt_signupguide"
         app:layout_constraintTop_toBottomOf="@+id/txt_edit_name_signup" />
@@ -105,7 +105,7 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="18sp"
-        android:theme="@style/MyEditText"
+        android:theme="@style/UserAuthenticationEditText"
         app:layout_constraintEnd_toEndOf="@id/txt_signupguide"
         app:layout_constraintStart_toStartOf="@id/txt_signupguide"
         app:layout_constraintTop_toBottomOf="@+id/txt_edit_email_signup" />
