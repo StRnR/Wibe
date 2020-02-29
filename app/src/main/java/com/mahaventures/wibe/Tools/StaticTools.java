@@ -2,15 +2,23 @@ package com.mahaventures.wibe.Tools;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.palette.graphics.Palette;
 
 import com.mahaventures.wibe.Activities.ConfirmEmailActivity;
 import com.mahaventures.wibe.Models.User;
 import com.mahaventures.wibe.Models.UserRole;
 import com.mahaventures.wibe.Services.GetDataService;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -114,5 +122,25 @@ public class StaticTools {
             public void onFailure(Call call, Throwable t) {
             }
         });
+    }
+
+    public static int getDominantColor(Bitmap bitmap) {
+        List<Palette.Swatch> swatchesTemp = Palette.from(bitmap).generate().getSwatches();
+        List<Palette.Swatch> swatches = new ArrayList<Palette.Swatch>(swatchesTemp);
+        Collections.sort(swatches, new Comparator<Palette.Swatch>() {
+            @Override
+            public int compare(Palette.Swatch swatch1, Palette.Swatch swatch2) {
+                return swatch2.getPopulation() - swatch1.getPopulation();
+            }
+        });
+        return swatches.size() > 0 ? swatches.get(0).getRgb() : getRandomColor();
+    }
+
+    private static int getRandomColor() {
+        Random rand = new Random();
+        int r = rand.nextInt(255);
+        int g = rand.nextInt(255);
+        int b = rand.nextInt(255);
+        return Color.rgb(r,g,b);
     }
 }
