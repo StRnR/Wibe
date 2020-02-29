@@ -14,6 +14,8 @@ import java.util.List;
 
 public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecyclerSearchAdapter.SearchSongsViewHolder> {
 
+    //TODO: KOS NAGOO ERROR E ANE
+
     @Override
     public SearchSongsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_songs_layout, parent, false);
