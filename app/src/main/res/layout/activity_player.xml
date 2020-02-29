@@ -74,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_title_mainplayer" />
 
-    <ProgressBar
+    <SeekBar
         android:id="@+id/progressbar_mainplayer"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="295dp"
