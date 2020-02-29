@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -19,13 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.mahaventures.wibe.Models.NewModels.Track;
-import com.mahaventures.wibe.Models.NewModels.TracksResult;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Tools.AlphaTransformation;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
@@ -39,6 +36,7 @@ import java.util.stream.Collectors;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PlayerActivity extends AppCompatActivity {
@@ -48,9 +46,9 @@ public class PlayerActivity extends AppCompatActivity {
     int pos = 0;
     SeekBar songProgressBar;
 
-    @Override
-    public void onBackPressed() {
-    }
+//    @Override
+//    public void onBackPressed() {
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +56,10 @@ public class PlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
+        String trackId = getIntent().getStringExtra("id");
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        String text = "man";
-        String url = String.format("https://api.musicify.ir/tracks/search?query=%s&include=artists,album", text);
-        Call<TracksResult> call = service.SearchTracks(url);
+        String url = String.format("https://api.musicify.ir/tracks/%s?include=artists,album", trackId);
+        Call<Track> call = service.GetTrackById(url);
         //TODO: in metadata ha bara har song bayad gerefte she az api joz 2 ta avali ke khodam mizanam
         TextView srcTxt = findViewById(R.id.txt_playersrc);
         TextView srcNameTxt = findViewById(R.id.txt_srcname_mainplayer);
@@ -78,12 +76,13 @@ public class PlayerActivity extends AppCompatActivity {
 
         songProgressBar.setProgress(0);
         playBtn.setEnabled(false);
-        call.enqueue(new retrofit2.Callback<TracksResult>() {
+
+        call.enqueue(new Callback<Track>() {
             @Override
-            public void onResponse(Call<TracksResult> call, Response<TracksResult> response) {
+            public void onResponse(Call<Track> call, Response<Track> response) {
                 if (response.isSuccessful()) {
                     try {
-                        track = response.body().data.get(0);
+                        track = response.body();
                         ///media player
                         try {
                             playBtn.setBackground(getDrawable(R.drawable.ic_pause));
@@ -108,7 +107,7 @@ public class PlayerActivity extends AppCompatActivity {
                         artistTxt.setText(artists);
                         playBtn.setEnabled(true);
                         RequestCreator loaded = Picasso.get().load(track.image.large.url);
-                        loaded.into(artwork, new Callback() {
+                        loaded.into(artwork, new com.squareup.picasso.Callback() {
                             @Override
                             public void onSuccess() {
                                 //todo uncomment
@@ -133,19 +132,17 @@ public class PlayerActivity extends AppCompatActivity {
 
                             @Override
                             public void onError(Exception e) {
-                                StaticTools.LogErrorMessage(e.getMessage());
+                                StaticTools.LogErrorMessage(e.getMessage() + " image load");
                             }
                         });
                     } catch (Exception e) {
                         StaticTools.LogErrorMessage(e.getMessage() + " player error");
                     }
-                } else {
-                    StaticTools.LogErrorMessage(response.errorBody().toString() + " api error");
                 }
             }
 
             @Override
-            public void onFailure(Call<TracksResult> call, Throwable t) {
+            public void onFailure(Call<Track> call, Throwable t) {
 
             }
         });
