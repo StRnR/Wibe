@@ -29,7 +29,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         recyclerView = findViewById(R.id.recycler_search);
-        layoutManager = new GridLayoutManager(this, 4);
+        layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         EditText searchText = findViewById(R.id.txt_edit_search);
