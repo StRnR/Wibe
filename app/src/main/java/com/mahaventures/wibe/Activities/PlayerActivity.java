@@ -49,9 +49,15 @@ public class PlayerActivity extends AppCompatActivity {
     ProgressBar songProgressBar;
 
     @Override
+    public void onBackPressed() {
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
+
+
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
@@ -99,7 +105,7 @@ public class PlayerActivity extends AppCompatActivity {
                             public void onSuccess() {
                                 //todo uncomment
                                 float shadow = 0.5F;
-                                loaded.resize(500,1000).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
+                                loaded.resize(500, 1000).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
                                     @Override
                                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                         layout.setBackgroundDrawable(new BitmapDrawable(PlayerActivity.this.getResources(), bitmap));
@@ -190,7 +196,7 @@ public class PlayerActivity extends AppCompatActivity {
         return (minutes * 60) + seconds;
     }
 
-    void setProgress(){
+    void setProgress() {
         if (mediaPlayer != null) {
             try {
                 int position = mediaPlayer.getCurrentPosition();
