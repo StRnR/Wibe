@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -46,7 +45,7 @@ public class PlayerActivity extends AppCompatActivity {
     static MediaPlayer mediaPlayer = new MediaPlayer();
     static Track track;
     int pos = 0;
-    SeekBar songProgressBar;
+    SeekBar songSeekBar;
 
     @Override
     public void onBackPressed() {
@@ -68,14 +67,14 @@ public class PlayerActivity extends AppCompatActivity {
         TextView artistTxt = findViewById(R.id.txt_artist_mainplayer);
         TextView songTimeTxt = findViewById(R.id.txt_songtime_mainplayer);
         TextView songDurationTxt = findViewById(R.id.txt_songduration_mainplayer);
-        songProgressBar = findViewById(R.id.seekbar_mainplayer);
+        songSeekBar = findViewById(R.id.seekbar_mainplayer);
         ImageView artwork = findViewById(R.id.img_cover_mainplayer);
         Button playBtn = findViewById(R.id.btn_play_mainplayer);
         Button skipBtn = findViewById(R.id.btn_skip_mainplayer);
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
         ConstraintLayout layout = findViewById(R.id.player_layout);
 
-        songProgressBar.setProgress(0);
+        songSeekBar.setProgress(0);
         playBtn.setEnabled(false);
         call.enqueue(new retrofit2.Callback<TracksResult>() {
             @Override
@@ -158,8 +157,8 @@ public class PlayerActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     runOnUiThread(() -> {
-                        songProgressBar.setMax(mediaPlayer.getDuration());
-                        songProgressBar.setProgress(mediaPlayer.getCurrentPosition());
+                        songSeekBar.setMax(mediaPlayer.getDuration());
+                        songSeekBar.setProgress(mediaPlayer.getCurrentPosition());
                     });
                 }
             }, 0, amoungToupdate);
@@ -181,6 +180,23 @@ public class PlayerActivity extends AppCompatActivity {
                 }
             }
         });
+
+        songSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser)
+                    mediaPlayer.seekTo(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
     }
 
     int getDuration(String url) {
