@@ -4,6 +4,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -53,6 +54,9 @@ public class PlayerActivity extends AppCompatActivity {
         TextView songDurationTxt = findViewById(R.id.txt_songduration_mainplayer);
         ProgressBar songProgressBar = findViewById(R.id.progressbar_mainplayer);
         ImageView artwork = findViewById(R.id.img_cover_mainplayer);
+        Button playBtn = findViewById(R.id.btn_play_mainplayer);
+        Button skipBtn = findViewById(R.id.btn_skip_mainplayer);
+        Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
         ConstraintLayout layout = findViewById(R.id.player_layout);
 
         call.enqueue(new retrofit2.Callback<TracksResult>() {
