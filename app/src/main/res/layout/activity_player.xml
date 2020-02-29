@@ -49,30 +49,32 @@
 
     <TextView
         android:id="@+id/txt_title_mainplayer"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:fontFamily="@font/nexa_bold"
         android:gravity="center_horizontal"
         android:letterSpacing="0.02"
+        android:maxLines="1"
         android:textColor="#ffffff"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/img_cover_mainplayer"
+        app:layout_constraintStart_toStartOf="@+id/img_cover_mainplayer"
         app:layout_constraintTop_toBottomOf="@id/img_cover_mainplayer" />
 
     <TextView
         android:id="@+id/txt_artist_mainplayer"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/nexa_light"
         android:gravity="center_horizontal"
         android:letterSpacing="0.02"
+        android:maxLines="1"
         android:textColor="#b3b3b3"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/img_cover_mainplayer"
+        app:layout_constraintStart_toStartOf="@id/img_cover_mainplayer"
         app:layout_constraintTop_toBottomOf="@id/txt_title_mainplayer" />
 
     <SeekBar
