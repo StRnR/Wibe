@@ -62,7 +62,6 @@ public class PlayerActivity extends AppCompatActivity {
         String text = "man";
         String url = String.format("https://api.musicify.ir/tracks/search?query=%s&include=artists,album", text);
         Call<TracksResult> call = service.SearchTracks(url);
-        //TODO: in metadata ha bara har song bayad gerefte she az api joz 2 ta avali ke khodam mizanam
         TextView srcTxt = findViewById(R.id.txt_playersrc);
         TextView srcNameTxt = findViewById(R.id.txt_srcname_mainplayer);
         TextView songTitleTxt = findViewById(R.id.txt_title_mainplayer);
