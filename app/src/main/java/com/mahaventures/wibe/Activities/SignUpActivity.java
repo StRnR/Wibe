@@ -114,7 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         signUpButton.setOnClickListener(v -> {
             signUpButton.setEnabled(false);
-            signUpButton.setText("signing up...");
+            signUpButton.setText(R.string.SigningUpText);
             String email = emailTxt.getText().toString();
             String pass = passwordTxt.getText().toString();
             if (!StaticTools.EmailValidation(email)) {
