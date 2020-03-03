@@ -1,12 +1,10 @@
 package com.mahaventures.wibe.Activities;
 
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
@@ -17,14 +15,11 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mahaventures.wibe.Models.RequestModels.SignUpRequestModel;
-import com.mahaventures.wibe.Models.TokenRegister;
+import com.mahaventures.wibe.Models.NewModels.ProfileModels.RegisterResponseModel;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
-
-import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -119,44 +114,29 @@ public class SignUpActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(v -> {
             signUpButton.setEnabled(false);
             signUpButton.setText("signing up...");
-            if (!StaticTools.EmailValidation(emailTxt.getText().toString())) {
+            String email = emailTxt.getText().toString();
+            String pass = passwordTxt.getText().toString();
+            if (!StaticTools.EmailValidation(email)) {
                 StaticTools.ShowToast(SignUpActivity.this, "Email is not valid.", 0);
                 return;
             }
-            if (StaticTools.CalculatePasswordStrength(passwordTxt.getText().toString()) == 0) {
+            if (StaticTools.CalculatePasswordStrength(pass) == 0) {
                 StaticTools.ShowToast(SignUpActivity.this, "Password must be at least 6 characters", 0);
                 return;
             }
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
-            UUID uuid = UUID.randomUUID();
-            SignUpRequestModel model = new SignUpRequestModel(emailTxt.getText().toString(), passwordTxt.getText().toString(), uuid.toString(), "nid");
-            Call<TokenRegister> call = service.SignUpUser(model);
-            call.enqueue(new Callback<TokenRegister>() {
+            Call<RegisterResponseModel> call = service.Register(email, pass);
+            call.enqueue(new Callback<RegisterResponseModel>() {
                 @Override
-                public void onResponse(Call<TokenRegister> call, Response<TokenRegister> response) {
-                    signUpButton.setEnabled(true);
-                    signUpButton.setText("sign up");
+                public void onResponse(Call<RegisterResponseModel> call, Response<RegisterResponseModel> response) {
                     if (response.isSuccessful()) {
-                        TokenRegister token = response.body();
-                        StaticTools.ShowToast(SignUpActivity.this, "Verification Email sent.", 1);
-                        Intent intent = new Intent(SignUpActivity.this, ConfirmEmailActivity.class);
-                        intent.putExtra("key", token.getKey());
-                        SignUpActivity.this.startActivity(intent);
-                    } else {
-                        try {
-                            String msg = response.errorBody().string();
-                            StaticTools.LogErrorMessage(msg);
-                            StaticTools.ShowToast(SignUpActivity.this, msg, 0);
-                        } catch (Exception e) {
-                            Log.wtf("exception", e.getMessage());
-                        }
+                        StaticTools.ShowToast(SignUpActivity.this, "User registered succesfully", 1);
                     }
                 }
 
                 @Override
-                public void onFailure(Call<TokenRegister> call, Throwable t) {
-                    signUpButton.setEnabled(true);
-                    StaticTools.OnFailure(SignUpActivity.this);
+                public void onFailure(Call<RegisterResponseModel> call, Throwable t) {
+                    StaticTools.LogErrorMessage(t.getMessage() + " server error on signup");
                 }
             });
         });
