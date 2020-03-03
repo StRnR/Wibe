@@ -5,7 +5,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
@@ -14,14 +13,13 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mahaventures.wibe.Models.RequestModels.LoginRequestModel;
-import com.mahaventures.wibe.Models.Token;
+import com.mahaventures.wibe.Models.DBModels.SavedInfo;
+import com.mahaventures.wibe.Models.NewModels.ProfileModels.AuthenticationResponseModel;
+import com.mahaventures.wibe.Models.NewModels.ProfileModels.SignUpRequestModel;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
-
-import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,45 +41,31 @@ public class SignInActivity extends AppCompatActivity {
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         forgotPassBtn.setText(content);
         signInButton.setOnClickListener(view -> {
-            signInButton.setText("Signing in...");
+            signInButton.setText(R.string.SigningInText);
             signInButton.setEnabled(false);
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
-            UUID uuid = UUID.randomUUID();
-            LoginRequestModel model = new LoginRequestModel(emailTxt.getText().toString(), passTxt.getText().toString(), uuid.toString(), "sd");
-            Call<Token> call = service.LoginUser(model);
-            call.enqueue(new Callback<Token>() {
+            String email = emailTxt.getText().toString();
+            String pass = passTxt.getText().toString();
+            Call<AuthenticationResponseModel> call = service.Authenticate(new SignUpRequestModel(email, pass));
+            call.enqueue(new Callback<AuthenticationResponseModel>() {
                 @Override
-                public void onResponse(Call<Token> call, Response<Token> response) {
-                    signInButton.setEnabled(true);
-                    signInButton.setText("sign in");
+                public void onResponse(Call<AuthenticationResponseModel> call, Response<AuthenticationResponseModel> response) {
                     if (response.isSuccessful()) {
-                        Token token = response.body();
-                        boolean result = StaticTools.CheckEmailVerification(token.getKey());
-                        if (!result) {
-                            StaticTools.SendVerificationEmail(SignInActivity.this, token.getKey(), true);
+                        try {
+                            String token = response.body().meta.token;
+                            SavedInfo info = new SavedInfo(token, email);
+                            info.save();
+                        } catch (Exception e) {
+                            StaticTools.LogErrorMessage(e.getMessage() + " sign in token error");
                         }
                     } else {
-                        try {
-                            if (response.code() == 403) {
-                                Email = emailTxt.getText().toString();
-                                //todo: az oon falaj bayad beporsim ye chizi
-//                                if (StaticTools.CheckEmailVerification()){
-//
-//                                }
-                                startActivity(new Intent(SignInActivity.this, MainActivity.class));
-                            }
-                            StaticTools.LogErrorMessage(response.errorBody().string());
-                            StaticTools.ShowToast(SignInActivity.this, response.errorBody().string(), 0);
-                        } catch (Exception e) {
-                            Log.wtf("exception", e.getMessage());
-                        }
+                        StaticTools.ShowToast(SignInActivity.this, String.format("sign in failed: %s", response.errorBody()), 1);
                     }
                 }
 
                 @Override
-                public void onFailure(Call<Token> call, Throwable t) {
-                    signInButton.setEnabled(true);
-                    StaticTools.OnFailure(SignInActivity.this);
+                public void onFailure(Call<AuthenticationResponseModel> call, Throwable t) {
+
                 }
             });
         });

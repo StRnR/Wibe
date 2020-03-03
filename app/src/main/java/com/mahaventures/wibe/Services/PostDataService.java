@@ -3,10 +3,10 @@ package com.mahaventures.wibe.Services;
 import com.mahaventures.wibe.Models.EmailVerification;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.AuthenticationResponseModel;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.RegisterResponseModel;
+import com.mahaventures.wibe.Models.NewModels.ProfileModels.SignUpRequestModel;
 import com.mahaventures.wibe.Models.RequestModels.LoginRequestModel;
 import com.mahaventures.wibe.Models.ResetPassword;
 import com.mahaventures.wibe.Models.Token;
-import com.mahaventures.wibe.Models.TokenRegister;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,11 +18,11 @@ public interface PostDataService {
     @POST("users/login/")
     Call<Token> LoginUser(@Body LoginRequestModel requestModel);
 
-    @POST("profile/register/")
-    Call<RegisterResponseModel> Register(@Query("email") String email, @Query("password") String password);
+    @POST("register/")
+    Call<RegisterResponseModel> Register(@Body SignUpRequestModel model);
 
-    @POST("profile/authenticate/")
-    Call<AuthenticationResponseModel> Authenticate(@Query("email") String email, @Query("password") String password);
+    @POST("authenticate/")
+    Call<AuthenticationResponseModel> Authenticate(@Body SignUpRequestModel model);
 
     @POST("users/verify/email/")
     Call<Void> ConfirmEmail(@Header("Authorization") String s, @Body EmailVerification code);

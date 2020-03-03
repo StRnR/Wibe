@@ -1,5 +1,6 @@
 package com.mahaventures.wibe.Services;
 
+import com.mahaventures.wibe.Models.NewModels.GeneralSearch;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.NewModels.TracksResult;
 import com.mahaventures.wibe.Models.ResponseModels.ResetPasswordResponseModel;
@@ -23,6 +24,9 @@ public interface GetDataService {
 
     @GET
     Call<TracksResult> SearchTracks(@Url String url);
+
+    @GET("search/")
+    Call<GeneralSearch> SearchAll(@Query("query") String searchText);
 
     @GET
     Call<Track> GetTrackById(@Url String url);

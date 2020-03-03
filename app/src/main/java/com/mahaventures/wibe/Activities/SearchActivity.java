@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mahaventures.wibe.Models.NewModels.GeneralSearch;
 import com.mahaventures.wibe.Models.NewModels.TracksResult;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
@@ -32,6 +33,7 @@ public class SearchActivity extends AppCompatActivity {
         layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(null);
         EditText searchText = findViewById(R.id.txt_edit_search);
         searchText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -43,22 +45,46 @@ public class SearchActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String txt = searchText.getText().toString();
                 GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-                String url = String.format("https://api.musicify.ir/tracks/search?query=%s&include=artists,album", txt);
-                Call<TracksResult> call = service.SearchTracks(url);
-                call.enqueue(new Callback<TracksResult>() {
-                    @Override
-                    public void onResponse(Call<TracksResult> call, Response<TracksResult> response) {
-                        if (!txt.equals("")){
-                            SongsRecyclerSearchAdapter adapter = new SongsRecyclerSearchAdapter(response.body(),SearchActivity.this);
-                            recyclerView.setAdapter(adapter);
+//                String url = String.format("https://api.musicify.ir/tracks/search?query=%s&include=artists,album", txt);
+//                Call<TracksResult> call = service.SearchTracks(url);
+//                call.enqueue(new Callback<TracksResult>() {
+//                    @Override
+//                    public void onResponse(Call<TracksResult> call, Response<TracksResult> response) {
+//                        if (!txt.equals("")){
+//                            SongsRecyclerSearchAdapter adapter = new SongsRecyclerSearchAdapter(response.body().data,SearchActivity.this);
+//                            recyclerView.setAdapter(adapter);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<TracksResult> call, Throwable t) {
+//
+//                    }
+//                });
+                if (!txt.equals("")) {
+                    Call<GeneralSearch> call = service.SearchAll(txt);
+                    call.enqueue(new Callback<GeneralSearch>() {
+                        @Override
+                        public void onResponse(Call<GeneralSearch> call, Response<GeneralSearch> response) {
+                            if (response.isSuccessful()) {
+                                SongsRecyclerSearchAdapter adapter = new SongsRecyclerSearchAdapter(response.body() != null ? response.body().tracks : null, SearchActivity.this);
+                                recyclerView.setAdapter(adapter);
+                            } else {
+                                try {
+                                    String s1 = new String(response.errorBody().bytes());
+                                    int a = 2 + 3;
+                                } catch (Exception e) {
+
+                                }
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<TracksResult> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<GeneralSearch> call, Throwable t) {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
 
             @Override

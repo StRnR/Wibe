@@ -2,8 +2,12 @@ package com.mahaventures.wibe.Tools;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Build;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -101,7 +106,7 @@ public class StaticTools {
         return cvb;
     }
 
-    public static void SendVerificationEmail(Context context, String key ,boolean b) {
+    public static void SendVerificationEmail(Context context, String key, boolean b) {
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call call = service.SendVerificationEmail("Bearer " + key);
         call.enqueue(new Callback() {
@@ -109,7 +114,7 @@ public class StaticTools {
             public void onResponse(Call call, Response response) {
                 if (response.isSuccessful()) {
                     StaticTools.ShowToast(context, "Verification Email sent.", 1);
-                    if (b){
+                    if (b) {
                         Intent intent = new Intent(context, ConfirmEmailActivity.class);
                         intent.putExtra("key", key);
                         context.startActivity(intent);
@@ -118,6 +123,7 @@ public class StaticTools {
                     StaticTools.LogErrorMessage("We're fucked up");
                 }
             }
+
             @Override
             public void onFailure(Call call, Throwable t) {
             }
@@ -141,6 +147,35 @@ public class StaticTools {
         int r = rand.nextInt(255);
         int g = rand.nextInt(255);
         int b = rand.nextInt(255);
-        return Color.rgb(r,g,b);
+        return Color.rgb(r, g, b);
+    }
+
+    public static String getDeviceName() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        if (model.startsWith(manufacturer)) {
+            return model;
+        } else {
+            return String.format("%s %s", manufacturer, model);
+        }
+    }
+
+    public static String getDeviceType(Context context) {
+        TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (Objects.requireNonNull(manager).getPhoneType() == TelephonyManager.PHONE_TYPE_NONE) {
+            return "Tablet";
+        } else {
+            return "mobile";
+        }
+    }
+
+    public static String getStore(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), 0);
+            return packageManager.getInstallerPackageName(applicationInfo.packageName);
+        } catch (Exception e) {
+            return "";
+        }
     }
 }

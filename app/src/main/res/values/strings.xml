@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Wibe</string>
+    <string name="SigningInText">Signing in…</string>
+    <string name="SignUpText">Sign up</string>
 </resources>

@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
-import com.mahaventures.wibe.Models.NewModels.TracksResult;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -23,10 +22,10 @@ import java.util.stream.Collectors;
 
 public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecyclerSearchAdapter.SearchSongsViewHolder> {
 
-    private TracksResult result;
+    private List<Track> result;
     private Context context;
 
-    public SongsRecyclerSearchAdapter(TracksResult result, Context context) {
+    public SongsRecyclerSearchAdapter(List<Track> result, Context context) {
         this.result = result;
         this.context = context;
     }
@@ -41,15 +40,17 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
 
     @Override
     public void onBindViewHolder(@NonNull SearchSongsViewHolder holder, int position) {
-        Track track = result.data.get(position);
+        Track track = result.get(position);
         Picasso.get().load(track.image.medium.url).into(SearchSongsViewHolder.songImg);
         SearchSongsViewHolder.songTitle.setText(track.name);
-        String artists = "";
-        if (track.artists.data.size() == 1) {
-            artists = track.artists.data.get(0).name;
-        } else {
-            List<String> strings = track.artists.data.stream().map(x -> x.name).collect(Collectors.toList());
-            artists = TextUtils.join(",", strings);
+        String artists="";
+        if (track.artists != null) {
+            if (track.artists.data.size() == 1) {
+                artists = track.artists.data.get(0).name;
+            } else {
+                List<String> strings = track.artists.data.stream().map(x -> x.name).collect(Collectors.toList());
+                artists = TextUtils.join(",", strings);
+            }
         }
         SearchSongsViewHolder.artist.setText(artists);
         SearchSongsViewHolder.cardView.setOnClickListener(v -> {
@@ -61,7 +62,7 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
 
     @Override
     public int getItemCount() {
-        return result.data.size();
+        return result.size();
     }
 
     public static class SearchSongsViewHolder extends RecyclerView.ViewHolder {

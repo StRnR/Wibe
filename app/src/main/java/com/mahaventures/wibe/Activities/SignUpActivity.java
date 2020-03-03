@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.RegisterResponseModel;
+import com.mahaventures.wibe.Models.NewModels.ProfileModels.SignUpRequestModel;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
@@ -125,17 +126,32 @@ public class SignUpActivity extends AppCompatActivity {
                 return;
             }
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
-            Call<RegisterResponseModel> call = service.Register(email, pass);
+            Call<RegisterResponseModel> call = service.Register(new SignUpRequestModel(email, pass));
             call.enqueue(new Callback<RegisterResponseModel>() {
                 @Override
                 public void onResponse(Call<RegisterResponseModel> call, Response<RegisterResponseModel> response) {
+                    signUpButton.setEnabled(true);
+                    signUpButton.setText(R.string.SignUpText);
                     if (response.isSuccessful()) {
                         StaticTools.ShowToast(SignUpActivity.this, "User registered succesfully", 1);
+                        String token = response.body().data.id;
+                    } else {
+                        try {
+                            if (response.errorBody() != null) {
+                                String s = new String(response.errorBody().bytes());
+                                StaticTools.LogErrorMessage(s);
+                            }
+                        } catch (Exception e) {
+
+                        }
+                        StaticTools.LogErrorMessage(response.errorBody().toString() + " signup error");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<RegisterResponseModel> call, Throwable t) {
+                    signUpButton.setEnabled(true);
+                    signUpButton.setText(R.string.SignUpText);
                     StaticTools.LogErrorMessage(t.getMessage() + " server error on signup");
                 }
             });
