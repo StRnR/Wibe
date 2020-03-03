@@ -1,5 +1,6 @@
 package com.mahaventures.wibe.Activities;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -134,7 +135,8 @@ public class SignUpActivity extends AppCompatActivity {
                     signUpButton.setText(R.string.SignUpText);
                     if (response.isSuccessful()) {
                         StaticTools.ShowToast(SignUpActivity.this, "User registered succesfully", 1);
-                        String token = response.body().data.id;
+                        Intent intent = new Intent(SignUpActivity.this,SignInActivity.class);
+                        SignUpActivity.this.startActivity(intent);
                     } else {
                         try {
                             if (response.errorBody() != null) {

@@ -20,6 +20,7 @@ import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
+import com.orm.SugarContext;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,9 +30,15 @@ public class SignInActivity extends AppCompatActivity {
     public static String Email = "";
 
     @Override
+    public void onBackPressed() {
+
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+        SugarContext.init(SignInActivity.this);
         Button signInButton = findViewById(R.id.btn_signin);
         Button backBtn = findViewById(R.id.btn_back_signin);
         Button forgotPassBtn = findViewById(R.id.btn_forgotpass_signin);
