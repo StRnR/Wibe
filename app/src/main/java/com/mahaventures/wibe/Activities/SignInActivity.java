@@ -58,6 +58,7 @@ public class SignInActivity extends AppCompatActivity {
                             String token = response.body().meta.token;
                             SavedInfo info = new SavedInfo(token, email);
                             info.save();
+                            SignInActivity.this.startActivity(new Intent(SignInActivity.this,SearchActivity.class));
                         } catch (Exception e) {
                             StaticTools.LogErrorMessage(e.getMessage() + " sign in token error or db saving error");
                         }
