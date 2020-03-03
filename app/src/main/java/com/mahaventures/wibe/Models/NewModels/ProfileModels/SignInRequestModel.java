@@ -1,8 +1,6 @@
 package com.mahaventures.wibe.Models.NewModels.ProfileModels;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Build;
 
 import com.google.gson.annotations.Expose;
@@ -10,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import com.mahaventures.wibe.BuildConfig;
 import com.mahaventures.wibe.Tools.StaticTools;
 
+import java.util.Locale;
 import java.util.UUID;
 
 public class SignInRequestModel {
@@ -57,7 +56,7 @@ public class SignInRequestModel {
         os = "Android";
         device_name = StaticTools.getDeviceName();
         device_type = StaticTools.getDeviceType(context);
-        os_version = Build.VERSION.CODENAME;
+        os_version = String.format(Locale.getDefault(), "%s- sdk:%d", Build.VERSION.CODENAME, Build.VERSION.SDK_INT);
         store = StaticTools.getStore(context);
     }
 }

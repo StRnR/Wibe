@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.mahaventures.wibe.Models.DBModels.SavedInfo;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.AuthenticationResponseModel;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.SignInRequestModel;
-import com.mahaventures.wibe.Models.NewModels.ProfileModels.SignUpRequestModel;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
@@ -47,7 +46,8 @@ public class SignInActivity extends AppCompatActivity {
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
             String email = emailTxt.getText().toString();
             String pass = passTxt.getText().toString();
-            Call<AuthenticationResponseModel> call = service.Authenticate(new SignInRequestModel(email, pass, SignInActivity.this));
+            SignInRequestModel model = new SignInRequestModel(email, pass, SignInActivity.this);
+            Call<AuthenticationResponseModel> call = service.Authenticate(model);
             call.enqueue(new Callback<AuthenticationResponseModel>() {
                 @Override
                 public void onResponse(Call<AuthenticationResponseModel> call, Response<AuthenticationResponseModel> response) {
@@ -60,7 +60,12 @@ public class SignInActivity extends AppCompatActivity {
                             StaticTools.LogErrorMessage(e.getMessage() + " sign in token error or db saving error");
                         }
                     } else {
-                        StaticTools.ShowToast(SignInActivity.this, String.format("sign in failed: %s", response.errorBody()), 1);
+                        try {
+                            String s = new String(response.errorBody().bytes());
+                            StaticTools.ShowToast(SignInActivity.this, String.format("sign in failed: %s", response.errorBody()), 1);
+                        } catch (Exception e) {
+
+                        }
                     }
                 }
 

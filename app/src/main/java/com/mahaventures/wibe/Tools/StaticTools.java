@@ -173,9 +173,10 @@ public class StaticTools {
         try {
             PackageManager packageManager = context.getPackageManager();
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), 0);
-            return packageManager.getInstallerPackageName(applicationInfo.packageName);
+            String s = packageManager.getInstallerPackageName(applicationInfo.packageName);
+            return (s != null && !s.equals("")) ? s : "default";
         } catch (Exception e) {
-            return "";
+            return "default";
         }
     }
 }
