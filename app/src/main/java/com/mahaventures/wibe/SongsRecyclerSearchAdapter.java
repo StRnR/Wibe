@@ -56,6 +56,7 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
         SearchSongsViewHolder.cardView.setOnClickListener(v -> {
             Intent intent = new Intent(context, PlayerActivity.class);
             intent.putExtra("id", track.id);
+            intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
             context.startActivity(intent);
         });
     }

@@ -51,6 +51,8 @@ public class SignInActivity extends AppCompatActivity {
             call.enqueue(new Callback<AuthenticationResponseModel>() {
                 @Override
                 public void onResponse(Call<AuthenticationResponseModel> call, Response<AuthenticationResponseModel> response) {
+                    signInButton.setText(R.string.SigningInText);
+                    signInButton.setEnabled(true);
                     if (response.isSuccessful()) {
                         try {
                             String token = response.body().meta.token;
@@ -71,7 +73,9 @@ public class SignInActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<AuthenticationResponseModel> call, Throwable t) {
-
+                    StaticTools.ShowToast(SignInActivity.this, "server error", 0);
+                    signInButton.setText(R.string.SigningInText);
+                    signInButton.setEnabled(true);
                 }
             });
         });

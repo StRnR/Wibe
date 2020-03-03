@@ -1,6 +1,7 @@
 package com.mahaventures.wibe.Activities;
 
 import android.os.Bundle;
+import android.os.StatFs;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.SongsRecyclerSearchAdapter;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
+import com.mahaventures.wibe.Tools.StaticTools;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,7 +74,7 @@ public class SearchActivity extends AppCompatActivity {
                             } else {
                                 try {
                                     String s1 = new String(response.errorBody().bytes());
-                                    int a = 2 + 3;
+                                    StaticTools.LogErrorMessage(s1);
                                 } catch (Exception e) {
 
                                 }
