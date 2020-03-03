@@ -3,6 +3,7 @@ package com.mahaventures.wibe.Services;
 import com.mahaventures.wibe.Models.EmailVerification;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.AuthenticationResponseModel;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.RegisterResponseModel;
+import com.mahaventures.wibe.Models.NewModels.ProfileModels.SignInRequestModel;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.SignUpRequestModel;
 import com.mahaventures.wibe.Models.RequestModels.LoginRequestModel;
 import com.mahaventures.wibe.Models.ResetPassword;
@@ -22,7 +23,7 @@ public interface PostDataService {
     Call<RegisterResponseModel> Register(@Body SignUpRequestModel model);
 
     @POST("authenticate/")
-    Call<AuthenticationResponseModel> Authenticate(@Body SignUpRequestModel model);
+    Call<AuthenticationResponseModel> Authenticate(@Body SignInRequestModel model);
 
     @POST("users/verify/email/")
     Call<Void> ConfirmEmail(@Header("Authorization") String s, @Body EmailVerification code);

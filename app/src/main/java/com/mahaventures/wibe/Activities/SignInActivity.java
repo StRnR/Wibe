@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mahaventures.wibe.Models.DBModels.SavedInfo;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.AuthenticationResponseModel;
+import com.mahaventures.wibe.Models.NewModels.ProfileModels.SignInRequestModel;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.SignUpRequestModel;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
@@ -46,7 +47,7 @@ public class SignInActivity extends AppCompatActivity {
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
             String email = emailTxt.getText().toString();
             String pass = passTxt.getText().toString();
-            Call<AuthenticationResponseModel> call = service.Authenticate(new SignUpRequestModel(email, pass));
+            Call<AuthenticationResponseModel> call = service.Authenticate(new SignInRequestModel(email, pass, SignInActivity.this));
             call.enqueue(new Callback<AuthenticationResponseModel>() {
                 @Override
                 public void onResponse(Call<AuthenticationResponseModel> call, Response<AuthenticationResponseModel> response) {
@@ -56,7 +57,7 @@ public class SignInActivity extends AppCompatActivity {
                             SavedInfo info = new SavedInfo(token, email);
                             info.save();
                         } catch (Exception e) {
-                            StaticTools.LogErrorMessage(e.getMessage() + " sign in token error");
+                            StaticTools.LogErrorMessage(e.getMessage() + " sign in token error or db saving error");
                         }
                     } else {
                         StaticTools.ShowToast(SignInActivity.this, String.format("sign in failed: %s", response.errorBody()), 1);
