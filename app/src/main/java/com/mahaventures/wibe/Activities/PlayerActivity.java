@@ -1,5 +1,11 @@
 package com.mahaventures.wibe.Activities;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -7,8 +13,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
@@ -19,9 +25,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.mahaventures.wibe.CreateNotification;
 import com.mahaventures.wibe.Models.NewModels.Track;
+import com.mahaventures.wibe.Playable;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
+import com.mahaventures.wibe.Services.OnClearFromRecentService;
 import com.mahaventures.wibe.Tools.AlphaTransformation;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
@@ -30,23 +39,24 @@ import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.stream.Collectors;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class PlayerActivity extends AppCompatActivity {
+public class PlayerActivity extends AppCompatActivity implements Playable {
 
-    static MediaPlayer mediaPlayer = new MediaPlayer();
+    public static MediaPlayer mediaPlayer = new MediaPlayer();
     static Track track;
     int pos = 0;
     SeekBar songSeekBar;
     boolean isPlaying;
+    Button playBtn;
+    NotificationManager notificationManager;
+
 
 //    @Override
 //    public void onBackPressed() {
@@ -73,10 +83,18 @@ public class PlayerActivity extends AppCompatActivity {
         TextView songDurationTxt = findViewById(R.id.txt_songduration_mainplayer);
         songSeekBar = findViewById(R.id.seekbar_mainplayer);
         ImageView artwork = findViewById(R.id.img_cover_mainplayer);
-        Button playBtn = findViewById(R.id.btn_play_mainplayer);
+        playBtn = findViewById(R.id.btn_play_mainplayer);
         Button skipBtn = findViewById(R.id.btn_skip_mainplayer);
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
         ConstraintLayout layout = findViewById(R.id.player_layout);
+
+        ////
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannel();
+            registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
+            startService(new Intent(getBaseContext(), OnClearFromRecentService.class));
+        }
+
 
         songSeekBar.setProgress(0);
         playBtn.setEnabled(false);
@@ -108,14 +126,7 @@ public class PlayerActivity extends AppCompatActivity {
                         String str = String.format(Locale.getDefault(), "%d:%s", seconds / 60, second);
                         songDurationTxt.setText(str);
                         songTitleTxt.setText(track.name);
-                        String artists = "";
-                        if (track.artists.data.size() == 1) {
-                            artists = track.artists.data.get(0).name;
-                        } else {
-                            List<String> strings = track.artists.data.stream().map(x -> x.name).collect(Collectors.toList());
-                            artists = TextUtils.join(",", strings);
-                        }
-                        artistTxt.setText(artists);
+                        artistTxt.setText(StaticTools.getArtistsName(track));
                         playBtn.setEnabled(true);
                         RequestCreator loaded = Picasso.get().load(track.image.large.url);
                         loaded.into(artwork, new com.squareup.picasso.Callback() {
@@ -177,9 +188,9 @@ public class PlayerActivity extends AppCompatActivity {
 
         mediaPlayer.setOnPreparedListener(mp -> {
             int duration = mediaPlayer.getDuration();
-            int amoungToupdate = duration / 100;
+            int amoungToUpdate = duration / 100;
             Timer mTimer = new Timer();
-            if (amoungToupdate > 0) {
+            if (amoungToUpdate > 0) {
                 mTimer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -188,17 +199,19 @@ public class PlayerActivity extends AppCompatActivity {
                             songSeekBar.setProgress(mediaPlayer.getCurrentPosition());
                         });
                     }
-                }, 0, amoungToupdate);
+                }, 0, amoungToUpdate);
             }
         });
 
         playBtn.setOnClickListener(v -> {
             if (mediaPlayer.isPlaying()) {
+                onTrackPause();
                 playBtn.setBackground(getDrawable(R.drawable.ic_play));
                 pos = mediaPlayer.getCurrentPosition();
                 mediaPlayer.stop();
             } else {
                 try {
+                    onTrackPlay();
                     playBtn.setBackground(getDrawable(R.drawable.ic_pause));
                     mediaPlayer.prepare();
                     mediaPlayer.seekTo(pos);
@@ -246,4 +259,75 @@ public class PlayerActivity extends AppCompatActivity {
         return (minutes * 60) + seconds;
     }
 
+    @Override
+    public void onTrackPrevious() {
+
+    }
+
+    @Override
+    public void onTrackPlay() {
+        CreateNotification.createNotification(PlayerActivity.this, track,
+                R.drawable.ic_pause_black_24dp, 0, 0);
+//        play.setImageResource(R.drawable.ic_pause_black_24dp);
+//        title.setText(tracks.get(position).getTitle());
+        isPlaying = true;
+    }
+
+    @Override
+    public void onTrackPause() {
+        CreateNotification.createNotification(PlayerActivity.this, track,
+                R.drawable.ic_play_arrow_black_24dp, 0, 0);
+//        play.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+//        title.setText(tracks.get(position).getTitle());
+        isPlaying = false;
+    }
+
+    @Override
+    public void onTrackNext() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.cancelAll();
+        }
+
+        unregisterReceiver(broadcastReceiver);
+    }
+
+    private void createChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CreateNotification.CHANNEL_ID,
+                    "KOD Dev", NotificationManager.IMPORTANCE_LOW);
+
+            notificationManager = getSystemService(NotificationManager.class);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+    }
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getExtras().getString("actionname");
+            switch (action) {
+                case CreateNotification.ACTION_PREVIUOS:
+                    onTrackPrevious();
+                    break;
+                case CreateNotification.ACTION_PLAY:
+                    if (isPlaying) {
+                        onTrackPause();
+                    } else {
+                        onTrackPlay();
+                    }
+                    break;
+                case CreateNotification.ACTION_NEXT:
+                    onTrackNext();
+                    break;
+            }
+        }
+    };
 }

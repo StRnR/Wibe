@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         //todo testing
         startActivity(new Intent(MainActivity.this, SearchActivity.class));
 
-
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         Button signinBtn = findViewById(R.id.btn_signin_main);

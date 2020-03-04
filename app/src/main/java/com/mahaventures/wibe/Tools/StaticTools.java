@@ -8,12 +8,14 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.palette.graphics.Palette;
 
 import com.mahaventures.wibe.Activities.ConfirmEmailActivity;
+import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.User;
 import com.mahaventures.wibe.Models.UserRole;
 import com.mahaventures.wibe.Services.GetDataService;
@@ -26,6 +28,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -178,5 +181,18 @@ public class StaticTools {
         } catch (Exception e) {
             return "default";
         }
+    }
+
+    public static String getArtistsName(Track track) {
+        String artists = "";
+        if (track.artists == null)
+            return artists;
+        if (track.artists.data.size() == 1) {
+            artists = track.artists.data.get(0).name;
+        } else {
+            List<String> strings = track.artists.data.stream().map(x -> x.name).collect(Collectors.toList());
+            artists = TextUtils.join(",", strings);
+        }
+        return artists;
     }
 }

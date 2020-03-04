@@ -45,4 +45,8 @@ dependencies {
     implementation 'androidx.exifinterface:exifinterface:1.1.0'
     implementation 'jp.wasabeef:picasso-transformations:2.2.1'
     implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+    // session
+    implementation 'androidx.core:core:1.2.0'
+    implementation "androidx.media:media:1.1.0"
+    implementation 'androidx.media:media:1.1.0'
 }
