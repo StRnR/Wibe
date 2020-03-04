@@ -25,8 +25,8 @@ public interface GetDataService {
     @GET
     Call<TracksResult> SearchTracks(@Url String url);
 
-    @GET("search/")
-    Call<GeneralSearch> SearchAll(@Query("query") String searchText);
+    @GET
+    Call<GeneralSearch> SearchAll(@Url String url);
 
     @GET
     Call<Track> GetTrackById(@Url String url);

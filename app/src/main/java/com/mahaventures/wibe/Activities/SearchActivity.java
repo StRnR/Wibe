@@ -1,7 +1,6 @@
 package com.mahaventures.wibe.Activities;
 
 import android.os.Bundle;
-import android.os.StatFs;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Models.NewModels.GeneralSearch;
-import com.mahaventures.wibe.Models.NewModels.TracksResult;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.SongsRecyclerSearchAdapter;
@@ -64,19 +62,26 @@ public class SearchActivity extends AppCompatActivity {
 //                    }
 //                });
                 if (!txt.equals("")) {
-                    Call<GeneralSearch> call = service.SearchAll(txt);
+                    String url = String.format("https://musicify.ir/api/search?query=%s&include=tracks.artists", txt);
+                    Call<GeneralSearch> call = service.SearchAll(url);
                     call.enqueue(new Callback<GeneralSearch>() {
                         @Override
                         public void onResponse(Call<GeneralSearch> call, Response<GeneralSearch> response) {
                             if (response.isSuccessful()) {
-                                SongsRecyclerSearchAdapter adapter = new SongsRecyclerSearchAdapter(response.body() != null ? response.body().tracks : null, SearchActivity.this);
-                                recyclerView.setAdapter(adapter);
+                                if (response.body() != null) {
+                                    try {
+                                        SongsRecyclerSearchAdapter adapter = new SongsRecyclerSearchAdapter(response.body().tracks.data, SearchActivity.this);
+                                        recyclerView.setAdapter(adapter);
+                                    } catch (Exception e) {
+                                        StaticTools.LogErrorMessage(e.getMessage() + " wtf is going on");
+                                    }
+                                }
                             } else {
                                 try {
                                     String s1 = new String(response.errorBody().bytes());
                                     StaticTools.LogErrorMessage(s1);
                                 } catch (Exception e) {
-
+                                    StaticTools.LogErrorMessage(e.getMessage() + " wtf");
                                 }
                             }
                         }

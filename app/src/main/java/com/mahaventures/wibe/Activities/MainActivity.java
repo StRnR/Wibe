@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //todo testing
-//        startActivity(new Intent(MainActivity.this, SearchActivity.class));
+        startActivity(new Intent(MainActivity.this, SearchActivity.class));
 
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);

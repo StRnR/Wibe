@@ -3,16 +3,17 @@ package com.mahaventures.wibe.Models.NewModels;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class GeneralSearch {
-    @SerializedName("tracks")
+    @SerializedName("query")
     @Expose
-    public List<Track> tracks = null;
+    public String query;
     @SerializedName("artists")
     @Expose
-    public List<Artist> artists = null;
+    public Artists artists;
+    @SerializedName("tracks")
+    @Expose
+    public Tracks tracks;
     @SerializedName("albums")
     @Expose
-    public List<Album> albums = null;
+    public Albums albums;
 }
