@@ -238,8 +238,8 @@ public class PlayerActivity extends AppCompatActivity {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(url, new HashMap<>());
         String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-        int timeInmillisec = Integer.parseInt(time);
-        int duration = timeInmillisec / 1000;
+        int timeInMilliSec = Integer.parseInt(time);
+        int duration = timeInMilliSec / 1000;
         int hours = duration / 3600;
         int minutes = (duration - hours * 3600) / 60;
         int seconds = duration - (hours * 3600 + minutes * 60);

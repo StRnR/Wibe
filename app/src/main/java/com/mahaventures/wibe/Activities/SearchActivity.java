@@ -33,7 +33,8 @@ public class SearchActivity extends AppCompatActivity {
         layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(null);
+        SongsRecyclerSearchAdapter tmpAdapter = new SongsRecyclerSearchAdapter(null, SearchActivity.this);
+        recyclerView.setAdapter(tmpAdapter);
         EditText searchText = findViewById(R.id.txt_edit_search);
         searchText.addTextChangedListener(new TextWatcher() {
             @Override
