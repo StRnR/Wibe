@@ -23,14 +23,14 @@ public class CreateNotification {
 
     public static final String CHANNEL_ID = "channel1";
 
-    public static final String ACTION_PREVIUOS = "actionprevious";
-    public static final String ACTION_PLAY = "actionplay";
-    public static final String ACTION_NEXT = "actionnext";
+    public static final String ACTION_PREVIUOS = "action_previous";
+    public static final String ACTION_PLAY = "action_play";
+    public static final String ACTION_NEXT = "action_next";
     static Bitmap icon;
 
     public static Notification notification;
 
-    public static void createNotification(Context context, Track track, int playbutton, int pos, int size) {
+    public static void createNotification(Context context, Track track, int playButton, int pos, int size) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
@@ -61,7 +61,6 @@ public class CreateNotification {
             int drw_previous = 0;
             if (pos == 0) {
                 pendingIntentPrevious = null;
-                drw_previous = 0;
             } else {
                 Intent intentPrevious = new Intent(context, NotificationActionService.class)
                         .setAction(ACTION_PREVIUOS);
@@ -79,7 +78,6 @@ public class CreateNotification {
             int drw_next = 0;
             if (pos == size) {
                 pendingIntentNext = null;
-                drw_next = 0;
             } else {
                 Intent intentNext = new Intent(context, NotificationActionService.class)
                         .setAction(ACTION_NEXT);
@@ -97,7 +95,7 @@ public class CreateNotification {
                     .setOnlyAlertOnce(true) //show notification for only first time
                     .setShowWhen(false)
                     .addAction(drw_previous, "Previous", pendingIntentPrevious)
-                    .addAction(playbutton, "Play", pendingIntentPlay)
+                    .addAction(playButton, "Play", pendingIntentPlay)
                     .addAction(drw_next, "Next", pendingIntentNext)
                     .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                             .setShowActionsInCompactView(0, 1, 2)
