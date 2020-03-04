@@ -81,7 +81,7 @@
         android:id="@+id/seekbar_mainplayer"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="5dp"
         android:layout_marginStart="31dp"
         android:layout_marginTop="39dp"
         android:layout_marginEnd="31dp"

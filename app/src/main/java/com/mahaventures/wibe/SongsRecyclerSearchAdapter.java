@@ -43,6 +43,7 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
         Track track = result.get(position);
         Picasso.get().load(track.image.medium.url).into(SearchSongsViewHolder.songImg);
         SearchSongsViewHolder.songTitle.setText(track.name);
+        holder.setIsRecyclable(false);
         String artists = "";
         if (track.artists != null) {
             if (track.artists.data.size() == 1) {
