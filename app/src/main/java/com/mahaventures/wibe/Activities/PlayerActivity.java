@@ -329,23 +329,20 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             isPlaying = true;
             onTrackPlay();
             playBtn.setBackground(getDrawable(R.drawable.ic_pause));
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    int duration = mediaPlayer.getDuration();
-                    int amoungToupdate = duration / 100;
-                    Timer mTimer = new Timer();
-                    if (amoungToupdate > 0) {
-                        mTimer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                runOnUiThread(() -> {
-                                    songSeekBar.setMax(mediaPlayer.getDuration());
-                                    songSeekBar.setProgress(mediaPlayer.getCurrentPosition());
-                                });
-                            }
-                        }, 0, amoungToupdate);
-                    }
+            mediaPlayer.setOnPreparedListener(mp -> {
+                int duration = mediaPlayer.getDuration();
+                int amoungToupdate = duration / 100;
+                Timer mTimer = new Timer();
+                if (amoungToupdate > 0) {
+                    mTimer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(() -> {
+                                songSeekBar.setMax(mediaPlayer.getDuration());
+                                songSeekBar.setProgress(mediaPlayer.getCurrentPosition());
+                            });
+                        }
+                    }, 0, amoungToupdate);
                 }
             });
             mediaPlayer.prepare();
