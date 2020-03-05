@@ -57,11 +57,10 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     Button playBtn;
     NotificationManager notificationManager;
 
-
     @Override
     public void onBackPressed() {
 //        moveTaskToBack(true);
-        Intent intent = new Intent(this,SearchActivity.class);
+        Intent intent = new Intent(this, SearchActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
@@ -75,8 +74,21 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         String trackId = getIntent().getStringExtra("id");
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         String url = String.format("https://api.musicify.ir/tracks/%s?include=artists,album", trackId);
+        //todo
+        /////
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && notificationManager != null) {
+            notificationManager.cancelAll();
+        }
+        try {
+            if (broadcastReceiver != null)
+                unregisterReceiver(broadcastReceiver);
+        } catch (Exception e) {
+
+        }
+        //////
         mediaPlayer.stop();
         mediaPlayer.reset();
+        mediaPlayer.release();
         Call<Track> call = service.GetTrackById(url);
         //TODO: in metadata ha bara har song bayad gerefte she az api joz 2 ta avali ke khodam mizanam
         TextView srcTxt = findViewById(R.id.txt_playersrc);
@@ -88,6 +100,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         songSeekBar = findViewById(R.id.seekbar_mainplayer);
         ImageView artwork = findViewById(R.id.img_cover_mainplayer);
         playBtn = findViewById(R.id.btn_play_mainplayer);
+        playBtn.setBackground(getDrawable(R.drawable.ic_pause));
         Button skipBtn = findViewById(R.id.btn_skip_mainplayer);
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
         ConstraintLayout layout = findViewById(R.id.player_layout);
@@ -110,6 +123,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                         track = response.body();
                         ///media player
                         try {
+                            mediaPlayer = new MediaPlayer();
                             mediaPlayer.setDataSource(track != null ? track.file : null);
 
 //                            playBtn.setBackground(getDrawable(R.drawable.ic_pause));
@@ -212,7 +226,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             if (mediaPlayer.isPlaying()) {
                 pauseMedia();
             } else {
-               playMedia();
+                playMedia();
             }
         });
 
@@ -284,8 +298,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.cancelAll();
         }
-
         unregisterReceiver(broadcastReceiver);
+        mediaPlayer.release();
     }
 
     private void createChannel() {
@@ -333,7 +347,15 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             mediaPlayer.seekTo(pos);
             mediaPlayer.start();
         } catch (Exception e) {
-            StaticTools.LogErrorMessage(e.getMessage());
+            StaticTools.LogErrorMessage(e.getMessage() + " inja");
+            try {
+                mediaPlayer.release();
+                mediaPlayer = new MediaPlayer();
+                mediaPlayer.setDataSource(track != null ? track.file : null);
+                playMedia();
+            } catch (Exception e1) {
+                StaticTools.LogErrorMessage(e1.getMessage() + " kir khord dg");
+            }
         }
     }
 
