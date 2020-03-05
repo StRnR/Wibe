@@ -59,7 +59,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public static Bitmap artWork;
     Button playBtn;
     NotificationManager notificationManager;
-    MediaPlayer.OnPreparedListener listener;
 
     @Override
     public void onBackPressed() {
@@ -209,25 +208,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             }
         });
 
-        listener = mp -> {
-            int duration = mediaPlayer.getDuration();
-            int amoungToupdate = duration / 100;
-            Timer mTimer = new Timer();
-            if (amoungToupdate > 0) {
-                mTimer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(() -> {
-                            songSeekBar.setMax(mediaPlayer.getDuration());
-                            songSeekBar.setProgress(mediaPlayer.getCurrentPosition());
-                        });
-                    }
-                }, 0, amoungToupdate);
-            }
-        };
-
-
-
         playBtn.setOnClickListener(v -> {
             if (mediaPlayer.isPlaying()) {
                 pauseMedia();
@@ -349,7 +329,25 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             isPlaying = true;
             onTrackPlay();
             playBtn.setBackground(getDrawable(R.drawable.ic_pause));
-            mediaPlayer.setOnPreparedListener(listener);
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    int duration = mediaPlayer.getDuration();
+                    int amoungToupdate = duration / 100;
+                    Timer mTimer = new Timer();
+                    if (amoungToupdate > 0) {
+                        mTimer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                runOnUiThread(() -> {
+                                    songSeekBar.setMax(mediaPlayer.getDuration());
+                                    songSeekBar.setProgress(mediaPlayer.getCurrentPosition());
+                                });
+                            }
+                        }, 0, amoungToupdate);
+                    }
+                }
+            });
             mediaPlayer.prepare();
             mediaPlayer.seekTo(pos);
             mediaPlayer.start();
