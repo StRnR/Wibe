@@ -16,7 +16,6 @@ public class MiniPlayerFragment extends Fragment {
 
     private Button playBtn;
     private Button skipBtn;
-    private Button rewindBtn;
 
     public MiniPlayerFragment() {
         // Required empty public constructor
