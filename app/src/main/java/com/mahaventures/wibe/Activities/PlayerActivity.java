@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.mahaventures.wibe.CreateNotification;
+import com.mahaventures.wibe.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Playable;
 import com.mahaventures.wibe.R;
@@ -53,7 +54,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     static Track track;
     int pos = 0;
     SeekBar songSeekBar;
-    boolean isPlaying;
+    public static boolean isPlaying = false;
     public static Bitmap artWork;
     Button playBtn;
     NotificationManager notificationManager;
@@ -122,6 +123,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 if (response.isSuccessful()) {
                     try {
                         track = response.body();
+                        MiniPlayerFragment.miniTrack = track;
+                        isPlaying = true;
                         ///media player
                         try {
                             mediaPlayer = new MediaPlayer();

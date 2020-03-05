@@ -191,7 +191,7 @@ public class StaticTools {
             artists = track.artists.data.get(0).name;
         } else {
             List<String> strings = track.artists.data.stream().map(x -> x.name).collect(Collectors.toList());
-            artists = TextUtils.join(",", strings);
+            artists = TextUtils.join(", ", strings);
         }
         return artists;
     }
