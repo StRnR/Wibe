@@ -15,6 +15,8 @@ import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
@@ -57,6 +59,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public static Bitmap artWork;
     Button playBtn;
     NotificationManager notificationManager;
+    MediaPlayer.OnPreparedListener listener;
 
     @Override
     public void onBackPressed() {
@@ -206,12 +209,11 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             }
         });
 
-
-        mediaPlayer.setOnPreparedListener(mp -> {
+        listener = mp -> {
             int duration = mediaPlayer.getDuration();
-            int amoungToUpdate = duration / 100;
+            int amoungToupdate = duration / 100;
             Timer mTimer = new Timer();
-            if (amoungToUpdate > 0) {
+            if (amoungToupdate > 0) {
                 mTimer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -220,9 +222,11 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                             songSeekBar.setProgress(mediaPlayer.getCurrentPosition());
                         });
                     }
-                }, 0, amoungToUpdate);
+                }, 0, amoungToupdate);
             }
-        });
+        };
+
+
 
         playBtn.setOnClickListener(v -> {
             if (mediaPlayer.isPlaying()) {
@@ -345,6 +349,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             isPlaying = true;
             onTrackPlay();
             playBtn.setBackground(getDrawable(R.drawable.ic_pause));
+            mediaPlayer.setOnPreparedListener(listener);
             mediaPlayer.prepare();
             mediaPlayer.seekTo(pos);
             mediaPlayer.start();

@@ -34,13 +34,11 @@ public class MiniPlayerFragment extends Fragment {
 
 
         //TODO: connect to media player
-        playBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        playBtn.setOnClickListener(v -> {
 
-            }
         });
 
         return view;
     }
+
 }
