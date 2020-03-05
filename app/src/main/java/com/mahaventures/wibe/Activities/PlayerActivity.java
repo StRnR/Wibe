@@ -58,9 +58,13 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     NotificationManager notificationManager;
 
 
-//    @Override
-//    public void onBackPressed() {
-//    }
+    @Override
+    public void onBackPressed() {
+//        moveTaskToBack(true);
+        Intent intent = new Intent(this,SearchActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +92,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
         ConstraintLayout layout = findViewById(R.id.player_layout);
 
-        ////
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel();
             registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
@@ -107,11 +110,13 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                         track = response.body();
                         ///media player
                         try {
-                            playBtn.setBackground(getDrawable(R.drawable.ic_pause));
-                            mediaPlayer.setDataSource(track.file);
-                            mediaPlayer.prepare();
-                            mediaPlayer.start();
-                            isPlaying = true;
+                            mediaPlayer.setDataSource(track != null ? track.file : null);
+
+//                            playBtn.setBackground(getDrawable(R.drawable.ic_pause));
+//                            mediaPlayer.prepare();
+//                            mediaPlayer.start();
+//                            isPlaying = true;
+                            playMedia();
                         } catch (Exception e) {
                             StaticTools.LogErrorMessage(e.getMessage());
                         }
@@ -205,20 +210,9 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
         playBtn.setOnClickListener(v -> {
             if (mediaPlayer.isPlaying()) {
-                onTrackPause();
-                playBtn.setBackground(getDrawable(R.drawable.ic_play));
-                pos = mediaPlayer.getCurrentPosition();
-                mediaPlayer.stop();
+                pauseMedia();
             } else {
-                try {
-                    onTrackPlay();
-                    playBtn.setBackground(getDrawable(R.drawable.ic_pause));
-                    mediaPlayer.prepare();
-                    mediaPlayer.seekTo(pos);
-                    mediaPlayer.start();
-                } catch (Exception e) {
-                    StaticTools.LogErrorMessage(e.getMessage());
-                }
+               playMedia();
             }
         });
 
@@ -227,7 +221,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
                     try {
-                        int r = mediaPlayer.getCurrentPosition();
                         mediaPlayer.seekTo(progress);
                         mediaPlayer.start();
                     } catch (Exception e) {
@@ -268,8 +261,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public void onTrackPlay() {
         CreateNotification.createNotification(PlayerActivity.this, track,
                 R.drawable.ic_pause_black_24dp, 0, 0);
-//        play.setImageResource(R.drawable.ic_pause_black_24dp);
-//        title.setText(tracks.get(position).getTitle());
         isPlaying = true;
     }
 
@@ -300,7 +291,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     private void createChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CreateNotification.CHANNEL_ID,
-                    "KOD Dev", NotificationManager.IMPORTANCE_LOW);
+                    "Wibe", NotificationManager.IMPORTANCE_LOW);
 
             notificationManager = getSystemService(NotificationManager.class);
             if (notificationManager != null) {
@@ -313,21 +304,44 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getExtras().getString("actionname");
-            switch (action) {
-                case CreateNotification.ACTION_PREVIUOS:
-                    onTrackPrevious();
-                    break;
-                case CreateNotification.ACTION_PLAY:
-                    if (isPlaying) {
-                        onTrackPause();
-                    } else {
-                        onTrackPlay();
-                    }
-                    break;
-                case CreateNotification.ACTION_NEXT:
-                    onTrackNext();
-                    break;
+            if (action != null) {
+                switch (action) {
+                    case CreateNotification.ACTION_PREVIOUS:
+                        onTrackPrevious();
+                        break;
+                    case CreateNotification.ACTION_PLAY:
+                        if (isPlaying) {
+                            pauseMedia();
+                        } else {
+                            playMedia();
+                        }
+                        break;
+                    case CreateNotification.ACTION_NEXT:
+                        onTrackNext();
+                        break;
+                }
             }
         }
     };
+
+    public void playMedia() {
+        try {
+            isPlaying = true;
+            onTrackPlay();
+            playBtn.setBackground(getDrawable(R.drawable.ic_pause));
+            mediaPlayer.prepare();
+            mediaPlayer.seekTo(pos);
+            mediaPlayer.start();
+        } catch (Exception e) {
+            StaticTools.LogErrorMessage(e.getMessage());
+        }
+    }
+
+    public void pauseMedia() {
+        isPlaying = false;
+        onTrackPause();
+        playBtn.setBackground(getDrawable(R.drawable.ic_play));
+        pos = mediaPlayer.getCurrentPosition();
+        mediaPlayer.stop();
+    }
 }

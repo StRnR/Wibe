@@ -23,10 +23,10 @@ public class CreateNotification {
 
     public static final String CHANNEL_ID = "channel1";
 
-    public static final String ACTION_PREVIUOS = "action_previous";
+    public static final String ACTION_PREVIOUS = "action_previous";
     public static final String ACTION_PLAY = "action_play";
     public static final String ACTION_NEXT = "action_next";
-    static Bitmap icon;
+    private static Bitmap icon;
 
     public static Notification notification;
 
@@ -36,10 +36,7 @@ public class CreateNotification {
 
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
             MediaSessionCompat mediaSessionCompat = new MediaSessionCompat(context, "tag");
-
-//            Bitmap icon = BitmapFactory.decodeResource(context.getResources(), track.getImage());
-
-            RequestCreator loaded = Picasso.get().load(track.image.large.url);
+            RequestCreator loaded = Picasso.get().load(track.image.medium.url);
             loaded.into(new Target() {
                 @Override
                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -63,7 +60,7 @@ public class CreateNotification {
                 pendingIntentPrevious = null;
             } else {
                 Intent intentPrevious = new Intent(context, NotificationActionService.class)
-                        .setAction(ACTION_PREVIUOS);
+                        .setAction(ACTION_PREVIOUS);
                 pendingIntentPrevious = PendingIntent.getBroadcast(context, 0,
                         intentPrevious, PendingIntent.FLAG_UPDATE_CURRENT);
                 drw_previous = R.drawable.ic_skip_previous_black_24dp;
