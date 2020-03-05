@@ -147,7 +147,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                         songTitleTxt.setText(track.name);
                         artistTxt.setText(StaticTools.getArtistsName(track));
                         playBtn.setEnabled(true);
-                        RequestCreator loaded = Picasso.get().load(track.image.large.url);
+                        RequestCreator loaded = Picasso.get().load(track.image.medium.url);
                         loaded.into(artwork, new com.squareup.picasso.Callback() {
                             @Override
                             public void onSuccess() {
