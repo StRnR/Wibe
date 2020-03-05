@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
+import com.mahaventures.wibe.Tools.StaticTools;
 
 
 /**
@@ -39,9 +40,11 @@ public class MiniPlayerFragment extends Fragment {
         TextView artist = view.findViewById(R.id.txt_artist_miniplayer);
         ImageView cover = view.findViewById(R.id.img_cover_miniplayer);
 
-        songTitle.setText(PlayerActivity.getTrackName());
-        artist.setText(PlayerActivity.getArtistsName());
-        cover.setImageBitmap(PlayerActivity.getArtWork());
+//        if (PlayerActivity.isPlaying) {
+//            songTitle.setText(miniTrack.name);
+//            artist.setText(StaticTools.getArtistsName(miniTrack));
+//            cover.setImageBitmap(PlayerActivity.artWork);
+//        }
 
         //TODO: connect to media player
         playBtn.setOnClickListener(v -> {

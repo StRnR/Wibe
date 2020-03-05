@@ -56,12 +56,10 @@ public class SearchActivity extends AppCompatActivity {
             if (savedInstanceState != null)
                 return;
 
-            if (!PlayerActivity.isPlaying) {
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
-                fragmentTransaction.add(R.id.fragment_container, miniPlayerFragment);
-                fragmentTransaction.commit();
-            }
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
+            fragmentTransaction.add(R.id.fragment_container, miniPlayerFragment);
+            fragmentTransaction.commit();
 
         }
 

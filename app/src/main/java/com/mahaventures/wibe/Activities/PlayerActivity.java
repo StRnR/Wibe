@@ -54,7 +54,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     static Track track;
     int pos = 0;
     SeekBar songSeekBar;
-    public static boolean isPlaying = false;
+    boolean isPlaying;
     public static Bitmap artWork;
     Button playBtn;
     NotificationManager notificationManager;
@@ -124,7 +124,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                     try {
                         track = response.body();
                         MiniPlayerFragment.miniTrack = track;
-                        isPlaying = true;
                         ///media player
                         try {
                             mediaPlayer = new MediaPlayer();
@@ -374,14 +373,14 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         mediaPlayer.stop();
     }
 
-    public static String getTrackName() {
-        return track != null ? track.name : getTrackName();
-    }
-
-    public static String getArtistsName() {
-        return track != null ? StaticTools.getArtistsName(track) : getArtistsName();
-    }
-
+//    public static String getTrackName() {
+//        return track != null ? track.name : getTrackName();
+//    }
+//
+//    public static String getArtistsName() {
+//        return track != null ? StaticTools.getArtistsName(track) : getArtistsName();
+//    }
+//
     public static Bitmap getArtWork() {
         return artWork != null ? artWork : getArtWork();
     }
