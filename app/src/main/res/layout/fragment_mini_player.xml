@@ -50,16 +50,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/img_cover_miniplayer"
         app:layout_constraintStart_toEndOf="@id/img_cover_miniplayer" />
-
-    <Button
-        android:id="@+id/btn_rewind_miniplayer"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/ic_rewind"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_play_miniplayer"
-        app:layout_constraintTop_toTopOf="@id/progressbar_miniplayer" />
+    
 
     <Button
         android:id="@+id/btn_play_miniplayer"

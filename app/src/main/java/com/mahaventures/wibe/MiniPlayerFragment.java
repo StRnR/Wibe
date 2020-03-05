@@ -16,7 +16,6 @@ public class MiniPlayerFragment extends Fragment {
 
     private Button playBtn;
     private Button skipBtn;
-    private Button rewindBtn;
 
     public MiniPlayerFragment() {
         // Required empty public constructor
@@ -30,7 +29,6 @@ public class MiniPlayerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mini_player, container, false);
         playBtn = view.findViewById(R.id.btn_play_miniplayer);
         skipBtn = view.findViewById(R.id.btn_skip_miniplayer);
-        rewindBtn = view.findViewById(R.id.btn_rewind_miniplayer);
 
 
         //TODO: connect to media player
