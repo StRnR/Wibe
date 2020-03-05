@@ -54,6 +54,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     int pos = 0;
     SeekBar songSeekBar;
     boolean isPlaying;
+    public static Bitmap artWork;
     Button playBtn;
     NotificationManager notificationManager;
 
@@ -160,13 +161,14 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                                 loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
                                     @Override
                                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                        artWork = bitmap;
                                         int color = StaticTools.getDominantColor(bitmap);
                                         int r = (color >> 16) & 0xFF;
                                         int g = (color >> 8) & 0xFF;
                                         int b = (color) & 0xFF;
                                         r = (255 - r) / 2;
-                                        g = ((255 - g) * 4) / 5;
-                                        b = ((255 - b) * 3) / 4;
+                                        g = ((255 - g) * 3) / 5;
+                                        b = ((255 - b) * 1) / 4;
                                         color = Color.rgb(r, g, b);
                                         songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
                                         songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
@@ -366,4 +368,18 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         pos = mediaPlayer.getCurrentPosition();
         mediaPlayer.stop();
     }
+
+    public static String getTrackName() {
+        return track != null ? track.name : getTrackName();
+    }
+
+    public static String getArtistsName() {
+        return track != null ? StaticTools.getArtistsName(track) : getArtistsName();
+    }
+
+    public static Bitmap getArtWork() {
+        return artWork != null ? artWork : getArtWork();
+    }
+
+
 }
