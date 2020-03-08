@@ -1,4 +1,4 @@
-package com.mahaventures.wibe;
+package com.mahaventures.wibe.Services;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -13,13 +13,14 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.mahaventures.wibe.Models.NewModels.Track;
+import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.NotificationActionService;
 import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
 
-public class CreateNotification {
+public class CreateNotificationService {
 
     public static final String CHANNEL_ID = "channel1";
 

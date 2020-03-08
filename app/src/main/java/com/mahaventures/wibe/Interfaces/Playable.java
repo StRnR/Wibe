@@ -1,4 +1,4 @@
-package com.mahaventures.wibe;
+package com.mahaventures.wibe.Interfaces;
 
 public interface Playable {
     void onTrackPrevious();

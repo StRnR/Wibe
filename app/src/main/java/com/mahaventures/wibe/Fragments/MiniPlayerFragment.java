@@ -1,4 +1,4 @@
-package com.mahaventures.wibe;
+package com.mahaventures.wibe.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
+import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Tools.StaticTools;
 
 

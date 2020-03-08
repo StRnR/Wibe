@@ -15,4 +15,12 @@ public class SavedInfo extends SugarRecord {
         Email = email;
         IsActive = true;
     }
+
+    public boolean isActive() {
+        return IsActive;
+    }
+
+    public String getToken() {
+        return Token;
+    }
 }

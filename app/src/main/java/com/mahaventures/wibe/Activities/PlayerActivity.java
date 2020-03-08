@@ -25,10 +25,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.mahaventures.wibe.CreateNotification;
-import com.mahaventures.wibe.MiniPlayerFragment;
+import com.mahaventures.wibe.Services.CreateNotificationService;
+import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Track;
-import com.mahaventures.wibe.Playable;
+import com.mahaventures.wibe.Interfaces.Playable;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Services.OnClearFromRecentService;
@@ -76,8 +76,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         String trackId = getIntent().getStringExtra("id");
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         String url = String.format("https://api.musicify.ir/tracks/%s?include=artists,album", trackId);
-        //todo
-        /////
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && notificationManager != null) {
             notificationManager.cancelAll();
         }
@@ -87,7 +86,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         } catch (Exception e) {
 
         }
-        //////
+
         mediaPlayer.stop();
         mediaPlayer.reset();
         mediaPlayer.release();
@@ -112,7 +111,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
             startService(new Intent(getBaseContext(), OnClearFromRecentService.class));
         }
-
 
         songSeekBar.setProgress(0);
         playBtn.setEnabled(false);
@@ -259,14 +257,14 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     @Override
     public void onTrackPlay() {
-        CreateNotification.createNotification(PlayerActivity.this, track,
+        CreateNotificationService.createNotification(PlayerActivity.this, track,
                 R.drawable.ic_pause_black_24dp, 0, 0);
         isPlaying = true;
     }
 
     @Override
     public void onTrackPause() {
-        CreateNotification.createNotification(PlayerActivity.this, track,
+        CreateNotificationService.createNotification(PlayerActivity.this, track,
                 R.drawable.ic_play_arrow_black_24dp, 0, 0);
 //        play.setImageResource(R.drawable.ic_play_arrow_black_24dp);
 //        title.setText(tracks.get(position).getTitle());
@@ -290,7 +288,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     private void createChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CreateNotification.CHANNEL_ID,
+            NotificationChannel channel = new NotificationChannel(CreateNotificationService.CHANNEL_ID,
                     "Wibe", NotificationManager.IMPORTANCE_LOW);
 
             notificationManager = getSystemService(NotificationManager.class);
@@ -306,17 +304,17 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             String action = intent.getExtras().getString("actionname");
             if (action != null) {
                 switch (action) {
-                    case CreateNotification.ACTION_PREVIOUS:
+                    case CreateNotificationService.ACTION_PREVIOUS:
                         onTrackPrevious();
                         break;
-                    case CreateNotification.ACTION_PLAY:
+                    case CreateNotificationService.ACTION_PLAY:
                         if (isPlaying) {
                             pauseMedia();
                         } else {
                             playMedia();
                         }
                         break;
-                    case CreateNotification.ACTION_NEXT:
+                    case CreateNotificationService.ACTION_NEXT:
                         onTrackNext();
                         break;
                 }

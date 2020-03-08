@@ -1,4 +1,4 @@
-package com.mahaventures.wibe;
+package com.mahaventures.wibe.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
+import com.mahaventures.wibe.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

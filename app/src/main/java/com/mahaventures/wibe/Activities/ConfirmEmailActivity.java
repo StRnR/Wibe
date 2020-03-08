@@ -1,7 +1,6 @@
 package com.mahaventures.wibe.Activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.SpannableString;
