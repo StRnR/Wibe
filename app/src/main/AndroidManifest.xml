@@ -18,6 +18,7 @@
         android:usesCleartextTraffic="true">
 
         <receiver android:name=".Services.NotificationActionService" />
+        <receiver android:name=".Services.MiniPlayerBroadCastReceiver" />
         <service android:name=".Services.OnClearFromRecentService" />
 
 

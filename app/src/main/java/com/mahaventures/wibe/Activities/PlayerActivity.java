@@ -25,11 +25,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.mahaventures.wibe.Services.CreateNotificationService;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
-import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Interfaces.Playable;
+import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.Services.CreateNotificationService;
 import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Services.OnClearFromRecentService;
 import com.mahaventures.wibe.Tools.AlphaTransformation;
@@ -58,6 +58,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public static Bitmap artWork;
     Button playBtn;
     NotificationManager notificationManager;
+    public static String CUSTOM_BROADCAST_ACTION = "miniPlayerAction";
 
     @Override
     public void onBackPressed() {
@@ -76,6 +77,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         String trackId = getIntent().getStringExtra("id");
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         String url = String.format("https://api.musicify.ir/tracks/%s?include=artists,album", trackId);
+
+        MiniPlayerFragment.context = this;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && notificationManager != null) {
             notificationManager.cancelAll();
@@ -109,6 +112,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel();
             registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
+            registerReceiver(miniPlayerBroadcastReceiver, new IntentFilter("MINI_PLAYER"));
             startService(new Intent(getBaseContext(), OnClearFromRecentService.class));
         }
 
@@ -126,12 +130,12 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                         try {
                             mediaPlayer = new MediaPlayer();
                             mediaPlayer.setDataSource(track != null ? track.file : null);
-
 //                            playBtn.setBackground(getDrawable(R.drawable.ic_pause));
 //                            mediaPlayer.prepare();
 //                            mediaPlayer.start();
 //                            isPlaying = true;
                             playMedia();
+                            playBtn.setEnabled(true);
                         } catch (Exception e) {
                             StaticTools.LogErrorMessage(e.getMessage());
                         }
@@ -147,7 +151,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                         songDurationTxt.setText(str);
                         songTitleTxt.setText(track.name);
                         artistTxt.setText(StaticTools.getArtistsName(track));
-                        playBtn.setEnabled(true);
                         RequestCreator loaded = Picasso.get().load(track.image.medium.url);
                         loaded.into(artwork, new com.squareup.picasso.Callback() {
                             @Override
@@ -158,10 +161,28 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                                 getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
                                 int height = displayMetrics.heightPixels;
                                 int width = displayMetrics.widthPixels;
-                                loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
+
+                                loaded.into(new Target() {
                                     @Override
                                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                         artWork = bitmap;
+                                        MiniPlayerFragment.isPrepared = true;
+                                    }
+
+                                    @Override
+                                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                                    }
+
+                                    @Override
+                                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                                    }
+                                });
+
+                                loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
+                                    @Override
+                                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                         int color = StaticTools.getDominantColor(bitmap);
                                         int r = (color >> 16) & 0xFF;
                                         int g = (color >> 8) & 0xFF;
@@ -298,6 +319,21 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         }
     }
 
+    BroadcastReceiver miniPlayerBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getExtras().getString("action_name");
+            if (action != null && action.equals(MiniPlayerFragment.ACTION_PLAY)) {
+                if (isPlaying) {
+                    pauseMedia();
+                } else {
+                    playMedia();
+                }
+            }
+            int a = 2;
+        }
+    };
+
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -325,6 +361,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public void playMedia() {
         try {
             isPlaying = true;
+            MiniPlayerFragment.isPrepared = true;
+            MiniPlayerFragment.isPlaying = true;
             onTrackPlay();
             playBtn.setBackground(getDrawable(R.drawable.ic_pause));
             mediaPlayer.setOnPreparedListener(mp -> {
@@ -365,23 +403,22 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     public void pauseMedia() {
         isPlaying = false;
+        MiniPlayerFragment.isPlaying = false;
         onTrackPause();
         playBtn.setBackground(getDrawable(R.drawable.ic_play));
         pos = mediaPlayer.getCurrentPosition();
         mediaPlayer.stop();
     }
 
-//    public static String getTrackName() {
-//        return track != null ? track.name : getTrackName();
-//    }
-//
-//    public static String getArtistsName() {
-//        return track != null ? StaticTools.getArtistsName(track) : getArtistsName();
-//    }
-//
-    public static Bitmap getArtWork() {
-        return artWork != null ? artWork : getArtWork();
+    public static String getTrackName() {
+        return track != null ? track.name : "";
     }
 
+    public static String getArtistsName() {
+        return track != null ? StaticTools.getArtistsName(track) : "";
+    }
 
+    public static Bitmap getArtWork() {
+        return artWork;
+    }
 }

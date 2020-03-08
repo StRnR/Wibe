@@ -1,5 +1,7 @@
 package com.mahaventures.wibe.Fragments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +15,11 @@ import androidx.fragment.app.Fragment;
 import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.Services.MiniPlayerBroadCastReceiver;
 import com.mahaventures.wibe.Tools.StaticTools;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -21,9 +27,13 @@ import com.mahaventures.wibe.Tools.StaticTools;
  */
 public class MiniPlayerFragment extends Fragment {
 
+    public static String ACTION_PLAY = "play_action";
     public static Track miniTrack;
     private Button playBtn;
     private Button skipBtn;
+    public static Context context;
+    public static boolean isPlaying;
+    public static boolean isPrepared;
 
     public MiniPlayerFragment() {
         // Required empty public constructor
@@ -47,8 +57,34 @@ public class MiniPlayerFragment extends Fragment {
 //            cover.setImageBitmap(PlayerActivity.artWork);
 //        }
 
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                //todo change icon for playing with isplaying
+                getActivity().runOnUiThread(() -> {
+                    if (isPlaying) {
+
+                    } else {
+
+                    }
+                    if (isPrepared) {
+                        isPrepared = false;
+                        cover.setImageBitmap(PlayerActivity.getArtWork());
+                        artist.setText(PlayerActivity.getArtistsName());
+                        songTitle.setText(PlayerActivity.getTrackName());
+                    }
+                });
+            }
+        }, 0, 100);
+
         //TODO: connect to media player
         playBtn.setOnClickListener(v -> {
+            if (context != null) {
+                Intent intent = new Intent(context, MiniPlayerBroadCastReceiver.class)
+                        .setAction(ACTION_PLAY);
+                getActivity().sendBroadcast(intent);
+            }
         });
 
         return view;

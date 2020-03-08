@@ -23,7 +23,6 @@ import com.squareup.picasso.Target;
 public class CreateNotificationService {
 
     public static final String CHANNEL_ID = "channel1";
-
     public static final String ACTION_PREVIOUS = "action_previous";
     public static final String ACTION_PLAY = "action_play";
     public static final String ACTION_NEXT = "action_next";
