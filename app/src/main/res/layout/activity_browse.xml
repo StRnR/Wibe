@@ -7,8 +7,18 @@
     android:background="@color/background"
     tools:context=".Activities.BrowseActivity">
 
+    <TextView
+        style="@style/Bold1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginRight="32dp"
+        android:text="Under maintenance..."
+        app:layout_constraintBottom_toTopOf="@id/navbar_bottom_browse"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navbar_bottom_search"
+        android:id="@+id/navbar_bottom_browse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:itemIconTint="@drawable/selector"

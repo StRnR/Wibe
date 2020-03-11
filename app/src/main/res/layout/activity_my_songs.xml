@@ -8,7 +8,7 @@
     tools:context=".Activities.MySongsActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navbar_bottom_search"
+        android:id="@+id/navbar_bottom_mysongs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:itemIconTint="@drawable/selector"

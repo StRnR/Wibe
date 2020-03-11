@@ -24,7 +24,7 @@ public class BrowseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_search);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_browse);
 
         bottomNavigationView.setSelectedItemId(R.id.nav_browse);
 //        bottomNavigationView.setItemTextColor(new ColorStateList());

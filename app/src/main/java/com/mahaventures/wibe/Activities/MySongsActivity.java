@@ -17,7 +17,7 @@ public class MySongsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_songs);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_search);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_mysongs);
 
         bottomNavigationView.setSelectedItemId(R.id.nav_mysongs);
 
