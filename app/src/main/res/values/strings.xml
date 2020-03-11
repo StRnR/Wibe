@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Wibe</string>
-    <string name="SigningInText">Signing in…</string>
-    <string name="SignInText">Sign in</string>
-    <string name="SignUpText">Sign up</string>
-    <string name="SigningUpText">signing up…</string>
-
+    <string name="signing_in_text">Signing in…</string>
+    <string name="sign_in_text">Sign in</string>
+    <string name="sign_up_text">Sign up</string>
+    <string name="signing_up_text">signing up…</string>
+    <string name="nav_browse">Browse</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_mysongs">My Songs</string>
 </resources>

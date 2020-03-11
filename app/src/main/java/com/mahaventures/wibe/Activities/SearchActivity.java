@@ -1,26 +1,30 @@
 package com.mahaventures.wibe.Activities;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mahaventures.wibe.Adapters.SongsRecyclerSearchAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.GeneralSearch;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
-import com.mahaventures.wibe.Adapters.SongsRecyclerSearchAdapter;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 
@@ -49,6 +53,28 @@ public class SearchActivity extends AppCompatActivity {
         SongsRecyclerSearchAdapter tmpAdapter = new SongsRecyclerSearchAdapter(null, SearchActivity.this);
         recyclerView.setAdapter(tmpAdapter);
         EditText searchText = findViewById(R.id.txt_edit_search);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_search);
+
+        bottomNavigationView.setSelectedItemId(R.id.nav_search);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.nav_browse:
+                        startActivity(new Intent(getApplicationContext(), BrowseActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.nav_search:
+                        return true;
+                    case R.id.nav_mysongs:
+                        startActivity(new Intent(getApplicationContext(), MySongsActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
         fragmentManager = getSupportFragmentManager();
         if (findViewById(R.id.fragment_container) != null) {

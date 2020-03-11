@@ -1,0 +1,9 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="22dp"
+    android:height="22dp"
+    android:viewportWidth="32"
+    android:viewportHeight="32">
+    <path
+        android:fillColor="@color/selected_navbar"
+        android:pathData="M12,0A12,12 0,0 0,0 12A12,12 0,0 0,12 24A12,12 0,0 0,18.5 22.25L28,32L32,28L22.25,18.5A12,12 0,0 0,24 12A12,12 0,0 0,12 0M12,4A8,8 0,0 1,12 20A8,8 0,0 1,12 4" />
+</vector>

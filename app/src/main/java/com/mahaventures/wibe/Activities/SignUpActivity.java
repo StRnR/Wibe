@@ -115,7 +115,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         signUpButton.setOnClickListener(v -> {
             signUpButton.setEnabled(false);
-            signUpButton.setText(R.string.SigningUpText);
+            signUpButton.setText(R.string.signing_up_text);
             String email = emailTxt.getText().toString();
             String pass = passwordTxt.getText().toString();
             if (!StaticTools.EmailValidation(email)) {
@@ -132,7 +132,7 @@ public class SignUpActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<RegisterResponseModel> call, Response<RegisterResponseModel> response) {
                     signUpButton.setEnabled(true);
-                    signUpButton.setText(R.string.SignUpText);
+                    signUpButton.setText(R.string.sign_up_text);
                     if (response.isSuccessful()) {
                         StaticTools.ShowToast(SignUpActivity.this, "User registered successfully", 1);
                         Intent intent = new Intent(SignUpActivity.this,SignInActivity.class);
@@ -153,7 +153,7 @@ public class SignUpActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<RegisterResponseModel> call, Throwable t) {
                     signUpButton.setEnabled(true);
-                    signUpButton.setText(R.string.SignUpText);
+                    signUpButton.setText(R.string.sign_up_text);
                     StaticTools.LogErrorMessage(t.getMessage() + " server error on signup");
                 }
             });

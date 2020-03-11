@@ -3,6 +3,7 @@
     package="com.mahaventures.wibe">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -16,11 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Activities.BrowseActivity"></activity>
+        <activity android:name=".Activities.MySongsActivity" />
 
         <receiver android:name=".Services.NotificationActionService" />
         <receiver android:name=".Services.MiniPlayerBroadCastReceiver" />
-        <service android:name=".Services.OnClearFromRecentService" />
 
+        <service android:name=".Services.OnClearFromRecentService" />
 
         <meta-data
             android:name="DATABASE"

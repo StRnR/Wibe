@@ -94,7 +94,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         mediaPlayer.reset();
         mediaPlayer.release();
         Call<Track> call = service.GetTrackById(url);
-        //TODO: in metadata ha bara har song bayad gerefte she az api joz 2 ta avali ke khodam mizanam
         TextView srcTxt = findViewById(R.id.txt_playersrc);
         TextView srcNameTxt = findViewById(R.id.txt_srcname_mainplayer);
         TextView songTitleTxt = findViewById(R.id.txt_title_mainplayer);

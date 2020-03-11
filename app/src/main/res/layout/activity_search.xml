@@ -48,22 +48,6 @@
         app:layout_constraintEnd_toEndOf="@id/txt_edit_search"
         app:layout_constraintTop_toTopOf="@id/txt_edit_search" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/txt_result_category_search"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="32dp"-->
-    <!--        android:layout_marginTop="32dp"-->
-    <!--        android:layout_marginEnd="32dp"-->
-    <!--        android:fontFamily="@font/nexa_bold"-->
-    <!--        android:text="Songs"-->
-    <!--        android:textColor="@color/white"-->
-    <!--        android:textSize="20sp"-->
-    <!--        android:visibility="invisible"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/txt_edit_search" />-->
-
     <RelativeLayout
         android:id="@+id/layout_relative_search"
         android:layout_width="match_parent"
@@ -103,8 +87,17 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="85dp"
+        app:layout_constraintBottom_toTopOf="@id/navbar_bottom_search" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navbar_bottom_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextAppearanceActive="@style/navbar_active"
+        app:itemTextAppearanceInactive="@style/navbar_inactive"
+        app:itemTextColor="@drawable/selector"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:menu="@menu/bottom_navbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,5 +50,16 @@
         <item name="android:textColor">#ffffff</item>
     </style>
 
+    <style name="navbar_inactive">
+        <item name="fontFamily">@font/nexa_light</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="navbar_active">
+        <item name="fontFamily">@font/nexa_light</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/selected_navbar</item>
+    </style>
 
 </resources>

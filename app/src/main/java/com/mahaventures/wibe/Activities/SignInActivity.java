@@ -48,7 +48,7 @@ public class SignInActivity extends AppCompatActivity {
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         forgotPassBtn.setText(content);
         signInButton.setOnClickListener(view -> {
-            signInButton.setText(R.string.SigningInText);
+            signInButton.setText(R.string.signing_in_text);
             signInButton.setEnabled(false);
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
             String email = emailTxt.getText().toString();
@@ -58,7 +58,7 @@ public class SignInActivity extends AppCompatActivity {
             call.enqueue(new Callback<AuthenticationResponseModel>() {
                 @Override
                 public void onResponse(Call<AuthenticationResponseModel> call, Response<AuthenticationResponseModel> response) {
-                    signInButton.setText(R.string.SignInText);
+                    signInButton.setText(R.string.sign_in_text);
                     signInButton.setEnabled(true);
                     if (response.isSuccessful()) {
                         try {
@@ -82,7 +82,7 @@ public class SignInActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<AuthenticationResponseModel> call, Throwable t) {
                     StaticTools.ShowToast(SignInActivity.this, "server error", 0);
-                    signInButton.setText(R.string.SignInText);
+                    signInButton.setText(R.string.sign_in_text);
                     signInButton.setEnabled(true);
                 }
             });

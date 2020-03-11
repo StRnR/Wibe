@@ -61,12 +61,11 @@ public class MiniPlayerFragment extends Fragment {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                //todo change icon for playing with isplaying
                 getActivity().runOnUiThread(() -> {
                     if (isPlaying) {
-
+                        playBtn.setBackgroundResource(R.drawable.ic_pause);
                     } else {
-
+                        playBtn.setBackgroundResource(R.drawable.ic_play);
                     }
                     if (isPrepared) {
                         isPrepared = false;
