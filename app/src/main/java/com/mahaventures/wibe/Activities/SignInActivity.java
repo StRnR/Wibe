@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.SpannableString;
+import android.text.method.PasswordTransformationMethod;
 import android.text.style.UnderlineSpan;
 import android.view.TouchDelegate;
 import android.view.View;
@@ -40,6 +41,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signin);
         SugarContext.init(SignInActivity.this);
         Button signInButton = findViewById(R.id.btn_signin);
+        Button showPassBtn = findViewById(R.id.btn_showpass_signin);
         Button backBtn = findViewById(R.id.btn_back_signin);
         Button forgotPassBtn = findViewById(R.id.btn_forgotpass_signin);
         EditText emailTxt = findViewById(R.id.txt_edit_email_signin);
@@ -98,6 +100,14 @@ public class SignInActivity extends AppCompatActivity {
             rect.bottom += 50;
             rect.right += 50;
             parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
+        });
+
+        showPassBtn.setOnClickListener(v -> {
+            if (!passTxt.getTransformationMethod().equals(null)) {
+                passTxt.setTransformationMethod(null);
+            } else {
+                passTxt.setTransformationMethod(new PasswordTransformationMethod());
+            }
         });
 
         backBtn.setOnClickListener(v -> SignInActivity.super.onBackPressed());

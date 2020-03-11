@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -46,6 +47,8 @@ import java.util.TimerTask;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 import retrofit2.Call;
 import retrofit2.Response;
+
+import static java.lang.Float.isNaN;
 
 public class PlayerActivity extends AppCompatActivity implements Playable {
 
@@ -183,15 +186,36 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                                     @Override
                                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                         int color = StaticTools.getDominantColor(bitmap);
-//                                        int r = (color >> 16) & 0xFF;
-//                                        int g = (color >> 8) & 0xFF;
-//                                        int b = (color) & 0xFF;
-//                                        r = (255 - r) / 2;
-//                                        g = ((255 - g) * 3) / 5;
-//                                        b = ((255 - b) * 1) / 4;
-//                                        color = Color.rgb(r, g, b);
-//                                        songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
-//                                        songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
+                                        int r = (color >> 16) & 0xFF;
+                                        int g = (color >> 8) & 0xFF;
+                                        int b = (color) & 0xFF;
+                                        int min = Math.min(Math.min(r, g), b);
+                                        int max = Math.max(Math.max(r, g), b);
+                                        int v = max, h, s;
+                                        int delta = max - min;
+                                        if (max != 0) {
+                                            s = delta / max;
+                                        } else {
+                                            s = 0;
+                                            h = -1;
+                                        }
+
+                                        if (r == max) {
+                                            h = (g - b) / delta;
+                                        } else if (g == max) {
+                                            h = 2 + (b - r) / delta;
+                                        } else {
+                                            h = 4 + (r - g) / delta;
+                                        }
+                                        h *= 60;
+                                        if (h < 0)
+                                            h += 360;
+                                        if (isNaN(h))
+                                            h = 0;
+
+                                        color = Color.rgb(h, s, v);
+                                        songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
+                                        songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
                                         layout.setBackgroundDrawable(new BitmapDrawable(PlayerActivity.this.getResources(), bitmap));
                                     }
 

@@ -110,6 +110,16 @@
         app:layout_constraintStart_toStartOf="@id/txt_signupguide"
         app:layout_constraintTop_toBottomOf="@+id/txt_edit_email_signup" />
 
+    <Button
+        android:id="@+id/btn_showpass_signup"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/ic_visibility"
+        app:layout_constraintBottom_toBottomOf="@id/txt_edit_pass_signup"
+        app:layout_constraintEnd_toEndOf="@id/txt_edit_pass_signup"
+        app:layout_constraintTop_toTopOf="@id/txt_edit_pass_signup" />
+
     <ProgressBar
         android:id="@+id/passProgressBar"
         style="?android:attr/progressBarStyleHorizontal"

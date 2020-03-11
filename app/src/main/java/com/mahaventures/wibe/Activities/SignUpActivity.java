@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         Button signUpButton = findViewById(R.id.btn_signup);
         Button backBtn = findViewById(R.id.btn_back_signup);
+        Button showPassBtn = findViewById(R.id.btn_showpass_signup);
         EditText nameTxt = findViewById(R.id.txt_edit_name_signup);
         EditText emailTxt = findViewById(R.id.txt_edit_email_signup);
         EditText passwordTxt = findViewById(R.id.txt_edit_pass_signup);
@@ -113,6 +115,15 @@ public class SignUpActivity extends AppCompatActivity {
             SignUpActivity.super.onBackPressed();
         });
 
+        showPassBtn.setOnClickListener(v -> {
+            //todo: debug this dear john please
+            if (!passwordTxt.getTransformationMethod().equals(null)) {
+                passwordTxt.setTransformationMethod(null);
+            } else {
+                passwordTxt.setTransformationMethod(new PasswordTransformationMethod());
+            }
+        });
+
         signUpButton.setOnClickListener(v -> {
             signUpButton.setEnabled(false);
             signUpButton.setText(R.string.signing_up_text);
@@ -135,7 +146,7 @@ public class SignUpActivity extends AppCompatActivity {
                     signUpButton.setText(R.string.sign_up_text);
                     if (response.isSuccessful()) {
                         StaticTools.ShowToast(SignUpActivity.this, "User registered successfully", 1);
-                        Intent intent = new Intent(SignUpActivity.this,SignInActivity.class);
+                        Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
                         SignUpActivity.this.startActivity(intent);
                     } else {
                         try {
