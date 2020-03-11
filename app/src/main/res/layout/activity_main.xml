@@ -29,7 +29,7 @@
         android:layout_height="60dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/gradient_blue"
         android:text="SIGN IN"
         app:layout_constraintBottom_toTopOf="@+id/btn_signup_main"

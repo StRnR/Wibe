@@ -8,6 +8,11 @@
     android:background="@color/background"
     tools:context=".Activities.SearchActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/player_gradient" />
+
     <TextView
         android:id="@+id/txt_playersrc"
         android:layout_width="wrap_content"
@@ -37,12 +42,15 @@
 
     <ImageView
         android:id="@+id/img_cover_mainplayer"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="105dp"
+        android:layout_marginEnd="52dp"
         android:layout_marginBottom="350dp"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -51,7 +59,7 @@
         android:id="@+id/txt_title_mainplayer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="52dp"
         android:fontFamily="@font/nexa_bold"
         android:gravity="center_horizontal"
         android:letterSpacing="0.02"
@@ -108,18 +116,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
+        android:layout_marginEnd="32dp"
         android:fontFamily="@font/nexa_light"
         android:gravity="center_horizontal"
         android:letterSpacing="0.03"
-        android:textColor="#93a8b3"
+        android:textColor="@color/white"
         android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@id/seekbar_mainplayer"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/seekbar_mainplayer" />
 
     <Button
         android:id="@+id/btn_play_mainplayer"
-        android:layout_width="27dp"
-        android:layout_height="33dp"
+        android:layout_width="45dp"
+        android:layout_height="50dp"
         android:layout_marginTop="41dp"
         android:layout_marginBottom="111dp"
         android:background="@drawable/ic_play"
@@ -130,10 +139,8 @@
 
     <Button
         android:id="@+id/btn_skip_mainplayer"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="54dp"
-        android:layout_marginEnd="97dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@drawable/ic_skip"
         app:layout_constraintBottom_toBottomOf="@id/btn_play_mainplayer"
         app:layout_constraintEnd_toEndOf="parent"
@@ -141,10 +148,8 @@
 
     <Button
         android:id="@+id/btn_rewind_mainplayer"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="97dp"
-        android:layout_marginEnd="54dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@drawable/ic_rewind"
         app:layout_constraintBottom_toBottomOf="@id/btn_play_mainplayer"
         app:layout_constraintEnd_toEndOf="@id/btn_play_mainplayer"

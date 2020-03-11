@@ -8,12 +8,15 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.TouchDelegate;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -48,6 +51,7 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         Button clearTxtBtn = findViewById(R.id.btn_clear_search);
+        TextView searchHeader = findViewById(R.id.txt_header_search);
         TextView resCategory = findViewById(R.id.txt_result_category_search);
         recyclerView.setAdapter(null);
         SongsRecyclerSearchAdapter tmpAdapter = new SongsRecyclerSearchAdapter(null, SearchActivity.this);
@@ -60,7 +64,7 @@ public class SearchActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.nav_browse:
                         startActivity(new Intent(getApplicationContext(), BrowseActivity.class));
                         overridePendingTransition(0, 0);
@@ -76,6 +80,11 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+//        ObjectAnimator animation = ObjectAnimator.ofFloat(searchHeader, "translationY", -223f);
+//        animation.setDuration(2000);
+//        animation.start();
+
+
         fragmentManager = getSupportFragmentManager();
         if (findViewById(R.id.fragment_container) != null) {
 
@@ -89,6 +98,21 @@ public class SearchActivity extends AppCompatActivity {
 
         }
 
+//        searchText.setOnClickListener(v -> {
+//            final int newTopMargin = 27;
+//            Animation a = new Animation() {
+//
+//                @Override
+//                protected void applyTransformation(float interpolatedTime, Transformation t) {
+//                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) searchHeader.getLayoutParams();
+//                    params.topMargin = (int) (params.leftMargin + (newTopMargin - params.topMargin) * interpolatedTime);
+//                    searchHeader.setLayoutParams(params);
+//                }
+//            };
+//            a.setDuration(2000); // in ms
+//            searchHeader.startAnimation(a);
+//        });
+
         searchText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -97,6 +121,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
                 resCategory.setVisibility(View.VISIBLE);
                 clearTxtBtn.setVisibility(View.VISIBLE);
                 String txt = searchText.getText().toString();

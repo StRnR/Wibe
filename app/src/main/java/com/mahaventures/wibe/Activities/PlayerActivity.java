@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -108,6 +107,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
         ConstraintLayout layout = findViewById(R.id.player_layout);
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel();
             registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
@@ -183,15 +183,15 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                                     @Override
                                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                         int color = StaticTools.getDominantColor(bitmap);
-                                        int r = (color >> 16) & 0xFF;
-                                        int g = (color >> 8) & 0xFF;
-                                        int b = (color) & 0xFF;
-                                        r = (255 - r) / 2;
-                                        g = ((255 - g) * 3) / 5;
-                                        b = ((255 - b) * 1) / 4;
-                                        color = Color.rgb(r, g, b);
-                                        songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
-                                        songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
+//                                        int r = (color >> 16) & 0xFF;
+//                                        int g = (color >> 8) & 0xFF;
+//                                        int b = (color) & 0xFF;
+//                                        r = (255 - r) / 2;
+//                                        g = ((255 - g) * 3) / 5;
+//                                        b = ((255 - b) * 1) / 4;
+//                                        color = Color.rgb(r, g, b);
+//                                        songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
+//                                        songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
                                         layout.setBackgroundDrawable(new BitmapDrawable(PlayerActivity.this.getResources(), bitmap));
                                     }
 

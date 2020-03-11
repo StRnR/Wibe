@@ -47,6 +47,7 @@ public class SignInActivity extends AppCompatActivity {
         SpannableString content = new SpannableString("FORGOT PASSWORD");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         forgotPassBtn.setText(content);
+
         signInButton.setOnClickListener(view -> {
             signInButton.setText(R.string.signing_in_text);
             signInButton.setEnabled(false);
@@ -65,7 +66,7 @@ public class SignInActivity extends AppCompatActivity {
                             String token = response.body().meta.token;
                             SavedInfo info = new SavedInfo(token, email);
                             info.save();
-                            SignInActivity.this.startActivity(new Intent(SignInActivity.this,SearchActivity.class));
+                            SignInActivity.this.startActivity(new Intent(SignInActivity.this, SearchActivity.class));
                         } catch (Exception e) {
                             StaticTools.LogErrorMessage(e.getMessage() + " sign in token error or db saving error");
                         }
@@ -105,7 +106,6 @@ public class SignInActivity extends AppCompatActivity {
             Intent intent = new Intent(SignInActivity.this, ForgotPassActivity.class);
             SignInActivity.this.startActivity(intent);
         });
-
-
     }
+
 }
