@@ -5,14 +5,12 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MenuItem;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -28,6 +26,9 @@ import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,8 +37,13 @@ public class SearchActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-
     public static FragmentManager fragmentManager;
+    private Timer timer;
+
+    @Override
+    public void onBackPressed() {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,44 +121,51 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 resCategory.setVisibility(View.VISIBLE);
                 clearTxtBtn.setVisibility(View.VISIBLE);
-                String txt = searchText.getText().toString();
-                GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-                if (!txt.equals("")) {
-                    String url = String.format("https://musicify.ir/api/search?query=%s&include=tracks.artists", txt);
-                    Call<GeneralSearch> call = service.SearchAll(url);
-                    call.enqueue(new Callback<GeneralSearch>() {
-                        @Override
-                        public void onResponse(Call<GeneralSearch> call, Response<GeneralSearch> response) {
-                            if (response.isSuccessful()) {
-                                if (response.body() != null) {
-                                    try {
-                                        SongsRecyclerSearchAdapter adapter = new SongsRecyclerSearchAdapter(response.body().tracks.data, SearchActivity.this);
-                                        recyclerView.setAdapter(adapter);
-                                    } catch (Exception e) {
-                                        StaticTools.LogErrorMessage(e.getMessage() + " wtf is going on");
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        String txt = searchText.getText().toString();
+                        if (!txt.equals("")) {
+                            GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+                            String url = String.format("https://musicify.ir/api/search?query=%s&include=tracks.artists", txt);
+                            Call<GeneralSearch> call = service.SearchAll(url);
+                            call.enqueue(new Callback<GeneralSearch>() {
+                                @Override
+                                public void onResponse(Call<GeneralSearch> call, Response<GeneralSearch> response) {
+                                    if (response.isSuccessful()) {
+                                        if (response.body() != null) {
+                                            try {
+                                                SongsRecyclerSearchAdapter adapter = new SongsRecyclerSearchAdapter(response.body().tracks.data, SearchActivity.this);
+                                                recyclerView.setAdapter(adapter);
+                                            } catch (Exception e) {
+                                                StaticTools.LogErrorMessage(e.getMessage() + " wtf is going on");
+                                            }
+                                        }
+                                    } else {
+                                        try {
+                                            String s1 = new String(response.errorBody().bytes());
+                                            StaticTools.LogErrorMessage(s1);
+                                        } catch (Exception e) {
+                                            StaticTools.LogErrorMessage(e.getMessage() + " wtf");
+                                        }
                                     }
                                 }
-                            } else {
-                                try {
-                                    String s1 = new String(response.errorBody().bytes());
-                                    StaticTools.LogErrorMessage(s1);
-                                } catch (Exception e) {
-                                    StaticTools.LogErrorMessage(e.getMessage() + " wtf");
+
+                                @Override
+                                public void onFailure(Call<GeneralSearch> call, Throwable t) {
+
                                 }
-                            }
+                            });
+                        } else {
+                            clearTxtBtn.setVisibility(View.INVISIBLE);
                         }
+                    }
+                }, 600);
 
-                        @Override
-                        public void onFailure(Call<GeneralSearch> call, Throwable t) {
 
-                        }
-                    });
-                } else {
-                    clearTxtBtn.setVisibility(View.INVISIBLE);
-                }
             }
 
             @Override
