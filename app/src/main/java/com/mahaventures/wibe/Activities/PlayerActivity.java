@@ -320,6 +320,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         });
 
         minimizeBtn.setOnClickListener(v -> {
+
             PlayerActivity.this.onBackPressed();
         });
 
