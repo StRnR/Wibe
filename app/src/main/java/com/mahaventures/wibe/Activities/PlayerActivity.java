@@ -100,7 +100,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             try {
                 mediaPlayer.stop();
                 mediaPlayer.reset();
-//                mediaPlayer.release();
+                mediaPlayer.release();
             } catch (Exception e) {
                 StaticTools.LogErrorMessage(e.getMessage());
             }
