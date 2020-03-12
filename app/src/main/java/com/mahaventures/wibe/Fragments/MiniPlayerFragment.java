@@ -32,6 +32,7 @@ public class MiniPlayerFragment extends Fragment {
     public static Track miniTrack;
     public static Context context;
     public static boolean isPlaying;
+    public static boolean isLoaded;
     public static boolean isPrepared;
     private Button playBtn;
     private Button skipBtn;
@@ -75,6 +76,7 @@ public class MiniPlayerFragment extends Fragment {
                         }
                         if (isPrepared) {
                             isPrepared = false;
+                            isLoaded = true;
                             cover.setImageBitmap(PlayerActivity.getArtWork());
                             artist.setText(PlayerActivity.getArtistsName());
                             songTitle.setText(PlayerActivity.getTrackName());
@@ -99,7 +101,8 @@ public class MiniPlayerFragment extends Fragment {
             try {
                 Intent intent = new Intent(getActivity(), PlayerActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-                getActivity().startActivity(intent);
+                if (isLoaded)
+                    getActivity().startActivity(intent);
             } catch (Exception e) {
                 StaticTools.LogErrorMessage(e.getMessage());
             }

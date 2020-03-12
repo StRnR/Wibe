@@ -48,6 +48,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StaticTools.LogErrorMessage("search activity started");
         setContentView(R.layout.activity_search);
         recyclerView = findViewById(R.id.recycler_search);
         layoutManager = new GridLayoutManager(this, 1);

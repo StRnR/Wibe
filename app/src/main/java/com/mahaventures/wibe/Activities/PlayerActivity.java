@@ -63,56 +63,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     TextView songDurationTxt;
     TextView songTimeTxt;
     boolean isPrepared;
-    BroadcastReceiver miniPlayerBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getExtras().getString("action_name");
-            if (action != null && action.equals(MiniPlayerFragment.ACTION_PLAY)) {
-                if (isPlaying) {
-                    pauseMedia();
-                } else {
-                    playMedia();
-                }
-            }
-            int a = 2;
-        }
-    };
-
-    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getExtras().getString("actionname");
-            if (action != null) {
-                switch (action) {
-                    case CreateNotificationService.ACTION_PREVIOUS:
-                        onTrackPrevious();
-                        break;
-                    case CreateNotificationService.ACTION_PLAY:
-                        if (isPlaying) {
-                            pauseMedia();
-                        } else {
-                            playMedia();
-                        }
-                        break;
-                    case CreateNotificationService.ACTION_NEXT:
-                        onTrackNext();
-                        break;
-                }
-            }
-        }
-    };
-
-    public static String getTrackName() {
-        return track != null ? track.name : "";
-    }
-
-    public static String getArtistsName() {
-        return track != null ? StaticTools.getArtistsName(track) : "";
-    }
-
-    public static Bitmap getArtWork() {
-        return artWork;
-    }
 
     @Override
     public void onBackPressed() {
@@ -125,6 +75,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StaticTools.LogTimedMessage("on create fuuuuuuuuck");
         setContentView(R.layout.activity_player);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
@@ -133,7 +84,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         String url = String.format("https://api.musicify.ir/tracks/%s?include=artists,album", trackId);
         isPrepared = false;
         MiniPlayerFragment.context = this;
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && notificationManager != null) {
             notificationManager.cancelAll();
@@ -149,7 +99,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             try {
                 mediaPlayer.stop();
                 mediaPlayer.reset();
-                mediaPlayer.release();
+//                mediaPlayer.release();
             } catch (Exception e) {
                 StaticTools.LogErrorMessage(e.getMessage());
             }
@@ -400,9 +350,9 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 isPrepared = true;
                 int duration = mediaPlayer.getDuration();
                 songDurationTxt.setText(StaticTools.getSongDuration(duration / 1000));
-                int amoungToupdate = duration / 500;
+                int amoungToUpdate = duration / 500;
                 Timer mTimer = new Timer();
-                if (amoungToupdate > 0) {
+                if (amoungToUpdate > 0) {
                     mTimer.schedule(new TimerTask() {
                         @Override
                         public void run() {
@@ -412,7 +362,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                                     songSeekBar.setProgress(mediaPlayer.getCurrentPosition());
                                     songTimeTxt.setText(StaticTools.getSongDuration(mediaPlayer.getCurrentPosition() / 1000));
                                     if (mediaPlayer.getDuration() == mediaPlayer.getCurrentPosition()) {
-                                        mediaPlayer.release();
+                                        mediaPlayer.reset();
                                         PlayerActivity.this.onBackPressed();
                                     }
                                 } catch (Exception e) {
@@ -420,7 +370,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                                 }
                             });
                         }
-                    }, 0, amoungToupdate);
+                    }, 0, amoungToUpdate);
                 }
             });
             mediaPlayer.prepare();
@@ -429,7 +379,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         } catch (Exception e) {
             StaticTools.LogErrorMessage(e.getMessage() + " inja player activity");
             try {
-                mediaPlayer.release();
+                mediaPlayer.reset();
                 mediaPlayer = new MediaPlayer();
                 mediaPlayer.setDataSource(track != null ? track.file : null);
                 playMedia();
@@ -443,9 +393,61 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         StaticTools.LogTimedMessage("pause button pressed");
         isPlaying = false;
         MiniPlayerFragment.isPlaying = false;
+        MiniPlayerFragment.isPrepared = true;
         onTrackPause();
         playBtn.setBackground(getDrawable(R.drawable.ic_play));
         pos = mediaPlayer.getCurrentPosition();
         mediaPlayer.stop();
+    }
+
+    BroadcastReceiver miniPlayerBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getExtras().getString("action_name");
+            if (action != null && action.equals(MiniPlayerFragment.ACTION_PLAY)) {
+                if (isPlaying) {
+                    pauseMedia();
+                } else {
+                    playMedia();
+                }
+            }
+            int a = 2;
+        }
+    };
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getExtras().getString("actionname");
+            if (action != null) {
+                switch (action) {
+                    case CreateNotificationService.ACTION_PREVIOUS:
+                        onTrackPrevious();
+                        break;
+                    case CreateNotificationService.ACTION_PLAY:
+                        if (isPlaying) {
+                            pauseMedia();
+                        } else {
+                            playMedia();
+                        }
+                        break;
+                    case CreateNotificationService.ACTION_NEXT:
+                        onTrackNext();
+                        break;
+                }
+            }
+        }
+    };
+
+    public static String getTrackName() {
+        return track != null ? track.name : "";
+    }
+
+    public static String getArtistsName() {
+        return track != null ? StaticTools.getArtistsName(track) : "";
+    }
+
+    public static Bitmap getArtWork() {
+        return artWork;
     }
 }
