@@ -45,8 +45,6 @@ import jp.wasabeef.picasso.transformations.BlurTransformation;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import static java.lang.Float.isNaN;
-
 public class PlayerActivity extends AppCompatActivity implements Playable {
 
     public static MediaPlayer mediaPlayer = new MediaPlayer();
@@ -59,6 +57,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     SeekBar songSeekBar;
     boolean isPlaying;
     Button playBtn;
+    Button minimizeBtn;
     NotificationManager notificationManager;
     TextView songDurationTxt;
     TextView songTimeTxt;
@@ -115,9 +114,14 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         ImageView artwork = findViewById(R.id.img_cover_mainplayer);
         playBtn = findViewById(R.id.btn_play_mainplayer);
         playBtn.setBackground(getDrawable(R.drawable.ic_pause));
+        minimizeBtn = findViewById(R.id.btn_minimize_player);
         Button skipBtn = findViewById(R.id.btn_skip_mainplayer);
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
         ConstraintLayout layout = findViewById(R.id.player_layout);
+
+        int color = Color.rgb(255, 255, 255);
+        songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
+        songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
 
         //todo uncomment
         songTitleTxt.setText(mTrackNameString);
@@ -193,36 +197,36 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                                         StaticTools.LogTimedMessage("big bitmap loaded");
                                         int color = StaticTools.getDominantColor(bitmap);
-                                        int r = (color >> 16) & 0xFF;
-                                        int g = (color >> 8) & 0xFF;
-                                        int b = (color) & 0xFF;
-                                        int min = Math.min(Math.min(r, g), b);
-                                        int max = Math.max(Math.max(r, g), b);
-                                        int v = max, h, s;
-                                        int delta = (max - min > 0) ? max - min : 1;
-                                        if (max != 0) {
-                                            s = delta / max;
-                                        } else {
-                                            s = 0;
-                                            h = -1;
-                                        }
+//                                        int r = (color >> 16) & 0xFF;
+//                                        int g = (color >> 8) & 0xFF;
+//                                        int b = (color) & 0xFF;
+//                                        int min = Math.min(Math.min(r, g), b);
+//                                        int max = Math.max(Math.max(r, g), b);
+//                                        int v = max, h, s;
+//                                        int delta = (max - min > 0) ? max - min : 1;
+//                                        if (max != 0) {
+//                                            s = delta / max;
+//                                        } else {
+//                                            s = 0;
+//                                            h = -1;
+//                                        }
+//
+//                                        if (r == max) {
+//                                            h = (g - b) / delta;
+//                                        } else if (g == max) {
+//                                            h = 2 + (b - r) / delta;
+//                                        } else {
+//                                            h = 4 + (r - g) / delta;
+//                                        }
+//                                        h *= 60;
+//                                        if (h < 0)
+//                                            h += 360;
+//                                        if (isNaN(h))
+//                                            h = 0;
 
-                                        if (r == max) {
-                                            h = (g - b) / delta;
-                                        } else if (g == max) {
-                                            h = 2 + (b - r) / delta;
-                                        } else {
-                                            h = 4 + (r - g) / delta;
-                                        }
-                                        h *= 60;
-                                        if (h < 0)
-                                            h += 360;
-                                        if (isNaN(h))
-                                            h = 0;
-
-                                        color = Color.rgb(h, s, v);
-                                        songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
-                                        songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
+//                                        color = Color.rgb(255, 255, 255);
+//                                        songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
+//                                        songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
                                         layout.setBackgroundDrawable(new BitmapDrawable(PlayerActivity.this.getResources(), bitmap));
                                     }
 
@@ -263,6 +267,11 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             } else {
                 playMedia();
             }
+        });
+
+        minimizeBtn.setOnClickListener(v -> {
+
+            PlayerActivity.this.onBackPressed();
         });
 
         songSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
