@@ -131,7 +131,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         String trackId = getIntent().getStringExtra("id");
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         String url = String.format("https://api.musicify.ir/tracks/%s?include=artists,album", trackId);
-
+        isPrepared = false;
         MiniPlayerFragment.context = this;
 
 
