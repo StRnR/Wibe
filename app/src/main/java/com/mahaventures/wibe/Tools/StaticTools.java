@@ -6,6 +6,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.MediaMetadataRetriever;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -23,7 +24,10 @@ import com.mahaventures.wibe.Services.GetDataService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -70,6 +74,10 @@ public class StaticTools {
 
     public static void LogErrorMessage(String msg) {
         Log.wtf("****Error Message****", msg);
+    }
+
+    public static void LogTimedMessage(String msg) {
+        Log.wtf(String.format("**%s**", new Date().toString()), msg);
     }
 
     public static boolean EmailValidation(String email) {
@@ -194,5 +202,27 @@ public class StaticTools {
             artists = TextUtils.join(", ", strings);
         }
         return artists;
+    }
+
+    public static String getSongDuration(int seconds) {
+        String second = "";
+        if (String.valueOf(seconds % 60).length() == 1) {
+            second = String.format(Locale.getDefault(), "0%d", seconds % 60);
+        } else {
+            second = String.valueOf(seconds % 60);
+        }
+        return String.format(Locale.getDefault(), "%d:%s", seconds / 60, second);
+    }
+
+    private static int getDuration(String url) {
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        retriever.setDataSource(url, new HashMap<>());
+        String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+        int timeInMilliSec = Integer.parseInt(time);
+        int duration = timeInMilliSec / 1000;
+        int hours = duration / 3600;
+        int minutes = (duration - hours * 3600) / 60;
+        int seconds = duration - (hours * 3600 + minutes * 60);
+        return (minutes * 60) + seconds;
     }
 }

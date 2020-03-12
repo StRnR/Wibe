@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,8 +38,6 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
 
-import java.util.HashMap;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -61,6 +58,11 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     Button playBtn;
     NotificationManager notificationManager;
     public static String CUSTOM_BROADCAST_ACTION = "miniPlayerAction";
+    public static String mArtistString;
+    public static String mTrackNameString;
+    TextView songDurationTxt;
+    TextView songTimeTxt;
+
 
     @Override
     public void onBackPressed() {
@@ -82,6 +84,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
         MiniPlayerFragment.context = this;
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && notificationManager != null) {
             notificationManager.cancelAll();
         }
@@ -92,16 +95,22 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
         }
 
-        mediaPlayer.stop();
-        mediaPlayer.reset();
-        mediaPlayer.release();
+        if (mediaPlayer != null) {
+            try {
+                mediaPlayer.stop();
+                mediaPlayer.reset();
+                mediaPlayer.release();
+            } catch (Exception e) {
+                StaticTools.LogErrorMessage(e.getMessage());
+            }
+        }
         Call<Track> call = service.GetTrackById(url);
         TextView srcTxt = findViewById(R.id.txt_playersrc);
         TextView srcNameTxt = findViewById(R.id.txt_srcname_mainplayer);
         TextView songTitleTxt = findViewById(R.id.txt_title_mainplayer);
         TextView artistTxt = findViewById(R.id.txt_artist_mainplayer);
-        TextView songTimeTxt = findViewById(R.id.txt_songtime_mainplayer);
-        TextView songDurationTxt = findViewById(R.id.txt_songduration_mainplayer);
+        songTimeTxt = findViewById(R.id.txt_songtime_mainplayer);
+        songDurationTxt = findViewById(R.id.txt_songduration_mainplayer);
         songSeekBar = findViewById(R.id.seekbar_mainplayer);
         ImageView artwork = findViewById(R.id.img_cover_mainplayer);
         playBtn = findViewById(R.id.btn_play_mainplayer);
@@ -109,6 +118,11 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         Button skipBtn = findViewById(R.id.btn_skip_mainplayer);
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
         ConstraintLayout layout = findViewById(R.id.player_layout);
+
+        //todo uncomment
+        songTitleTxt.setText(mTrackNameString);
+        artistTxt.setText(mArtistString);
+        StaticTools.LogTimedMessage("meta added");
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -124,9 +138,11 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         call.enqueue(new retrofit2.Callback<Track>() {
             @Override
             public void onResponse(Call<Track> call, Response<Track> response) {
+                StaticTools.LogTimedMessage("response received");
                 if (response.isSuccessful()) {
                     try {
                         track = response.body();
+                        StaticTools.LogTimedMessage("track set");
                         MiniPlayerFragment.miniTrack = track;
                         ///media player
                         try {
@@ -142,22 +158,12 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                             StaticTools.LogErrorMessage(e.getMessage());
                         }
                         ///media player
-                        int seconds = getDuration(track.file);
-                        String second = "";
-                        if (String.valueOf(seconds % 60).length() == 1) {
-                            second = String.format(Locale.getDefault(), "0%d", seconds % 60);
-                        } else {
-                            second = String.valueOf(seconds % 60);
-                        }
-                        String str = String.format(Locale.getDefault(), "%d:%s", seconds / 60, second);
-                        songDurationTxt.setText(str);
-                        songTitleTxt.setText(track.name);
-                        artistTxt.setText(StaticTools.getArtistsName(track));
                         RequestCreator loaded = Picasso.get().load(track.image.medium.url);
+                        StaticTools.LogTimedMessage("loaded image");
                         loaded.into(artwork, new com.squareup.picasso.Callback() {
                             @Override
                             public void onSuccess() {
-                                //todo uncomment
+                                StaticTools.LogTimedMessage("artwork bitmap loaded");
                                 float shadow = 0.5F;
                                 DisplayMetrics displayMetrics = new DisplayMetrics();
                                 getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -185,6 +191,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                                 loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
                                     @Override
                                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                        StaticTools.LogTimedMessage("big bitmap loaded");
                                         int color = StaticTools.getDominantColor(bitmap);
                                         int r = (color >> 16) & 0xFF;
                                         int g = (color >> 8) & 0xFF;
@@ -192,7 +199,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                                         int min = Math.min(Math.min(r, g), b);
                                         int max = Math.max(Math.max(r, g), b);
                                         int v = max, h, s;
-                                        int delta = max - min;
+                                        int delta = (max - min > 0) ? max - min : 1;
                                         if (max != 0) {
                                             s = delta / max;
                                         } else {
@@ -282,17 +289,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     }
 
-    int getDuration(String url) {
-        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-        retriever.setDataSource(url, new HashMap<>());
-        String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-        int timeInMilliSec = Integer.parseInt(time);
-        int duration = timeInMilliSec / 1000;
-        int hours = duration / 3600;
-        int minutes = (duration - hours * 3600) / 60;
-        int seconds = duration - (hours * 3600 + minutes * 60);
-        return (minutes * 60) + seconds;
-    }
 
     @Override
     public void onTrackPrevious() {
@@ -383,14 +379,17 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     public void playMedia() {
         try {
+            StaticTools.LogTimedMessage("play button pressed");
             isPlaying = true;
             MiniPlayerFragment.isPrepared = true;
             MiniPlayerFragment.isPlaying = true;
             onTrackPlay();
             playBtn.setBackground(getDrawable(R.drawable.ic_pause));
             mediaPlayer.setOnPreparedListener(mp -> {
+                StaticTools.LogTimedMessage("media player prepared");
                 int duration = mediaPlayer.getDuration();
-                int amoungToupdate = duration / 100;
+                songDurationTxt.setText(StaticTools.getSongDuration(duration / 1000));
+                int amoungToupdate = duration / 500;
                 Timer mTimer = new Timer();
                 if (amoungToupdate > 0) {
                     mTimer.schedule(new TimerTask() {
@@ -400,6 +399,11 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                                 try {
                                     songSeekBar.setMax(mediaPlayer.getDuration());
                                     songSeekBar.setProgress(mediaPlayer.getCurrentPosition());
+                                    songTimeTxt.setText(StaticTools.getSongDuration(mediaPlayer.getCurrentPosition() / 1000));
+                                    if (mediaPlayer.getDuration() == mediaPlayer.getCurrentPosition()) {
+                                        mediaPlayer.release();
+                                        PlayerActivity.this.onBackPressed();
+                                    }
                                 } catch (Exception e) {
 
                                 }
@@ -425,6 +429,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     }
 
     public void pauseMedia() {
+        StaticTools.LogTimedMessage("pause button pressed");
         isPlaying = false;
         MiniPlayerFragment.isPlaying = false;
         onTrackPause();

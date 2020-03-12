@@ -8,15 +8,12 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.TouchDelegate;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.Transformation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -61,23 +58,20 @@ public class SearchActivity extends AppCompatActivity {
 
         bottomNavigationView.setSelectedItemId(R.id.nav_search);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.nav_browse:
-                        startActivity(new Intent(getApplicationContext(), BrowseActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.nav_search:
-                        return true;
-                    case R.id.nav_mysongs:
-                        startActivity(new Intent(getApplicationContext(), MySongsActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                }
-                return false;
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.nav_browse:
+                    startActivity(new Intent(getApplicationContext(), BrowseActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                case R.id.nav_search:
+                    return true;
+                case R.id.nav_mysongs:
+                    startActivity(new Intent(getApplicationContext(), MySongsActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
             }
+            return false;
         });
 
 //        ObjectAnimator animation = ObjectAnimator.ofFloat(searchHeader, "translationY", -223f);
@@ -126,22 +120,6 @@ public class SearchActivity extends AppCompatActivity {
                 clearTxtBtn.setVisibility(View.VISIBLE);
                 String txt = searchText.getText().toString();
                 GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-//                String url = String.format("https://api.musicify.ir/tracks/search?query=%s&include=artists,album", txt);
-//                Call<TracksResult> call = service.SearchTracks(url);
-//                call.enqueue(new Callback<TracksResult>() {
-//                    @Override
-//                    public void onResponse(Call<TracksResult> call, Response<TracksResult> response) {
-//                        if (!txt.equals("")){
-//                            SongsRecyclerSearchAdapter adapter = new SongsRecyclerSearchAdapter(response.body().data,SearchActivity.this);
-//                            recyclerView.setAdapter(adapter);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<TracksResult> call, Throwable t) {
-//
-//                    }
-//                });
                 if (!txt.equals("")) {
                     String url = String.format("https://musicify.ir/api/search?query=%s&include=tracks.artists", txt);
                     Call<GeneralSearch> call = service.SearchAll(url);

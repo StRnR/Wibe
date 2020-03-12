@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-class Album {
+public class Album {
     @SerializedName("id")
     @Expose
     public String id;
