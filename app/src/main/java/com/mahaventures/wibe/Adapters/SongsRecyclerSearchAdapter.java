@@ -15,15 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.Services.PlaySongBroadcastReceiver;
 import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecyclerSearchAdapter.SearchSongsViewHolder> {
 
     private List<Track> result;
     private Context context;
+    public static String ACTION = "pay";
 
     public SongsRecyclerSearchAdapter(List<Track> result, Context context) {
         this.result = result;
@@ -54,9 +58,18 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
             //todo get duration too
             Intent intent = new Intent(context, PlayerActivity.class);
             intent.putExtra("id", track.id);
-            intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             SearchSongsViewHolder.cardView.setClickable(true);
-            context.startActivity(intent);
+            Intent intent1 = new Intent(context, PlaySongBroadcastReceiver.class)
+                    .setAction(ACTION);
+            context.sendBroadcast(intent1);
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    context.startActivity(intent);
+                }
+            }, 100);
         });
     }
 

@@ -22,6 +22,7 @@
 
         <receiver android:name=".Services.NotificationActionService" />
         <receiver android:name=".Services.MiniPlayerBroadCastReceiver" />
+        <receiver android:name=".Services.PlaySongBroadcastReceiver" />
 
         <service android:name=".Services.OnClearFromRecentService" />
 
@@ -41,6 +42,7 @@
         <activity
             android:name=".Activities.SearchActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.BrowseActivity"
@@ -52,6 +54,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.PlayerActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

@@ -12,6 +12,5 @@ public class MiniPlayerBroadCastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         context.sendBroadcast(new Intent("MINI_PLAYER")
                 .putExtra("action_name", intent.getAction()));
-        StaticTools.LogErrorMessage("message received");
     }
 }

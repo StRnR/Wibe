@@ -26,6 +26,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.mahaventures.wibe.Adapters.SongsRecyclerSearchAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Interfaces.Playable;
 import com.mahaventures.wibe.Models.NewModels.Track;
@@ -92,6 +93,10 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         try {
             if (broadcastReceiver != null)
                 unregisterReceiver(broadcastReceiver);
+            if (miniPlayerBroadcastReceiver != null)
+                unregisterReceiver(miniPlayerBroadcastReceiver);
+            if (playSongBroadcastReceiver != null)
+                unregisterReceiver(playSongBroadcastReceiver);
         } catch (Exception e) {
 
         }
@@ -147,6 +152,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             createChannel();
             registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
             registerReceiver(miniPlayerBroadcastReceiver, new IntentFilter("MINI_PLAYER"));
+            registerReceiver(playSongBroadcastReceiver, new IntentFilter("PLAY_SONG"));
             startService(new Intent(getBaseContext(), OnClearFromRecentService.class));
         }
 
@@ -344,6 +350,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             notificationManager.cancelAll();
         }
         unregisterReceiver(broadcastReceiver);
+        unregisterReceiver(miniPlayerBroadcastReceiver);
+        unregisterReceiver(playSongBroadcastReceiver);
         mediaPlayer.release();
     }
 
@@ -437,6 +445,18 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         }
     };
 
+    BroadcastReceiver playSongBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getExtras().getString("play_song_action");
+            StaticTools.LogErrorMessage("rtdhfjfckcxcykcchcg");
+            if (action != null && action.equals(SongsRecyclerSearchAdapter.ACTION)) {
+//                PlayerActivity.this.finish();
+                PlayerActivity.this.finish();
+            }
+        }
+    };
+
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -471,5 +491,9 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     public static Bitmap getArtWork() {
         return artWork;
+    }
+
+    public void changeSong() {
+        PlayerActivity.this.finish();
     }
 }
