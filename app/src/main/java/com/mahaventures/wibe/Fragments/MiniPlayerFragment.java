@@ -17,6 +17,7 @@ import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.MiniPlayerBroadCastReceiver;
+import com.mahaventures.wibe.Tools.StaticTools;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -65,19 +66,23 @@ public class MiniPlayerFragment extends Fragment {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                getActivity().runOnUiThread(() -> {
-                    if (isPlaying) {
-                        playBtn.setBackgroundResource(R.drawable.ic_pause);
-                    } else {
-                        playBtn.setBackgroundResource(R.drawable.ic_play);
-                    }
-                    if (isPrepared) {
-                        isPrepared = false;
-                        cover.setImageBitmap(PlayerActivity.getArtWork());
-                        artist.setText(PlayerActivity.getArtistsName());
-                        songTitle.setText(PlayerActivity.getTrackName());
-                    }
-                });
+                try {
+                    getActivity().runOnUiThread(() -> {
+                        if (isPlaying) {
+                            playBtn.setBackgroundResource(R.drawable.ic_pause);
+                        } else {
+                            playBtn.setBackgroundResource(R.drawable.ic_play);
+                        }
+                        if (isPrepared) {
+                            isPrepared = false;
+                            cover.setImageBitmap(PlayerActivity.getArtWork());
+                            artist.setText(PlayerActivity.getArtistsName());
+                            songTitle.setText(PlayerActivity.getTrackName());
+                        }
+                    });
+                } catch (Exception e) {
+                    StaticTools.LogErrorMessage(e.getMessage());
+                }
             }
         }, 0, 100);
 
@@ -91,7 +96,13 @@ public class MiniPlayerFragment extends Fragment {
         });
 
         fragmentClicker.setOnClickListener(v -> {
-            //todo: bring up main player
+            try {
+                Intent intent = new Intent(getActivity(), PlayerActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                getActivity().startActivity(intent);
+            } catch (Exception e) {
+                StaticTools.LogErrorMessage(e.getMessage());
+            }
         });
 
         return view;

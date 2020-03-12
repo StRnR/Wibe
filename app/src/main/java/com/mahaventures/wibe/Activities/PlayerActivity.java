@@ -62,6 +62,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     NotificationManager notificationManager;
     TextView songDurationTxt;
     TextView songTimeTxt;
+    boolean isPrepared;
     BroadcastReceiver miniPlayerBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -76,6 +77,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             int a = 2;
         }
     };
+
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -316,7 +318,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         songSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser) {
+                if (fromUser && isPrepared) {
                     try {
                         mediaPlayer.seekTo(progress);
                         mediaPlayer.start();
@@ -395,6 +397,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             playBtn.setBackground(getDrawable(R.drawable.ic_pause));
             mediaPlayer.setOnPreparedListener(mp -> {
                 StaticTools.LogTimedMessage("media player prepared");
+                isPrepared = true;
                 int duration = mediaPlayer.getDuration();
                 songDurationTxt.setText(StaticTools.getSongDuration(duration / 1000));
                 int amoungToupdate = duration / 500;
@@ -424,7 +427,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             mediaPlayer.seekTo(pos);
             mediaPlayer.start();
         } catch (Exception e) {
-            StaticTools.LogErrorMessage(e.getMessage() + " inja");
+            StaticTools.LogErrorMessage(e.getMessage() + " inja player activity");
             try {
                 mediaPlayer.release();
                 mediaPlayer = new MediaPlayer();
