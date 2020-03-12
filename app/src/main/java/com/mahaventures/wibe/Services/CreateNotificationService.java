@@ -14,7 +14,6 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
-import com.mahaventures.wibe.Services.NotificationActionService;
 import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
@@ -26,9 +25,8 @@ public class CreateNotificationService {
     public static final String ACTION_PREVIOUS = "action_previous";
     public static final String ACTION_PLAY = "action_play";
     public static final String ACTION_NEXT = "action_next";
-    private static Bitmap icon;
-
     public static Notification notification;
+    private static Bitmap icon;
 
     public static void createNotification(Context context, Track track, int playButton, int pos, int size) {
 

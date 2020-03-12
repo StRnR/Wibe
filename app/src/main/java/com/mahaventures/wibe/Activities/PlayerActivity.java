@@ -50,19 +50,67 @@ import static java.lang.Float.isNaN;
 public class PlayerActivity extends AppCompatActivity implements Playable {
 
     public static MediaPlayer mediaPlayer = new MediaPlayer();
+    public static Bitmap artWork;
+    public static String CUSTOM_BROADCAST_ACTION = "miniPlayerAction";
+    public static String mArtistString;
+    public static String mTrackNameString;
     static Track track;
     int pos = 0;
     SeekBar songSeekBar;
     boolean isPlaying;
-    public static Bitmap artWork;
     Button playBtn;
     NotificationManager notificationManager;
-    public static String CUSTOM_BROADCAST_ACTION = "miniPlayerAction";
-    public static String mArtistString;
-    public static String mTrackNameString;
     TextView songDurationTxt;
     TextView songTimeTxt;
+    BroadcastReceiver miniPlayerBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getExtras().getString("action_name");
+            if (action != null && action.equals(MiniPlayerFragment.ACTION_PLAY)) {
+                if (isPlaying) {
+                    pauseMedia();
+                } else {
+                    playMedia();
+                }
+            }
+            int a = 2;
+        }
+    };
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getExtras().getString("actionname");
+            if (action != null) {
+                switch (action) {
+                    case CreateNotificationService.ACTION_PREVIOUS:
+                        onTrackPrevious();
+                        break;
+                    case CreateNotificationService.ACTION_PLAY:
+                        if (isPlaying) {
+                            pauseMedia();
+                        } else {
+                            playMedia();
+                        }
+                        break;
+                    case CreateNotificationService.ACTION_NEXT:
+                        onTrackNext();
+                        break;
+                }
+            }
+        }
+    };
 
+    public static String getTrackName() {
+        return track != null ? track.name : "";
+    }
+
+    public static String getArtistsName() {
+        return track != null ? StaticTools.getArtistsName(track) : "";
+    }
+
+    public static Bitmap getArtWork() {
+        return artWork;
+    }
 
     @Override
     public void onBackPressed() {
@@ -289,7 +337,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     }
 
-
     @Override
     public void onTrackPrevious() {
 
@@ -337,45 +384,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             }
         }
     }
-
-    BroadcastReceiver miniPlayerBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getExtras().getString("action_name");
-            if (action != null && action.equals(MiniPlayerFragment.ACTION_PLAY)) {
-                if (isPlaying) {
-                    pauseMedia();
-                } else {
-                    playMedia();
-                }
-            }
-            int a = 2;
-        }
-    };
-
-    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getExtras().getString("actionname");
-            if (action != null) {
-                switch (action) {
-                    case CreateNotificationService.ACTION_PREVIOUS:
-                        onTrackPrevious();
-                        break;
-                    case CreateNotificationService.ACTION_PLAY:
-                        if (isPlaying) {
-                            pauseMedia();
-                        } else {
-                            playMedia();
-                        }
-                        break;
-                    case CreateNotificationService.ACTION_NEXT:
-                        onTrackNext();
-                        break;
-                }
-            }
-        }
-    };
 
     public void playMedia() {
         try {
@@ -436,17 +444,5 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         playBtn.setBackground(getDrawable(R.drawable.ic_play));
         pos = mediaPlayer.getCurrentPosition();
         mediaPlayer.stop();
-    }
-
-    public static String getTrackName() {
-        return track != null ? track.name : "";
-    }
-
-    public static String getArtistsName() {
-        return track != null ? StaticTools.getArtistsName(track) : "";
-    }
-
-    public static Bitmap getArtWork() {
-        return artWork;
     }
 }

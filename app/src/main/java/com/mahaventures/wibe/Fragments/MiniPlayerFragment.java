@@ -29,13 +29,13 @@ public class MiniPlayerFragment extends Fragment {
 
     public static String ACTION_PLAY = "play_action";
     public static Track miniTrack;
+    public static Context context;
+    public static boolean isPlaying;
+    public static boolean isPrepared;
     private Button playBtn;
     private Button skipBtn;
     private Button fragmentClicker;
     private ProgressBar songProgressBar;
-    public static Context context;
-    public static boolean isPlaying;
-    public static boolean isPrepared;
 
     public MiniPlayerFragment() {
         // Required empty public constructor

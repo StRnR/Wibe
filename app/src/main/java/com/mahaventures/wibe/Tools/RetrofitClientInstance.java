@@ -5,8 +5,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClientInstance {
 
-    private static Retrofit retrofit;
     private static final String BASE_URL = "https://musicify.ir/api/";
+    private static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {

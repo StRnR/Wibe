@@ -35,9 +35,9 @@ import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
 
+    public static FragmentManager fragmentManager;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    public static FragmentManager fragmentManager;
     private Timer timer;
 
     @Override

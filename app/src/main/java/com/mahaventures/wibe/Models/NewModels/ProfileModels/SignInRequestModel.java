@@ -19,15 +19,12 @@ public class SignInRequestModel {
     @SerializedName("password")
     @Expose
     public String password;
-
-    @SerializedName("uuid")
-    @Expose
-    private String uuid;
-
     @SerializedName("os")
     @Expose
     public String os;
-
+    @SerializedName("uuid")
+    @Expose
+    private String uuid;
     @SerializedName("os_version")
     @Expose
     private String os_version;

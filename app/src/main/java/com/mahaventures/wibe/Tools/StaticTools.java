@@ -37,8 +37,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class StaticTools {
-    private static boolean cvb;
     private final static int MinimumPasswordLength = 6;
+    private static boolean cvb;
 
     public static void ShowToast(Context context, String message, int length) {
         Toast toast = Toast.makeText(context, message, length);
