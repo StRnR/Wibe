@@ -116,11 +116,14 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
         showPassBtn.setOnClickListener(v -> {
-            //todo: debug this dear john please
             if (passwordTxt.getTransformationMethod() != null) {
                 passwordTxt.setTransformationMethod(null);
+                showPassBtn.setBackground(getDrawable(R.drawable.ic_visibility_blue));
+                passwordTxt.setSelection(passwordTxt.getText().toString().length());
             } else {
                 passwordTxt.setTransformationMethod(new PasswordTransformationMethod());
+                showPassBtn.setBackground(getDrawable(R.drawable.ic_visibility));
+                passwordTxt.setSelection(passwordTxt.getText().toString().length());
             }
         });
 

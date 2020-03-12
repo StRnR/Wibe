@@ -103,10 +103,14 @@ public class SignInActivity extends AppCompatActivity {
         });
 
         showPassBtn.setOnClickListener(v -> {
-            if (!passTxt.getTransformationMethod().equals(null)) {
+            if (passTxt.getTransformationMethod() != null) {
                 passTxt.setTransformationMethod(null);
+                showPassBtn.setBackground(getDrawable(R.drawable.ic_visibility_blue));
+                passTxt.setSelection(passTxt.getText().toString().length());
             } else {
                 passTxt.setTransformationMethod(new PasswordTransformationMethod());
+                showPassBtn.setBackground(getDrawable(R.drawable.ic_visibility));
+                passTxt.setSelection(passTxt.getText().toString().length());
             }
         });
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -31,6 +32,7 @@ public class MiniPlayerFragment extends Fragment {
     private Button playBtn;
     private Button skipBtn;
     private Button fragmentClicker;
+    private ProgressBar songProgressBar;
     public static Context context;
     public static boolean isPlaying;
     public static boolean isPrepared;
@@ -48,6 +50,7 @@ public class MiniPlayerFragment extends Fragment {
         playBtn = view.findViewById(R.id.btn_play_miniplayer);
         skipBtn = view.findViewById(R.id.btn_skip_miniplayer);
         fragmentClicker = view.findViewById(R.id.fragment_clicker);
+        songProgressBar = view.findViewById(R.id.progressbar_miniplayer);
         TextView songTitle = view.findViewById(R.id.txt_songtitle_miniplayer);
         TextView artist = view.findViewById(R.id.txt_artist_miniplayer);
         ImageView cover = view.findViewById(R.id.img_cover_miniplayer);
