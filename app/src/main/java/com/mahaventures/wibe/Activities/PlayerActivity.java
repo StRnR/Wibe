@@ -9,12 +9,14 @@ import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -114,10 +116,22 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         ImageView artwork = findViewById(R.id.img_cover_mainplayer);
         playBtn = findViewById(R.id.btn_play_mainplayer);
         playBtn.setBackground(getDrawable(R.drawable.ic_pause));
-        minimizeBtn = findViewById(R.id.btn_minimize_player);
         Button skipBtn = findViewById(R.id.btn_skip_mainplayer);
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
         ConstraintLayout layout = findViewById(R.id.player_layout);
+
+        minimizeBtn = findViewById(R.id.btn_minimize_player);
+
+        final View parent = (View) minimizeBtn.getParent();
+        parent.post(() -> {
+            final Rect rect = new Rect();
+            minimizeBtn.getHitRect(rect);
+            rect.top -= 50;
+            rect.left -= 50;
+            rect.bottom += 50;
+            rect.right += 50;
+            parent.setTouchDelegate(new TouchDelegate(rect, minimizeBtn));
+        });
 
         int color = Color.rgb(255, 255, 255);
         songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
@@ -270,7 +284,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         });
 
         minimizeBtn.setOnClickListener(v -> {
-
             PlayerActivity.this.onBackPressed();
         });
 
