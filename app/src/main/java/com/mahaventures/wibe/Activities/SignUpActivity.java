@@ -117,7 +117,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         showPassBtn.setOnClickListener(v -> {
             //todo: debug this dear john please
-            if (!passwordTxt.getTransformationMethod().equals(null)) {
+            if (passwordTxt.getTransformationMethod() != null) {
                 passwordTxt.setTransformationMethod(null);
             } else {
                 passwordTxt.setTransformationMethod(new PasswordTransformationMethod());
