@@ -114,8 +114,14 @@ public class SearchActivity extends AppCompatActivity {
 //        });
 
         searchText.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                if (searchText.getText().toString().equals(""))
+                    clearTxtBtn.setVisibility(View.INVISIBLE);
+                else
+                    clearTxtBtn.setVisibility(View.VISIBLE);
 
             }
 
@@ -124,6 +130,12 @@ public class SearchActivity extends AppCompatActivity {
                 resCategory.setVisibility(View.VISIBLE);
                 clearTxtBtn.setVisibility(View.VISIBLE);
                 timer = new Timer();
+
+                if (searchText.getText().toString().equals(""))
+                    clearTxtBtn.setVisibility(View.INVISIBLE);
+                else
+                    clearTxtBtn.setVisibility(View.VISIBLE);
+
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -159,8 +171,6 @@ public class SearchActivity extends AppCompatActivity {
 
                                 }
                             });
-                        } else {
-                            clearTxtBtn.setVisibility(View.INVISIBLE);
                         }
                     }
                 }, 600);
@@ -170,7 +180,10 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if (searchText.getText().toString().equals(""))
+                    clearTxtBtn.setVisibility(View.INVISIBLE);
+                else
+                    clearTxtBtn.setVisibility(View.VISIBLE);
             }
         });
 

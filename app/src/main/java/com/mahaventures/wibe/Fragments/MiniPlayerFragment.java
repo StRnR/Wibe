@@ -16,7 +16,6 @@ import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.MiniPlayerBroadCastReceiver;
-import com.mahaventures.wibe.Tools.StaticTools;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,6 +30,7 @@ public class MiniPlayerFragment extends Fragment {
     public static Track miniTrack;
     private Button playBtn;
     private Button skipBtn;
+    private Button fragmentClicker;
     public static Context context;
     public static boolean isPlaying;
     public static boolean isPrepared;
@@ -47,6 +47,7 @@ public class MiniPlayerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mini_player, container, false);
         playBtn = view.findViewById(R.id.btn_play_miniplayer);
         skipBtn = view.findViewById(R.id.btn_skip_miniplayer);
+        fragmentClicker = view.findViewById(R.id.fragment_clicker);
         TextView songTitle = view.findViewById(R.id.txt_songtitle_miniplayer);
         TextView artist = view.findViewById(R.id.txt_artist_miniplayer);
         ImageView cover = view.findViewById(R.id.img_cover_miniplayer);
@@ -84,6 +85,10 @@ public class MiniPlayerFragment extends Fragment {
                         .setAction(ACTION_PLAY);
                 getActivity().sendBroadcast(intent);
             }
+        });
+
+        fragmentClicker.setOnClickListener(v -> {
+            //todo: bring up main player
         });
 
         return view;

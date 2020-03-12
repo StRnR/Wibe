@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SugarContext.init(this);
         SavedInfo info = SavedInfo.last(SavedInfo.class);
-        startActivity(new Intent(MainActivity.this, SearchActivity.class));
+//        startActivity(new Intent(MainActivity.this, SearchActivity.class));
         if (info != null && info.isActive()) {
             token = info.getToken();
             startActivity(new Intent(MainActivity.this, SearchActivity.class));
