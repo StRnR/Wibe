@@ -447,6 +447,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             if (action != null && action.equals(SongsRecyclerSearchAdapter.ACTION)) {
 //                PlayerActivity.this.finish();
                 PlayerActivity.this.finish();
+                MiniPlayerFragment.isLoaded = false;
             }
         }
     };

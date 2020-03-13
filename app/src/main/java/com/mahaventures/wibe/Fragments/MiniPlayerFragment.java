@@ -68,9 +68,11 @@ public class MiniPlayerFragment extends Fragment {
             public void run() {
                 try {
                     getActivity().runOnUiThread(() -> {
-                        if (isLoaded) {
+                        try {
                             songProgressBar.setMax(PlayerActivity.maxProgress);
                             songProgressBar.setProgress(PlayerActivity.progressPosition);
+                        } catch (Exception e) {
+                            songProgressBar.setProgress(0);
                         }
                         if (isPlaying) {
                             playBtn.setBackgroundResource(R.drawable.ic_pause);

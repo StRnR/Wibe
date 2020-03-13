@@ -9,6 +9,7 @@ import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -96,8 +97,10 @@ public class SearchActivity extends AppCompatActivity {
             MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
             fragmentTransaction.add(R.id.fragment_container, miniPlayerFragment);
             fragmentTransaction.commit();
-
+            FrameLayout frgamentContainer = findViewById(R.id.fragment_container);
+            frgamentContainer.setVisibility(View.INVISIBLE);
         }
+
 
 //        searchText.setOnClickListener(v -> {
 //            final int newTopMargin = 27;
@@ -132,8 +135,7 @@ public class SearchActivity extends AppCompatActivity {
                 clearTxtBtn.setVisibility(View.VISIBLE);
                 if (searchText.getText().toString().equals("")) {
                     clearTxtBtn.setVisibility(View.INVISIBLE);
-                }
-                else {
+                } else {
                     clearTxtBtn.setVisibility(View.VISIBLE);
                 }
 
