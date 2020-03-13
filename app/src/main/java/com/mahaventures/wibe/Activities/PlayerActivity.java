@@ -65,6 +65,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     TextView songDurationTxt;
     TextView songTimeTxt;
     boolean isPrepared;
+    public static int progressPosition;
+    public static int maxProgress;
 
     @Override
     public void onBackPressed() {
@@ -380,28 +382,28 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 isPrepared = true;
                 int duration = mediaPlayer.getDuration();
                 songDurationTxt.setText(StaticTools.getSongDuration(duration / 1000));
-                int amoungToUpdate = duration / 500;
                 Timer mTimer = new Timer();
-                if (amoungToUpdate > 0) {
-                    mTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            runOnUiThread(() -> {
-                                try {
-                                    songSeekBar.setMax(mediaPlayer.getDuration());
-                                    songSeekBar.setProgress(mediaPlayer.getCurrentPosition());
-                                    songTimeTxt.setText(StaticTools.getSongDuration(mediaPlayer.getCurrentPosition() / 1000));
-                                    if (mediaPlayer.getDuration() == mediaPlayer.getCurrentPosition()) {
-                                        mediaPlayer.reset();
-                                        PlayerActivity.this.onBackPressed();
-                                    }
-                                } catch (Exception e) {
-
+                mTimer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(() -> {
+                            try {
+                                songSeekBar.setMax(duration);
+                                maxProgress = duration;
+                                int pos = mediaPlayer.getCurrentPosition();
+                                songSeekBar.setProgress(pos);
+                                progressPosition = pos;
+                                songTimeTxt.setText(StaticTools.getSongDuration(pos / 1000));
+                                if (duration == pos) {
+                                    mediaPlayer.reset();
+                                    PlayerActivity.this.onBackPressed();
                                 }
-                            });
-                        }
-                    }, 0, amoungToUpdate);
-                }
+                            } catch (Exception e) {
+
+                            }
+                        });
+                    }
+                }, 0, 100);
             });
             mediaPlayer.prepare();
             mediaPlayer.seekTo(pos);

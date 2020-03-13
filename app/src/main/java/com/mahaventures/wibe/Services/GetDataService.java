@@ -1,5 +1,6 @@
 package com.mahaventures.wibe.Services;
 
+import com.mahaventures.wibe.Models.NewModels.ArtistsSearch;
 import com.mahaventures.wibe.Models.NewModels.GeneralSearch;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.NewModels.TracksResult;
@@ -21,6 +22,9 @@ public interface GetDataService {
 
     @GET("users/verify/password/")
     Call<ResetPasswordResponseModel> GetResetPasswordId(@Query("email") String email);
+
+    @GET("artists/search/")
+    Call<ArtistsSearch> SearchArtists(@Query("query") String query);
 
     @GET
     Call<TracksResult> SearchTracks(@Url String url);

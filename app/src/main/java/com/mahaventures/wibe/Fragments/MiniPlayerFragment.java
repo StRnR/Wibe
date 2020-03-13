@@ -2,6 +2,8 @@ package com.mahaventures.wibe.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,11 +59,8 @@ public class MiniPlayerFragment extends Fragment {
         TextView artist = view.findViewById(R.id.txt_artist_miniplayer);
         ImageView cover = view.findViewById(R.id.img_cover_miniplayer);
 
-//        if (PlayerActivity.isPlaying) {
-//            songTitle.setText(miniTrack.name);
-//            artist.setText(StaticTools.getArtistsName(miniTrack));
-//            cover.setImageBitmap(PlayerActivity.artWork);
-//        }
+        int color = Color.rgb(255, 255, 255);
+        songProgressBar.setProgressTintList(ColorStateList.valueOf(color));
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -69,6 +68,10 @@ public class MiniPlayerFragment extends Fragment {
             public void run() {
                 try {
                     getActivity().runOnUiThread(() -> {
+                        if (isLoaded) {
+                            songProgressBar.setMax(PlayerActivity.maxProgress);
+                            songProgressBar.setProgress(PlayerActivity.progressPosition);
+                        }
                         if (isPlaying) {
                             playBtn.setBackgroundResource(R.drawable.ic_pause);
                         } else {
