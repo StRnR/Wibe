@@ -54,11 +54,8 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
             SearchSongsViewHolder.cardView.setClickable(false);
             PlayerActivity.mArtistString = artist;
             PlayerActivity.mTrackNameString = track.name;
-//            PlayerActivity.mDurationString = StaticTools.getSongDuration(track.file);
-            //todo get duration too
             Intent intent = new Intent(context, PlayerActivity.class);
             intent.putExtra("id", track.id);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             SearchSongsViewHolder.cardView.setClickable(true);
             Intent intent1 = new Intent(context, PlaySongBroadcastReceiver.class)
                     .setAction(ACTION);

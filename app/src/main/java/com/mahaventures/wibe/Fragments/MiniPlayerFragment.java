@@ -91,7 +91,6 @@ public class MiniPlayerFragment extends Fragment {
             }
         }, 0, 100);
 
-        //TODO: connect to media player
         playBtn.setOnClickListener(v -> {
             if (context != null) {
                 Intent intent = new Intent(context, MiniPlayerBroadCastReceiver.class)

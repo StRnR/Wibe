@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 public class Profile {
-    //todo set correct names
     @SerializedName("has_activated_trial")
     private boolean HasActivatedTrial;
     @SerializedName("premium_end_date")

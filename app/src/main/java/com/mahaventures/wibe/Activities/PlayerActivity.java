@@ -144,11 +144,9 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
         songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
 
-        //todo uncomment
         songTitleTxt.setText(mTrackNameString);
         artistTxt.setText(mArtistString);
         StaticTools.LogTimedMessage("meta added");
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel();
@@ -170,20 +168,14 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                         track = response.body();
                         StaticTools.LogTimedMessage("track set");
                         MiniPlayerFragment.miniTrack = track;
-                        ///media player
                         try {
                             mediaPlayer = new MediaPlayer();
                             mediaPlayer.setDataSource(track != null ? track.file : null);
-//                            playBtn.setBackground(getDrawable(R.drawable.ic_pause));
-//                            mediaPlayer.prepare();
-//                            mediaPlayer.start();
-//                            isPlaying = true;
                             playMedia();
                             playBtn.setEnabled(true);
                         } catch (Exception e) {
                             StaticTools.LogErrorMessage(e.getMessage());
                         }
-                        ///media player
                         RequestCreator loaded = Picasso.get().load(track.image.medium.url);
                         StaticTools.LogTimedMessage("loaded image");
                         loaded.into(artwork, new com.squareup.picasso.Callback() {

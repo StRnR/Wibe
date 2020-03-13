@@ -45,7 +45,6 @@ public class ResetPassActivity extends AppCompatActivity {
         });
 
         resetPassBtn.setOnClickListener(v -> {
-            //todo: verify new password
             GetDataService getDataService = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
             Call<ResetPasswordResponseModel> call = getDataService.GetResetPasswordId(SignInActivity.Email);
             call.enqueue(new Callback<ResetPasswordResponseModel>() {
