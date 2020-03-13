@@ -130,13 +130,14 @@ public class SearchActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 resCategory.setVisibility(View.VISIBLE);
                 clearTxtBtn.setVisibility(View.VISIBLE);
-                timer = new Timer();
-
-                if (searchText.getText().toString().equals(""))
+                if (searchText.getText().toString().equals("")) {
                     clearTxtBtn.setVisibility(View.INVISIBLE);
-                else
+                }
+                else {
                     clearTxtBtn.setVisibility(View.VISIBLE);
+                }
 
+                timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
