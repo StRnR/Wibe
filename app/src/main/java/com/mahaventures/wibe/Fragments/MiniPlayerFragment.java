@@ -41,6 +41,7 @@ public class MiniPlayerFragment extends Fragment {
     private Button skipBtn;
     private Button fragmentClicker;
     private ProgressBar songProgressBar;
+    int counter;
 
     public MiniPlayerFragment() {
         // Required empty public constructor
@@ -62,7 +63,7 @@ public class MiniPlayerFragment extends Fragment {
 
         int color = Color.rgb(255, 255, 255);
         songProgressBar.setProgressTintList(ColorStateList.valueOf(color));
-
+        counter = 0;
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -70,8 +71,10 @@ public class MiniPlayerFragment extends Fragment {
                 try {
                     getActivity().runOnUiThread(() -> {
                         try {
-                            songProgressBar.setMax(PlayerActivity.maxProgress);
-                            songProgressBar.setProgress(PlayerActivity.progressPosition);
+                            if (counter < 2) {
+                                songProgressBar.setMax(PlayerActivity.maxProgress);
+                                songProgressBar.setProgress(PlayerActivity.progressPosition);
+                            }
                         } catch (Exception e) {
                             songProgressBar.setProgress(0);
                         }
@@ -81,6 +84,7 @@ public class MiniPlayerFragment extends Fragment {
                             playBtn.setBackgroundResource(R.drawable.ic_play);
                         }
                         if (isPrepared) {
+                            counter = 0;
                             isPrepared = false;
                             isLoaded = true;
                             cover.setImageBitmap(PlayerActivity.getArtWork());
@@ -94,14 +98,11 @@ public class MiniPlayerFragment extends Fragment {
             }
         }, 0, 100);
 
-        skipBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (context != null) {
-                    Intent intent = new Intent(context, MiniPlayerBroadCastReceiver.class)
-                            .setAction(ACTION_NEXT);
-                    getActivity().sendBroadcast(intent);
-                }
+        skipBtn.setOnClickListener(v -> {
+            if (context != null) {
+                Intent intent = new Intent(context, MiniPlayerBroadCastReceiver.class)
+                        .setAction(ACTION_NEXT);
+                getActivity().sendBroadcast(intent);
             }
         });
 
