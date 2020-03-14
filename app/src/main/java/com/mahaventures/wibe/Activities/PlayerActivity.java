@@ -76,11 +76,11 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     @Override
     public void onBackPressed() {
-//        moveTaskToBack(true);
+        moveTaskToBack(true);
 //        Intent intent = new Intent(this, SearchActivity.class);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 //        startActivity(intent);
-        super.onBackPressed();
+//        super.onBackPressed();
     }
 
     @Override
@@ -192,7 +192,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         songSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (!fromUser && sd == sp) {
+                if (!fromUser && sd != 0 && sd == sp) {
                     next();
                 }
                 if (fromUser && isPrepared) {
@@ -345,14 +345,14 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     @Override
     public void onTrackPlay() {
         CreateNotificationService.createNotification(PlayerActivity.this, track,
-                R.drawable.ic_pause_black_24dp, 0, 0);
+                R.drawable.ic_pause_black_24dp, trackNumber, queue.size());
         isPlaying = true;
     }
 
     @Override
     public void onTrackPause() {
         CreateNotificationService.createNotification(PlayerActivity.this, track,
-                R.drawable.ic_play_arrow_black_24dp, 0, 0);
+                R.drawable.ic_play_arrow_black_24dp, trackNumber, queue.size());
 //        play.setImageResource(R.drawable.ic_play_arrow_black_24dp);
 //        title.setText(tracks.get(position).getTitle());
         isPlaying = false;

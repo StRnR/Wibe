@@ -24,10 +24,6 @@ import com.mahaventures.wibe.Tools.StaticTools;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MiniPlayerFragment extends Fragment {
 
     public static final String ACTION_PLAY = "play_action";

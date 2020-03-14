@@ -12,6 +12,7 @@ import android.support.v4.media.session.MediaSessionCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Tools.StaticTools;
@@ -53,7 +54,7 @@ public class CreateNotificationService {
             });
 
             PendingIntent pendingIntentPrevious;
-            int drw_previous = 0;
+            int drw_previous = pos;
             if (pos == 0) {
                 pendingIntentPrevious = null;
             } else {
@@ -70,7 +71,7 @@ public class CreateNotificationService {
                     intentPlay, PendingIntent.FLAG_UPDATE_CURRENT);
 
             PendingIntent pendingIntentNext;
-            int drw_next = 0;
+            int drw_next = pos;
             if (pos == size) {
                 pendingIntentNext = null;
             } else {
