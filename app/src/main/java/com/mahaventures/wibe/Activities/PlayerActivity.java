@@ -32,21 +32,19 @@ import com.mahaventures.wibe.Interfaces.Playable;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.CreateNotificationService;
-import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Services.OnClearFromRecentService;
 import com.mahaventures.wibe.Tools.AlphaTransformation;
-import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class PlayerActivity extends AppCompatActivity implements Playable {
 
@@ -67,25 +65,32 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     boolean isPrepared;
     public static int progressPosition;
     public static int maxProgress;
+    public static List<Track> queue;
+    ImageView artwork;
+    ConstraintLayout layout;
+    public static int trackNumber;
+    TextView songTitleTxt;
+    TextView artistTxt;
+    int sd;
+    int sp;
 
     @Override
     public void onBackPressed() {
 //        moveTaskToBack(true);
-        Intent intent = new Intent(this, SearchActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(intent);
+//        Intent intent = new Intent(this, SearchActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//        startActivity(intent);
+        super.onBackPressed();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StaticTools.LogTimedMessage("on create fuuuuuuuuck");
+        MiniPlayerFragment.isLoaded = false;
         setContentView(R.layout.activity_player);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
-        String trackId = getIntent().getStringExtra("id");
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        String url = String.format("https://api.musicify.ir/tracks/%s?include=artists,album", trackId);
         isPrepared = false;
         MiniPlayerFragment.context = this;
 
@@ -112,22 +117,34 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 StaticTools.LogErrorMessage(e.getMessage());
             }
         }
-        Call<Track> call = service.GetTrackById(url);
+
+
         TextView srcTxt = findViewById(R.id.txt_playersrc);
         TextView srcNameTxt = findViewById(R.id.txt_srcname_mainplayer);
-        TextView songTitleTxt = findViewById(R.id.txt_title_mainplayer);
-        TextView artistTxt = findViewById(R.id.txt_artist_mainplayer);
+        songTitleTxt = findViewById(R.id.txt_title_mainplayer);
+        artistTxt = findViewById(R.id.txt_artist_mainplayer);
         songTimeTxt = findViewById(R.id.txt_songtime_mainplayer);
         songDurationTxt = findViewById(R.id.txt_songduration_mainplayer);
         songSeekBar = findViewById(R.id.seekbar_mainplayer);
-        ImageView artwork = findViewById(R.id.img_cover_mainplayer);
+        artwork = findViewById(R.id.img_cover_mainplayer);
         playBtn = findViewById(R.id.btn_play_mainplayer);
         playBtn.setBackground(getDrawable(R.drawable.ic_pause));
         Button skipBtn = findViewById(R.id.btn_skip_mainplayer);
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
-        ConstraintLayout layout = findViewById(R.id.player_layout);
-
+        layout = findViewById(R.id.player_layout);
         minimizeBtn = findViewById(R.id.btn_minimize_player);
+
+        skipBtn.setOnClickListener(v -> {
+            next();
+            setMeta();
+        });
+        rewindBtn.setOnClickListener(v -> {
+            previous();
+            setMeta();
+        });
+
+        //play song
+        doShit(trackNumber);
 
         final View parent = (View) minimizeBtn.getParent();
         parent.post(() -> {
@@ -159,58 +176,108 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         songSeekBar.setProgress(0);
         playBtn.setEnabled(false);
 
-        call.enqueue(new retrofit2.Callback<Track>() {
+
+        playBtn.setOnClickListener(v -> {
+            if (mediaPlayer.isPlaying()) {
+                pauseMedia();
+            } else {
+                playMedia();
+            }
+        });
+
+        minimizeBtn.setOnClickListener(v -> {
+            PlayerActivity.this.onBackPressed();
+        });
+
+        songSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onResponse(Call<Track> call, Response<Track> response) {
-                StaticTools.LogTimedMessage("response received");
-                if (response.isSuccessful()) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (!fromUser && sd == sp) {
+                    next();
+                }
+                if (fromUser && isPrepared) {
                     try {
-                        track = response.body();
-                        StaticTools.LogTimedMessage("track set");
-                        MiniPlayerFragment.miniTrack = track;
-                        try {
-                            mediaPlayer = new MediaPlayer();
-                            mediaPlayer.setDataSource(track != null ? track.file : null);
-                            playMedia();
-                            playBtn.setEnabled(true);
-                        } catch (Exception e) {
-                            StaticTools.LogErrorMessage(e.getMessage());
+                        mediaPlayer.seekTo(progress);
+                        mediaPlayer.start();
+                    } catch (Exception e) {
+                        StaticTools.LogErrorMessage(e.getMessage() + " seekbar change");
+                    }
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+    }
+
+    private void setMeta() {
+        MiniPlayerFragment.isPrepared = true;
+        String artist = StaticTools.getArtistsName(track);
+        mArtistString = artist;
+        artistTxt.setText(artist);
+        String trackName = track.name;
+        mTrackNameString = trackName;
+        songTitleTxt.setText(trackName);
+    }
+
+    private void doShit(int i) {
+        try {
+            mediaPlayer.release();
+            MiniPlayerFragment.isLoaded = false;
+            track = queue.get(trackNumber);
+            setMeta();
+            songSeekBar.setProgress(0);
+            StaticTools.LogTimedMessage("track set");
+            MiniPlayerFragment.miniTrack = track;
+            try {
+                mediaPlayer = new MediaPlayer();
+                mediaPlayer.setDataSource(track != null ? track.file : null);
+                playMedia();
+                playBtn.setEnabled(true);
+            } catch (Exception e) {
+                StaticTools.LogErrorMessage(e.getMessage());
+            }
+            RequestCreator loaded = Picasso.get().load(track.image.medium.url);
+            StaticTools.LogTimedMessage("loaded image");
+            loaded.into(artwork, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    StaticTools.LogTimedMessage("artwork bitmap loaded");
+                    float shadow = 0.5F;
+                    DisplayMetrics displayMetrics = new DisplayMetrics();
+                    getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                    int height = displayMetrics.heightPixels;
+                    int width = displayMetrics.widthPixels;
+
+                    loaded.into(new Target() {
+                        @Override
+                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            artWork = bitmap;
+                            MiniPlayerFragment.isPrepared = true;
                         }
-                        RequestCreator loaded = Picasso.get().load(track.image.medium.url);
-                        StaticTools.LogTimedMessage("loaded image");
-                        loaded.into(artwork, new com.squareup.picasso.Callback() {
-                            @Override
-                            public void onSuccess() {
-                                StaticTools.LogTimedMessage("artwork bitmap loaded");
-                                float shadow = 0.5F;
-                                DisplayMetrics displayMetrics = new DisplayMetrics();
-                                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-                                int height = displayMetrics.heightPixels;
-                                int width = displayMetrics.widthPixels;
 
-                                loaded.into(new Target() {
-                                    @Override
-                                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                        artWork = bitmap;
-                                        MiniPlayerFragment.isPrepared = true;
-                                    }
+                        @Override
+                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
 
-                                    @Override
-                                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                        }
 
-                                    }
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
 
-                                    @Override
-                                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                                    }
-                                });
-
-                                loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
-                                    @Override
-                                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                        StaticTools.LogTimedMessage("big bitmap loaded");
-                                        int color = StaticTools.getDominantColor(bitmap);
+                        }
+                    });
+                    layout.setBackgroundColor(Color.BLACK);
+                    loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
+                        @Override
+                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            StaticTools.LogTimedMessage("big bitmap loaded");
+                            int color = StaticTools.getDominantColor(bitmap);
 //                                        int r = (color >> 16) & 0xFF;
 //                                        int g = (color >> 8) & 0xFF;
 //                                        int b = (color) & 0xFF;
@@ -241,79 +308,38 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 //                                        color = Color.rgb(255, 255, 255);
 //                                        songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
 //                                        songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
-                                        layout.setBackgroundDrawable(new BitmapDrawable(PlayerActivity.this.getResources(), bitmap));
-                                    }
+                            layout.setBackgroundDrawable(new BitmapDrawable(PlayerActivity.this.getResources(), bitmap));
+                        }
 
-                                    @Override
-                                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                                        StaticTools.LogErrorMessage(e.getMessage() + " bitmap");
-                                    }
+                        @Override
+                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                            StaticTools.LogErrorMessage(e.getMessage() + " bitmap");
+                        }
 
-                                    @Override
-                                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
 
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onError(Exception e) {
-                                StaticTools.LogErrorMessage(e.getMessage() + " image load");
-                            }
-                        });
-                    } catch (Exception e) {
-                        StaticTools.LogErrorMessage(e.getMessage() + " player error");
-                    }
-                } else {
-                    StaticTools.LogErrorMessage(response.errorBody().toString() + " api error");
+                        }
+                    });
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Track> call, Throwable t) {
-
-            }
-        });
-
-        playBtn.setOnClickListener(v -> {
-            if (mediaPlayer.isPlaying()) {
-                pauseMedia();
-            } else {
-                playMedia();
-            }
-        });
-
-        minimizeBtn.setOnClickListener(v -> {
-            PlayerActivity.this.onBackPressed();
-        });
-
-        songSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser && isPrepared) {
-                    try {
-                        mediaPlayer.seekTo(progress);
-                        mediaPlayer.start();
-                    } catch (Exception e) {
-                        StaticTools.LogErrorMessage(e.getMessage() + " seekbar change");
-                    }
+                @Override
+                public void onError(Exception e) {
+                    StaticTools.LogErrorMessage(e.getMessage() + " image load");
                 }
-            }
+            });
+        } catch (Exception e) {
+            StaticTools.LogErrorMessage(e.getMessage() + " player error");
+        }
+    }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-
+    private String getUrl(String trackId) {
+        return String.format("https://api.musicify.ir/tracks/%s?include=artists,album", trackId);
     }
 
     @Override
     public void onTrackPrevious() {
-
+        previous();
     }
 
     @Override
@@ -334,7 +360,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     @Override
     public void onTrackNext() {
-
+        next();
     }
 
     @Override
@@ -373,29 +399,33 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 StaticTools.LogTimedMessage("media player prepared");
                 isPrepared = true;
                 int duration = mediaPlayer.getDuration();
+                MiniPlayerFragment.isLoaded = true;
                 songDurationTxt.setText(StaticTools.getSongDuration(duration / 1000));
                 Timer mTimer = new Timer();
-                mTimer.schedule(new TimerTask() {
+                AtomicInteger counter = new AtomicInteger();
+                counter.set(0);
+                mTimer.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
                         runOnUiThread(() -> {
                             try {
-                                songSeekBar.setMax(duration);
-                                maxProgress = duration;
+                                counter.getAndIncrement();
+                                if (counter.get() < 2) {
+                                    songSeekBar.setMax(duration);
+                                    maxProgress = duration;
+                                    sd = duration;
+                                }
                                 int pos = mediaPlayer.getCurrentPosition();
+                                sp = pos;
                                 songSeekBar.setProgress(pos);
                                 progressPosition = pos;
                                 songTimeTxt.setText(StaticTools.getSongDuration(pos / 1000));
-                                if (duration == pos) {
-                                    mediaPlayer.reset();
-                                    PlayerActivity.this.onBackPressed();
-                                }
                             } catch (Exception e) {
 
                             }
                         });
                     }
-                }, 0, 100);
+                }, 0, 500);
             });
             mediaPlayer.prepare();
             mediaPlayer.seekTo(pos);
@@ -410,6 +440,30 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             } catch (Exception e1) {
                 StaticTools.LogErrorMessage(e1.getMessage() + " kir khord dg");
             }
+        }
+    }
+
+    private void previous() {
+        if (trackNumber > 0) {
+            trackNumber--;
+            doShit(trackNumber);
+        } else {
+            try {
+                mediaPlayer.seekTo(0);
+                mediaPlayer.start();
+            } catch (Exception e) {
+                StaticTools.LogErrorMessage(e.getMessage() + " previous");
+            }
+        }
+    }
+
+    private void next() {
+        if (trackNumber < queue.size()) {
+            trackNumber++;
+            doShit(trackNumber);
+        } else {
+            pauseMedia();
+            PlayerActivity.this.onBackPressed();
         }
     }
 
@@ -428,14 +482,21 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getExtras().getString("action_name");
-            if (action != null && action.equals(MiniPlayerFragment.ACTION_PLAY)) {
-                if (isPlaying) {
-                    pauseMedia();
-                } else {
-                    playMedia();
+            if (action != null) {
+                switch (action) {
+                    case MiniPlayerFragment.ACTION_PLAY:
+                        if (isPlaying) {
+                            pauseMedia();
+                        } else {
+                            playMedia();
+                        }
+                        break;
+                    case MiniPlayerFragment.ACTION_NEXT:
+                        onTrackNext();
+                        break;
+
                 }
             }
-            int a = 2;
         }
     };
 

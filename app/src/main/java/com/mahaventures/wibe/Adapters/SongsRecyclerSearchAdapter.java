@@ -55,7 +55,9 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
             PlayerActivity.mArtistString = artist;
             PlayerActivity.mTrackNameString = track.name;
             Intent intent = new Intent(context, PlayerActivity.class);
-            intent.putExtra("id", track.id);
+            PlayerActivity.trackNumber = 0;
+            PlayerActivity.queue.removeIf(track1 -> track1.id.equals(track.id));
+            PlayerActivity.queue.add(0, track);
             SearchSongsViewHolder.cardView.setClickable(true);
             Intent intent1 = new Intent(context, PlaySongBroadcastReceiver.class)
                     .setAction(ACTION);

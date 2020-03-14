@@ -30,7 +30,8 @@ import java.util.TimerTask;
  */
 public class MiniPlayerFragment extends Fragment {
 
-    public static String ACTION_PLAY = "play_action";
+    public static final String ACTION_PLAY = "play_action";
+    public static final String ACTION_NEXT = "next_action";
     public static Track miniTrack;
     public static Context context;
     public static boolean isPlaying;
@@ -92,6 +93,17 @@ public class MiniPlayerFragment extends Fragment {
                 }
             }
         }, 0, 100);
+
+        skipBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (context != null) {
+                    Intent intent = new Intent(context, MiniPlayerBroadCastReceiver.class)
+                            .setAction(ACTION_NEXT);
+                    getActivity().sendBroadcast(intent);
+                }
+            }
+        });
 
         playBtn.setOnClickListener(v -> {
             if (context != null) {

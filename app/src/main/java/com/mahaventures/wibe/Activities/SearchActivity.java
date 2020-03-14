@@ -22,11 +22,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mahaventures.wibe.Adapters.SongsRecyclerSearchAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.GeneralSearch;
+import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -154,8 +156,11 @@ public class SearchActivity extends AppCompatActivity {
                                     if (response.isSuccessful()) {
                                         if (response.body() != null) {
                                             try {
-                                                SongsRecyclerSearchAdapter adapter = new SongsRecyclerSearchAdapter(response.body().tracks.data, SearchActivity.this);
+                                                List<Track> tracks = response.body().tracks.data;
+                                                SongsRecyclerSearchAdapter adapter = new SongsRecyclerSearchAdapter(tracks, SearchActivity.this);
                                                 recyclerView.setAdapter(adapter);
+                                                PlayerActivity.queue = tracks;
+
                                             } catch (Exception e) {
                                                 StaticTools.LogErrorMessage(e.getMessage() + " wtf is going on");
                                             }
