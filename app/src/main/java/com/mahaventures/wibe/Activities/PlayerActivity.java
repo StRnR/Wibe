@@ -35,6 +35,7 @@ import com.mahaventures.wibe.Services.CreateNotificationService;
 import com.mahaventures.wibe.Services.OnClearFromRecentService;
 import com.mahaventures.wibe.Tools.AlphaTransformation;
 import com.mahaventures.wibe.Tools.StaticTools;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
@@ -254,7 +255,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                     getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
                     int height = displayMetrics.heightPixels;
                     int width = displayMetrics.widthPixels;
-
+                    ImageView img = new ImageView(PlayerActivity.this);
                     loaded.into(new Target() {
                         @Override
                         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -273,54 +274,66 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                         }
                     });
                     layout.setBackgroundColor(Color.BLACK);
-                    loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
+                    ImageView img = new ImageView(PlayerActivity.this);
+                    loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new Callback() {
                         @Override
-                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                            StaticTools.LogTimedMessage("big bitmap loaded");
-                            int color = StaticTools.getDominantColor(bitmap);
-//                                        int r = (color >> 16) & 0xFF;
-//                                        int g = (color >> 8) & 0xFF;
-//                                        int b = (color) & 0xFF;
-//                                        int min = Math.min(Math.min(r, g), b);
-//                                        int max = Math.max(Math.max(r, g), b);
-//                                        int v = max, h, s;
-//                                        int delta = (max - min > 0) ? max - min : 1;
-//                                        if (max != 0) {
-//                                            s = delta / max;
-//                                        } else {
-//                                            s = 0;
-//                                            h = -1;
-//                                        }
-//
-//                                        if (r == max) {
-//                                            h = (g - b) / delta;
-//                                        } else if (g == max) {
-//                                            h = 2 + (b - r) / delta;
-//                                        } else {
-//                                            h = 4 + (r - g) / delta;
-//                                        }
-//                                        h *= 60;
-//                                        if (h < 0)
-//                                            h += 360;
-//                                        if (isNaN(h))
-//                                            h = 0;
-
-//                                        color = Color.rgb(255, 255, 255);
-//                                        songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
-//                                        songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
-                            layout.setBackgroundDrawable(new BitmapDrawable(PlayerActivity.this.getResources(), bitmap));
+                        public void onSuccess() {
+                            layout.setBackgroundDrawable(img.getDrawable());
                         }
 
                         @Override
-                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                            StaticTools.LogErrorMessage(e.getMessage() + " bitmap");
-                        }
-
-                        @Override
-                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+                        public void onError(Exception e) {
 
                         }
                     });
+//                    loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
+//                        @Override
+//                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+//                            StaticTools.LogTimedMessage("big bitmap loaded");
+//                            int color = StaticTools.getDominantColor(bitmap);
+////                                        int r = (color >> 16) & 0xFF;
+////                                        int g = (color >> 8) & 0xFF;
+////                                        int b = (color) & 0xFF;
+////                                        int min = Math.min(Math.min(r, g), b);
+////                                        int max = Math.max(Math.max(r, g), b);
+////                                        int v = max, h, s;
+////                                        int delta = (max - min > 0) ? max - min : 1;
+////                                        if (max != 0) {
+////                                            s = delta / max;
+////                                        } else {
+////                                            s = 0;
+////                                            h = -1;
+////                                        }
+////
+////                                        if (r == max) {
+////                                            h = (g - b) / delta;
+////                                        } else if (g == max) {
+////                                            h = 2 + (b - r) / delta;
+////                                        } else {
+////                                            h = 4 + (r - g) / delta;
+////                                        }
+////                                        h *= 60;
+////                                        if (h < 0)
+////                                            h += 360;
+////                                        if (isNaN(h))
+////                                            h = 0;
+//
+////                                        color = Color.rgb(255, 255, 255);
+////                                        songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
+////                                        songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
+//                            layout.setBackgroundDrawable(new BitmapDrawable(PlayerActivity.this.getResources(), bitmap));
+//                        }
+//
+//                        @Override
+//                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+//                            StaticTools.LogErrorMessage(e.getMessage() + " bitmap");
+//                        }
+//
+//                        @Override
+//                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+//
+//                        }
+//                    });
                 }
 
                 @Override
