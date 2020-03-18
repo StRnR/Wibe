@@ -13,14 +13,15 @@
         android:layout_height="match_parent"
         android:background="@drawable/player_gradient" />
 
-    <ImageView
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:background="@drawable/circle"
-        app:layout_constraintBottom_toBottomOf="@id/btn_minimize_player"
-        app:layout_constraintEnd_toEndOf="@id/btn_minimize_player"
-        app:layout_constraintStart_toStartOf="@id/btn_minimize_player"
-        app:layout_constraintTop_toTopOf="@id/btn_minimize_player" />
+<!--    <ImageView-->
+<!--        android:id="@+id/btn_minimise_background"-->
+<!--        android:layout_width="34dp"-->
+<!--        android:layout_height="34dp"-->
+<!--        android:background="@drawable/circle"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/btn_minimize_player"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/btn_minimize_player"-->
+<!--        app:layout_constraintStart_toStartOf="@id/btn_minimize_player"-->
+<!--        app:layout_constraintTop_toTopOf="@id/btn_minimize_player" />-->
 
     <Button
         android:id="@+id/btn_minimize_player"
@@ -63,9 +64,9 @@
         android:id="@+id/img_cover_mainplayer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginBottom="250dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="200dp"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
@@ -77,7 +78,7 @@
         android:id="@+id/txt_title_mainplayer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/nexa_bold"
         android:gravity="center_horizontal"
         android:letterSpacing="0.02"
@@ -108,9 +109,9 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="31dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_artist_mainplayer"
@@ -147,10 +148,8 @@
         android:id="@+id/btn_play_mainplayer"
         android:layout_width="36dp"
         android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/ic_play"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/seekbar_mainplayer" />

@@ -53,6 +53,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         StaticTools.LogErrorMessage("search activity started");
         setContentView(R.layout.activity_search);
+        FrameLayout frgamentContainer = findViewById(R.id.fragment_container);
         recyclerView = findViewById(R.id.recycler_search);
         layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
@@ -99,10 +100,12 @@ public class SearchActivity extends AppCompatActivity {
             MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
             fragmentTransaction.add(R.id.fragment_container, miniPlayerFragment);
             fragmentTransaction.commit();
-            FrameLayout frgamentContainer = findViewById(R.id.fragment_container);
-            frgamentContainer.setVisibility(View.INVISIBLE);
         }
 
+        if (!MiniPlayerFragment.isLoaded) {
+            frgamentContainer.getLayoutParams().height = 0;
+            frgamentContainer.requestLayout();
+        }
 
 //        searchText.setOnClickListener(v -> {
 //            final int newTopMargin = 27;

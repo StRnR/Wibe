@@ -10,7 +10,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -255,7 +254,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                     getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
                     int height = displayMetrics.heightPixels;
                     int width = displayMetrics.widthPixels;
-                    ImageView img = new ImageView(PlayerActivity.this);
                     loaded.into(new Target() {
                         @Override
                         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
