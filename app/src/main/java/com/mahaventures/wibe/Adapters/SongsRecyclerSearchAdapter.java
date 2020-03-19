@@ -85,7 +85,7 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
 
         SearchSongsViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardView = itemView.findViewById(R.id.searchCV);
+            cardView = itemView.findViewById(R.id.card_view_song);
             songImg = itemView.findViewById(R.id.img_cover_relative_song);
             songTitle = itemView.findViewById(R.id.txt_title_relative_song);
             artist = itemView.findViewById(R.id.txt_artist_relative_song);
