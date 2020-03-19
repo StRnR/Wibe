@@ -1,6 +1,7 @@
 package com.mahaventures.wibe.Services;
 
 import com.mahaventures.wibe.Models.NewModels.ArtistsSearch;
+import com.mahaventures.wibe.Models.NewModels.FavouriteTrack;
 import com.mahaventures.wibe.Models.NewModels.GeneralSearch;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.NewModels.TracksResult;
@@ -19,6 +20,9 @@ public interface GetDataService {
 
     @GET("users/verify/email/")
     Call<Void> SendVerificationEmail(@Header("Authorization") String s);
+
+    @GET("profile/tracks")
+    Call<FavouriteTrack> GetMySongs(@Header("Authorization") String s);
 
     @GET("users/verify/password/")
     Call<ResetPasswordResponseModel> GetResetPasswordId(@Query("email") String email);

@@ -28,7 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignInActivity extends AppCompatActivity {
-    public static String Email = "";
+    public static String Email;
 
     @Override
     public void onBackPressed() {
@@ -65,7 +65,8 @@ public class SignInActivity extends AppCompatActivity {
                     signInButton.setEnabled(true);
                     if (response.isSuccessful()) {
                         try {
-                            String token = response.body().meta.token;
+                            String token = response.body() != null ? response.body().meta.token : "";
+                            SavedInfo.deleteAll(SavedInfo.class);
                             SavedInfo info = new SavedInfo(token, email);
                             info.save();
                             SignInActivity.this.startActivity(new Intent(SignInActivity.this, SearchActivity.class));
@@ -74,7 +75,7 @@ public class SignInActivity extends AppCompatActivity {
                         }
                     } else {
                         try {
-                            String s = new String(response.errorBody().bytes());
+                            String s = new String(response.errorBody() != null ? response.errorBody().bytes() : new byte[0]);
                             StaticTools.ShowToast(SignInActivity.this, String.format("sign in failed: %s", response.errorBody()), 1);
                         } catch (Exception e) {
 

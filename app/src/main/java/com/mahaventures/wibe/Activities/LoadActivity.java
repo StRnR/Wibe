@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mahaventures.wibe.Models.DBModels.SavedInfo;
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.Tools.StaticTools;
 import com.orm.SugarContext;
 
 public class LoadActivity extends AppCompatActivity {
     public static String token;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +20,9 @@ public class LoadActivity extends AppCompatActivity {
         SugarContext.init(this);
         SavedInfo info = SavedInfo.last(SavedInfo.class);
 //        startActivity(new Intent(MainActivity.this, SearchActivity.class));
-        if (info != null && info.isActive()) {
+        if (info != null) {
             token = info.getToken();
+            StaticTools.LogErrorMessage("token: " + token);
             startActivity(new Intent(LoadActivity.this, SearchActivity.class));
         } else {
             startActivity(new Intent(LoadActivity.this, MainActivity.class));
