@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.palette.graphics.Palette;
 
 import com.mahaventures.wibe.Activities.ConfirmEmailActivity;
+import com.mahaventures.wibe.Activities.LoadActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.User;
 import com.mahaventures.wibe.Models.UserRole;
@@ -210,5 +211,9 @@ public class StaticTools {
             second = String.valueOf(seconds % 60);
         }
         return String.format(Locale.getDefault(), "%d:%s", seconds / 60, second);
+    }
+
+    public static String getToken() {
+        return LoadActivity.token;
     }
 }
