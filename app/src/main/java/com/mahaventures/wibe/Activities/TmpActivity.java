@@ -18,9 +18,9 @@ public class TmpActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tmp);
-        Button signoutBtn = findViewById(R.id.btn_signout);
+        Button signOutBtn = findViewById(R.id.btn_signout);
 
-        signoutBtn.setOnClickListener(v -> {
+        signOutBtn.setOnClickListener(v -> {
             Intent intent = new Intent(TmpActivity.this, MainActivity.class);
             startActivity(intent);
         });

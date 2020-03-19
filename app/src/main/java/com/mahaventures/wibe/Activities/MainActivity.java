@@ -15,19 +15,13 @@ import com.orm.SugarContext;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String token = "";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SugarContext.init(this);
-        SavedInfo info = SavedInfo.last(SavedInfo.class);
-//        startActivity(new Intent(MainActivity.this, SearchActivity.class));
-        if (info != null && info.isActive()) {
-            token = info.getToken();
-            startActivity(new Intent(MainActivity.this, SearchActivity.class));
-        }
+
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);

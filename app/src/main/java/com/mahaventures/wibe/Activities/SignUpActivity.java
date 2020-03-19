@@ -111,9 +111,7 @@ public class SignUpActivity extends AppCompatActivity {
             parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
         });
 
-        backBtn.setOnClickListener(v -> {
-            SignUpActivity.super.onBackPressed();
-        });
+        backBtn.setOnClickListener(v -> SignUpActivity.super.onBackPressed());
 
         showPassBtn.setOnClickListener(v -> {
             if (passwordTxt.getTransformationMethod() != null) {
