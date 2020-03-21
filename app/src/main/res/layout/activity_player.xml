@@ -13,15 +13,15 @@
         android:layout_height="match_parent"
         android:background="@drawable/player_gradient" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/btn_minimise_background"-->
-<!--        android:layout_width="34dp"-->
-<!--        android:layout_height="34dp"-->
-<!--        android:background="@drawable/circle"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/btn_minimize_player"-->
-<!--        app:layout_constraintEnd_toEndOf="@id/btn_minimize_player"-->
-<!--        app:layout_constraintStart_toStartOf="@id/btn_minimize_player"-->
-<!--        app:layout_constraintTop_toTopOf="@id/btn_minimize_player" />-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/btn_minimise_background"-->
+    <!--        android:layout_width="34dp"-->
+    <!--        android:layout_height="34dp"-->
+    <!--        android:background="@drawable/circle"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@id/btn_minimize_player"-->
+    <!--        app:layout_constraintEnd_toEndOf="@id/btn_minimize_player"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/btn_minimize_player"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/btn_minimize_player" />-->
 
     <Button
         android:id="@+id/btn_minimize_player"
@@ -61,13 +61,13 @@
         app:layout_constraintTop_toBottomOf="@id/txt_playersrc" />
 
     <ImageView
-        android:background="@color/background"
         android:id="@+id/img_cover_mainplayer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="200dp"
+        android:background="@drawable/loadingmusic"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
