@@ -142,6 +142,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             setMeta();
         });
 
+        firstOfAll();
 
         //play song
         doShit(trackNumber);
@@ -173,8 +174,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             startService(new Intent(getBaseContext(), OnClearFromRecentService.class));
         }
 
-        songSeekBar.setProgress(0);
-        playBtn.setEnabled(false);
+
 
 
         playBtn.setOnClickListener(v -> {
@@ -214,6 +214,13 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             }
         });
 
+    }
+
+    private void firstOfAll() {
+        songDurationTxt.setText("");
+        songTimeTxt.setText("");
+        songSeekBar.setProgress(0);
+        playBtn.setEnabled(false);
     }
 
     @Override
@@ -470,6 +477,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     }
 
     private void previous() {
+        firstOfAll();
         if (trackNumber > 0) {
             trackNumber--;
             doShit(trackNumber);
@@ -484,6 +492,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     }
 
     private void next() {
+        firstOfAll();
         if (trackNumber < queue.size()) {
             trackNumber++;
             doShit(trackNumber);
