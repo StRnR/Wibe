@@ -430,6 +430,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             mediaPlayer.setOnPreparedListener(mp -> {
                 StaticTools.LogTimedMessage("media player prepared");
                 isPrepared = true;
+                firstOfAll();
                 mediaPlayer.seekTo(pos);
                 mediaPlayer.start();
                 playBtn.setEnabled(true);
