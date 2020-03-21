@@ -15,7 +15,6 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.MotionEvent;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +27,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.mahaventures.wibe.Adapters.SongsRecyclerSearchAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
+import com.mahaventures.wibe.Interfaces.Playable;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.CreateNotificationService;
@@ -46,7 +46,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
-public class PlayerActivity extends AppCompatActivity {
+public class PlayerActivity extends AppCompatActivity implements Playable {
 
     public static MediaPlayer mediaPlayer = new MediaPlayer();
     public static Bitmap artWork;
@@ -172,8 +172,6 @@ public class PlayerActivity extends AppCompatActivity {
             registerReceiver(playSongBroadcastReceiver, new IntentFilter("PLAY_SONG"));
             startService(new Intent(getBaseContext(), OnClearFromRecentService.class));
         }
-
-
 
 
         playBtn.setOnClickListener(v -> {
