@@ -86,14 +86,13 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StaticTools.LogTimedMessage("on create fuuuuuuuuck");
+        StaticTools.LogTimedMessage("on create fuuuuuuuuuuuuuuuuuuuuuuuuuuck");
         MiniPlayerFragment.isLoaded = false;
         setContentView(R.layout.activity_player);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         isPrepared = false;
         MiniPlayerFragment.context = this;
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && notificationManager != null) {
             notificationManager.cancelAll();
         }
@@ -142,6 +141,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             previous();
             setMeta();
         });
+
 
         //play song
         doShit(trackNumber);
@@ -216,6 +216,12 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        setMeta();
+        super.onWindowFocusChanged(hasFocus);
+    }
+
     private void setMeta() {
         MiniPlayerFragment.isPrepared = true;
         String artist = StaticTools.getArtistsName(track);
@@ -243,47 +249,51 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             } catch (Exception e) {
                 StaticTools.LogErrorMessage(e.getMessage());
             }
-            RequestCreator loaded = Picasso.get().load(track.image.medium.url);
-            StaticTools.LogTimedMessage("loaded image");
-            loaded.into(artwork, new com.squareup.picasso.Callback() {
-                @Override
-                public void onSuccess() {
-                    StaticTools.LogTimedMessage("artwork bitmap loaded");
-                    float shadow = 0.5F;
-                    DisplayMetrics displayMetrics = new DisplayMetrics();
-                    getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-                    int height = displayMetrics.heightPixels;
-                    int width = displayMetrics.widthPixels;
-                    loaded.into(new Target() {
-                        @Override
-                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                            artWork = bitmap;
-                            MiniPlayerFragment.isPrepared = true;
-                        }
 
-                        @Override
-                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
 
-                        }
-
-                        @Override
-                        public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                        }
-                    });
-                    layout.setBackgroundColor(Color.BLACK);
-                    ImageView img = new ImageView(PlayerActivity.this);
-                    loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new Callback() {
+            new Thread(() -> {
+                runOnUiThread(() -> {
+                    RequestCreator loaded = Picasso.get().load(track.image.medium.url);
+                    StaticTools.LogTimedMessage("loaded image");
+                    loaded.into(artwork, new com.squareup.picasso.Callback() {
                         @Override
                         public void onSuccess() {
-                            layout.setBackgroundDrawable(img.getDrawable());
-                        }
+                            StaticTools.LogTimedMessage("artwork bitmap loaded");
+                            float shadow = 0.5F;
+                            DisplayMetrics displayMetrics = new DisplayMetrics();
+                            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                            int height = displayMetrics.heightPixels;
+                            int width = displayMetrics.widthPixels;
+                            loaded.into(new Target() {
+                                @Override
+                                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                    artWork = bitmap;
+                                    MiniPlayerFragment.isPrepared = true;
+                                }
 
-                        @Override
-                        public void onError(Exception e) {
+                                @Override
+                                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
 
-                        }
-                    });
+                                }
+
+                                @Override
+                                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                                }
+                            });
+                            layout.setBackgroundColor(Color.BLACK);
+                            ImageView img = new ImageView(PlayerActivity.this);
+                            loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new Callback() {
+                                @Override
+                                public void onSuccess() {
+                                    layout.setBackgroundDrawable(img.getDrawable());
+                                }
+
+                                @Override
+                                public void onError(Exception e) {
+
+                                }
+                            });
 //                    loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(new Target() {
 //                        @Override
 //                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -332,13 +342,17 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 //
 //                        }
 //                    });
-                }
+                        }
 
-                @Override
-                public void onError(Exception e) {
-                    StaticTools.LogErrorMessage(e.getMessage() + " image load");
-                }
-            });
+                        @Override
+                        public void onError(Exception e) {
+                            StaticTools.LogErrorMessage(e.getMessage() + " image load");
+                        }
+                    });
+                });
+            }).start();
+
+
         } catch (Exception e) {
             StaticTools.LogErrorMessage(e.getMessage() + " player error");
         }
@@ -409,6 +423,9 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             mediaPlayer.setOnPreparedListener(mp -> {
                 StaticTools.LogTimedMessage("media player prepared");
                 isPrepared = true;
+                mediaPlayer.seekTo(pos);
+                mediaPlayer.start();
+                playBtn.setEnabled(true);
                 int duration = mediaPlayer.getDuration();
                 MiniPlayerFragment.isLoaded = true;
                 songDurationTxt.setText(StaticTools.getSongDuration(duration / 1000));
@@ -438,9 +455,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                     }
                 }, 0, 500);
             });
-            mediaPlayer.prepare();
-            mediaPlayer.seekTo(pos);
-            mediaPlayer.start();
+            mediaPlayer.prepareAsync();
         } catch (Exception e) {
             StaticTools.LogErrorMessage(e.getMessage() + " inja player activity");
             try {
@@ -515,7 +530,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getExtras().getString("play_song_action");
-            StaticTools.LogErrorMessage("rtdhfjfckcxcykcchcg");
             if (action != null && action.equals(SongsRecyclerSearchAdapter.ACTION)) {
 //                PlayerActivity.this.finish();
                 PlayerActivity.this.finish();

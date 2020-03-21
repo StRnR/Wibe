@@ -61,6 +61,7 @@
         app:layout_constraintTop_toBottomOf="@id/txt_playersrc" />
 
     <ImageView
+        android:background="@color/background"
         android:id="@+id/img_cover_mainplayer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
