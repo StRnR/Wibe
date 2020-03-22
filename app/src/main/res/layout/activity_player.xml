@@ -85,7 +85,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="64dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="40dp"
         android:fontFamily="@font/nexa_light"
         android:letterSpacing="0.02"
         android:maxLines="1"
@@ -112,7 +112,7 @@
         android:layout_height="5dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toTopOf="@id/btn_play_mainplayer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -189,8 +189,8 @@
 
     <Button
         android:id="@+id/btn_repeat_player"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/ic_repeat"
         app:layout_constraintBottom_toBottomOf="@id/btn_play_mainplayer"
