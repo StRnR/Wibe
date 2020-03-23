@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -70,6 +71,10 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
                 }
             }, 100);
         });
+        SearchSongsViewHolder.addBtn.setOnClickListener(v -> {
+            SearchSongsViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
+            //todo: post track to profile/tracks
+        });
     }
 
     @Override
@@ -82,6 +87,7 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
         static ImageView songImg;
         static TextView songTitle;
         static TextView artist;
+        static Button addBtn;
 
         SearchSongsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +95,7 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
             songImg = itemView.findViewById(R.id.img_cover_relative_song);
             songTitle = itemView.findViewById(R.id.txt_title_relative_song);
             artist = itemView.findViewById(R.id.txt_artist_relative_song);
+            addBtn = itemView.findViewById(R.id.btn_add_relative_song);
         }
     }
 }
