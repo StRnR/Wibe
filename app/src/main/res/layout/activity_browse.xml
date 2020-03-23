@@ -8,14 +8,15 @@
     tools:context=".Activities.BrowseActivity">
 
     <TextView
+        android:id="@+id/textView"
         style="@style/Bold1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="384dp"
+        android:layout_height="35dp"
         android:text="Under maintenance..."
         app:layout_constraintBottom_toTopOf="@id/navbar_bottom_browse"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.045" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navbar_bottom_browse"
@@ -27,5 +28,11 @@
         app:itemTextColor="@drawable/selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navbar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="409dp"
+        android:layout_height="166dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
