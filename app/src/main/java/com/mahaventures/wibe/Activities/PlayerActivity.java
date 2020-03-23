@@ -205,7 +205,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (!fromUser && sd != 0 && Math.abs(sd - sp) <= 500) {
-                    StaticTools.ShowToast(PlayerActivity.this, "repeat is:" + repeat.toString(), 0);
                     if (repeated) {
                         if (isPrepared) {
                             mediaPlayer.seekTo(0);
