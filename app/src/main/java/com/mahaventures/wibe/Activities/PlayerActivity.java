@@ -40,6 +40,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 import com.squareup.picasso.Target;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -51,7 +52,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     public static MediaPlayer mediaPlayer = new MediaPlayer();
     public static Bitmap artWork;
-    public static String CUSTOM_BROADCAST_ACTION = "miniPlayerAction";
     public static String mArtistString;
     public static String mTrackNameString;
     static Track track;
@@ -74,6 +74,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     TextView artistTxt;
     int sd;
     int sp;
+    boolean repeated;
 
     @Override
     public void onBackPressed() {
@@ -101,7 +102,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             if (playSongBroadcastReceiver != null)
                 unregisterReceiver(playSongBroadcastReceiver);
         } catch (Exception e) {
-
+            StaticTools.LogErrorMessage("register fucked up");
         }
 
         if (mediaPlayer != null) {
@@ -128,28 +129,23 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
         layout = findViewById(R.id.player_layout);
         minimizeBtn = findViewById(R.id.btn_minimize_player);
+        Button shuffle = findViewById(R.id.btn_shuffle_player);
+        Button repeat = findViewById(R.id.btn_repeat_player);
 
-        layout.setOnTouchListener(new OnSwipeTouchListener(PlayerActivity.this) {
-            public void onSwipeBottom() {
-                PlayerActivity.this.onBackPressed();
+
+        //todo Arshia: range dokme shuffle o repeat o dorost kon
+        shuffle.setOnClickListener(v -> {
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+                Collections.shuffle(queue);
+                firstOfAll();
+                doShit(0);
             }
         });
 
-        artwork.setOnTouchListener(new OnSwipeTouchListener(PlayerActivity.this) {
-            public void onSwipeRight() {
-                previous();
-                setMeta();
-            }
+        repeat.setOnClickListener(v -> repeated = !repeated);
 
-            public void onSwipeLeft() {
-                next();
-                setMeta();
-            }
-
-            public void onSwipeBottom() {
-                PlayerActivity.this.onBackPressed();
-            }
-        });
+        setDragActions();
 
         skipBtn.setOnClickListener(v -> {
             next();
@@ -209,14 +205,19 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (!fromUser && sd != 0 && sd == sp) {
-                    next();
+                    if (repeated) {
+                        if (isPrepared) {
+                            mediaPlayer.seekTo(0);
+                            mediaPlayer.start();
+                        }
+                    } else next();
                 }
                 if (fromUser && isPrepared) {
                     try {
                         mediaPlayer.seekTo(progress);
                         mediaPlayer.start();
                     } catch (Exception e) {
-                        StaticTools.LogErrorMessage(e.getMessage() + " seekbar change");
+                        StaticTools.LogErrorMessage(e.getMessage() + " seekBar change");
                     }
                 }
             }
@@ -230,6 +231,30 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             }
         });
 
+    }
+
+    private void setDragActions() {
+        layout.setOnTouchListener(new OnSwipeTouchListener(PlayerActivity.this) {
+            public void onSwipeBottom() {
+                PlayerActivity.this.onBackPressed();
+            }
+        });
+
+        artwork.setOnTouchListener(new OnSwipeTouchListener(PlayerActivity.this) {
+            public void onSwipeRight() {
+                previous();
+                setMeta();
+            }
+
+            public void onSwipeLeft() {
+                next();
+                setMeta();
+            }
+
+            public void onSwipeBottom() {
+                PlayerActivity.this.onBackPressed();
+            }
+        });
     }
 
     private void firstOfAll() {
@@ -331,10 +356,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         } catch (Exception e) {
             StaticTools.LogErrorMessage(e.getMessage() + " player error");
         }
-    }
-
-    private String getUrl(String trackId) {
-        return String.format("https://api.musicify.ir/tracks/%s?include=artists,album", trackId);
     }
 
     @Override
@@ -550,9 +571,5 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     public static Bitmap getArtWork() {
         return artWork;
-    }
-
-    public void changeSong() {
-        PlayerActivity.this.finish();
     }
 }
