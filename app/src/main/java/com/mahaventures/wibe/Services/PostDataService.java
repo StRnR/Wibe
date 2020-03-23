@@ -3,6 +3,7 @@ package com.mahaventures.wibe.Services;
 import com.mahaventures.wibe.Models.EmailVerification;
 import com.mahaventures.wibe.Models.NewModels.FavouriteTrack;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.AuthenticationResponseModel;
+import com.mahaventures.wibe.Models.NewModels.ProfileModels.InitModel;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.RegisterResponseModel;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.SignInRequestModel;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.SignUpRequestModel;
@@ -28,6 +29,9 @@ public interface PostDataService {
 
     @POST("profile/tracks")
     Call<FavouriteTrack> AddToMySongs(@Header("Authorization") String s, @Query("track_id") String trackId);
+
+    @POST("init/")
+    Call<InitModel> Init(@Header("Authorization") String s);
 
     @POST("users/verify/email/")
     Call<Void> ConfirmEmail(@Header("Authorization") String s, @Body EmailVerification code);
