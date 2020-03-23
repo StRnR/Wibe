@@ -1,6 +1,7 @@
 package com.mahaventures.wibe.Services;
 
 import com.mahaventures.wibe.Models.EmailVerification;
+import com.mahaventures.wibe.Models.NewModels.FavouriteTrack;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.AuthenticationResponseModel;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.RegisterResponseModel;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.SignInRequestModel;
@@ -13,6 +14,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface PostDataService {
     @POST("users/login/")
@@ -23,6 +25,9 @@ public interface PostDataService {
 
     @POST("authenticate/")
     Call<AuthenticationResponseModel> Authenticate(@Body SignInRequestModel model);
+
+    @POST("profile/tracks")
+    Call<FavouriteTrack> AddToMySongs(@Header("Authorization") String s, @Query("track_id") String trackId);
 
     @POST("users/verify/email/")
     Call<Void> ConfirmEmail(@Header("Authorization") String s, @Body EmailVerification code);

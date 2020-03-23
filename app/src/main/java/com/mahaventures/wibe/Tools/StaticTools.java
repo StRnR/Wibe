@@ -214,6 +214,6 @@ public class StaticTools {
     }
 
     public static String getToken() {
-        return LoadActivity.token;
+        return String.format("Bearer %s", LoadActivity.token);
     }
 }

@@ -6,7 +6,15 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mahaventures.wibe.Models.NewModels.FavouriteTrack;
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.Services.GetDataService;
+import com.mahaventures.wibe.Tools.RetrofitClientInstance;
+import com.mahaventures.wibe.Tools.StaticTools;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MySongsActivity extends AppCompatActivity {
 
@@ -33,6 +41,20 @@ public class MySongsActivity extends AppCompatActivity {
                     return true;
             }
             return false;
+        });
+
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<FavouriteTrack> call = service.GetMySongs(StaticTools.getToken());
+        call.enqueue(new Callback<FavouriteTrack>() {
+            @Override
+            public void onResponse(Call<FavouriteTrack> call, Response<FavouriteTrack> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<FavouriteTrack> call, Throwable t) {
+
+            }
         });
     }
 }
