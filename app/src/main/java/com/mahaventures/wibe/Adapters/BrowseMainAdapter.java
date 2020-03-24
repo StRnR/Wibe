@@ -32,36 +32,40 @@ public class BrowseMainAdapter extends RecyclerView.Adapter<BrowseMainAdapter.Ma
     @Override
     public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //todo shiit
-        View theView = LayoutInflater.from(context).inflate(R.layout.activity_browse, parent, false);
+        View theView = LayoutInflater.from(context).inflate(R.layout.main_rv, parent, false);
         return new MainViewHolder(theView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
-
+        Collection collection = collections.get(position);
+        horizontalAdapter = new CollectionAdapter(collection, context);
+        holder.recyclerViewHorizontal.setAdapter(horizontalAdapter);
+        holder.recyclerViewHorizontal.setRecycledViewPool(recycledViewPool);
+        holder.setIsRecyclable(false);
+        holder.textViewTitle.setText(collection.name);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return collections.size();
     }
 
-    public class MainViewHolder extends RecyclerView.ViewHolder {
+    class MainViewHolder extends RecyclerView.ViewHolder {
 
         private RecyclerView recyclerViewHorizontal;
-        private TextView textViewCategory;
+        private TextView textViewTitle;
         private LinearLayoutManager horizontalManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
 
-        public MainViewHolder(@NonNull View itemView) {
+        MainViewHolder(@NonNull View itemView) {
             super(itemView);
 
-//            recyclerViewHorizontal = itemView.findViewById(R.id.home_recycler_view_horizontal);
-//            recyclerViewHorizontal.setHasFixedSize(true);
-//            recyclerViewHorizontal.setNestedScrollingEnabled(false);
-//            recyclerViewHorizontal.setLayoutManager(horizontalManager);
-//            recyclerViewHorizontal.setItemAnimator(new DefaultItemAnimator());
-//
-//            textViewCategory = itemView.findViewById(R.id.tv_movie_category);
+            recyclerViewHorizontal = itemView.findViewById(R.id.home_recycler_view_horizontal);
+            recyclerViewHorizontal.setHasFixedSize(true);
+            recyclerViewHorizontal.setNestedScrollingEnabled(false);
+            recyclerViewHorizontal.setLayoutManager(horizontalManager);
+            recyclerViewHorizontal.setItemAnimator(new DefaultItemAnimator());
+            textViewTitle = itemView.findViewById(R.id.main_rv_title);
 
         }
     }

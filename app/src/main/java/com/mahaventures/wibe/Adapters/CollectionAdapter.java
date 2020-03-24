@@ -10,47 +10,51 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mahaventures.wibe.Models.NewModels.Collection;
+import com.mahaventures.wibe.Models.NewModels.MyModels.BrowseItem;
 import com.mahaventures.wibe.R;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.CollectionViewHolder> {
-    private Collection collection;
+    private List<BrowseItem> items;
     private Context context;
 
 
-    public CollectionAdapter(Collection collection, Context context) {
-        this.collection = collection;
+    public CollectionAdapter(List<BrowseItem> items, Context context) {
+        this.items = items;
         this.context = context;
     }
 
     @NonNull
     @Override
     public CollectionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //todo shiit
-        return new CollectionViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_browse, parent, false));
+        return new CollectionViewHolder(LayoutInflater.from(context).inflate(R.layout.browse_tile, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull CollectionViewHolder holder, int position) {
-//        Collection collection = collection.get(position);
-
+        BrowseItem item = items.get(position);
+        holder.setIsRecyclable(false);
+        holder.title.setText(item.title);
+        if (item.image != null)
+            Picasso.get().load(item.image).into(holder.artwork);
     }
 
     @Override
     public int getItemCount() {
-        return collection.albums.data.size() + collection.artists.data.size() + collection.playlists.data.size() + collection.tracks.data.size();
+        return items.size();
     }
 
-    public class CollectionViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView textViewTitle;
-        private TextView textViewGenre;
-        private ImageView imageViewMovie;
+    static class CollectionViewHolder extends RecyclerView.ViewHolder {
+        private TextView title;
+        private ImageView artwork;
 
 
-        public CollectionViewHolder(View itemView) {
+        CollectionViewHolder(View itemView) {
             super(itemView);
-
+            artwork = itemView.findViewById(R.id.img_artwork_browse_tile);
+            title = itemView.findViewById(R.id.txt_title_browse_tile);
         }
     }
 }

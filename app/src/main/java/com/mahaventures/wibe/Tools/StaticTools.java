@@ -16,6 +16,11 @@ import androidx.palette.graphics.Palette;
 
 import com.mahaventures.wibe.Activities.ConfirmEmailActivity;
 import com.mahaventures.wibe.Activities.LoadActivity;
+import com.mahaventures.wibe.Models.NewModels.Album;
+import com.mahaventures.wibe.Models.NewModels.Artist;
+import com.mahaventures.wibe.Models.NewModels.Collection;
+import com.mahaventures.wibe.Models.NewModels.MyModels.BrowseItem;
+import com.mahaventures.wibe.Models.NewModels.Playlist;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.User;
 import com.mahaventures.wibe.Models.UserRole;
@@ -215,5 +220,25 @@ public class StaticTools {
 
     public static String getToken() {
         return String.format("Bearer %s", LoadActivity.token);
+    }
+
+    public static List<BrowseItem> getBrowseItems(Collection collection) {
+        List<BrowseItem> list = new ArrayList<>();
+        for (Track track : collection.tracks.data) {
+            list.add(new BrowseItem(track.image.medium.url, track.name, BrowseItem.BrowseType.Track, track.id));
+        }
+        for (Artist artist : collection.artists.data) {
+            list.add(new BrowseItem(artist.image.medium.url, artist.name, BrowseItem.BrowseType.Artist, artist.id));
+        }
+        for (Album album : collection.albums.data) {
+            //todo album image
+            list.add(new BrowseItem("", album.name, BrowseItem.BrowseType.Album, album.id));
+        }
+        for (Playlist playlist : collection.playlists.data) {
+            //todo playlist image
+            list.add(new BrowseItem("", playlist.name, BrowseItem.BrowseType.Playlist, playlist.id));
+        }
+        Collections.shuffle(list);
+        return list;
     }
 }
