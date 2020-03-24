@@ -60,7 +60,7 @@ public class BrowseActivity extends AppCompatActivity {
             return false;
         });
 
-        recyclerView = findViewById(R.id.main_rv);
+        recyclerView = findViewById(R.id.main_recyclerview_browse);
 
         PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
         Call<InitModel> call = service.Init(StaticTools.getToken());
