@@ -28,12 +28,6 @@ public class BrowseActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
-    private static final int[] navbar_tint_list = {
-            R.color.selected_navbar,
-            R.color.white,
-            R.color.white
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
