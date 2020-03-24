@@ -60,6 +60,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     SeekBar songSeekBar;
     boolean isPlaying;
     Button playBtn;
+    Button addBtn;
     Button minimizeBtn;
     NotificationManager notificationManager;
     TextView songDurationTxt;
@@ -237,6 +238,10 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
+        });
+
+        addBtn.setOnClickListener(v -> {
+            //todo:add song to fav
         });
 
     }
