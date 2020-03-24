@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Models.NewModels.Collection;
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.Tools.StaticTools;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class BrowseMainAdapter extends RecyclerView.Adapter<BrowseMainAdapter.Ma
 
     List<Collection> collections;
     Context context;
-    private CollectionAdapter horizontalAdapter;
+    private BrowseItemAdapter horizontalAdapter;
     private RecyclerView.RecycledViewPool recycledViewPool;
 
     public BrowseMainAdapter(List<Collection> collections, Context context) {
@@ -39,7 +40,7 @@ public class BrowseMainAdapter extends RecyclerView.Adapter<BrowseMainAdapter.Ma
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
         Collection collection = collections.get(position);
-        horizontalAdapter = new CollectionAdapter(collection, context);
+        horizontalAdapter = new BrowseItemAdapter(StaticTools.getBrowseItems(collection), context);
         holder.recyclerViewHorizontal.setAdapter(horizontalAdapter);
         holder.recyclerViewHorizontal.setRecycledViewPool(recycledViewPool);
         holder.setIsRecyclable(false);

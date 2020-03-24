@@ -30,6 +30,7 @@
         app:menu="@menu/bottom_navbar" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_rv"
         android:layout_width="409dp"
         android:layout_height="166dp"
         app:layout_constraintEnd_toEndOf="parent"

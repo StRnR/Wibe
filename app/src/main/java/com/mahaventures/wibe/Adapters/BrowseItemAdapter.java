@@ -16,12 +16,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.CollectionViewHolder> {
+public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.CollectionViewHolder> {
     private List<BrowseItem> items;
     private Context context;
 
 
-    public CollectionAdapter(List<BrowseItem> items, Context context) {
+    public BrowseItemAdapter(List<BrowseItem> items, Context context) {
         this.items = items;
         this.context = context;
     }
@@ -37,7 +37,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Co
         BrowseItem item = items.get(position);
         holder.setIsRecyclable(false);
         holder.title.setText(item.title);
-        if (item.image != null)
+        if (item.image != null && !item.image.equals(""))
             Picasso.get().load(item.image).into(holder.artwork);
     }
 
