@@ -460,7 +460,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                                 progressPosition = pos;
                                 songTimeTxt.setText(StaticTools.getSongDuration(pos / 1000));
                             } catch (Exception e) {
-
+                                StaticTools.LogErrorMessage("timer");
                             }
                         });
                     }

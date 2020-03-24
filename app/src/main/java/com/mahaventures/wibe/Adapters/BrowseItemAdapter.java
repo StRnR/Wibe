@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Models.NewModels.MyModels.BrowseItem;
@@ -15,6 +16,7 @@ import com.mahaventures.wibe.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.logging.Handler;
 
 public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.CollectionViewHolder> {
     private List<BrowseItem> items;
@@ -39,6 +41,38 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
         holder.title.setText(item.title);
         if (item.image != null && !item.image.equals(""))
             Picasso.get().load(item.image).into(holder.artwork);
+        holder.cardView.setOnClickListener(v -> {
+            switch (item.type){
+                case Album:
+                    album(item.id);
+                    break;
+                case Artist:
+                    artist(item.id);
+                    break;
+                case Playlist:
+                    playlist(item.id);
+                    break;
+                case Track:
+                    track(item.id);
+                    break;
+            }
+        });
+    }
+
+    private void track(String id) {
+
+    }
+
+    private void playlist(String id) {
+
+    }
+
+    private void artist(String id) {
+
+    }
+
+    private void album(String id) {
+
     }
 
     @Override
@@ -49,12 +83,14 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
     static class CollectionViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private ImageView artwork;
+        private CardView cardView;
 
 
         CollectionViewHolder(View itemView) {
             super(itemView);
             artwork = itemView.findViewById(R.id.img_artwork_browse_tile);
             title = itemView.findViewById(R.id.txt_title_browse_tile);
+            cardView = itemView.findViewById(R.id.card_view_browse_tile);
         }
     }
 }
