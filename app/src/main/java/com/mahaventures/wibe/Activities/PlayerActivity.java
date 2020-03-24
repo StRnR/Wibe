@@ -126,6 +126,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         songSeekBar = findViewById(R.id.seekbar_mainplayer);
         artwork = findViewById(R.id.img_cover_mainplayer);
         playBtn = findViewById(R.id.btn_play_mainplayer);
+        addBtn = findViewById(R.id.btn_add_player);
         playBtn.setBackground(getDrawable(R.drawable.ic_pause));
         Button skipBtn = findViewById(R.id.btn_skip_mainplayer);
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
