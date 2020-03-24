@@ -79,7 +79,6 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
         });
         SearchSongsViewHolder.addBtn.setOnClickListener(v -> {
             SearchSongsViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
-            //todo: post track to profile/tracks
             addToMySongs(track.id);
         });
     }

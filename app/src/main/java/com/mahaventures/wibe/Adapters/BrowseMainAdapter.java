@@ -32,7 +32,6 @@ public class BrowseMainAdapter extends RecyclerView.Adapter<BrowseMainAdapter.Ma
     @NonNull
     @Override
     public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //todo shiit
         View theView = LayoutInflater.from(context).inflate(R.layout.main_rv, parent, false);
         return new MainViewHolder(theView);
     }
