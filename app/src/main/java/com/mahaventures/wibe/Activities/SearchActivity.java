@@ -85,11 +85,6 @@ public class SearchActivity extends AppCompatActivity {
             return false;
         });
 
-//        ObjectAnimator animation = ObjectAnimator.ofFloat(searchHeader, "translationY", -223f);
-//        animation.setDuration(2000);
-//        animation.start();
-
-
         fragmentManager = getSupportFragmentManager();
         if (findViewById(R.id.fragment_container) != null) {
 
@@ -106,21 +101,6 @@ public class SearchActivity extends AppCompatActivity {
             fragmentContainer.getLayoutParams().height = 0;
             fragmentContainer.requestLayout();
         }
-
-//        searchText.setOnClickListener(v -> {
-//            final int newTopMargin = 27;
-//            Animation a = new Animation() {
-//
-//                @Override
-//                protected void applyTransformation(float interpolatedTime, Transformation t) {
-//                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) searchHeader.getLayoutParams();
-//                    params.topMargin = (int) (params.leftMargin + (newTopMargin - params.topMargin) * interpolatedTime);
-//                    searchHeader.setLayoutParams(params);
-//                }
-//            };
-//            a.setDuration(2000); // in ms
-//            searchHeader.startAnimation(a);
-//        });
 
         searchText.addTextChangedListener(new TextWatcher() {
 
