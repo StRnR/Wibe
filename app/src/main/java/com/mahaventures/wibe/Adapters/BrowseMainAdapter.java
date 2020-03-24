@@ -19,8 +19,8 @@ import java.util.List;
 
 public class BrowseMainAdapter extends RecyclerView.Adapter<BrowseMainAdapter.MainViewHolder> {
 
-    List<Collection> collections;
-    Context context;
+    private List<Collection> collections;
+    private Context context;
     private BrowseItemAdapter horizontalAdapter;
     private RecyclerView.RecycledViewPool recycledViewPool;
 
