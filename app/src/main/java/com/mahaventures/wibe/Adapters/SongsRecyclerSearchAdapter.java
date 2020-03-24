@@ -17,12 +17,18 @@ import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PlaySongBroadcastReceiver;
+import com.mahaventures.wibe.Services.PostDataService;
+import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecyclerSearchAdapter.SearchSongsViewHolder> {
 
@@ -74,6 +80,24 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
         SearchSongsViewHolder.addBtn.setOnClickListener(v -> {
             SearchSongsViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
             //todo: post track to profile/tracks
+            addToMySongs(track.id);
+        });
+    }
+
+    private void addToMySongs(String id) {
+        PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
+        Call<Void> call = service.AddToMySongs(StaticTools.getToken(), id);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful())
+                    StaticTools.ShowToast(context, "added", 0);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
         });
     }
 
