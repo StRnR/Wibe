@@ -28,7 +28,7 @@ public interface PostDataService {
     Call<AuthenticationResponseModel> Authenticate(@Body SignInRequestModel model);
 
     @POST("profile/tracks")
-    Call<FavouriteTrack> AddToMySongs(@Header("Authorization") String s, @Query("track_id") String trackId);
+    Call<Void> AddToMySongs(@Header("Authorization") String s, @Query("track_id") String trackId);
 
     @POST("init/")
     Call<InitModel> Init(@Header("Authorization") String s);

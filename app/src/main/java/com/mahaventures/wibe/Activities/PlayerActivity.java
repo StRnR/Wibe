@@ -580,4 +580,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public static Bitmap getArtWork() {
         return artWork;
     }
+
+    //todo fixing
+    //🎀💔🤎💙💚❤💖💋🌹🌹🌹🌹🌹
 }
