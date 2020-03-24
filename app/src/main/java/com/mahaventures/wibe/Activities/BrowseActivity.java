@@ -28,12 +28,6 @@ public class BrowseActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
-    private static final int[] navbar_tint_list = {
-            R.color.selected_navbar,
-            R.color.white,
-            R.color.white
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +54,7 @@ public class BrowseActivity extends AppCompatActivity {
             return false;
         });
 
-        recyclerView = findViewById(R.id.main_rv);
+        recyclerView = findViewById(R.id.main_recyclerview_browse);
 
         PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
         Call<InitModel> call = service.Init(StaticTools.getToken());

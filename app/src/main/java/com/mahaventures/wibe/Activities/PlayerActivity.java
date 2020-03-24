@@ -54,11 +54,13 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public static Bitmap artWork;
     public static String mArtistString;
     public static String mTrackNameString;
+    private boolean isShuffleClicked = false;
     static Track track;
     int pos = 0;
     SeekBar songSeekBar;
     boolean isPlaying;
     Button playBtn;
+    Button addBtn;
     Button minimizeBtn;
     NotificationManager notificationManager;
     TextView songDurationTxt;
@@ -124,18 +126,20 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         songSeekBar = findViewById(R.id.seekbar_mainplayer);
         artwork = findViewById(R.id.img_cover_mainplayer);
         playBtn = findViewById(R.id.btn_play_mainplayer);
+        addBtn = findViewById(R.id.btn_add_player);
         playBtn.setBackground(getDrawable(R.drawable.ic_pause));
         Button skipBtn = findViewById(R.id.btn_skip_mainplayer);
         Button rewindBtn = findViewById(R.id.btn_rewind_mainplayer);
         layout = findViewById(R.id.player_layout);
         minimizeBtn = findViewById(R.id.btn_minimize_player);
-        Button shuffle = findViewById(R.id.btn_shuffle_player);
-        Button repeat = findViewById(R.id.btn_repeat_player);
+        Button shuffleBtn = findViewById(R.id.btn_shuffle_player);
+        Button repeatBtn = findViewById(R.id.btn_repeat_player);
 
 
-        //todo Arshia: range dokme shuffle o repeat o dorost kon
-        shuffle.setOnClickListener(v -> {
+        shuffleBtn.setOnClickListener(v -> {
             if (mediaPlayer != null) {
+                isShuffleClicked = !isShuffleClicked;
+                shuffleBtn.setBackgroundResource(isShuffleClicked ? R.drawable.ic_random_blue : R.drawable.ic_random);
                 mediaPlayer.stop();
                 Collections.shuffle(queue);
                 firstOfAll();
@@ -143,7 +147,13 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             }
         });
 
-        repeat.setOnClickListener(v -> repeated = !repeated);
+        repeatBtn.setOnClickListener(v -> {
+            if (repeated)
+                repeatBtn.setBackgroundResource(R.drawable.ic_repeat);
+            else
+                repeatBtn.setBackgroundResource(R.drawable.ic_repeat_blue);
+            repeated = !repeated;
+        });
 
         setDragActions();
 
@@ -229,6 +239,10 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
+        });
+
+        addBtn.setOnClickListener(v -> {
+            //todo:add song to fav
         });
 
     }

@@ -7,17 +7,6 @@
     android:background="@color/background"
     tools:context=".Activities.BrowseActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        style="@style/Bold1"
-        android:layout_width="384dp"
-        android:layout_height="35dp"
-        android:text="Under maintenance..."
-        app:layout_constraintBottom_toTopOf="@id/navbar_bottom_browse"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.045" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navbar_bottom_browse"
         android:layout_width="match_parent"
@@ -30,10 +19,13 @@
         app:menu="@menu/bottom_navbar" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_rv"
-        android:layout_width="409dp"
-        android:layout_height="166dp"
+        android:id="@+id/main_recyclerview_browse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
