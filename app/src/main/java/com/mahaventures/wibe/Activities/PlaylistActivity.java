@@ -47,6 +47,7 @@ public class PlaylistActivity extends AppCompatActivity {
         TextView playlistOwner = findViewById(R.id.txt_owner_playlist);
         TextView description = findViewById(R.id.txt_playlist_description);
 
+        //as
         final View parent = (View) backBtn.getParent();
         parent.post(() -> {
             final Rect rect = new Rect();
