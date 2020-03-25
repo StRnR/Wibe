@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Activities.AlbumActivity;
+import com.mahaventures.wibe.Activities.PlaylistActivity;
 import com.mahaventures.wibe.Models.NewModels.Album;
 import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.Models.NewModels.MyModels.ArtistWithTracks;
@@ -98,6 +99,9 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
     }
 
     private void playlist(String id) {
+        Intent intent = new Intent(context, PlaylistActivity.class);
+        intent.putExtra("id", id);
+        context.startActivity(intent);
     }
 
 
