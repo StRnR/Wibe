@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.mahaventures.wibe.R;
 
 public class PlaylistActivity extends AppCompatActivity {
+    public static ImageView playlistArtwork;
+    public static TextView playlistTitle;
+    public static TextView playlistOwner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +23,9 @@ public class PlaylistActivity extends AppCompatActivity {
         setContentView(R.layout.activity_playlist);
         Button backBtn = findViewById(R.id.btn_back_playlist);
         Button shuffleBtn = findViewById(R.id.btn_shuffle_playlist);
-        ImageView artwork = findViewById(R.id.img_artwork_playlist);
-        TextView title = findViewById(R.id.txt_title_playlist);
-        TextView owner = findViewById(R.id.txt_owner_playlist);
+        playlistArtwork = findViewById(R.id.img_artwork_playlist);
+        playlistTitle = findViewById(R.id.txt_title_playlist);
+        playlistOwner = findViewById(R.id.txt_owner_playlist);
         TextView description = findViewById(R.id.txt_playlist_description);
 
 
