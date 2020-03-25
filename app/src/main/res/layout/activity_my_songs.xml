@@ -7,15 +7,32 @@
     android:background="@color/background"
     tools:context=".Activities.MySongsActivity">
 
-    <TextView
-        style="@style/Bold1"
+    <RelativeLayout
+        android:id="@+id/layout_relative_mysongs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="Under maintenance..."
-        app:layout_constraintBottom_toTopOf="@id/navbar_bottom_mysongs"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_container_mysongs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_mysongs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="25dp"
+            android:background="@color/background"
+            android:scrollbars="vertical" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container_mysongs"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        app:layout_constraintBottom_toTopOf="@id/navbar_bottom_mysongs" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navbar_bottom_mysongs"
