@@ -14,12 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Activities.AlbumActivity;
 import com.mahaventures.wibe.Activities.PlaylistActivity;
-import com.mahaventures.wibe.Models.NewModels.Album;
 import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.Models.NewModels.MyModels.ArtistWithTracks;
 import com.mahaventures.wibe.Models.NewModels.MyModels.BrowseItem;
-import com.mahaventures.wibe.Models.NewModels.MyModels.PlaylistWithTracks;
-import com.mahaventures.wibe.Models.NewModels.Playlist;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.NewModels.Tracks;
 import com.mahaventures.wibe.R;
@@ -109,7 +106,7 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
     private void artist(String id) {
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         ;
-        Call<Artist> artistCall = service.getArtist(id);
+        Call<Artist> artistCall = service.getArtist(StaticTools.getToken(), id);
         ArtistWithTracks artist = new ArtistWithTracks();
         artistCall.enqueue(new Callback<Artist>() {
             @Override
@@ -124,7 +121,7 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
             }
         });
         String url = String.format("https://api.musicify.ir/artists/%s/tracks?include=artists", id);
-        Call<Tracks> call = service.getArtistTracks(url);
+        Call<Tracks> call = service.getArtistTracks(StaticTools.getToken(), url);
         call.enqueue(new Callback<Tracks>() {
             @Override
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
@@ -140,7 +137,7 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
     }
 
     private void album(String id) {
-        Intent intent = new Intent(context,AlbumActivity.class);
+        Intent intent = new Intent(context, AlbumActivity.class);
         intent.putExtra("id", id);
         context.startActivity(intent);
     }
