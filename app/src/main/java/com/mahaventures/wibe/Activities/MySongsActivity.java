@@ -50,7 +50,8 @@ public class MySongsActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        Call<MySong> call = service.GetMySongs(StaticTools.getToken());
+        String url = "https://api.musicify.ir/profile/tracks?include=track.album,track.artists";
+        Call<MySong> call = service.GetMySongs(StaticTools.getToken(), url);
         call.enqueue(new Callback<MySong>() {
             @Override
             public void onResponse(Call<MySong> call, Response<MySong> response) {

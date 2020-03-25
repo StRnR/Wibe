@@ -1,6 +1,7 @@
 package com.mahaventures.wibe.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mahaventures.wibe.Activities.AlbumActivity;
+import com.mahaventures.wibe.Activities.PlaylistActivity;
 import com.mahaventures.wibe.Models.NewModels.Album;
 import com.mahaventures.wibe.Models.NewModels.Artist;
-import com.mahaventures.wibe.Models.NewModels.MyModels.AlbumWithTracks;
 import com.mahaventures.wibe.Models.NewModels.MyModels.ArtistWithTracks;
 import com.mahaventures.wibe.Models.NewModels.MyModels.BrowseItem;
 import com.mahaventures.wibe.Models.NewModels.MyModels.PlaylistWithTracks;
 import com.mahaventures.wibe.Models.NewModels.Playlist;
 import com.mahaventures.wibe.Models.NewModels.Track;
+import com.mahaventures.wibe.Models.NewModels.Tracks;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
@@ -34,13 +37,11 @@ import retrofit2.Response;
 public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.CollectionViewHolder> {
     private List<BrowseItem> items;
     private Context context;
-    private GetDataService service;
 
 
     public BrowseItemAdapter(List<BrowseItem> items, Context context) {
         this.items = items;
         this.context = context;
-        service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
     }
 
     @NonNull
@@ -78,6 +79,8 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
     }
 
     private void track(String id) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        ;
         String url = String.format("https://api.musicify.ir/tracks/%s?include=artists", id);
         Call<Track> call = service.getTrack(url);
         call.enqueue(new Callback<Track>() {
@@ -96,24 +99,16 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
     }
 
     private void playlist(String id) {
-        Call<Playlist> playlistCall = service.getPlaylist(id);
-        PlaylistWithTracks playlist = new PlaylistWithTracks();
-        playlistCall.enqueue(new Callback<Playlist>() {
-            @Override
-            public void onResponse(Call<Playlist> call, Response<Playlist> response) {
-                if (response.isSuccessful())
-                    playlist.playlist = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<Playlist> call, Throwable t) {
-
-            }
-        });
-        //todo
+        Intent intent = new Intent(context, PlaylistActivity.class);
+        intent.putExtra("id", id);
+        context.startActivity(intent);
     }
 
+
+    //todo after adding artist
     private void artist(String id) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        ;
         Call<Artist> artistCall = service.getArtist(id);
         ArtistWithTracks artist = new ArtistWithTracks();
         artistCall.enqueue(new Callback<Artist>() {
@@ -128,25 +123,26 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
 
             }
         });
-        //todo
-    }
-
-    private void album(String id) {
-        Call<Album> artistCall = service.getAlbum(id);
-        AlbumWithTracks album = new AlbumWithTracks();
-        artistCall.enqueue(new Callback<Album>() {
+        String url = String.format("https://api.musicify.ir/artists/%s/tracks?include=artists", id);
+        Call<Tracks> call = service.getArtistTracks(url);
+        call.enqueue(new Callback<Tracks>() {
             @Override
-            public void onResponse(Call<Album> call, Response<Album> response) {
+            public void onResponse(Call<Tracks> call, Response<Tracks> response) {
                 if (response.isSuccessful())
-                    album.album = response.body();
+                    artist.tracks = response.body().data;
             }
 
             @Override
-            public void onFailure(Call<Album> call, Throwable t) {
+            public void onFailure(Call<Tracks> call, Throwable t) {
 
             }
         });
-        //todo
+    }
+
+    private void album(String id) {
+        Intent intent = new Intent(context,AlbumActivity.class);
+        intent.putExtra("id", id);
+        context.startActivity(intent);
     }
 
     @Override
