@@ -72,7 +72,7 @@ public class AlbumActivity extends AppCompatActivity {
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
                 if (response.isSuccessful()) {
                     albumArtist.setText(response.body().data.get(0).artists.data.get(0).name);
-                    SongsRecyclerPlaylistAdapter adapter = new SongsRecyclerPlaylistAdapter(response.body().data, PlaylistActivity.this);
+                    SongsRecyclerPlaylistAdapter adapter = new SongsRecyclerPlaylistAdapter(response.body().data, AlbumActivity.this);
 
                 }
             }
