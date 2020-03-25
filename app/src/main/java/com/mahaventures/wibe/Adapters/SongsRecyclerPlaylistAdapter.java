@@ -17,6 +17,7 @@ import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SongsRecyclerPlaylistAdapter extends RecyclerView.Adapter<SongsRecyclerPlaylistAdapter.PlaylistSongsViewHolder> {
@@ -41,15 +42,19 @@ public class SongsRecyclerPlaylistAdapter extends RecyclerView.Adapter<SongsRecy
     public void onBindViewHolder(@NonNull SongsRecyclerPlaylistAdapter.PlaylistSongsViewHolder holder, int position) {
         Track track = result.get(position);
         holder.setIsRecyclable(false);
-        Picasso.get().load(track.image.medium.url).into(MySongsAdapter.MySongViewHolder.songImg);
-        MySongsAdapter.MySongViewHolder.cardView.setOnClickListener(v -> {
-            StaticTools.PlayTrack(context, StaticTools.getArtistsName(track), track);
+        holder.cardView.setOnClickListener(v -> {
+            List<Track> tracks = new ArrayList<>();
+            tracks.addAll(result);
+            tracks.removeIf(t -> t.id.equals(track.id));
+            tracks.add(0, track);
+            StaticTools.PlayQueue(context, StaticTools.getArtistsName(track), tracks);
         });
-        MySongsAdapter.MySongViewHolder.artist.setText(StaticTools.getArtistsName(track));
-        MySongsAdapter.MySongViewHolder.addBtn.setOnClickListener(v -> {
+        Picasso.get().load(track.image.medium.url).into(holder.songImg);
+        holder.artist.setText(StaticTools.getArtistsName(track));
+        holder.addBtn.setOnClickListener(v -> {
             StaticTools.addToMySong(context, track.id);
         });
-        MySongsAdapter.MySongViewHolder.songTitle.setText(track.name);
+        holder.songTitle.setText(track.name);
     }
 
     @Override

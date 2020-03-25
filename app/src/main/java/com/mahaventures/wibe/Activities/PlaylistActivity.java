@@ -81,7 +81,7 @@ public class PlaylistActivity extends AppCompatActivity {
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
                 if (response.isSuccessful()) {
                     SongsRecyclerPlaylistAdapter adapter = new SongsRecyclerPlaylistAdapter(response.body().data, PlaylistActivity.this);
-
+                    recyclerView.setAdapter(adapter);
                 }
             }
 

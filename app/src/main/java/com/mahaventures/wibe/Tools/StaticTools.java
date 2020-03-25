@@ -291,6 +291,29 @@ public class StaticTools {
         }, 100);
     }
 
+    public static void PlayQueue(Context context, String artist, List<Track> tracks) {
+        Intent intent = new Intent(context, PlayerActivity.class);
+        PlayerActivity.trackNumber = 0;
+        if (PlayerActivity.queue != null) {
+            PlayerActivity.queue.clear();
+            PlayerActivity.queue.addAll(tracks);
+        } else {
+            PlayerActivity.queue = new ArrayList<>();
+            PlayerActivity.queue.addAll(tracks);
+        }
+
+        Intent bcIntent = new Intent(context, PlaySongBroadcastReceiver.class)
+                .setAction("pay");
+        context.sendBroadcast(bcIntent);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                context.startActivity(intent);
+            }
+        }, 100);
+    }
+
     public static void PlayTrackInQueue(Context context, String artist, Track track) {
         PlayerActivity.mArtistString = artist;
         PlayerActivity.mTrackNameString = track.name;
