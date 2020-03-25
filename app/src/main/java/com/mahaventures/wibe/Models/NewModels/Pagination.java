@@ -3,24 +3,26 @@ package com.mahaventures.wibe.Models.NewModels;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Pagination {
 
     @SerializedName("total")
     @Expose
-    public Integer total;
+    public int total;
     @SerializedName("count")
     @Expose
-    public Integer count;
+    public int count;
     @SerializedName("per_page")
     @Expose
-    public Integer perPage;
+    public int perPage;
     @SerializedName("current_page")
     @Expose
-    public Integer currentPage;
+    public int currentPage;
     @SerializedName("total_pages")
     @Expose
-    public Integer totalPages;
+    public int totalPages;
     @SerializedName("links")
     @Expose
-    public MetaLinks links;
+    public List<Object> links;
 }

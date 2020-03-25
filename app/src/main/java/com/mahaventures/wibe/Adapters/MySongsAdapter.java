@@ -22,7 +22,6 @@ public class MySongsAdapter extends RecyclerView.Adapter<MySongsAdapter.MySongVi
 
     private MySong mySong;
     private Context context;
-    public static String ACTION = "pay";
 
     public MySongsAdapter(MySong mySong, Context context) {
         this.mySong = mySong;
@@ -53,7 +52,7 @@ public class MySongsAdapter extends RecyclerView.Adapter<MySongsAdapter.MySongVi
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mySong.data.size();
     }
 
 

@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mahaventures.wibe.Adapters.MySongsAdapter;
 import com.mahaventures.wibe.Models.NewModels.MySong;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
@@ -42,13 +45,19 @@ public class MySongsActivity extends AppCompatActivity {
             }
             return false;
         });
-
+        RecyclerView recyclerView = findViewById(R.id.recycler_mysongs);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<MySong> call = service.GetMySongs(StaticTools.getToken());
         call.enqueue(new Callback<MySong>() {
             @Override
             public void onResponse(Call<MySong> call, Response<MySong> response) {
-
+                if (response.isSuccessful()) {
+                    MySongsAdapter adapter = new MySongsAdapter(response.body(), MySongsActivity.this);
+                    recyclerView.setAdapter(adapter);
+                }
             }
 
             @Override
