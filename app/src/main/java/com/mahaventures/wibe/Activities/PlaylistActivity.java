@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Adapters.SongsRecyclerPlaylistAdapter;
-import com.mahaventures.wibe.Adapters.SearchAdapter;
-import com.mahaventures.wibe.Adapters.SongsRecyclerPlaylistAdapter;
 import com.mahaventures.wibe.Models.NewModels.Playlist;
 import com.mahaventures.wibe.Models.NewModels.Tracks;
 import com.mahaventures.wibe.R;
@@ -33,7 +31,7 @@ public class PlaylistActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist);
-        RecyclerView recyclerView = findViewById(R.id.recycler_search);
+        RecyclerView recyclerView = findViewById(R.id.recycler_playlist);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);

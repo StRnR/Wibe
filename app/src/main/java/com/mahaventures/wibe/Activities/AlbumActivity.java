@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Adapters.SongsRecyclerPlaylistAdapter;
 import com.mahaventures.wibe.Models.NewModels.Album;
@@ -28,6 +30,13 @@ public class AlbumActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
+        RecyclerView recyclerView = findViewById(R.id.recycler_album);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(null);
+        SongsRecyclerPlaylistAdapter tmpAdapter = new SongsRecyclerPlaylistAdapter(null, AlbumActivity.this);
+        recyclerView.setAdapter(tmpAdapter);
         Button backBtn = findViewById(R.id.btn_back_album);
         Button shuffleBtn = findViewById(R.id.btn_shuffle_album);
         ImageView albumArtwork = findViewById(R.id.img_artwork_album);
