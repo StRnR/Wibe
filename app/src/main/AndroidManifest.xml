@@ -20,8 +20,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".Activities.AlbumActivity"></activity>
-        <activity android:name=".Activities.PlaylistActivity" />
 
         <receiver android:name=".Services.NotificationActionService" />
         <receiver android:name=".Services.MiniPlayerBroadCastReceiver" />
@@ -41,6 +39,15 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.mahaventures.wibe" />
+
+        <activity
+            android:name=".Activities.AlbumActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.PlaylistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".Activities.SearchActivity"
