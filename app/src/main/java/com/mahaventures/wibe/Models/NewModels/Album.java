@@ -14,7 +14,7 @@ public class Album {
     public String name;
     @SerializedName("image")
     @Expose
-    public Object image;
+    public Images image;
     @SerializedName("type")
     @Expose
     public String type;

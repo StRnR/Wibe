@@ -236,11 +236,11 @@ public class StaticTools {
         }
         for (Album album : collection.albums.data) {
             //todo album image
-            list.add(new BrowseItem("", album.name, BrowseItem.BrowseType.Album, album.id, ""));
+            list.add(new BrowseItem(album.image.medium.url, album.name, BrowseItem.BrowseType.Album, album.id, ""));
         }
         for (Playlist playlist : collection.playlists.data) {
             //todo playlist image
-            list.add(new BrowseItem("", playlist.name, BrowseItem.BrowseType.Playlist, playlist.id, playlist.backgroundColor));
+            list.add(new BrowseItem(playlist.image.medium.url, playlist.name, BrowseItem.BrowseType.Playlist, playlist.id, playlist.backgroundColor));
         }
         Collections.shuffle(list);
         return list;
