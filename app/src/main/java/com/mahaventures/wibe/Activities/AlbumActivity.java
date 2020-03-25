@@ -18,7 +18,6 @@ public class AlbumActivity extends AppCompatActivity {
         setContentView(R.layout.activity_album);
         Button backBtn = findViewById(R.id.btn_back_album);
 
-
         final View parent = (View) backBtn.getParent();
         parent.post(() -> {
             final Rect rect = new Rect();

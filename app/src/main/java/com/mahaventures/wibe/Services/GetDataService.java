@@ -1,11 +1,14 @@
 package com.mahaventures.wibe.Services;
 
+import com.mahaventures.wibe.Models.NewModels.Album;
+import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.Models.NewModels.ArtistsSearch;
 import com.mahaventures.wibe.Models.NewModels.GeneralSearch;
 import com.mahaventures.wibe.Models.NewModels.MySong;
-import com.mahaventures.wibe.Models.NewModels.MySongTrack;
 import com.mahaventures.wibe.Models.NewModels.Page;
+import com.mahaventures.wibe.Models.NewModels.Playlist;
 import com.mahaventures.wibe.Models.NewModels.Track;
+import com.mahaventures.wibe.Models.NewModels.Tracks;
 import com.mahaventures.wibe.Models.NewModels.TracksResult;
 import com.mahaventures.wibe.Models.ResponseModels.ResetPasswordResponseModel;
 import com.mahaventures.wibe.Models.User;
@@ -27,7 +30,7 @@ public interface GetDataService {
     @GET("profile/tracks")
     Call<MySong> GetMySongs(@Header("Authorization") String s);
 
-    @GET("pages/{id}")
+    @GET("pages/{id}/")
     Call<Page> GetPage(@Path("id") String id);
 
     @GET("users/verify/password/")
@@ -35,6 +38,27 @@ public interface GetDataService {
 
     @GET("artists/search/")
     Call<ArtistsSearch> SearchArtists(@Query("query") String query);
+
+    @GET("albums/{id}/")
+    Call<Album> getAlbum(@Path("id") String id);
+
+    @GET("albums/{id}/tracks/")
+    Call<Tracks> getAlbumTracks(@Path("id") String id);
+
+    @GET("artists/{id}/")
+    Call<Artist> getArtist(@Path("id") String id);
+
+    @GET("artists/{id}/tracks/")
+    Call<Album> getArtistTracks(@Path("id") String id);
+
+    @GET("playlist/{id}/")
+    Call<Playlist> getPlaylist(@Path("id") String id);
+
+    @GET("playlist/{id}/tracks/")
+    Call<Tracks> getPlaylistTracks(@Path("id") String id);
+
+    @GET
+    Call<Track> getTrack(@Url String url);
 
     @GET
     Call<TracksResult> SearchTracks(@Url String url);
