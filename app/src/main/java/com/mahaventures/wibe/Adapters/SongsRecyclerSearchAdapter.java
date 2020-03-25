@@ -34,7 +34,7 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
 
     private List<Track> result;
     private Context context;
-    public static String ACTION = "pay";
+
 
     public SongsRecyclerSearchAdapter(List<Track> result, Context context) {
         this.result = result;
@@ -58,24 +58,7 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
         String artist = StaticTools.getArtistsName(track);
         SearchSongsViewHolder.artist.setText(artist);
         SearchSongsViewHolder.cardView.setOnClickListener(v -> {
-            SearchSongsViewHolder.cardView.setClickable(false);
-            PlayerActivity.mArtistString = artist;
-            PlayerActivity.mTrackNameString = track.name;
-            Intent intent = new Intent(context, PlayerActivity.class);
-            PlayerActivity.trackNumber = 0;
-            PlayerActivity.queue.removeIf(track1 -> track1.id.equals(track.id));
-            PlayerActivity.queue.add(0, track);
-            SearchSongsViewHolder.cardView.setClickable(true);
-            Intent intent1 = new Intent(context, PlaySongBroadcastReceiver.class)
-                    .setAction(ACTION);
-            context.sendBroadcast(intent1);
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    context.startActivity(intent);
-                }
-            }, 100);
+            StaticTools.PlayTrack(context, artist, track);
         });
         SearchSongsViewHolder.addBtn.setOnClickListener(v -> {
             SearchSongsViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
