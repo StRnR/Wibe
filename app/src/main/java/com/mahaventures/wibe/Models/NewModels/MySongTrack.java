@@ -3,7 +3,7 @@ package com.mahaventures.wibe.Models.NewModels;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-class MySongTrack {
+public class MySongTrack {
     @SerializedName("id")
     @Expose
     public String id;

@@ -1,7 +1,6 @@
 package com.mahaventures.wibe.Services;
 
 import com.mahaventures.wibe.Models.EmailVerification;
-import com.mahaventures.wibe.Models.NewModels.FavouriteTrack;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.AuthenticationResponseModel;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.InitModel;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.RegisterResponseModel;

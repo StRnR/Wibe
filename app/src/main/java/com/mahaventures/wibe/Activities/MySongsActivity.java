@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.mahaventures.wibe.Models.NewModels.FavouriteTrack;
+import com.mahaventures.wibe.Models.NewModels.MySong;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
@@ -44,15 +44,15 @@ public class MySongsActivity extends AppCompatActivity {
         });
 
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        Call<FavouriteTrack> call = service.GetMySongs(StaticTools.getToken());
-        call.enqueue(new Callback<FavouriteTrack>() {
+        Call<MySong> call = service.GetMySongs(StaticTools.getToken());
+        call.enqueue(new Callback<MySong>() {
             @Override
-            public void onResponse(Call<FavouriteTrack> call, Response<FavouriteTrack> response) {
+            public void onResponse(Call<MySong> call, Response<MySong> response) {
 
             }
 
             @Override
-            public void onFailure(Call<FavouriteTrack> call, Throwable t) {
+            public void onFailure(Call<MySong> call, Throwable t) {
 
             }
         });

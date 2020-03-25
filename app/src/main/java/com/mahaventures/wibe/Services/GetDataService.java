@@ -1,8 +1,9 @@
 package com.mahaventures.wibe.Services;
 
 import com.mahaventures.wibe.Models.NewModels.ArtistsSearch;
-import com.mahaventures.wibe.Models.NewModels.FavouriteTrack;
 import com.mahaventures.wibe.Models.NewModels.GeneralSearch;
+import com.mahaventures.wibe.Models.NewModels.MySong;
+import com.mahaventures.wibe.Models.NewModels.MySongTrack;
 import com.mahaventures.wibe.Models.NewModels.Page;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.NewModels.TracksResult;
@@ -24,7 +25,7 @@ public interface GetDataService {
     Call<Void> SendVerificationEmail(@Header("Authorization") String s);
 
     @GET("profile/tracks")
-    Call<FavouriteTrack> GetMySongs(@Header("Authorization") String s);
+    Call<MySong> GetMySongs(@Header("Authorization") String s);
 
     @GET("pages/{id}")
     Call<Page> GetPage(@Path("id") String id);
