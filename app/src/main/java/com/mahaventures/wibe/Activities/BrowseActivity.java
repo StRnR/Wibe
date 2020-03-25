@@ -32,10 +32,7 @@ public class BrowseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_browse);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_browse);
-
         bottomNavigationView.setSelectedItemId(R.id.nav_browse);
-//        bottomNavigationView.setItemTextColor(new ColorStateList());
-
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.nav_browse:
