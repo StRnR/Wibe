@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mahaventures.wibe.Adapters.SongsRecyclerPlaylistAdapter;
 import com.mahaventures.wibe.Models.NewModels.Album;
 import com.mahaventures.wibe.Models.NewModels.Tracks;
 import com.mahaventures.wibe.R;
@@ -71,6 +72,8 @@ public class AlbumActivity extends AppCompatActivity {
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
                 if (response.isSuccessful()) {
                     albumArtist.setText(response.body().data.get(0).artists.data.get(0).name);
+                    SongsRecyclerPlaylistAdapter adapter = new SongsRecyclerPlaylistAdapter(response.body().data, PlaylistActivity.this);
+
                 }
             }
 
