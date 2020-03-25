@@ -232,11 +232,11 @@ public class StaticTools {
             list.add(new BrowseItem(track.image.medium.url, track.name, BrowseItem.BrowseType.Track, track.id, track.backgroundColor));
         }
         for (Artist artist : collection.artists.data) {
-            list.add(new BrowseItem(artist.image.medium.url, artist.name, BrowseItem.BrowseType.Artist, artist.id, ""));
+            list.add(new BrowseItem(artist.image.medium.url, artist.name, BrowseItem.BrowseType.Artist, artist.id, artist.backgroundColor));
         }
         for (Album album : collection.albums.data) {
             //todo album image
-            list.add(new BrowseItem(album.image.medium.url, album.name, BrowseItem.BrowseType.Album, album.id, ""));
+            list.add(new BrowseItem(album.image.medium.url, album.name, BrowseItem.BrowseType.Album, album.id, album.backgroundColor));
         }
         for (Playlist playlist : collection.playlists.data) {
             //todo playlist image

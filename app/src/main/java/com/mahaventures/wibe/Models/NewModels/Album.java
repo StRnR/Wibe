@@ -15,6 +15,9 @@ public class Album {
     @SerializedName("image")
     @Expose
     public Images image;
+    @SerializedName("background_color")
+    @Expose
+    public String backgroundColor;
     @SerializedName("type")
     @Expose
     public String type;
