@@ -1,5 +1,6 @@
 package com.mahaventures.wibe.Activities;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.TouchDelegate;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mahaventures.wibe.Adapters.SongsRecyclerPlaylistAdapter;
 import com.mahaventures.wibe.Models.NewModels.Album;
 import com.mahaventures.wibe.Models.NewModels.Tracks;
@@ -30,6 +32,23 @@ public class AlbumActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_album);
+        bottomNavigationView.setSelectedItemId(R.id.nav_browse);
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.nav_browse:
+                    return true;
+                case R.id.nav_search:
+                    startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                case R.id.nav_mysongs:
+                    startActivity(new Intent(getApplicationContext(), MySongsActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+            }
+            return false;
+        });
         RecyclerView recyclerView = findViewById(R.id.recycler_album);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
