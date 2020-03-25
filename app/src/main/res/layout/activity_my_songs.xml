@@ -25,7 +25,6 @@
             android:layout_marginTop="25dp"
             android:background="@color/background"
             android:scrollbars="vertical" />
-
     </RelativeLayout>
 
     <FrameLayout

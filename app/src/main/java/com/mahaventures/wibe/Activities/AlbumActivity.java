@@ -10,9 +10,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mahaventures.wibe.Models.NewModels.MyModels.AlbumWithTracks;
 import com.mahaventures.wibe.R;
 
 public class AlbumActivity extends AppCompatActivity {
+    public static ImageView albumArtwork;
+    public static TextView albumTitle;
+    public static TextView albumArtist;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +25,9 @@ public class AlbumActivity extends AppCompatActivity {
         setContentView(R.layout.activity_album);
         Button backBtn = findViewById(R.id.btn_back_album);
         Button shuffleBtn = findViewById(R.id.btn_shuffle_album);
-        ImageView artwork = findViewById(R.id.img_artwork_album);
-        TextView title = findViewById(R.id.txt_title_album);
-        TextView artist = findViewById(R.id.txt_owner_album);
+        albumArtwork = findViewById(R.id.img_artwork_album);
+        albumTitle = findViewById(R.id.txt_title_album);
+        albumArtist = findViewById(R.id.txt_owner_album);
         TextView description = findViewById(R.id.txt_album_description);
 
         final View parent = (View) backBtn.getParent();
