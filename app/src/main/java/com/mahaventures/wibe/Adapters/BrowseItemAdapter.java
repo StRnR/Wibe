@@ -98,42 +98,10 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
     }
 
     private void playlist(String id) {
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        ;
-        Call<Playlist> playlistCall = service.getPlaylist(id);
-        PlaylistWithTracks playlist = new PlaylistWithTracks();
-        playlistCall.enqueue(new Callback<Playlist>() {
-            @Override
-            public void onResponse(Call<Playlist> call, Response<Playlist> response) {
-                if (response.isSuccessful())
-                    playlist.playlist = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<Playlist> call, Throwable t) {
-
-            }
-        });
-        String url = String.format("https://api.musicify.ir/playlist/%s/tracks?include=artists", id);
-        Call<Tracks> call = service.getPlaylistTracks(url);
-        call.enqueue(new Callback<Tracks>() {
-            @Override
-            public void onResponse(Call<Tracks> call, Response<Tracks> response) {
-                if (response.isSuccessful()) {
-                    playlist.tracks = response.body().data;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Tracks> call, Throwable t) {
-
-            }
-        });
-        if (playlist.tracks != null && playlist.playlist != null) {
-            //todo
-        }
     }
 
+
+    //todo after adding artist
     private void artist(String id) {
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         ;

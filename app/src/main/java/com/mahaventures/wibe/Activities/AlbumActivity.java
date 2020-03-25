@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mahaventures.wibe.Models.NewModels.Album;
-import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.NewModels.Tracks;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
@@ -19,24 +18,11 @@ import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AlbumActivity extends AppCompatActivity {
-    public static Album album;
-    public static List<Track> tracks;
-
-    public static void setAlbum(Album album) {
-        AlbumActivity.album = album;
-    }
-
-    public static void setTracks(List<Track> tracks) {
-        AlbumActivity.tracks = tracks;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
