@@ -19,6 +19,7 @@ import com.mahaventures.wibe.Models.NewModels.MyModels.BrowseItem;
 import com.mahaventures.wibe.Models.NewModels.MyModels.PlaylistWithTracks;
 import com.mahaventures.wibe.Models.NewModels.Playlist;
 import com.mahaventures.wibe.Models.NewModels.Track;
+import com.mahaventures.wibe.Models.NewModels.Tracks;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
@@ -110,7 +111,24 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
 
             }
         });
-        //todo
+        String url = String.format("https://api.musicify.ir/playlist/%s/tracks?include=artists", id);
+        Call<Tracks> call = service.getPlaylistTracks(url);
+        call.enqueue(new Callback<Tracks>() {
+            @Override
+            public void onResponse(Call<Tracks> call, Response<Tracks> response) {
+                if (response.isSuccessful()) {
+                    playlist.tracks = response.body().data;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Tracks> call, Throwable t) {
+
+            }
+        });
+        if (playlist.tracks != null && playlist.playlist != null) {
+            //todo
+        }
     }
 
     private void artist(String id) {
@@ -128,7 +146,20 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
 
             }
         });
-        //todo
+        String url = String.format("https://api.musicify.ir/artists/%s/tracks?include=artists", id);
+        Call<Tracks> call = service.getArtistTracks(url);
+        call.enqueue(new Callback<Tracks>() {
+            @Override
+            public void onResponse(Call<Tracks> call, Response<Tracks> response) {
+                if (response.isSuccessful())
+                    artist.tracks = response.body().data;
+            }
+
+            @Override
+            public void onFailure(Call<Tracks> call, Throwable t) {
+
+            }
+        });
     }
 
     private void album(String id) {
@@ -146,7 +177,24 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
 
             }
         });
-        //todo
+        String url = String.format("https://api.musicify.ir/albums/%s/tracks?include=artists", id);
+        Call<Tracks> call = service.getAlbumTracks(url);
+        call.enqueue(new Callback<Tracks>() {
+            @Override
+            public void onResponse(Call<Tracks> call, Response<Tracks> response) {
+                if (response.isSuccessful()) {
+                    album.tracks = response.body().data;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Tracks> call, Throwable t) {
+
+            }
+        });
+        if (album.tracks != null && album.album != null) {
+            //todo
+        }
     }
 
     @Override

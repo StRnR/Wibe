@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.mahaventures.wibe.Adapters.SongsRecyclerSearchAdapter;
+import com.mahaventures.wibe.Adapters.SearchAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.GeneralSearch;
 import com.mahaventures.wibe.Models.NewModels.Track;
@@ -62,7 +62,7 @@ public class SearchActivity extends AppCompatActivity {
         TextView searchHeader = findViewById(R.id.txt_header_search);
         TextView resCategory = findViewById(R.id.txt_result_category_search);
         recyclerView.setAdapter(null);
-        SongsRecyclerSearchAdapter tmpAdapter = new SongsRecyclerSearchAdapter(null, SearchActivity.this);
+        SearchAdapter tmpAdapter = new SearchAdapter(null, SearchActivity.this);
         recyclerView.setAdapter(tmpAdapter);
         EditText searchText = findViewById(R.id.txt_edit_search);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_search);
@@ -140,7 +140,7 @@ public class SearchActivity extends AppCompatActivity {
                                         if (response.body() != null) {
                                             try {
                                                 List<Track> tracks = response.body().tracks.data;
-                                                SongsRecyclerSearchAdapter adapter = new SongsRecyclerSearchAdapter(tracks, SearchActivity.this);
+                                                SearchAdapter adapter = new SearchAdapter(tracks, SearchActivity.this);
                                                 recyclerView.setAdapter(adapter);
                                                 PlayerActivity.queue.clear();
                                                 PlayerActivity.queue.addAll(tracks);
