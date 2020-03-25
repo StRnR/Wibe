@@ -14,16 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
-import com.mahaventures.wibe.Services.PostDataService;
-import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SongsRecyclerPlaylistAdapter extends RecyclerView.Adapter<SongsRecyclerPlaylistAdapter.PlaylistSongsViewHolder> {
 
@@ -45,24 +39,17 @@ public class SongsRecyclerPlaylistAdapter extends RecyclerView.Adapter<SongsRecy
 
     @Override
     public void onBindViewHolder(@NonNull SongsRecyclerPlaylistAdapter.PlaylistSongsViewHolder holder, int position) {
-
-    }
-
-    private void addToMySongs(String id) {
-        PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
-        Call<Void> call = service.AddToMySongs(StaticTools.getToken(), id);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful())
-                    StaticTools.ShowToast(context, "added", 0);
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-
-            }
+        Track track = result.get(position);
+        holder.setIsRecyclable(false);
+        Picasso.get().load(track.image.medium.url).into(MySongsAdapter.MySongViewHolder.songImg);
+        MySongsAdapter.MySongViewHolder.cardView.setOnClickListener(v -> {
+            StaticTools.PlayTrack(context, StaticTools.getArtistsName(track), track);
         });
+        MySongsAdapter.MySongViewHolder.artist.setText(StaticTools.getArtistsName(track));
+        MySongsAdapter.MySongViewHolder.addBtn.setOnClickListener(v -> {
+            StaticTools.addToMySong(context, track.id);
+        });
+        MySongsAdapter.MySongViewHolder.songTitle.setText(track.name);
     }
 
     @Override

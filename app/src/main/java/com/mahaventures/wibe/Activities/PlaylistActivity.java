@@ -10,12 +10,13 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mahaventures.wibe.Models.NewModels.MyModels.PlaylistWithTracks;
+import com.mahaventures.wibe.Adapters.SongsRecyclerPlaylistAdapter;
 import com.mahaventures.wibe.Models.NewModels.Playlist;
 import com.mahaventures.wibe.Models.NewModels.Tracks;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
+import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -48,11 +49,11 @@ public class PlaylistActivity extends AppCompatActivity {
 
         String id = getIntent().getStringExtra("id");
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        Call<Playlist> playlistCall = service.getPlaylist(id);
+        Call<Playlist> playlistCall = service.getPlaylist(StaticTools.getToken(), id);
         playlistCall.enqueue(new Callback<Playlist>() {
             @Override
             public void onResponse(Call<Playlist> call, Response<Playlist> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Picasso.get().load(response.body().image.medium.url).into(playlistArtwork);
                     playlistTitle.setText(response.body().name);
                 }
@@ -70,7 +71,8 @@ public class PlaylistActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
                 if (response.isSuccessful()) {
-                    //do track shit
+                    SongsRecyclerPlaylistAdapter adapter = new SongsRecyclerPlaylistAdapter(response.body().data, PlaylistActivity.this);
+
                 }
             }
 

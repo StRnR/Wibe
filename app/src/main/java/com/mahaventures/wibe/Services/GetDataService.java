@@ -37,28 +37,28 @@ public interface GetDataService {
     Call<ResetPasswordResponseModel> GetResetPasswordId(@Query("email") String email);
 
     @GET("artists/search/")
-    Call<ArtistsSearch> SearchArtists(@Query("query") String query);
+    Call<ArtistsSearch> SearchArtists(@Header("Authorization") String auth, @Query("query") String query);
 
-    @GET("albums/{id}/")
-    Call<Album> getAlbum(@Path("id") String id);
+    @GET
+    Call<Album> getAlbum(@Header("Authorization") String auth, @Url String url);
 
 //    @GET("albums/{id}/tracks/")
 //    Call<Tracks> getAlbumTracks(@Path("id") String id);
 
     @GET
-    Call<Tracks> getAlbumTracks(@Url String url);
+    Call<Tracks> getAlbumTracks(@Header("Authorization") String auth, @Url String url);
 
     @GET("artists/{id}/")
-    Call<Artist> getArtist(@Path("id") String id);
+    Call<Artist> getArtist(@Header("Authorization") String auth, @Path("id") String id);
 
 //    @GET("artists/{id}/tracks/")
 //    Call<Album> getArtistTracks(@Path("id") String id);
 
     @GET
-    Call<Tracks> getArtistTracks(@Url String url);
+    Call<Tracks> getArtistTracks(@Header("Authorization") String auth, @Url String url);
 
-    @GET("playlist/{id}/")
-    Call<Playlist> getPlaylist(@Path("id") String id);
+    @GET("playlists/{id}/")
+    Call<Playlist> getPlaylist(@Header("Authorization") String auth, @Path("id") String id);
 
 //    @GET("playlist/{id}/tracks/")
 //    Call<Tracks> getPlaylistTracks(@Path("id") String id);

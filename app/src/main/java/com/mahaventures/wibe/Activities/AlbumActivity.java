@@ -47,7 +47,8 @@ public class AlbumActivity extends AppCompatActivity {
 
         String id = getIntent().getStringExtra("id");
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        Call<Album> artistCall = service.getAlbum(id);
+        String s = String.format("https://api.musicify.ir/albums/%s?include=artists", id);
+        Call<Album> artistCall = service.getAlbum(StaticTools.getToken(), s);
         artistCall.enqueue(new Callback<Album>() {
             @Override
             public void onResponse(Call<Album> call, Response<Album> response) {
@@ -64,7 +65,7 @@ public class AlbumActivity extends AppCompatActivity {
             }
         });
         String url = String.format("https://api.musicify.ir/albums/%s/tracks?include=artists", id);
-        Call<Tracks> call = service.getAlbumTracks(url);
+        Call<Tracks> call = service.getAlbumTracks(StaticTools.getToken(), url);
         call.enqueue(new Callback<Tracks>() {
             @Override
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
