@@ -42,7 +42,7 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
         if (item.image != null && !item.image.equals(""))
             Picasso.get().load(item.image).into(holder.artwork);
         if (!item.color.equals("")){
-            //todo Arshia: set color
+            //todo Arshia: set color item.color example:
         }
         holder.cardView.setOnClickListener(v -> {
             switch (item.type){
