@@ -20,7 +20,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".Activities.PlaylistActivity"></activity>
+        <activity android:name=".Activities.AlbumActivity"></activity>
+        <activity android:name=".Activities.PlaylistActivity" />
 
         <receiver android:name=".Services.NotificationActionService" />
         <receiver android:name=".Services.MiniPlayerBroadCastReceiver" />
