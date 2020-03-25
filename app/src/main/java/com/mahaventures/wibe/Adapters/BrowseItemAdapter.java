@@ -16,7 +16,6 @@ import com.mahaventures.wibe.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.logging.Handler;
 
 public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.CollectionViewHolder> {
     private List<BrowseItem> items;
@@ -41,11 +40,11 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
         holder.title.setText(item.title);
         if (item.image != null && !item.image.equals(""))
             Picasso.get().load(item.image).into(holder.artwork);
-        if (!item.color.equals("")){
+        if (item.color != null && !item.color.equals("")){
             //todo Arshia: set color item.color example:
         }
         holder.cardView.setOnClickListener(v -> {
-            switch (item.type){
+            switch (item.type) {
                 case Album:
                     album(item.id);
                     break;
@@ -63,19 +62,19 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
     }
 
     private void track(String id) {
-
+        //todo
     }
 
     private void playlist(String id) {
-
+        //todo
     }
 
     private void artist(String id) {
-
+        //todo
     }
 
     private void album(String id) {
-
+        //todo
     }
 
     @Override

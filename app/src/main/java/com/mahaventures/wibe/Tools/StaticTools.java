@@ -16,6 +16,7 @@ import androidx.palette.graphics.Palette;
 
 import com.mahaventures.wibe.Activities.ConfirmEmailActivity;
 import com.mahaventures.wibe.Activities.LoadActivity;
+import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Album;
 import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.Models.NewModels.Collection;
@@ -25,6 +26,8 @@ import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.User;
 import com.mahaventures.wibe.Models.UserRole;
 import com.mahaventures.wibe.Services.GetDataService;
+import com.mahaventures.wibe.Services.PlaySongBroadcastReceiver;
+import com.mahaventures.wibe.Services.PostDataService;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,6 +37,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -235,14 +240,48 @@ public class StaticTools {
             list.add(new BrowseItem(artist.image.medium.url, artist.name, BrowseItem.BrowseType.Artist, artist.id, artist.backgroundColor));
         }
         for (Album album : collection.albums.data) {
-            //todo album image
             list.add(new BrowseItem(album.image.medium.url, album.name, BrowseItem.BrowseType.Album, album.id, album.backgroundColor));
         }
         for (Playlist playlist : collection.playlists.data) {
-            //todo playlist image
             list.add(new BrowseItem(playlist.image.medium.url, playlist.name, BrowseItem.BrowseType.Playlist, playlist.id, playlist.backgroundColor));
         }
         Collections.shuffle(list);
         return list;
+    }
+
+    public static void addToMySong(Context context, String id) {
+        PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
+        Call call = service.AddToMySongs(StaticTools.getToken(), id);
+        call.enqueue(new retrofit2.Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.isSuccessful())
+                    StaticTools.ShowToast(context, "added", 0);
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
+    }
+
+    public static void PlayTrack(Context context, String artist, Track track) {
+        PlayerActivity.mArtistString = artist;
+        PlayerActivity.mTrackNameString = track.name;
+        Intent intent = new Intent(context, PlayerActivity.class);
+        PlayerActivity.trackNumber = 0;
+        PlayerActivity.queue.removeIf(track1 -> track1.id.equals(track.id));
+        PlayerActivity.queue.add(0, track);
+        Intent bcIntent = new Intent(context, PlaySongBroadcastReceiver.class)
+                .setAction("pay");
+        context.sendBroadcast(bcIntent);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                context.startActivity(intent);
+            }
+        }, 100);
     }
 }
