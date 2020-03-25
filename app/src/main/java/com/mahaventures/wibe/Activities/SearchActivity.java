@@ -142,7 +142,8 @@ public class SearchActivity extends AppCompatActivity {
                                                 List<Track> tracks = response.body().tracks.data;
                                                 SongsRecyclerSearchAdapter adapter = new SongsRecyclerSearchAdapter(tracks, SearchActivity.this);
                                                 recyclerView.setAdapter(adapter);
-                                                PlayerActivity.queue = tracks;
+                                                PlayerActivity.queue.clear();
+                                                PlayerActivity.queue.addAll(tracks);
 
                                             } catch (Exception e) {
                                                 StaticTools.LogErrorMessage(e.getMessage() + " wtf is going on");
@@ -160,7 +161,7 @@ public class SearchActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onFailure(Call<GeneralSearch> call, Throwable t) {
-
+                                    StaticTools.ShowToast(SearchActivity.this, t.getMessage(), 0);
                                 }
                             });
 

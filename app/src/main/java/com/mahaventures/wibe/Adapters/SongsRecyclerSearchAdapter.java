@@ -1,7 +1,6 @@
 package com.mahaventures.wibe.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
-import com.mahaventures.wibe.Services.PlaySongBroadcastReceiver;
 import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,7 +53,7 @@ public class SongsRecyclerSearchAdapter extends RecyclerView.Adapter<SongsRecycl
         String artist = StaticTools.getArtistsName(track);
         SearchSongsViewHolder.artist.setText(artist);
         SearchSongsViewHolder.cardView.setOnClickListener(v -> {
-            StaticTools.PlayTrack(context, artist, track);
+            StaticTools.PlayTrackInQueue(context, artist, track);
         });
         SearchSongsViewHolder.addBtn.setOnClickListener(v -> {
             SearchSongsViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);

@@ -271,6 +271,25 @@ public class StaticTools {
         PlayerActivity.mTrackNameString = track.name;
         Intent intent = new Intent(context, PlayerActivity.class);
         PlayerActivity.trackNumber = 0;
+        PlayerActivity.queue.clear();
+        PlayerActivity.queue.add(track);
+        Intent bcIntent = new Intent(context, PlaySongBroadcastReceiver.class)
+                .setAction("pay");
+        context.sendBroadcast(bcIntent);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                context.startActivity(intent);
+            }
+        }, 100);
+    }
+
+    public static void PlayTrackInQueue(Context context, String artist, Track track) {
+        PlayerActivity.mArtistString = artist;
+        PlayerActivity.mTrackNameString = track.name;
+        Intent intent = new Intent(context, PlayerActivity.class);
+        PlayerActivity.trackNumber = 0;
         PlayerActivity.queue.removeIf(track1 -> track1.id.equals(track.id));
         PlayerActivity.queue.add(0, track);
         Intent bcIntent = new Intent(context, PlaySongBroadcastReceiver.class)
