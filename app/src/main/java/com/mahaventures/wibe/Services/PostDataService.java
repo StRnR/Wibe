@@ -21,10 +21,10 @@ public interface PostDataService {
     @POST("users/login/")
     Call<Token> LoginUser(@Body LoginRequestModel requestModel);
 
-    @POST("register/")
+    @POST("profile/register/")
     Call<RegisterResponseModel> Register(@Body SignUpRequestModel model);
 
-    @POST("authenticate/")
+    @POST("profile/authenticate/")
     Call<AuthenticationResponseModel> Authenticate(@Body SignInRequestModel model);
 
     @POST("profile/tracks")

@@ -32,8 +32,10 @@ import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.CreateNotificationService;
 import com.mahaventures.wibe.Services.OnClearFromRecentService;
+import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.AlphaTransformation;
 import com.mahaventures.wibe.Tools.OnSwipeTouchListener;
+import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -47,6 +49,8 @@ import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class PlayerActivity extends AppCompatActivity implements Playable {
 
@@ -242,7 +246,20 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         });
 
         addBtn.setOnClickListener(v -> {
-            //todo:add song to fav
+            PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
+            Call call = service.AddToMySongs(StaticTools.getToken(), queue.get(trackNumber).id);
+            call.enqueue(new retrofit2.Callback() {
+                @Override
+                public void onResponse(Call call, Response response) {
+                    if (response.isSuccessful())
+                        StaticTools.ShowToast(PlayerActivity.this, "added", 0);
+                }
+
+                @Override
+                public void onFailure(Call call, Throwable t) {
+
+                }
+            });
         });
 
     }
@@ -586,7 +603,4 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public static Bitmap getArtWork() {
         return artWork;
     }
-
-    //todo fixing
-    //🎀💔🤎💙💚❤💖💋🌹🌹🌹🌹🌹
 }

@@ -16,4 +16,7 @@ public class Playlist {
     @SerializedName("image")
     @Expose
     public Object image;
+    @SerializedName("background_color")
+    @Expose
+    public String backgroundColor;
 }

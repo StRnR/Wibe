@@ -222,21 +222,25 @@ public class StaticTools {
         return String.format("Bearer %s", LoadActivity.token);
     }
 
+    public static String getHPI() {
+        return LoadActivity.homePageId;
+    }
+
     public static List<BrowseItem> getBrowseItems(Collection collection) {
         List<BrowseItem> list = new ArrayList<>();
         for (Track track : collection.tracks.data) {
-            list.add(new BrowseItem(track.image.medium.url, track.name, BrowseItem.BrowseType.Track, track.id));
+            list.add(new BrowseItem(track.image.medium.url, track.name, BrowseItem.BrowseType.Track, track.id, track.backgroundColor));
         }
         for (Artist artist : collection.artists.data) {
-            list.add(new BrowseItem(artist.image.medium.url, artist.name, BrowseItem.BrowseType.Artist, artist.id));
+            list.add(new BrowseItem(artist.image.medium.url, artist.name, BrowseItem.BrowseType.Artist, artist.id, ""));
         }
         for (Album album : collection.albums.data) {
             //todo album image
-            list.add(new BrowseItem("", album.name, BrowseItem.BrowseType.Album, album.id));
+            list.add(new BrowseItem("", album.name, BrowseItem.BrowseType.Album, album.id, ""));
         }
         for (Playlist playlist : collection.playlists.data) {
             //todo playlist image
-            list.add(new BrowseItem("", playlist.name, BrowseItem.BrowseType.Playlist, playlist.id));
+            list.add(new BrowseItem("", playlist.name, BrowseItem.BrowseType.Playlist, playlist.id, playlist.backgroundColor));
         }
         Collections.shuffle(list);
         return list;

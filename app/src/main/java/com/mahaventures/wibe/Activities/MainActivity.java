@@ -9,13 +9,13 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mahaventures.wibe.Models.DBModels.SavedInfo;
 import com.mahaventures.wibe.R;
-import com.orm.SugarContext;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    @Override
+    public void onBackPressed() {
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

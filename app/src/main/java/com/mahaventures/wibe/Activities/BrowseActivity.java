@@ -11,10 +11,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mahaventures.wibe.Adapters.BrowseMainAdapter;
 import com.mahaventures.wibe.Models.NewModels.Collection;
 import com.mahaventures.wibe.Models.NewModels.Page;
-import com.mahaventures.wibe.Models.NewModels.ProfileModels.InitModel;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
-import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 
@@ -55,23 +53,7 @@ public class BrowseActivity extends AppCompatActivity {
         });
 
         recyclerView = findViewById(R.id.main_recyclerview_browse);
-
-        PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
-        Call<InitModel> call = service.Init(StaticTools.getToken());
-        call.enqueue(new Callback<InitModel>() {
-            @Override
-            public void onResponse(Call<InitModel> call, Response<InitModel> response) {
-                if (response.isSuccessful()){
-                    doShit(response.body() != null ? response.body().homePageId : "");
-                }
-                //todo handle siktir
-            }
-
-            @Override
-            public void onFailure(Call<InitModel> call, Throwable t) {
-
-            }
-        });
+        doShit(StaticTools.getHPI());
     }
 
     private void doShit(String homePageId) {

@@ -139,7 +139,7 @@ public class SignUpActivity extends AppCompatActivity {
                 return;
             }
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
-            Call<RegisterResponseModel> call = service.Register(new SignUpRequestModel(email, pass));
+            Call<RegisterResponseModel> call = service.Register(new SignUpRequestModel(email, pass, nameTxt.getText().toString()));
             call.enqueue(new Callback<RegisterResponseModel>() {
                 @Override
                 public void onResponse(Call<RegisterResponseModel> call, Response<RegisterResponseModel> response) {
