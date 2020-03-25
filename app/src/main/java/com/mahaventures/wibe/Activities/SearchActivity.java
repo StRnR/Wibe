@@ -28,6 +28,7 @@ import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -142,6 +143,7 @@ public class SearchActivity extends AppCompatActivity {
                                                 List<Track> tracks = response.body().tracks.data;
                                                 SearchAdapter adapter = new SearchAdapter(tracks, SearchActivity.this);
                                                 recyclerView.setAdapter(adapter);
+                                                PlayerActivity.queue = new ArrayList<>();
                                                 PlayerActivity.queue.clear();
                                                 PlayerActivity.queue.addAll(tracks);
 
