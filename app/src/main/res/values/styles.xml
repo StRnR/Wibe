@@ -18,13 +18,13 @@
     </style>
 
     <style name="UserAuthenticationEditText" parent="Theme.AppCompat.Light">
-        <item name="colorControlNormal">@color/sorkhabi</item>
-        <item name="colorControlActivated">@color/sorkhabi</item>
+        <item name="colorControlNormal">@color/pinkerbelle</item>
+        <item name="colorControlActivated">@color/pinkerbelle</item>
     </style>
 
     <style name="SearchEditText" parent="Theme.AppCompat.Light">
-        <item name="colorControlNormal">@color/skyBlue</item>
-        <item name="colorControlActivated">@color/skyBlue</item>
+        <item name="colorControlNormal">@color/wibeSky</item>
+        <item name="colorControlActivated">@color/wibeSky</item>
     </style>
 
     <style name="Bold1">

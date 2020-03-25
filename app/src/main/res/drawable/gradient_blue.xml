@@ -4,8 +4,8 @@
 
     <gradient
         android:angle="0"
-        android:endColor="@color/skyBlue"
-        android:startColor="@color/oceanBlue"
+        android:endColor="@color/wibeSky"
+        android:startColor="@color/wibeSea"
         android:type="linear" />
 
     <corners android:radius="15dp" />

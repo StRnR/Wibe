@@ -4,11 +4,13 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="white">#ffffff</color>
-    <color name="skyBlue">#0ECAFF</color>
-    <color name="oceanBlue">#067BD3</color>
-    <color name="sorkhabi">#EC0271</color>
+    <color name="wibeSky">#0ecbff</color>
+    <color name="wibeSea">#0092ff</color>
+    <color name="pinkerbelle">#dc1283</color>
     <color name="purple">#CE0DCC</color>
     <color name="strnr">#5500BE</color>
+    <color name="icon_grey">#676767</color>
+    <color name="text_grey">#b3b3b3</color>
     <color name="darkStrnr">#190037</color>
     <color name="unacceptablePass">#FF0000</color>
     <color name="weakPass">#EC0271</color>

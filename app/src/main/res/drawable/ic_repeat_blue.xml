@@ -4,9 +4,9 @@
     android:viewportWidth="426.667"
     android:viewportHeight="426.667">
     <path
-        android:fillColor="@color/skyBlue"
+        android:fillColor="@color/wibeSky"
         android:pathData="M320,320l-213.333,0l0,-64l-85.334,85.333l85.334,85.334l0,-64l256,0l0,-128l-42.667,0z" />
     <path
-        android:fillColor="@color/skyBlue"
+        android:fillColor="@color/wibeSky"
         android:pathData="M106.667,106.667l213.333,0l0,64l85.333,-85.334l-85.333,-85.333l0,64l-256,0l0,128l42.667,0z" />
 </vector>
