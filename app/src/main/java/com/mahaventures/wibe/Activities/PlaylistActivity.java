@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +19,11 @@ public class PlaylistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist);
         Button backBtn = findViewById(R.id.btn_back_playlist);
+        Button shuffleBtn = findViewById(R.id.btn_shuffle_playlist);
+        ImageView artwork = findViewById(R.id.img_artwork_playlist);
+        TextView title = findViewById(R.id.txt_title_playlist);
+        TextView owner = findViewById(R.id.txt_owner_playlist);
+        TextView description = findViewById(R.id.txt_playlist_description);
 
 
         final View parent = (View) backBtn.getParent();
