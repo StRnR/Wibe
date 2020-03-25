@@ -18,6 +18,9 @@ public class Artist {
     @SerializedName("type")
     @Expose
     public String type;
+    @SerializedName("background_color")
+    @Expose
+    public String backgroundColor;
     @SerializedName("links")
     @Expose
     public List<OtherLinks> links;
