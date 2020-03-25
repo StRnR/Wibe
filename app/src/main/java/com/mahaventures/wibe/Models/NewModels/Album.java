@@ -23,5 +23,5 @@ public class Album {
     public String type;
     @SerializedName("links")
     @Expose
-    public List<OtherLinks> links = null;
+    public List<OtherLinks> links;
 }

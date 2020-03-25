@@ -25,7 +25,6 @@ public class AlbumActivity extends AppCompatActivity {
         TextView artist = findViewById(R.id.txt_owner_album);
         TextView description = findViewById(R.id.txt_album_description);
 
-
         final View parent = (View) backBtn.getParent();
         parent.post(() -> {
             final Rect rect = new Rect();
