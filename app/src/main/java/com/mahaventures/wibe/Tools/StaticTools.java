@@ -271,8 +271,14 @@ public class StaticTools {
         PlayerActivity.mTrackNameString = track.name;
         Intent intent = new Intent(context, PlayerActivity.class);
         PlayerActivity.trackNumber = 0;
-        PlayerActivity.queue.clear();
-        PlayerActivity.queue.add(track);
+        if (PlayerActivity.queue != null) {
+            PlayerActivity.queue.clear();
+            PlayerActivity.queue.add(track);
+        } else {
+            PlayerActivity.queue = new ArrayList<>();
+            PlayerActivity.queue.add(track);
+        }
+
         Intent bcIntent = new Intent(context, PlaySongBroadcastReceiver.class)
                 .setAction("pay");
         context.sendBroadcast(bcIntent);

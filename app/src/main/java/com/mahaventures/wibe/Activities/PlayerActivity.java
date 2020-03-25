@@ -25,7 +25,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.mahaventures.wibe.Adapters.SongsRecyclerSearchAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Interfaces.Playable;
 import com.mahaventures.wibe.Models.NewModels.Track;
@@ -460,7 +459,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                                 progressPosition = pos;
                                 songTimeTxt.setText(StaticTools.getSongDuration(pos / 1000));
                             } catch (Exception e) {
-                                StaticTools.LogErrorMessage("timer");
+                                StaticTools.LogErrorMessage(e.getMessage());
                             }
                         });
                     }
@@ -497,12 +496,12 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     private void next() {
         firstOfAll();
-        if (trackNumber < queue.size()) {
+        if (trackNumber < queue.size() - 1) {
             trackNumber++;
             doShit(trackNumber);
         } else {
-            pauseMedia();
-            PlayerActivity.this.onBackPressed();
+//            pauseMedia();
+//            PlayerActivity.this.onBackPressed();
         }
     }
 
