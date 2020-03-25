@@ -9,8 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.mahaventures.wibe.Models.NewModels.MyModels.PlaylistWithTracks;
+import com.mahaventures.wibe.Adapters.SearchAdapter;
+import com.mahaventures.wibe.Adapters.SongsRecyclerPlaylistAdapter;
 import com.mahaventures.wibe.Models.NewModels.Playlist;
 import com.mahaventures.wibe.Models.NewModels.Tracks;
 import com.mahaventures.wibe.R;
@@ -28,6 +31,13 @@ public class PlaylistActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist);
+        RecyclerView recyclerView = findViewById(R.id.recycler_search);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(null);
+        SongsRecyclerPlaylistAdapter tmpAdapter = new SongsRecyclerPlaylistAdapter(null, PlaylistActivity.this);
+        recyclerView.setAdapter(tmpAdapter);
         Button backBtn = findViewById(R.id.btn_back_playlist);
         Button shuffleBtn = findViewById(R.id.btn_shuffle_playlist);
         ImageView playlistArtwork = findViewById(R.id.img_artwork_playlist);
@@ -52,7 +62,7 @@ public class PlaylistActivity extends AppCompatActivity {
         playlistCall.enqueue(new Callback<Playlist>() {
             @Override
             public void onResponse(Call<Playlist> call, Response<Playlist> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Picasso.get().load(response.body().image.medium.url).into(playlistArtwork);
                     playlistTitle.setText(response.body().name);
                 }
