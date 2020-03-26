@@ -100,16 +100,22 @@ public class PlaylistActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Picasso.get().load(response.body().image.medium.url).into(playlistArtwork);
                     playlistTitle.setText(response.body().name);
+                } else {
+                    try {
+                        StaticTools.ShowToast(PlaylistActivity.this, response.errorBody().string(), 1);
+                    } catch (Exception e) {
+
+                    }
                 }
 
             }
 
             @Override
             public void onFailure(Call<Playlist> call, Throwable t) {
-
+                StaticTools.ShowToast(PlaylistActivity.this, t.getMessage(), 1);
             }
         });
-        String url = String.format("https://api.musicify.ir/playlist/%s/tracks?include=artists", id);
+        String url = String.format("https://api.musicify.ir/playlists/%s/tracks?include=artists", id);
         Call<Tracks> call = service.getPlaylistTracks(url);
         call.enqueue(new Callback<Tracks>() {
             @Override

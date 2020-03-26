@@ -55,7 +55,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public static String mTrackNameString;
     private boolean isShuffleClicked = false;
     static Track track;
-    int pos = 0;
+    int pos;
     SeekBar songSeekBar;
     boolean isPlaying;
     Button playBtn;
@@ -285,7 +285,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     private void firstOfAll() {
         songDurationTxt.setText("");
         songTimeTxt.setText("");
-        songSeekBar.setProgress(0);
+        if (mediaPlayer != null)
+            mediaPlayer.seekTo(0);
         playBtn.setEnabled(false);
     }
 

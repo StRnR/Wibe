@@ -101,6 +101,7 @@ public class AlbumActivity extends AppCompatActivity {
             public void onResponse(Call<Album> call, Response<Album> response) {
                 StaticTools.LogErrorMessage(String.valueOf(response.code()));
                 if (response.isSuccessful()) {
+                    String s1 = response.toString();
                     albumTitle.setText(response.body().name);
                     Picasso.get().load(response.body().image.medium.url).into(albumArtwork);
                 }
