@@ -83,7 +83,7 @@ public class MiniPlayerFragment extends Fragment {
                             for (int i = 0; i < 2; i++) {
                                 if (i == 1)
                                     try {
-                                        Thread.sleep(20);
+                                        Thread.sleep(100);
                                     } catch (Exception e) {
 
                                     }
