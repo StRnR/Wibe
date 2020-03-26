@@ -9,12 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.mahaventures.wibe.Activities.PlayerActivity;
@@ -59,6 +57,7 @@ public class MiniPlayerFragment extends Fragment {
         TextView artist = view.findViewById(R.id.txt_artist_miniplayer);
         ImageView cover = view.findViewById(R.id.img_cover_miniplayer);
 
+        isLoaded = false;
         int color = Color.rgb(255, 255, 255);
         songProgressBar.setProgressTintList(ColorStateList.valueOf(color));
         counter = 0;
