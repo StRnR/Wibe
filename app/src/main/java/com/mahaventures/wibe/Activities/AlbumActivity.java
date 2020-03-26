@@ -28,6 +28,7 @@ import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -74,12 +75,10 @@ public class AlbumActivity extends AppCompatActivity {
 
         List<Track> tracks = new ArrayList<>();
 
-        shuffleBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (tracks.size() > 0) {
-                    StaticTools.PlayQueue(AlbumActivity.this, albumArtist.getText().toString(), tracks);
-                }
+        shuffleBtn.setOnClickListener(v -> {
+            if (tracks.size() > 0) {
+                Collections.shuffle(tracks);
+                StaticTools.PlayQueue(AlbumActivity.this, albumArtist.getText().toString(), tracks);
             }
         });
 
