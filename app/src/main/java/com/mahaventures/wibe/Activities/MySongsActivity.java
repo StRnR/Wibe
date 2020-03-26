@@ -35,11 +35,9 @@ public class MySongsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_songs);
-
+        MiniPlayerFragment.isPrepared = true;
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_mysongs);
-
         bottomNavigationView.setSelectedItemId(R.id.nav_mysongs);
-
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.nav_browse:

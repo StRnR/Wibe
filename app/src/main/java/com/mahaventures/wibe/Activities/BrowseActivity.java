@@ -39,7 +39,7 @@ public class BrowseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
-
+        MiniPlayerFragment.isPrepared = true;
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_browse);
         bottomNavigationView.setSelectedItemId(R.id.nav_browse);
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {

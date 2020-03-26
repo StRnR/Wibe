@@ -9,7 +9,6 @@ import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,6 +59,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         StaticTools.LogErrorMessage("search activity started");
         setContentView(R.layout.activity_search);
+        MiniPlayerFragment.isPrepared = true;
         recyclerView = findViewById(R.id.recycler_search);
         layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
