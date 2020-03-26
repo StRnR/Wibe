@@ -37,6 +37,7 @@ public class MySongsAdapter extends RecyclerView.Adapter<MySongsAdapter.MySongVi
 
     @Override
     public void onBindViewHolder(@NonNull MySongViewHolder holder, int position) {
+        MySongViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
         MySongTrack track = mySong.data.get(position);
         holder.setIsRecyclable(false);
         Picasso.get().load(track.track.image.medium.url).into(MySongViewHolder.songImg);

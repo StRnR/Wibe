@@ -89,6 +89,8 @@ public class PlaylistActivity extends AppCompatActivity {
             parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
         });
 
+        backBtn.setOnClickListener(v -> PlaylistActivity.super.onBackPressed());
+
         String id = getIntent().getStringExtra("id");
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<Playlist> playlistCall = service.getPlaylist(StaticTools.getToken(), id);

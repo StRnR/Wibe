@@ -181,6 +181,17 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             parent.setTouchDelegate(new TouchDelegate(rect, minimizeBtn));
         });
 
+        final View secondParent = (View) addBtn.getParent();
+        parent.post(() -> {
+            final Rect rect = new Rect();
+            addBtn.getHitRect(rect);
+            rect.top -= 50;
+            rect.left -= 50;
+            rect.bottom += 50;
+            rect.right += 50;
+            secondParent.setTouchDelegate(new TouchDelegate(rect, addBtn));
+        });
+
         int color = Color.rgb(255, 255, 255);
         songSeekBar.setProgressTintList(ColorStateList.valueOf(color));
         songSeekBar.setThumbTintList(ColorStateList.valueOf(color));
@@ -241,6 +252,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         });
 
         addBtn.setOnClickListener(v -> {
+            addBtn.setBackgroundResource(R.drawable.ic_added);
             StaticTools.addToMySong(PlayerActivity.this, queue.get(trackNumber).id);
         });
 

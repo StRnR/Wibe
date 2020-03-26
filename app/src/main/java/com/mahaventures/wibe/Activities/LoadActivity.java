@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mahaventures.wibe.GifTools.GifWebView;
 import com.mahaventures.wibe.Models.DBModels.SavedInfo;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.InitModel;
 import com.mahaventures.wibe.R;
@@ -12,6 +13,9 @@ import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 import com.orm.SugarContext;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +29,15 @@ public class LoadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load);
+        InputStream stream = null;
+        try {
+            stream = getAssets().open("loading_gif.gif");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        GifWebView view = new GifWebView(this, "file:///android_asset/loading_gif.gif");
+
+        setContentView(view);
         SugarContext.init(this);
         SavedInfo info = SavedInfo.last(SavedInfo.class);
 //        startActivity(new Intent(MainActivity.this, SearchActivity.class));
