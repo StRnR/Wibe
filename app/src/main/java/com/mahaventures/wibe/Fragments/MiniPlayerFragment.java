@@ -66,7 +66,7 @@ public class MiniPlayerFragment extends Fragment {
             public void run() {
                 try {
                     getActivity().runOnUiThread(() -> {
-                        try  {
+                        try {
                             if (counter < 2) {
                                 songProgressBar.setMax(PlayerActivity.maxProgress);
                                 songProgressBar.setProgress(PlayerActivity.progressPosition);

@@ -39,7 +39,6 @@ public class BrowseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
-        MiniPlayerFragment.isPrepared = true;
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_browse);
         bottomNavigationView.setSelectedItemId(R.id.nav_browse);
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
@@ -67,7 +66,7 @@ public class BrowseActivity extends AppCompatActivity {
             fragmentTransaction.add(R.id.fragment_container_browse, miniPlayerFragment);
             fragmentTransaction.commit();
         }
-
+        MiniPlayerFragment.isPrepared = true;
         recyclerView = findViewById(R.id.main_recyclerview_browse);
         doShit(StaticTools.getHPI());
     }

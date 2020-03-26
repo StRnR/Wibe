@@ -62,7 +62,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         StaticTools.LogErrorMessage("search activity started");
         setContentView(R.layout.activity_search);
-        MiniPlayerFragment.isPrepared = true;
         recyclerView = findViewById(R.id.recycler_search);
         layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
@@ -103,14 +102,13 @@ public class SearchActivity extends AppCompatActivity {
             fragmentTransaction.add(R.id.fragment_container_search, miniPlayerFragment);
             fragmentTransaction.commit();
         }
+        MiniPlayerFragment.isPrepared = true;
 
-        searchText.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    closeKeyboard();
-                }
-                return false;
+        searchText.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                closeKeyboard();
             }
+            return false;
         });
 
         searchText.addTextChangedListener(new TextWatcher() {

@@ -79,6 +79,7 @@ public class AlbumActivity extends AppCompatActivity {
             if (tracks.size() > 0) {
                 Collections.shuffle(tracks);
                 StaticTools.PlayQueue(AlbumActivity.this, albumArtist.getText().toString(), tracks);
+                MiniPlayerFragment.isPrepared = true;
             }
         });
 
@@ -91,6 +92,7 @@ public class AlbumActivity extends AppCompatActivity {
             fragmentTransaction.add(R.id.fragment_container_album, miniPlayerFragment);
             fragmentTransaction.commit();
         }
+        MiniPlayerFragment.isPrepared = true;
 
         final View parent = (View) backBtn.getParent();
         parent.post(() -> {

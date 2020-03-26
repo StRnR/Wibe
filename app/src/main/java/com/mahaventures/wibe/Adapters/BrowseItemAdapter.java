@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Activities.AlbumActivity;
 import com.mahaventures.wibe.Activities.PlaylistActivity;
+import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.Models.NewModels.MyModels.ArtistWithTracks;
 import com.mahaventures.wibe.Models.NewModels.MyModels.BrowseItem;
@@ -77,7 +78,6 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
 
     private void track(String id) {
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        ;
         String url = String.format("https://api.musicify.ir/tracks/%s?include=artists", id);
         Call<Track> call = service.getTrack(url);
         call.enqueue(new Callback<Track>() {
@@ -85,6 +85,7 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
             public void onResponse(Call<Track> call, Response<Track> response) {
                 if (response.isSuccessful()) {
                     StaticTools.PlayTrack(context, StaticTools.getArtistsName(response.body()), response.body());
+                    MiniPlayerFragment.isPrepared = true;
                 }
             }
 

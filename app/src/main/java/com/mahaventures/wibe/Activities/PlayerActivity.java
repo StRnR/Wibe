@@ -80,6 +80,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
+        MiniPlayerFragment.isPrepared = true;
     }
 
     @Override
@@ -466,6 +467,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                                     songSeekBar.setMax(duration);
                                     maxProgress = duration;
                                     sd = duration;
+                                    MiniPlayerFragment.isPrepared = true;
                                 }
                                 int pos = mediaPlayer.getCurrentPosition();
                                 sp = pos;

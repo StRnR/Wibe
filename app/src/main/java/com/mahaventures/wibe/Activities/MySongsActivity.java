@@ -35,7 +35,6 @@ public class MySongsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_songs);
-        MiniPlayerFragment.isPrepared = true;
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_mysongs);
         bottomNavigationView.setSelectedItemId(R.id.nav_mysongs);
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
@@ -55,7 +54,6 @@ public class MySongsActivity extends AppCompatActivity {
         });
 
 
-
         fragmentManager = getSupportFragmentManager();
         if (findViewById(R.id.fragment_container_mysongs) != null) {
             if (savedInstanceState != null)
@@ -64,7 +62,9 @@ public class MySongsActivity extends AppCompatActivity {
             MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
             fragmentTransaction.add(R.id.fragment_container_mysongs, miniPlayerFragment);
             fragmentTransaction.commit();
+            MiniPlayerFragment.isPrepared = true;
         }
+        MiniPlayerFragment.isPrepared = true;
         RecyclerView recyclerView = findViewById(R.id.recycler_mysongs);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
@@ -78,6 +78,7 @@ public class MySongsActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     MySongsAdapter adapter = new MySongsAdapter(response.body(), MySongsActivity.this);
                     recyclerView.setAdapter(adapter);
+                    MiniPlayerFragment.isPrepared = true;
                 }
             }
 
