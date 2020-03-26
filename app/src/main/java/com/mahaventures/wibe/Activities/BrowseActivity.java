@@ -30,6 +30,12 @@ public class BrowseActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        MiniPlayerFragment.isPrepared = true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);

@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.MySong;
 import com.mahaventures.wibe.Models.NewModels.MySongTrack;
 import com.mahaventures.wibe.R;
@@ -43,6 +44,7 @@ public class MySongsAdapter extends RecyclerView.Adapter<MySongsAdapter.MySongVi
         Picasso.get().load(track.track.image.medium.url).into(MySongViewHolder.songImg);
         MySongViewHolder.cardView.setOnClickListener(v -> {
             StaticTools.PlayTrack(context, StaticTools.getArtistsName(track.track), track.track);
+            MiniPlayerFragment.isPrepared = true;
         });
         MySongViewHolder.artist.setText(StaticTools.getArtistsName(track.track));
         MySongViewHolder.addBtn.setOnClickListener(v -> {

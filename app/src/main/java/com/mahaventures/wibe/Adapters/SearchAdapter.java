@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
@@ -53,6 +54,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchSong
         SearchSongsViewHolder.artist.setText(artist);
         SearchSongsViewHolder.cardView.setOnClickListener(v -> {
             StaticTools.PlayTrackInQueue(context, artist, track);
+            MiniPlayerFragment.isPrepared = true;
         });
         SearchSongsViewHolder.addBtn.setOnClickListener(v -> {
             SearchSongsViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);

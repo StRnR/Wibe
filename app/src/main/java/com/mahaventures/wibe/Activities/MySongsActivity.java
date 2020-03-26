@@ -26,6 +26,12 @@ public class MySongsActivity extends AppCompatActivity {
     public static FragmentManager fragmentManager;
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        MiniPlayerFragment.isPrepared = true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_songs);
@@ -49,6 +55,8 @@ public class MySongsActivity extends AppCompatActivity {
             }
             return false;
         });
+
+
 
         fragmentManager = getSupportFragmentManager();
         if (findViewById(R.id.fragment_container_mysongs) != null) {

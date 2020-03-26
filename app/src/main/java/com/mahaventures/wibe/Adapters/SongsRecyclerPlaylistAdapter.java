@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Tools.StaticTools;
@@ -48,6 +49,7 @@ public class SongsRecyclerPlaylistAdapter extends RecyclerView.Adapter<SongsRecy
             tracks.removeIf(t -> t.id.equals(track.id));
             tracks.add(0, track);
             StaticTools.PlayQueue(context, StaticTools.getArtistsName(track), tracks);
+            MiniPlayerFragment.isPrepared = true;
         });
         Picasso.get().load(track.image.medium.url).into(holder.songImg);
         holder.artist.setText(StaticTools.getArtistsName(track));
