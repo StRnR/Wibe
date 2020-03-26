@@ -316,6 +316,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         if (mediaPlayer != null && isPrepared)
             mediaPlayer.seekTo(0);
         playBtn.setEnabled(false);
+        MiniPlayerFragment.isPrepared = true;
     }
 
     @Override
@@ -508,6 +509,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 }, 0, 500);
             });
             mediaPlayer.prepareAsync();
+            MiniPlayerFragment.isPrepared = true;
         } catch (Exception e) {
             StaticTools.LogErrorMessage(e.getMessage() + " inja player activity");
             try {
@@ -515,6 +517,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 mediaPlayer = new MediaPlayer();
                 mediaPlayer.setDataSource(track != null ? track.file : null);
                 playMedia();
+                MiniPlayerFragment.isPrepared = true;
             } catch (Exception e1) {
                 StaticTools.LogErrorMessage(e1.getMessage() + " kir khord dg");
             }
