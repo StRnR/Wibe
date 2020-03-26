@@ -80,20 +80,17 @@ public class MiniPlayerFragment extends Fragment {
                             playBtn.setBackgroundResource(R.drawable.ic_play);
                         }
                         if (isPrepared) {
-                            for (int i = 0; i < 3; i++) {
-                                if (i == 1)
-                                    try {
-                                        Thread.sleep(50);
-                                    } catch (Exception e) {
-
-                                    }
-                                counter = 0;
-                                isPrepared = false;
-                                isLoaded = true;
-                                cover.setImageBitmap(PlayerActivity.getArtWork());
-                                artist.setText(PlayerActivity.getArtistsName());
-                                songTitle.setText(PlayerActivity.getTrackName());
-                            }
+//                            try {
+//                                Thread.sleep(100);
+//                            } catch (Exception e) {
+//
+//                            }
+                            counter = 0;
+                            isPrepared = false;
+                            isLoaded = true;
+                            cover.setImageBitmap(PlayerActivity.getArtWork());
+                            artist.setText(PlayerActivity.getArtistsName());
+                            songTitle.setText(PlayerActivity.getTrackName());
 
                         }
 ////                        if (!isLoaded) {

@@ -316,7 +316,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         if (mediaPlayer != null && isPrepared)
             mediaPlayer.seekTo(0);
         playBtn.setEnabled(false);
-        MiniPlayerFragment.isPrepared = true;
     }
 
     @Override
@@ -326,7 +325,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     }
 
     private void setMeta() {
-        MiniPlayerFragment.isPrepared = true;
         String artist = StaticTools.getArtistsName(track);
         mArtistString = artist;
         artistTxt.setText(artist);
@@ -349,7 +347,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 mediaPlayer.setDataSource(track != null ? track.file : null);
                 playMedia();
                 playBtn.setEnabled(true);
-                MiniPlayerFragment.isPrepared = true;
             } catch (Exception e) {
                 StaticTools.LogErrorMessage(e.getMessage());
             }
@@ -466,7 +463,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         try {
             StaticTools.LogTimedMessage("play button pressed");
             isPlaying = true;
-            MiniPlayerFragment.isPrepared = true;
             MiniPlayerFragment.isPlaying = true;
             MiniPlayerFragment.isLoaded = true;
             onTrackPlay();
@@ -494,7 +490,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                                     songSeekBar.setMax(duration);
                                     maxProgress = duration;
                                     sd = duration;
-                                    MiniPlayerFragment.isPrepared = true;
                                 }
                                 int pos = mediaPlayer.getCurrentPosition();
                                 sp = pos;
@@ -509,7 +504,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 }, 0, 500);
             });
             mediaPlayer.prepareAsync();
-            MiniPlayerFragment.isPrepared = true;
         } catch (Exception e) {
             StaticTools.LogErrorMessage(e.getMessage() + " inja player activity");
             try {
@@ -517,7 +511,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 mediaPlayer = new MediaPlayer();
                 mediaPlayer.setDataSource(track != null ? track.file : null);
                 playMedia();
-                MiniPlayerFragment.isPrepared = true;
             } catch (Exception e1) {
                 StaticTools.LogErrorMessage(e1.getMessage() + " kir khord dg");
             }
@@ -556,7 +549,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         StaticTools.LogTimedMessage("pause button pressed");
         isPlaying = false;
         MiniPlayerFragment.isPlaying = false;
-        MiniPlayerFragment.isPrepared = true;
         onTrackPause();
         playBtn.setBackground(getDrawable(R.drawable.ic_play));
         pos = mediaPlayer.getCurrentPosition();

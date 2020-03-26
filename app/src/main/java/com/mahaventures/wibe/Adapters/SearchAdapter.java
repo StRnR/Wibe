@@ -54,7 +54,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchSong
         SearchSongsViewHolder.artist.setText(artist);
         SearchSongsViewHolder.cardView.setOnClickListener(v -> {
             StaticTools.PlayTrackInQueue(context, artist, track);
-            MiniPlayerFragment.isPrepared = true;
         });
         SearchSongsViewHolder.addBtn.setOnClickListener(v -> {
             SearchSongsViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);

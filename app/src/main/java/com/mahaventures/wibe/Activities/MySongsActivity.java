@@ -47,13 +47,13 @@ public class MySongsActivity extends AppCompatActivity {
             }
             return false;
         });
-        fragmentManager = getSupportFragmentManager();
-        if (findViewById(R.id.fragment_container_mysongs) != null && MiniPlayerFragment.isLoaded) {
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
-            fragmentTransaction.add(R.id.fragment_container_mysongs, miniPlayerFragment);
-            fragmentTransaction.commit();
-        }
+//        fragmentManager = getSupportFragmentManager();
+//        if (findViewById(R.id.fragment_container_mysongs) != null && MiniPlayerFragment.isLoaded) {
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
+//            fragmentTransaction.add(R.id.fragment_container_mysongs, miniPlayerFragment);
+//            fragmentTransaction.commit();
+//        }
         MiniPlayerFragment.isPrepared = true;
     }
 
@@ -82,7 +82,7 @@ public class MySongsActivity extends AppCompatActivity {
 
 
         fragmentManager = getSupportFragmentManager();
-        if (findViewById(R.id.fragment_container_mysongs) != null && MiniPlayerFragment.isLoaded) {
+        if (findViewById(R.id.fragment_container_mysongs) != null ) {
             if (savedInstanceState != null)
                 return;
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -104,7 +104,6 @@ public class MySongsActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     MySongsAdapter adapter = new MySongsAdapter(response.body(), MySongsActivity.this);
                     recyclerView.setAdapter(adapter);
-                    MiniPlayerFragment.isPrepared = true;
                 }
             }
 

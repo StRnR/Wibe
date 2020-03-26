@@ -44,7 +44,6 @@ public class MySongsAdapter extends RecyclerView.Adapter<MySongsAdapter.MySongVi
         Picasso.get().load(track.track.image.medium.url).into(MySongViewHolder.songImg);
         MySongViewHolder.cardView.setOnClickListener(v -> {
             StaticTools.PlayTrack(context, StaticTools.getArtistsName(track.track), track.track);
-            MiniPlayerFragment.isPrepared = true;
         });
         MySongViewHolder.artist.setText(StaticTools.getArtistsName(track.track));
         MySongViewHolder.addBtn.setOnClickListener(v -> {

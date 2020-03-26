@@ -73,13 +73,13 @@ public class SearchActivity extends AppCompatActivity {
             }
             return false;
         });
-        fragmentManager = getSupportFragmentManager();
-        if (findViewById(R.id.fragment_container_search) != null && MiniPlayerFragment.isLoaded) {
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
-            fragmentTransaction.add(R.id.fragment_container_search, miniPlayerFragment);
-            fragmentTransaction.commit();
-        }
+//        fragmentManager = getSupportFragmentManager();
+//        if (findViewById(R.id.fragment_container_search) != null && MiniPlayerFragment.isLoaded) {
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
+//            fragmentTransaction.add(R.id.fragment_container_search, miniPlayerFragment);
+//            fragmentTransaction.commit();
+//        }
         MiniPlayerFragment.isPrepared = true;
     }
 
@@ -121,7 +121,7 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         fragmentManager = getSupportFragmentManager();
-        if (findViewById(R.id.fragment_container_search) != null && MiniPlayerFragment.isLoaded) {
+        if (findViewById(R.id.fragment_container_search) != null) {
             if (savedInstanceState != null)
                 return;
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

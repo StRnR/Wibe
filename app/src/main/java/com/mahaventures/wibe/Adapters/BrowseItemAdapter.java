@@ -85,7 +85,6 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
             public void onResponse(Call<Track> call, Response<Track> response) {
                 if (response.isSuccessful()) {
                     StaticTools.PlayTrack(context, StaticTools.getArtistsName(response.body()), response.body());
-                    MiniPlayerFragment.isPrepared = true;
                 }
             }
 

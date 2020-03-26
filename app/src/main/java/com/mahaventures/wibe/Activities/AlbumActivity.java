@@ -82,12 +82,11 @@ public class AlbumActivity extends AppCompatActivity {
             if (tracks.size() > 0) {
                 Collections.shuffle(tracks);
                 StaticTools.PlayQueue(AlbumActivity.this, albumArtist.getText().toString(), tracks);
-                MiniPlayerFragment.isPrepared = true;
             }
         });
 
         fragmentManager = getSupportFragmentManager();
-        if (findViewById(R.id.fragment_container_album) != null && MiniPlayerFragment.isLoaded) {
+        if (findViewById(R.id.fragment_container_album) != null) {
             if (savedInstanceState != null)
                 return;
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -95,7 +94,6 @@ public class AlbumActivity extends AppCompatActivity {
             fragmentTransaction.add(R.id.fragment_container_album, miniPlayerFragment);
             fragmentTransaction.commit();
         }
-        MiniPlayerFragment.isPrepared = true;
 
         final View parent = (View) backBtn.getParent();
         parent.post(() -> {
