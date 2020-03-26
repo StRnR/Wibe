@@ -140,10 +140,12 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             if (mediaPlayer != null) {
                 shuffle = !shuffle;
                 shuffleBtn.setBackgroundResource(shuffle ? R.drawable.ic_random_blue : R.drawable.ic_random);
-                mediaPlayer.stop();
-                Collections.shuffle(queue);
-                firstOfAll();
-                doShit(0);
+                if (!shuffle) {
+                    mediaPlayer.stop();
+                    Collections.shuffle(queue);
+                    firstOfAll();
+                    doShit(0);
+                }
             }
         });
 
@@ -323,6 +325,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 mediaPlayer.setDataSource(track != null ? track.file : null);
                 playMedia();
                 playBtn.setEnabled(true);
+                MiniPlayerFragment.isPrepared = true;
             } catch (Exception e) {
                 StaticTools.LogErrorMessage(e.getMessage());
             }
@@ -379,7 +382,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                     });
                 });
             }).start();
-
 
         } catch (Exception e) {
             StaticTools.LogErrorMessage(e.getMessage() + " player error");
