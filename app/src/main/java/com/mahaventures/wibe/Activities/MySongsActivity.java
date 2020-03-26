@@ -62,7 +62,6 @@ public class MySongsActivity extends AppCompatActivity {
             MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
             fragmentTransaction.add(R.id.fragment_container_mysongs, miniPlayerFragment);
             fragmentTransaction.commit();
-            MiniPlayerFragment.isPrepared = true;
         }
         MiniPlayerFragment.isPrepared = true;
         RecyclerView recyclerView = findViewById(R.id.recycler_mysongs);

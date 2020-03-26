@@ -41,6 +41,7 @@ public class MiniPlayerFragment extends Fragment {
 
     public MiniPlayerFragment() {
         // Required empty public constructor
+        isPrepared = true;
     }
 
 
