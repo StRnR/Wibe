@@ -87,6 +87,9 @@ public class MiniPlayerFragment extends Fragment {
                             artist.setText(PlayerActivity.getArtistsName());
                             songTitle.setText(PlayerActivity.getTrackName());
                         }
+                        if (isLoaded){
+                            //todo Arshia: hide
+                        }
                     });
                 } catch (Exception e) {
                     StaticTools.LogErrorMessage(e.getMessage());
