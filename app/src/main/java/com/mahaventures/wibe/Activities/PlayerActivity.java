@@ -286,7 +286,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         songDurationTxt.setText("");
         songTimeTxt.setText("");
         if (mediaPlayer != null)
-            mediaPlayer.seekTo(0);
+            mediaPlayer.reset();
         playBtn.setEnabled(false);
     }
 
