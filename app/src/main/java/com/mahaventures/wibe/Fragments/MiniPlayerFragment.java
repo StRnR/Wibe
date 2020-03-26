@@ -56,7 +56,7 @@ public class MiniPlayerFragment extends Fragment {
         TextView songTitle = view.findViewById(R.id.txt_songtitle_miniplayer);
         TextView artist = view.findViewById(R.id.txt_artist_miniplayer);
         ImageView cover = view.findViewById(R.id.img_cover_miniplayer);
-
+        isPrepared = true;
         isLoaded = false;
         int color = Color.rgb(255, 255, 255);
         songProgressBar.setProgressTintList(ColorStateList.valueOf(color));
