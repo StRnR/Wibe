@@ -63,7 +63,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     NotificationManager notificationManager;
     TextView songDurationTxt;
     TextView songTimeTxt;
-    boolean isPrepared;
+    public static boolean isPrepared;
     public static int progressPosition;
     public static int maxProgress;
     public static List<Track> queue;
