@@ -56,7 +56,6 @@ public class MiniPlayerFragment extends Fragment {
         TextView songTitle = view.findViewById(R.id.txt_songtitle_miniplayer);
         TextView artist = view.findViewById(R.id.txt_artist_miniplayer);
         ImageView cover = view.findViewById(R.id.img_cover_miniplayer);
-        isPrepared = true;
         isLoaded = false;
         int color = Color.rgb(255, 255, 255);
         songProgressBar.setProgressTintList(ColorStateList.valueOf(color));
@@ -81,10 +80,10 @@ public class MiniPlayerFragment extends Fragment {
                             playBtn.setBackgroundResource(R.drawable.ic_play);
                         }
                         if (isPrepared) {
-                            for (int i = 0; i < 2; i++) {
+                            for (int i = 0; i < 3; i++) {
                                 if (i == 1)
                                     try {
-                                        Thread.sleep(100);
+                                        Thread.sleep(50);
                                     } catch (Exception e) {
 
                                     }
