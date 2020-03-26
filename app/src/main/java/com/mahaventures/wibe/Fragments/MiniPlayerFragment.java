@@ -121,6 +121,11 @@ public class MiniPlayerFragment extends Fragment {
             }
         });
 
+//        if (!isLoaded) {
+//            ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) SearchActivity.fragmentFrameLayout.getLayoutParams();
+//            lp.height = 1;
+//            SearchActivity.fragmentFrameLayout.setLayoutParams(lp);
+//        }
         return view;
     }
 

@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mahaventures.wibe.Adapters.BrowseMainAdapter;
+import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Collection;
 import com.mahaventures.wibe.Models.NewModels.Page;
 import com.mahaventures.wibe.R;
@@ -23,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BrowseActivity extends AppCompatActivity {
-
+    public static FragmentManager fragmentManager;
     RecyclerView recyclerView;
 
     @Override
@@ -48,6 +51,16 @@ public class BrowseActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        fragmentManager = getSupportFragmentManager();
+        if (findViewById(R.id.fragment_container_browse) != null) {
+            if (savedInstanceState != null)
+                return;
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
+            fragmentTransaction.add(R.id.fragment_container_browse, miniPlayerFragment);
+            fragmentTransaction.commit();
+        }
 
         recyclerView = findViewById(R.id.main_recyclerview_browse);
         doShit(StaticTools.getHPI());

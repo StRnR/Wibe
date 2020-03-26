@@ -91,7 +91,7 @@
     <FrameLayout
         android:id="@+id/fragment_container_search"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/navbar_bottom_search" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

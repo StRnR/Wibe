@@ -108,7 +108,7 @@
     <FrameLayout
         android:id="@+id/fragment_container_album"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/navbar_bottom_album" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

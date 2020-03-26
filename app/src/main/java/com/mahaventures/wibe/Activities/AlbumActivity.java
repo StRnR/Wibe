@@ -10,11 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mahaventures.wibe.Adapters.SongsRecyclerPlaylistAdapter;
+import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Album;
 import com.mahaventures.wibe.Models.NewModels.Tracks;
 import com.mahaventures.wibe.R;
@@ -28,6 +31,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AlbumActivity extends AppCompatActivity {
+    public static FragmentManager fragmentManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +67,16 @@ public class AlbumActivity extends AppCompatActivity {
         TextView albumTitle = findViewById(R.id.txt_title_album);
         TextView albumArtist = findViewById(R.id.txt_owner_album);
         TextView description = findViewById(R.id.txt_album_description);
+
+        fragmentManager = getSupportFragmentManager();
+        if (findViewById(R.id.fragment_container_album) != null) {
+            if (savedInstanceState != null)
+                return;
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
+            fragmentTransaction.add(R.id.fragment_container_album, miniPlayerFragment);
+            fragmentTransaction.commit();
+        }
 
         final View parent = (View) backBtn.getParent();
         parent.post(() -> {

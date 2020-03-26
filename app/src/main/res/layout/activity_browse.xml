@@ -7,6 +7,23 @@
     android:background="@color/background"
     tools:context=".Activities.BrowseActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_recyclerview_browse"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/fragment_container_browse"/>
+
+    <FrameLayout
+        android:id="@+id/fragment_container_browse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/navbar_bottom_browse" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navbar_bottom_browse"
         android:layout_width="match_parent"
@@ -17,15 +34,5 @@
         app:itemTextColor="@drawable/selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navbar" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_recyclerview_browse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

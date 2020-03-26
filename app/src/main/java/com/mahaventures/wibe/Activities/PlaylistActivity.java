@@ -10,11 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mahaventures.wibe.Adapters.SongsRecyclerPlaylistAdapter;
+import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Playlist;
 import com.mahaventures.wibe.Models.NewModels.Tracks;
 import com.mahaventures.wibe.R;
@@ -28,6 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PlaylistActivity extends AppCompatActivity {
+    public static FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,16 @@ public class PlaylistActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        fragmentManager = getSupportFragmentManager();
+        if (findViewById(R.id.fragment_container_playlist) != null) {
+            if (savedInstanceState != null)
+                return;
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
+            fragmentTransaction.add(R.id.fragment_container_playlist, miniPlayerFragment);
+            fragmentTransaction.commit();
+        }
         RecyclerView recyclerView = findViewById(R.id.recycler_playlist);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
