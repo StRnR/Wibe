@@ -1,12 +1,15 @@
 package com.mahaventures.wibe.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.TouchDelegate;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -100,6 +103,15 @@ public class SearchActivity extends AppCompatActivity {
             fragmentTransaction.add(R.id.fragment_container_search, miniPlayerFragment);
             fragmentTransaction.commit();
         }
+
+        searchText.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    closeKeyboard();
+                }
+                return false;
+            }
+        });
 
         searchText.addTextChangedListener(new TextWatcher() {
 
@@ -195,5 +207,13 @@ public class SearchActivity extends AppCompatActivity {
         clearTxtBtn.setOnClickListener(v -> {
             searchText.setText("");
         });
+    }
+
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
