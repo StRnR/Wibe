@@ -59,7 +59,7 @@ public class PlaylistActivity extends AppCompatActivity {
         });
 
         fragmentManager = getSupportFragmentManager();
-        if (findViewById(R.id.fragment_container_playlist) != null) {
+        if (findViewById(R.id.fragment_container_playlist) != null && MiniPlayerFragment.isLoaded) {
             if (savedInstanceState != null)
                 return;
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

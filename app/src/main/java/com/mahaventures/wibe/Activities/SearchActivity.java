@@ -114,7 +114,7 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         fragmentManager = getSupportFragmentManager();
-        if (findViewById(R.id.fragment_container_search) != null) {
+        if (findViewById(R.id.fragment_container_search) != null && MiniPlayerFragment.isLoaded) {
             if (savedInstanceState != null)
                 return;
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
