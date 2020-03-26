@@ -78,7 +78,7 @@ public class BrowseActivity extends AppCompatActivity {
         });
 
         fragmentManager = getSupportFragmentManager();
-        if (findViewById(R.id.fragment_container_browse) != null) {
+        if (findViewById(R.id.fragment_container_browse) != null && MiniPlayerFragment.isLoaded) {
             if (savedInstanceState != null)
                 return;
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

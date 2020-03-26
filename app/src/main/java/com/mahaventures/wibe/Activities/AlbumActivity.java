@@ -87,7 +87,7 @@ public class AlbumActivity extends AppCompatActivity {
         });
 
         fragmentManager = getSupportFragmentManager();
-        if (findViewById(R.id.fragment_container_album) != null) {
+        if (findViewById(R.id.fragment_container_album) != null && MiniPlayerFragment.isLoaded) {
             if (savedInstanceState != null)
                 return;
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
