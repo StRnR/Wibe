@@ -185,7 +185,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         });
 
         final View secondParent = (View) addBtn.getParent();
-        parent.post(() -> {
+        secondParent.post(() -> {
             final Rect rect = new Rect();
             addBtn.getHitRect(rect);
             rect.top -= 50;
@@ -194,6 +194,29 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             rect.right += 50;
             secondParent.setTouchDelegate(new TouchDelegate(rect, addBtn));
         });
+
+        final View thirdParent = (View) shuffleBtn.getParent();
+        thirdParent.post(() -> {
+            final Rect rect = new Rect();
+            shuffleBtn.getHitRect(rect);
+            rect.top -= 50;
+            rect.left -= 50;
+            rect.bottom += 50;
+            rect.right += 50;
+            thirdParent.setTouchDelegate(new TouchDelegate(rect, shuffleBtn));
+        });
+
+        final View fourthParent = (View) repeatBtn.getParent();
+        fourthParent.post(() -> {
+            final Rect rect = new Rect();
+            repeatBtn.getHitRect(rect);
+            rect.top -= 50;
+            rect.left -= 50;
+            rect.bottom += 50;
+            rect.right += 50;
+            fourthParent.setTouchDelegate(new TouchDelegate(rect, repeatBtn));
+        });
+
 
         int color = Color.rgb(255, 255, 255);
         songSeekBar.setProgressTintList(ColorStateList.valueOf(color));

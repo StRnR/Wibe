@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,6 +43,7 @@ import retrofit2.Response;
 public class SearchActivity extends AppCompatActivity {
 
     public static FragmentManager fragmentManager;
+    public static FrameLayout searchFragmentContainer;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private Timer timer;
@@ -54,6 +56,23 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_search);
+        bottomNavigationView.setSelectedItemId(R.id.nav_search);
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.nav_browse:
+                    startActivity(new Intent(getApplicationContext(), BrowseActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                case R.id.nav_search:
+                    return true;
+                case R.id.nav_mysongs:
+                    startActivity(new Intent(getApplicationContext(), MySongsActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+            }
+            return false;
+        });
         MiniPlayerFragment.isPrepared = true;
     }
 
@@ -62,6 +81,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         StaticTools.LogErrorMessage("search activity started");
         setContentView(R.layout.activity_search);
+        searchFragmentContainer = findViewById(R.id.fragment_container_search);
         recyclerView = findViewById(R.id.recycler_search);
         layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
@@ -115,7 +135,6 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
                 if (searchText.getText().toString().equals(""))
                     clearTxtBtn.setVisibility(View.INVISIBLE);
                 else

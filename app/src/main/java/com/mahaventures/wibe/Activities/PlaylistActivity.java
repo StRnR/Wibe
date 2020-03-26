@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,12 +32,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PlaylistActivity extends AppCompatActivity {
+    public static FrameLayout playlistFragmentContainer;
     public static FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist);
+        playlistFragmentContainer = findViewById(R.id.fragment_container_playlist);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_playlist);
         bottomNavigationView.setSelectedItemId(R.id.nav_browse);
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {

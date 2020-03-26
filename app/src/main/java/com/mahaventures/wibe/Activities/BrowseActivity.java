@@ -2,6 +2,7 @@ package com.mahaventures.wibe.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -27,11 +28,29 @@ import retrofit2.Response;
 
 public class BrowseActivity extends AppCompatActivity {
     public static FragmentManager fragmentManager;
+    public static FrameLayout browseFragmentContainer;
     RecyclerView recyclerView;
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_browse);
+        bottomNavigationView.setSelectedItemId(R.id.nav_browse);
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.nav_browse:
+                    return true;
+                case R.id.nav_search:
+                    startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                case R.id.nav_mysongs:
+                    startActivity(new Intent(getApplicationContext(), MySongsActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+            }
+            return false;
+        });
         MiniPlayerFragment.isPrepared = true;
     }
 
@@ -39,6 +58,7 @@ public class BrowseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
+        browseFragmentContainer = findViewById(R.id.fragment_container_browse);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_browse);
         bottomNavigationView.setSelectedItemId(R.id.nav_browse);
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {

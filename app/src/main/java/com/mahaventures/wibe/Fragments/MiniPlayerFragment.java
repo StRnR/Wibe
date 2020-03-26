@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.mahaventures.wibe.Activities.PlayerActivity;
@@ -96,9 +98,12 @@ public class MiniPlayerFragment extends Fragment {
                             }
 
                         }
-                        if (isLoaded) {
-                            //todo Arshia: hide
-                        }
+////                        if (!isLoaded) {
+//                            ConstraintLayout cl = view.findViewById(R.id.miniplayer_fragment_layout);
+//                            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) cl.getLayoutParams();
+//                            lp.height = 0;
+//                            cl.setLayoutParams(lp);
+//                        }
                     });
                 } catch (Exception e) {
                     StaticTools.LogErrorMessage(e.getMessage());
@@ -133,11 +138,6 @@ public class MiniPlayerFragment extends Fragment {
             }
         });
 
-//        if (!isLoaded) {
-//            ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) SearchActivity.fragmentFrameLayout.getLayoutParams();
-//            lp.height = 1;
-//            SearchActivity.fragmentFrameLayout.setLayoutParams(lp);
-//        }
         return view;
     }
 

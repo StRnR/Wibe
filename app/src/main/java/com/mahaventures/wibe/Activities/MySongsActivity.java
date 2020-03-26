@@ -2,6 +2,7 @@ package com.mahaventures.wibe.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -24,10 +25,28 @@ import retrofit2.Response;
 
 public class MySongsActivity extends AppCompatActivity {
     public static FragmentManager fragmentManager;
+    public static FrameLayout mysongsFragmentContainer;
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_mysongs);
+        bottomNavigationView.setSelectedItemId(R.id.nav_mysongs);
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.nav_browse:
+                    startActivity(new Intent(getApplicationContext(), BrowseActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                case R.id.nav_search:
+                    startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                case R.id.nav_mysongs:
+                    return true;
+            }
+            return false;
+        });
         MiniPlayerFragment.isPrepared = true;
     }
 
@@ -35,6 +54,7 @@ public class MySongsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_songs);
+        mysongsFragmentContainer = findViewById(R.id.fragment_container_mysongs);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_mysongs);
         bottomNavigationView.setSelectedItemId(R.id.nav_mysongs);
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
