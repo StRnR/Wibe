@@ -53,7 +53,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public static Bitmap artWork;
     public static String mArtistString;
     public static String mTrackNameString;
-    private boolean isShuffleClicked = false;
     static Track track;
     int pos;
     SeekBar songSeekBar;
@@ -76,6 +75,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     int sd;
     int sp;
     boolean repeated;
+    boolean shuffle;
 
     @Override
     public void onBackPressed() {
@@ -137,8 +137,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
         shuffleBtn.setOnClickListener(v -> {
             if (mediaPlayer != null) {
-                isShuffleClicked = !isShuffleClicked;
-                shuffleBtn.setBackgroundResource(isShuffleClicked ? R.drawable.ic_random_blue : R.drawable.ic_random);
+                shuffle = !shuffle;
+                shuffleBtn.setBackgroundResource(shuffle ? R.drawable.ic_random_blue : R.drawable.ic_random);
                 mediaPlayer.stop();
                 Collections.shuffle(queue);
                 firstOfAll();
@@ -235,6 +235,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 }
                 if (fromUser && isPrepared) {
                     try {
+                        pos = progress;
                         mediaPlayer.seekTo(progress);
                         mediaPlayer.start();
                     } catch (Exception e) {
@@ -284,7 +285,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     }
 
     private void firstOfAll() {
-        pos = 0;
         songDurationTxt.setText("");
         songTimeTxt.setText("");
         if (mediaPlayer != null && isPrepared)
@@ -325,7 +325,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             } catch (Exception e) {
                 StaticTools.LogErrorMessage(e.getMessage());
             }
-
 
             new Thread(() -> {
                 runOnUiThread(() -> {
@@ -495,6 +494,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     }
 
     private void previous() {
+        pos = 0;
         firstOfAll();
         if (trackNumber > 0) {
             trackNumber--;
@@ -510,6 +510,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     }
 
     private void next() {
+        pos = 0;
         firstOfAll();
         if (trackNumber < queue.size() - 1) {
             trackNumber++;
