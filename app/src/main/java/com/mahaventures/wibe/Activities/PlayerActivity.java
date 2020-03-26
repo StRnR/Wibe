@@ -467,6 +467,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             isPlaying = true;
             MiniPlayerFragment.isPrepared = true;
             MiniPlayerFragment.isPlaying = true;
+            MiniPlayerFragment.isLoaded = true;
             onTrackPlay();
             playBtn.setBackground(getDrawable(R.drawable.ic_pause));
             mediaPlayer.setOnPreparedListener(mp -> {
