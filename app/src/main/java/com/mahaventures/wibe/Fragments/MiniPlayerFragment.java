@@ -46,8 +46,7 @@ public class MiniPlayerFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mini_player, container, false);
         playBtn = view.findViewById(R.id.btn_play_miniplayer);
@@ -81,14 +80,23 @@ public class MiniPlayerFragment extends Fragment {
                             playBtn.setBackgroundResource(R.drawable.ic_play);
                         }
                         if (isPrepared) {
-                            counter = 0;
-                            isPrepared = false;
-                            isLoaded = true;
-                            cover.setImageBitmap(PlayerActivity.getArtWork());
-                            artist.setText(PlayerActivity.getArtistsName());
-                            songTitle.setText(PlayerActivity.getTrackName());
+                            for (int i = 0; i < 2; i++) {
+                                if (i == 1)
+                                    try {
+                                        Thread.sleep(20);
+                                    } catch (Exception e) {
+
+                                    }
+                                counter = 0;
+                                isPrepared = false;
+                                isLoaded = true;
+                                cover.setImageBitmap(PlayerActivity.getArtWork());
+                                artist.setText(PlayerActivity.getArtistsName());
+                                songTitle.setText(PlayerActivity.getTrackName());
+                            }
+
                         }
-                        if (isLoaded){
+                        if (isLoaded) {
                             //todo Arshia: hide
                         }
                     });
