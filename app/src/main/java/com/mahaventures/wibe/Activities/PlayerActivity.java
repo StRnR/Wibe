@@ -229,6 +229,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                         if (isPrepared) {
                             mediaPlayer.seekTo(0);
                             mediaPlayer.start();
+                            pos = 0;
                         }
                     } else next();
                 }
@@ -285,7 +286,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     private void firstOfAll() {
         songDurationTxt.setText("");
         songTimeTxt.setText("");
-        if (mediaPlayer != null)
+        if (mediaPlayer != null && isPrepared)
             mediaPlayer.seekTo(0);
         playBtn.setEnabled(false);
     }
@@ -443,6 +444,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             onTrackPlay();
             playBtn.setBackground(getDrawable(R.drawable.ic_pause));
             mediaPlayer.setOnPreparedListener(mp -> {
+                pos = 0;
                 StaticTools.LogTimedMessage("media player prepared");
                 isPrepared = true;
                 firstOfAll();

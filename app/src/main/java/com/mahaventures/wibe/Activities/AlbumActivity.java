@@ -19,12 +19,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mahaventures.wibe.Adapters.SongsRecyclerPlaylistAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Album;
+import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.NewModels.Tracks;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,6 +71,17 @@ public class AlbumActivity extends AppCompatActivity {
         TextView albumTitle = findViewById(R.id.txt_title_album);
         TextView albumArtist = findViewById(R.id.txt_owner_album);
         TextView description = findViewById(R.id.txt_album_description);
+
+        List<Track> tracks = new ArrayList<>();
+
+        shuffleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tracks.size() > 0) {
+                    StaticTools.PlayQueue(AlbumActivity.this, albumArtist.getText().toString(), tracks);
+                }
+            }
+        });
 
         fragmentManager = getSupportFragmentManager();
         if (findViewById(R.id.fragment_container_album) != null) {
@@ -118,6 +133,7 @@ public class AlbumActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
                 if (response.isSuccessful()) {
+                    tracks.addAll(response.body().data);
                     albumArtist.setText(response.body().data.get(0).artists.data.get(0).name);
                     SongsRecyclerPlaylistAdapter adapter = new SongsRecyclerPlaylistAdapter(response.body().data, AlbumActivity.this);
                     recyclerView.setAdapter(adapter);

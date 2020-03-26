@@ -51,17 +51,17 @@
 
         <activity
             android:name=".Activities.SearchActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.BrowseActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.MySongsActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
