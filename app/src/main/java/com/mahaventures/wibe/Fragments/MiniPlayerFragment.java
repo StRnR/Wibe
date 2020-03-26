@@ -88,7 +88,7 @@ public class MiniPlayerFragment extends Fragment {
                             songTitle.setText(PlayerActivity.getTrackName());
                         }
                         if (!PlayerActivity.isPrepared) {
-                            view.setVisibility(View.INVISIBLE);
+                            view.setVisibility(View.GONE);
                         } else {
                             view.setVisibility(View.VISIBLE);
                         }
