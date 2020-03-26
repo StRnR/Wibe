@@ -73,6 +73,13 @@ public class SearchActivity extends AppCompatActivity {
             }
             return false;
         });
+        fragmentManager = getSupportFragmentManager();
+        if (findViewById(R.id.fragment_container_search) != null && MiniPlayerFragment.isLoaded) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
+            fragmentTransaction.add(R.id.fragment_container_search, miniPlayerFragment);
+            fragmentTransaction.commit();
+        }
         MiniPlayerFragment.isPrepared = true;
     }
 
