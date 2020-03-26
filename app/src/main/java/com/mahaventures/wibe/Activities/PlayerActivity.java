@@ -284,6 +284,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     }
 
     private void firstOfAll() {
+        pos = 0;
         songDurationTxt.setText("");
         songTimeTxt.setText("");
         if (mediaPlayer != null && isPrepared)
@@ -444,7 +445,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             onTrackPlay();
             playBtn.setBackground(getDrawable(R.drawable.ic_pause));
             mediaPlayer.setOnPreparedListener(mp -> {
-                pos = 0;
                 StaticTools.LogTimedMessage("media player prepared");
                 isPrepared = true;
                 firstOfAll();
