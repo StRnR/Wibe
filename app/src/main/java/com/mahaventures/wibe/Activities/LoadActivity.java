@@ -61,7 +61,7 @@ public class LoadActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<InitModel> call, Throwable t) {
-
+                    StaticTools.ServerError(LoadActivity.this);
                 }
             });
         } else {

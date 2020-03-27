@@ -115,7 +115,7 @@ public class PlaylistActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Playlist> call, Throwable t) {
-                StaticTools.ShowToast(PlaylistActivity.this, t.getMessage(), 1);
+                StaticTools.ServerError(PlaylistActivity.this);
             }
         });
         String url = String.format("https://api.musicify.ir/playlists/%s/tracks?include=artists", id);

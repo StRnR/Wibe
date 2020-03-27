@@ -197,7 +197,7 @@ public class SearchActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onFailure(Call<GeneralSearch> call, Throwable t) {
-                                    StaticTools.ShowToast(SearchActivity.this, t.getMessage(), 0);
+                                    StaticTools.ServerError(SearchActivity.this);
                                 }
                             });
 

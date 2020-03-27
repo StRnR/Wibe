@@ -164,9 +164,10 @@ public class SignUpActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<RegisterResponseModel> call, Throwable t) {
-                    signUpButton.setEnabled(true);
-                    signUpButton.setText(R.string.sign_up_text);
-                    StaticTools.LogErrorMessage(t.getMessage() + " server error on signup");
+//                    signUpButton.setEnabled(true);
+//                    signUpButton.setText(R.string.sign_up_text);
+//                    StaticTools.LogErrorMessage(t.getMessage() + " server error on signup");
+                    StaticTools.ServerError(SignUpActivity.this);
                 }
             });
         });

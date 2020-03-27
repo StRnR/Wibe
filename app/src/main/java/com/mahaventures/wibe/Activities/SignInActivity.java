@@ -85,9 +85,10 @@ public class SignInActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<AuthenticationResponseModel> call, Throwable t) {
-                    StaticTools.ShowToast(SignInActivity.this, "server error", 0);
-                    signInButton.setText(R.string.sign_in_text);
-                    signInButton.setEnabled(true);
+//                    StaticTools.ShowToast(SignInActivity.this, "server error", 0);
+//                    signInButton.setText(R.string.sign_in_text);
+//                    signInButton.setEnabled(true);
+                    StaticTools.ServerError(SignInActivity.this);
                 }
             });
         });

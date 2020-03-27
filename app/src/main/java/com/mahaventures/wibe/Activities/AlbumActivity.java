@@ -126,7 +126,7 @@ public class AlbumActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Album> call, Throwable t) {
-//                StaticTools.ShowToast(context, t.getMessage(), 1);
+                StaticTools.ServerError(AlbumActivity.this);
             }
         });
         String url = String.format("https://api.musicify.ir/albums/%s/tracks?include=artists", id);
@@ -144,7 +144,7 @@ public class AlbumActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Tracks> call, Throwable t) {
-
+                StaticTools.ServerError(AlbumActivity.this);
             }
         });
     }

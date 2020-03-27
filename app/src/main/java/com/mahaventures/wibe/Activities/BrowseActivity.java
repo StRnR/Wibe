@@ -110,7 +110,7 @@ public class BrowseActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Page> call, Throwable t) {
-
+                StaticTools.ServerError(BrowseActivity.this);
             }
         });
     }

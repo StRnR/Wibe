@@ -1,7 +1,5 @@
 package com.mahaventures.wibe.Tools;
 
-import android.app.ActivityManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -12,13 +10,13 @@ import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.palette.graphics.Palette;
 
 import com.mahaventures.wibe.Activities.ConfirmEmailActivity;
 import com.mahaventures.wibe.Activities.LoadActivity;
+import com.mahaventures.wibe.Activities.OnServerFailureActivity;
 import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Album;
 import com.mahaventures.wibe.Models.NewModels.Artist;
@@ -334,5 +332,10 @@ public class StaticTools {
                 context.startActivity(intent);
             }
         }, 100);
+    }
+
+    public static void ServerError(Context context) {
+        Intent intent = new Intent(context, OnServerFailureActivity.class);
+        context.startActivity(intent);
     }
 }
