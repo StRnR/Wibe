@@ -49,7 +49,7 @@ public class LoadActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<InitModel> call, Response<InitModel> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        if (response.body().loggedIn) {
+                        if (response.body().loggedIn != null && response.body().loggedIn) {
                             homePageId = response.body().homePageId;
                             StaticTools.LogErrorMessage("token: " + token);
                             startActivity(new Intent(LoadActivity.this, SearchActivity.class));
