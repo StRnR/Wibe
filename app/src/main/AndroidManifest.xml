@@ -41,6 +41,10 @@
             android:value="com.mahaventures.wibe" />
 
         <activity
+            android:name=".Activities.OnServerFailureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".Activities.AlbumActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -48,7 +52,6 @@
             android:name=".Activities.PlaylistActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Activities.SearchActivity"
             android:launchMode="singleInstance"
