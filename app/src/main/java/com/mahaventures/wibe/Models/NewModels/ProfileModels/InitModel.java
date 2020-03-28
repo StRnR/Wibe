@@ -4,10 +4,13 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class InitModel {
-    @SerializedName("logged_in")
+    @SerializedName("LOGGED_IN")
     @Expose
     public Boolean loggedIn;
-    @SerializedName("HOME_PAGE_ID")
+    @SerializedName("PAGE_HOME_ID")
     @Expose
     public String homePageId;
+    @SerializedName("TRIAL_MONTH")
+    @Expose
+    public String trialMonth;
 }
