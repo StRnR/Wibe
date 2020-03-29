@@ -16,7 +16,6 @@ import androidx.palette.graphics.Palette;
 
 import com.mahaventures.wibe.Activities.ConfirmEmailActivity;
 import com.mahaventures.wibe.Activities.LoadActivity;
-import com.mahaventures.wibe.Activities.OnServerFailureActivity;
 import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Album;
 import com.mahaventures.wibe.Models.NewModels.Artist;
@@ -334,9 +333,9 @@ public class StaticTools {
         }, 100);
     }
 
-    public static void ServerError(Context context) {
+    public static void ServerError(Context context, String message) {
 //        Intent intent = new Intent(context, OnServerFailureActivity.class);
 //        context.startActivity(intent);
-        ShowToast(context, "server error", 0);
+        ShowToast(context, message, 0);
     }
 }

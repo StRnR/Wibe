@@ -88,7 +88,7 @@ public class SignInActivity extends AppCompatActivity {
 //                    StaticTools.ShowToast(SignInActivity.this, "server error", 0);
 //                    signInButton.setText(R.string.sign_in_text);
 //                    signInButton.setEnabled(true);
-                    StaticTools.ServerError(SignInActivity.this);
+                    StaticTools.ServerError(SignInActivity.this, t.getMessage());
                 }
             });
         });

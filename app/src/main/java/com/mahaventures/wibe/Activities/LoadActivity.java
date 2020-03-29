@@ -53,19 +53,26 @@ public class LoadActivity extends AppCompatActivity {
                             homePageId = response.body().homePageId;
                             StaticTools.LogErrorMessage("token: " + token);
                             startActivity(new Intent(LoadActivity.this, SearchActivity.class));
+                            finish();
                         } else
                             startActivity(new Intent(LoadActivity.this, MainActivity.class));
-                    } else if (response.code() == 401)
+                        {
+                            finish();
+                        }
+                    } else if (response.code() == 401) {
                         startActivity(new Intent(LoadActivity.this, MainActivity.class));
+                        finish();
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<InitModel> call, Throwable t) {
-                    StaticTools.ServerError(LoadActivity.this);
+                    StaticTools.ServerError(LoadActivity.this, t.getMessage());
                 }
             });
         } else {
             startActivity(new Intent(LoadActivity.this, MainActivity.class));
+            finish();
         }
     }
 }

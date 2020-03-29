@@ -167,7 +167,7 @@ public class SignUpActivity extends AppCompatActivity {
 //                    signUpButton.setEnabled(true);
 //                    signUpButton.setText(R.string.sign_up_text);
 //                    StaticTools.LogErrorMessage(t.getMessage() + " server error on signup");
-                    StaticTools.ServerError(SignUpActivity.this);
+                    StaticTools.ServerError(SignUpActivity.this, t.getMessage());
                 }
             });
         });

@@ -212,7 +212,7 @@ public class SearchActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onFailure(Call<GeneralSearch> call, Throwable t) {
-                                    StaticTools.ServerError(SearchActivity.this);
+                                    StaticTools.ServerError(SearchActivity.this, t.getMessage());
                                 }
                             });
 

@@ -115,7 +115,7 @@ public class PlaylistActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Playlist> call, Throwable t) {
-                StaticTools.ServerError(PlaylistActivity.this);
+                StaticTools.ServerError(PlaylistActivity.this, t.getMessage());
             }
         });
 
@@ -133,7 +133,7 @@ public class PlaylistActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Tracks> call, Throwable t) {
-                StaticTools.ServerError(PlaylistActivity.this);
+                StaticTools.ServerError(PlaylistActivity.this, t.getMessage());
             }
         });
     }
