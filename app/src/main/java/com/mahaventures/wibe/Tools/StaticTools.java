@@ -335,7 +335,8 @@ public class StaticTools {
     }
 
     public static void ServerError(Context context) {
-        Intent intent = new Intent(context, OnServerFailureActivity.class);
-        context.startActivity(intent);
+//        Intent intent = new Intent(context, OnServerFailureActivity.class);
+//        context.startActivity(intent);
+        ShowToast(context, "server error", 0);
     }
 }
