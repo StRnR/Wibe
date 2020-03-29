@@ -118,8 +118,10 @@ public class PlaylistActivity extends AppCompatActivity {
                 StaticTools.ServerError(PlaylistActivity.this);
             }
         });
+
+
         String url = String.format("https://api.musicify.ir/playlists/%s/tracks?include=artists", id);
-        Call<Tracks> call = service.getPlaylistTracks(url);
+        Call<Tracks> call = service.getPlaylistTracks(StaticTools.getToken(), url);
         call.enqueue(new Callback<Tracks>() {
             @Override
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
@@ -131,7 +133,7 @@ public class PlaylistActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Tracks> call, Throwable t) {
-
+                StaticTools.ServerError(PlaylistActivity.this);
             }
         });
     }

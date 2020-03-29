@@ -47,13 +47,6 @@ public class MySongsActivity extends AppCompatActivity {
             }
             return false;
         });
-//        fragmentManager = getSupportFragmentManager();
-//        if (findViewById(R.id.fragment_container_mysongs) != null && MiniPlayerFragment.isLoaded) {
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
-//            fragmentTransaction.add(R.id.fragment_container_mysongs, miniPlayerFragment);
-//            fragmentTransaction.commit();
-//        }
         MiniPlayerFragment.isPrepared = true;
     }
 

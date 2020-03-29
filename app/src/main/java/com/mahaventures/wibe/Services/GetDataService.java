@@ -64,7 +64,7 @@ public interface GetDataService {
 //    Call<Tracks> getPlaylistTracks(@Path("id") String id);
 
     @GET
-    Call<Tracks> getPlaylistTracks(@Url String url);
+    Call<Tracks> getPlaylistTracks(@Header("Authorization") String auth, @Url String url);
 
     @GET
     Call<Track> getTrack(@Url String url);

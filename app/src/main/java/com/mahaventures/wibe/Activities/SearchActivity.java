@@ -47,6 +47,9 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private Timer timer;
+    Button clearTxtBtn;
+    EditText searchText;
+    TextView resCategory;
 
     @Override
     public void onBackPressed() {
@@ -73,13 +76,6 @@ public class SearchActivity extends AppCompatActivity {
             }
             return false;
         });
-//        fragmentManager = getSupportFragmentManager();
-//        if (findViewById(R.id.fragment_container_search) != null && MiniPlayerFragment.isLoaded) {
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
-//            fragmentTransaction.add(R.id.fragment_container_search, miniPlayerFragment);
-//            fragmentTransaction.commit();
-//        }
         MiniPlayerFragment.isPrepared = true;
     }
 
@@ -93,13 +89,13 @@ public class SearchActivity extends AppCompatActivity {
         layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-        Button clearTxtBtn = findViewById(R.id.btn_clear_search);
+        clearTxtBtn = findViewById(R.id.btn_clear_search);
         TextView searchHeader = findViewById(R.id.txt_header_search);
-        TextView resCategory = findViewById(R.id.txt_result_category_search);
+        resCategory = findViewById(R.id.txt_result_category_search);
         recyclerView.setAdapter(null);
         SearchAdapter tmpAdapter = new SearchAdapter(null, SearchActivity.this);
         recyclerView.setAdapter(tmpAdapter);
-        EditText searchText = findViewById(R.id.txt_edit_search);
+        searchText = findViewById(R.id.txt_edit_search);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_search);
 
         bottomNavigationView.setSelectedItemId(R.id.nav_search);
@@ -138,6 +134,25 @@ public class SearchActivity extends AppCompatActivity {
             return false;
         });
 
+        setTextWatch();
+
+        final View parent = (View) clearTxtBtn.getParent();
+        parent.post(() -> {
+            final Rect rect = new Rect();
+            clearTxtBtn.getHitRect(rect);
+            rect.top -= 50;
+            rect.left -= 50;
+            rect.bottom += 50;
+            rect.right += 50;
+            parent.setTouchDelegate(new TouchDelegate(rect, clearTxtBtn));
+        });
+
+        clearTxtBtn.setOnClickListener(v -> {
+            searchText.setText("");
+        });
+    }
+
+    private void setTextWatch() {
         searchText.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -216,21 +231,12 @@ public class SearchActivity extends AppCompatActivity {
                     clearTxtBtn.setVisibility(View.VISIBLE);
             }
         });
+    }
 
-        final View parent = (View) clearTxtBtn.getParent();
-        parent.post(() -> {
-            final Rect rect = new Rect();
-            clearTxtBtn.getHitRect(rect);
-            rect.top -= 50;
-            rect.left -= 50;
-            rect.bottom += 50;
-            rect.right += 50;
-            parent.setTouchDelegate(new TouchDelegate(rect, clearTxtBtn));
-        });
-
-        clearTxtBtn.setOnClickListener(v -> {
-            searchText.setText("");
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setTextWatch();
     }
 
     private void closeKeyboard() {
