@@ -2,6 +2,7 @@ package com.mahaventures.wibe.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Activities.AlbumActivity;
 import com.mahaventures.wibe.Activities.PlaylistActivity;
-import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.Models.NewModels.MyModels.ArtistWithTracks;
 import com.mahaventures.wibe.Models.NewModels.MyModels.BrowseItem;
@@ -56,7 +56,7 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
         if (item.image != null && !item.image.equals(""))
             Picasso.get().load(item.image).into(holder.artwork);
         if (item.color != null && !item.color.equals("")) {
-            //todo Arshia: set color item.color example:
+            holder.cardView.setBackgroundColor(Color.parseColor(item.color));
         }
         holder.cardView.setOnClickListener(v -> {
             switch (item.type) {
