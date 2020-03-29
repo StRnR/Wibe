@@ -75,4 +75,8 @@ public class LoadActivity extends AppCompatActivity {
             finish();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+    }
 }
