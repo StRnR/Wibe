@@ -96,6 +96,7 @@ public class SearchActivity extends AppCompatActivity {
         searchText = findViewById(R.id.txt_edit_search);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_search);
 
+
         bottomNavigationView.setSelectedItemId(R.id.nav_search);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
@@ -127,9 +128,8 @@ public class SearchActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
         MiniPlayerFragment.isPrepared = true;
-    }
 
-    private void setTextWatch() {
+
         searchText.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
                 closeKeyboard();
@@ -230,6 +230,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void closeKeyboard() {
         View view = this.getCurrentFocus();

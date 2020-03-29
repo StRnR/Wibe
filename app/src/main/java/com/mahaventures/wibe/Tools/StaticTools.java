@@ -319,7 +319,8 @@ public class StaticTools {
         PlayerActivity.mTrackNameString = track.name;
         Intent intent = new Intent(context, PlayerActivity.class);
         PlayerActivity.trackNumber = 0;
-        rotate(PlayerActivity.queue, PlayerActivity.queue.indexOf(track) + 1);
+        Collections.rotate(PlayerActivity.queue, PlayerActivity.queue.size() - PlayerActivity.queue.indexOf(PlayerActivity.queue.stream().filter(t -> t.id.equals(track.id)).findFirst().get()));
+//        rotate(PlayerActivity.queue, PlayerActivity.queue.indexOf(PlayerActivity.queue.stream().filter(t -> t.id.equals(track.id)).findFirst().get()));
 //        PlayerActivity.queue.removeIf(track1 -> track1.id.equals(track.id));
 //        PlayerActivity.queue.add(0, track);
         Intent bcIntent = new Intent(context, PlaySongBroadcastReceiver.class)
@@ -341,13 +342,13 @@ public class StaticTools {
         LogErrorMessage(message);
     }
 
-    public static <T> List<T> rotate(List<T> aL, int shift) {
+    static <T> List<T> rotate(List<T> aL, int shift) {
         if (aL.size() == 0)
             return aL;
-        T element;
-        for (int i = 0; i < shift; i++) {
-            element = aL.remove(aL.size() - 1);
-            aL.add(0, element);
+        for (int i = shift; i < aL.size() - 1; i++) {
+            T t = aL.get(i);
+            aL.remove(i);
+            aL.add(0, t);
         }
         return aL;
     }
