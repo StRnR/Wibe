@@ -101,12 +101,15 @@ public class SearchActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.nav_browse:
+                    closeKeyboard();
                     startActivity(new Intent(getApplicationContext(), BrowseActivity.class));
                     overridePendingTransition(0, 0);
                     return true;
                 case R.id.nav_search:
+                    closeKeyboard();
                     return true;
                 case R.id.nav_mysongs:
+                    closeKeyboard();
                     startActivity(new Intent(getApplicationContext(), MySongsActivity.class));
                     overridePendingTransition(0, 0);
                     return true;
@@ -232,7 +235,6 @@ public class SearchActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setTextWatch();
-        closeKeyboard();
     }
 
     private void closeKeyboard() {
