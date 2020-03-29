@@ -19,6 +19,8 @@ import com.mahaventures.wibe.Services.GetDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 
+import java.util.stream.Collectors;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -95,6 +97,8 @@ public class MySongsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<MySong> call, Response<MySong> response) {
                 if (response.isSuccessful()) {
+                    //todo queue
+                    PlayerActivity.queue = response.body().data.stream().map(x->x.track).collect(Collectors.toList());
                     MySongsAdapter adapter = new MySongsAdapter(response.body(), MySongsActivity.this);
                     recyclerView.setAdapter(adapter);
                 }

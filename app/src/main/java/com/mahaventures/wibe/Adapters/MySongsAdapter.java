@@ -43,7 +43,7 @@ public class MySongsAdapter extends RecyclerView.Adapter<MySongsAdapter.MySongVi
         holder.setIsRecyclable(false);
         Picasso.get().load(track.track.image.medium.url).into(MySongViewHolder.songImg);
         MySongViewHolder.cardView.setOnClickListener(v -> {
-            StaticTools.PlayTrack(context, StaticTools.getArtistsName(track.track), track.track);
+            StaticTools.PlayTrackInQueue(context, StaticTools.getArtistsName(track.track), track.track);
         });
         MySongViewHolder.artist.setText(StaticTools.getArtistsName(track.track));
         MySongViewHolder.addBtn.setOnClickListener(v -> {
