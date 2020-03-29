@@ -149,6 +149,7 @@ public class SignUpActivity extends AppCompatActivity {
                         StaticTools.ShowToast(SignUpActivity.this, "User registered successfully", 1);
                         Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
                         SignUpActivity.this.startActivity(intent);
+                        finish();
                     } else {
                         try {
                             if (response.errorBody() != null) {
