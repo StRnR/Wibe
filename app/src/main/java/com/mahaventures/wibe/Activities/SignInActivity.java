@@ -28,7 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignInActivity extends AppCompatActivity {
-    public static String Email;
+    public static String   Email;
 
     @Override
     public void onBackPressed() {
