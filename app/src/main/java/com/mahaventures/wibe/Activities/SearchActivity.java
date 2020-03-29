@@ -228,13 +228,6 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setTextWatch();
-        closeKeyboard();
-    }
-
     private void closeKeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {
