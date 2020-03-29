@@ -22,7 +22,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoadActivity extends AppCompatActivity {
-    public static String token;
     public static String homePageId;
 
     @Override
@@ -42,7 +41,7 @@ public class LoadActivity extends AppCompatActivity {
         SavedInfo info = SavedInfo.last(SavedInfo.class);
 //        startActivity(new Intent(MainActivity.this, SearchActivity.class));
         if (info != null) {
-            token = info.getToken();
+            StaticTools.token = info.getToken();
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
             Call<InitModel> call = service.Init(StaticTools.getToken());
             call.enqueue(new Callback<InitModel>() {
@@ -51,7 +50,7 @@ public class LoadActivity extends AppCompatActivity {
                     if (response.isSuccessful() && response.body() != null) {
                         if (response.body().loggedIn != null && response.body().loggedIn) {
                             homePageId = response.body().homePageId;
-                            StaticTools.LogErrorMessage("token: " + token);
+                            StaticTools.LogErrorMessage("token: " + StaticTools.token);
                             startActivity(new Intent(LoadActivity.this, SearchActivity.class));
                             finish();
                         } else

@@ -69,7 +69,7 @@ public class SignInActivity extends AppCompatActivity {
                             SavedInfo.deleteAll(SavedInfo.class);
                             SavedInfo info = new SavedInfo(token, email);
                             info.save();
-                            LoadActivity.token = token;
+                            StaticTools.token = token;
                             SignInActivity.this.startActivity(new Intent(SignInActivity.this, SearchActivity.class));
                             finish();
                         } catch (Exception e) {

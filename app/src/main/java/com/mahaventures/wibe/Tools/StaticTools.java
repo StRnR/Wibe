@@ -50,6 +50,7 @@ import retrofit2.Response;
 public class StaticTools {
     private final static int MinimumPasswordLength = 6;
     private static boolean cvb;
+    public static String token;
 
     public static void ShowToast(Context context, String message, int length) {
         Toast toast = Toast.makeText(context, message, length);
@@ -224,7 +225,7 @@ public class StaticTools {
     }
 
     public static String getToken() {
-        return String.format("Bearer %s", LoadActivity.token);
+        return String.format("Bearer %s", token);
     }
 
     public static String getHPI() {
