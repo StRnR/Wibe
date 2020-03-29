@@ -41,7 +41,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
-
     public static FragmentManager fragmentManager;
     public static FrameLayout searchFragmentContainer;
     private RecyclerView recyclerView;
@@ -53,7 +52,6 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
     }
 
     @Override
@@ -126,15 +124,15 @@ public class SearchActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
         MiniPlayerFragment.isPrepared = true;
+    }
 
+    private void setTextWatch() {
         searchText.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
                 closeKeyboard();
             }
             return false;
         });
-
-        setTextWatch();
 
         final View parent = (View) clearTxtBtn.getParent();
         parent.post(() -> {
@@ -150,9 +148,6 @@ public class SearchActivity extends AppCompatActivity {
         clearTxtBtn.setOnClickListener(v -> {
             searchText.setText("");
         });
-    }
-
-    private void setTextWatch() {
         searchText.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -237,6 +232,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setTextWatch();
+        closeKeyboard();
     }
 
     private void closeKeyboard() {
