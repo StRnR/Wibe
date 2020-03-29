@@ -337,5 +337,6 @@ public class StaticTools {
 //        Intent intent = new Intent(context, OnServerFailureActivity.class);
 //        context.startActivity(intent);
         ShowToast(context, message, 0);
+        LogErrorMessage(message);
     }
 }
