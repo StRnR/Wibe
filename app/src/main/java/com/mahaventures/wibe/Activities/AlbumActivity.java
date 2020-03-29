@@ -76,6 +76,8 @@ public class AlbumActivity extends AppCompatActivity {
         TextView albumArtist = findViewById(R.id.txt_owner_album);
         TextView description = findViewById(R.id.txt_album_description);
 
+        shuffleBtn.setEnabled(false);
+
         List<Track> tracks = new ArrayList<>();
 
         shuffleBtn.setOnClickListener(v -> {
@@ -139,6 +141,7 @@ public class AlbumActivity extends AppCompatActivity {
                     albumArtist.setText(response.body().data.get(0).artists.data.get(0).name);
                     SongsRecyclerPlaylistAdapter adapter = new SongsRecyclerPlaylistAdapter(response.body().data, AlbumActivity.this);
                     recyclerView.setAdapter(adapter);
+                    shuffleBtn.setEnabled(true);
                 }
             }
 

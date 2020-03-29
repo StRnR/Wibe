@@ -319,8 +319,9 @@ public class StaticTools {
         PlayerActivity.mTrackNameString = track.name;
         Intent intent = new Intent(context, PlayerActivity.class);
         PlayerActivity.trackNumber = 0;
-        PlayerActivity.queue.removeIf(track1 -> track1.id.equals(track.id));
-        PlayerActivity.queue.add(0, track);
+        rotate(PlayerActivity.queue, PlayerActivity.queue.indexOf(track) + 1);
+//        PlayerActivity.queue.removeIf(track1 -> track1.id.equals(track.id));
+//        PlayerActivity.queue.add(0, track);
         Intent bcIntent = new Intent(context, PlaySongBroadcastReceiver.class)
                 .setAction("pay");
         context.sendBroadcast(bcIntent);
@@ -338,5 +339,16 @@ public class StaticTools {
 //        context.startActivity(intent);
         ShowToast(context, message, 0);
         LogErrorMessage(message);
+    }
+
+    public static <T> List<T> rotate(List<T> aL, int shift) {
+        if (aL.size() == 0)
+            return aL;
+        T element;
+        for (int i = 0; i < shift; i++) {
+            element = aL.remove(aL.size() - 1);
+            aL.add(0, element);
+        }
+        return aL;
     }
 }

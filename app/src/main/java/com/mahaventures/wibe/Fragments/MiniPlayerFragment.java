@@ -104,6 +104,13 @@ public class MiniPlayerFragment extends Fragment {
                 Intent intent = new Intent(context, MiniPlayerBroadCastReceiver.class)
                         .setAction(ACTION_NEXT);
                 getActivity().sendBroadcast(intent);
+                Timer timer1 = new Timer();
+                timer1.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        getActivity().startActivity(new Intent(getActivity(), PlayerActivity.class));
+                    }
+                }, 100);
             }
         });
 
