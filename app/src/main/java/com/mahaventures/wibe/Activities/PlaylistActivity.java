@@ -92,7 +92,9 @@ public class PlaylistActivity extends AppCompatActivity {
             parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
         });
 
-        backBtn.setOnClickListener(v -> PlaylistActivity.super.onBackPressed());
+        backBtn.setOnClickListener(v -> {
+            onBackPressed();
+        });
 
         String id = getIntent().getStringExtra("id");
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
@@ -136,5 +138,11 @@ public class PlaylistActivity extends AppCompatActivity {
                 StaticTools.ServerError(PlaylistActivity.this, t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(PlaylistActivity.this, BrowseActivity.class));
+        this.finish();
     }
 }

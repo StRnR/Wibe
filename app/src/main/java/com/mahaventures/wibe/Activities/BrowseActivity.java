@@ -91,6 +91,10 @@ public class BrowseActivity extends AppCompatActivity {
         doShit(StaticTools.getHPI());
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
     private void doShit(String homePageId) {
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<Page> call = service.GetPage(homePageId);
