@@ -56,7 +56,7 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
         if (item.image != null && !item.image.equals(""))
             Picasso.get().load(item.image).into(holder.artwork);
         if (item.color != null && !item.color.equals("")) {
-            holder.cardView.setBackgroundColor(Color.parseColor(item.color));
+            holder.bgColor.setBackgroundColor(Color.parseColor(item.color));
         }
         holder.cardView.setOnClickListener(v -> {
             switch (item.type) {
@@ -149,6 +149,7 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
 
     static class CollectionViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
+        private ImageView bgColor;
         private ImageView artwork;
         private CardView cardView;
 
@@ -158,6 +159,7 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
             artwork = itemView.findViewById(R.id.img_artwork_browse_tile);
             title = itemView.findViewById(R.id.txt_title_browse_tile);
             cardView = itemView.findViewById(R.id.card_view_browse_tile);
+            bgColor = itemView.findViewById(R.id.img_bg_browse_tile);
         }
     }
 }
