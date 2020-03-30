@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "848995461035-s0b4po8sp5l7vc6u5p37cnlfvpt21sp6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mahaventures.wibe",
+            "certificate_hash": "5383a9828f8a4e26b0cdfd890367a9bf59850202"
+          }
+        },
+        {
           "client_id": "848995461035-gve62cct18ug2i7geheu7gu51pr1qr1v.apps.googleusercontent.com",
           "client_type": 3
         }
