@@ -108,7 +108,9 @@ public class AlbumActivity extends AppCompatActivity {
             parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
         });
 
-        backBtn.setOnClickListener(v -> AlbumActivity.super.onBackPressed());
+        backBtn.setOnClickListener(v -> {
+            onBackPressed();
+        });
 
 
         String id = getIntent().getStringExtra("id");
@@ -150,5 +152,11 @@ public class AlbumActivity extends AppCompatActivity {
                 StaticTools.ServerError(AlbumActivity.this, t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AlbumActivity.this, BrowseActivity.class));
+        this.finish();
     }
 }

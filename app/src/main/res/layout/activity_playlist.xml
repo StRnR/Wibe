@@ -34,20 +34,20 @@
 
     <ImageView
         android:id="@+id/img_artwork_playlist"
-        android:background="@drawable/loadingmusic"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/loadingmusic"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/btn_back_playlist" />
 
     <TextView
         android:id="@+id/txt_title_playlist"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/nexa_bold"
         android:maxLines="2"
@@ -55,7 +55,7 @@
         android:textSize="21sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/img_artwork_playlist"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/img_artwork_playlist" />
 
     <TextView
         android:id="@+id/txt_owner_playlist"
@@ -63,10 +63,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/nexa_light"
-        android:lineHeight="12sp"
+        android:lineHeight="25sp"
+        android:lineSpacingExtra="13sp"
         android:maxLines="1"
         android:textColor="@color/text_grey"
-        android:textSize="21sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@id/txt_title_playlist"
         app:layout_constraintStart_toStartOf="@id/txt_title_playlist"
         app:layout_constraintTop_toBottomOf="@id/txt_title_playlist" />
@@ -77,10 +78,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/nexa_light"
-        android:lineHeight="12sp"
+        android:lineHeight="25sp"
+        android:lineSpacingExtra="13sp"
         android:maxLines="1"
+        android:text="Wibe"
         android:textColor="@color/text_grey"
-        android:textSize="21sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@id/txt_title_playlist"
         app:layout_constraintStart_toStartOf="@id/txt_title_playlist"
         app:layout_constraintTop_toBottomOf="@id/txt_owner_playlist" />

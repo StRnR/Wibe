@@ -77,7 +77,7 @@ public class MySongsActivity extends AppCompatActivity {
 
 
         fragmentManager = getSupportFragmentManager();
-        if (findViewById(R.id.fragment_container_mysongs) != null ) {
+        if (findViewById(R.id.fragment_container_mysongs) != null) {
             if (savedInstanceState != null)
                 return;
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -97,7 +97,7 @@ public class MySongsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<MySong> call, Response<MySong> response) {
                 if (response.isSuccessful()) {
-                    PlayerActivity.queue = response.body().data.stream().map(x->x.track).collect(Collectors.toList());
+                    PlayerActivity.queue = response.body().data.stream().map(x -> x.track).collect(Collectors.toList());
                     MySongsAdapter adapter = new MySongsAdapter(response.body(), MySongsActivity.this);
                     recyclerView.setAdapter(adapter);
                 }
@@ -108,5 +108,9 @@ public class MySongsActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }
