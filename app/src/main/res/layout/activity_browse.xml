@@ -27,7 +27,7 @@
         android:id="@+id/navbar_bottom_browse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bottomBackground"
+        android:background="@color/topBackground"
         app:itemIconTint="@drawable/selector"
         app:itemTextAppearanceActive="@style/navbar_active"
         app:itemTextAppearanceInactive="@style/navbar_inactive"

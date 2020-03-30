@@ -20,4 +20,5 @@
     <color name="strongPass">#0ECAFF</color>
     <color name="securePass">#067BD3</color>
     <color name="selected_navbar">#0092ff</color>
+    <color name="transparent">#00000000</color>
 </resources>

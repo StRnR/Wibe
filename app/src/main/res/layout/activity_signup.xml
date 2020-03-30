@@ -10,8 +10,8 @@
 
     <Button
         android:id="@+id/btn_back_signup"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/ic_back"

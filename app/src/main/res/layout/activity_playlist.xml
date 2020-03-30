@@ -9,8 +9,8 @@
 
     <Button
         android:id="@+id/btn_back_playlist"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/ic_back"
@@ -52,7 +52,7 @@
         android:fontFamily="@font/nexa_bold"
         android:maxLines="2"
         android:textColor="@color/white"
-        android:textSize="21sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/img_artwork_playlist"
         app:layout_constraintTop_toTopOf="@id/img_artwork_playlist" />
@@ -67,7 +67,7 @@
         android:lineSpacingExtra="13sp"
         android:maxLines="1"
         android:textColor="@color/text_grey"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@id/txt_title_playlist"
         app:layout_constraintStart_toStartOf="@id/txt_title_playlist"
         app:layout_constraintTop_toBottomOf="@id/txt_title_playlist" />
@@ -83,7 +83,7 @@
         android:maxLines="1"
         android:text="Wibe"
         android:textColor="@color/text_grey"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@id/txt_title_playlist"
         app:layout_constraintStart_toStartOf="@id/txt_title_playlist"
         app:layout_constraintTop_toBottomOf="@id/txt_owner_playlist" />
@@ -117,7 +117,7 @@
         android:id="@+id/navbar_bottom_playlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bottomBackground"
+        android:background="@color/topBackground"
         android:elevation="10dp"
         app:itemIconTint="@drawable/selector"
         app:itemTextAppearanceActive="@style/navbar_active"
