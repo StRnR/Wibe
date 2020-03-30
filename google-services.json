@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "848995461035",
+    "firebase_url": "https://smart-athlete-238608.firebaseio.com",
+    "project_id": "smart-athlete-238608",
+    "storage_bucket": "smart-athlete-238608.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848995461035:android:3e92b71257dcecd06f94ee",
+        "android_client_info": {
+          "package_name": "com.mahaventures.wibe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "848995461035-gve62cct18ug2i7geheu7gu51pr1qr1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2NgnIKPT4qjJJlY-gls3wcEfz1T-VxGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "848995461035-gve62cct18ug2i7geheu7gu51pr1qr1v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
