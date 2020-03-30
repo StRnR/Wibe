@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/gradient_background"
     tools:context=".Activities.AlbumActivity">
 
     <Button
@@ -103,7 +103,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="25dp"
-            android:background="@color/background"
             android:scrollbars="vertical" />
     </RelativeLayout>
 
@@ -117,6 +116,7 @@
         android:id="@+id/navbar_bottom_album"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:elevation="10dp"
         app:itemIconTint="@drawable/selector"
         app:itemTextAppearanceActive="@style/navbar_active"

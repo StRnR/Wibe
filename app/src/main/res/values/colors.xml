@@ -3,6 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="topBackground">#0b0b0b</color>
+    <color name="bottomBackground">#121416</color>
     <color name="white">#ffffff</color>
     <color name="wibeSky">#0ecbff</color>
     <color name="wibeSea">#0092ff</color>
@@ -17,6 +19,5 @@
     <color name="goodPass">#5500BE</color>
     <color name="strongPass">#0ECAFF</color>
     <color name="securePass">#067BD3</color>
-    <color name="background">#121416</color>
     <color name="selected_navbar">#0092ff</color>
 </resources>

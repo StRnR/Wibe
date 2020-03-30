@@ -382,7 +382,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
                                 }
                             });
-                            layout.setBackgroundColor(getColor(R.color.background));
+                            layout.setBackgroundColor(getColor(R.color.topBackground));
                             img = new ImageView(PlayerActivity.this);
                             loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new Callback() {
                                 @Override

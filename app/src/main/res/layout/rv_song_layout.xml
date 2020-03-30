@@ -4,19 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:layout_marginBottom="16dp"
-    android:background="@color/background">
+    android:background="@color/topBackground">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view_song"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/background">
+        android:background="@color/topBackground">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="@color/background"
+            android:background="@color/topBackground"
             android:orientation="vertical">
 
             <ImageView
