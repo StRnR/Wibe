@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Tools.StaticTools;
@@ -35,7 +34,7 @@ public class SongsRecyclerPlaylistAdapter extends RecyclerView.Adapter<SongsRecy
     @NonNull
     @Override
     public PlaylistSongsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_song_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_song, parent, false);
         return new PlaylistSongsViewHolder(view);
     }
 

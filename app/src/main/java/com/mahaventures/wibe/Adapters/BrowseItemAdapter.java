@@ -45,7 +45,7 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
     @NonNull
     @Override
     public CollectionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CollectionViewHolder(LayoutInflater.from(context).inflate(R.layout.browse_tile, parent, false));
+        return new CollectionViewHolder(LayoutInflater.from(context).inflate(R.layout.cardview_browse, parent, false));
     }
 
     @Override
