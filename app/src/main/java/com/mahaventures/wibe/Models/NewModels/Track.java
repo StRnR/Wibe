@@ -28,4 +28,7 @@ public class Track {
     @SerializedName("album")
     @Expose
     public Album album;
+    @SerializedName("duration")
+    @Expose
+    public int duration;
 }

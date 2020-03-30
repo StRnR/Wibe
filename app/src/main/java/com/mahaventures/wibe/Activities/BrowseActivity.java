@@ -28,7 +28,7 @@ import retrofit2.Response;
 
 public class BrowseActivity extends AppCompatActivity {
     public static FragmentManager fragmentManager;
-    public static FrameLayout browseFragmentContainer;
+    public FrameLayout browseFragmentContainer;
     RecyclerView recyclerView;
 
     @Override
