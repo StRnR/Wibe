@@ -7,6 +7,15 @@
     android:background="@drawable/gradient_background"
     tools:context=".Activities.MySongsActivity">
 
+    <Button
+        android:id="@+id/btn_songs_mysongs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:background="@color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <RelativeLayout
         android:id="@+id/layout_relative_mysongs"
         android:layout_width="match_parent"
@@ -22,8 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="25dp"
-            android:scrollbars="vertical" />
+            android:layout_marginTop="25dp" />
     </RelativeLayout>
 
     <FrameLayout

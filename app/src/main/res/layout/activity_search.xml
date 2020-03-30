@@ -82,8 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_result_category_search"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="25dp"
-            android:scrollbars="vertical" />
+            android:layout_marginTop="25dp" />
 
     </RelativeLayout>
 

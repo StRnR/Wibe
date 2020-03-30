@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="56dp"
-    android:layout_marginBottom="16dp">
+    android:layout_marginBottom="16dp"
+    android:background="@color/transparent">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view_song"
@@ -15,7 +16,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/topBackground"
+            android:alpha="1.0"
             android:orientation="vertical">
 
             <ImageView
