@@ -27,7 +27,7 @@
             <ImageView
                 android:id="@+id/img_artwork_browse_tile"
                 android:layout_width="match_parent"
-                android:layout_height="132dp"
+                android:layout_height="128dp"
                 android:layout_alignParentTop="true"
                 android:background="@drawable/loadingmusic" />
 
