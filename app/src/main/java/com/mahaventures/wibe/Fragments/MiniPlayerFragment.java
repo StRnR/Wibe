@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.mahaventures.wibe.Activities.PlayerActivity;
@@ -56,6 +57,7 @@ public class MiniPlayerFragment extends Fragment {
         TextView songTitle = view.findViewById(R.id.txt_songtitle_miniplayer);
         TextView artist = view.findViewById(R.id.txt_artist_miniplayer);
         ImageView cover = view.findViewById(R.id.img_cover_miniplayer);
+        ConstraintLayout layout = view.findViewById(R.id.miniplayer_fragment_layout);
         isLoaded = false;
         int color = Color.rgb(255, 255, 255);
         songProgressBar.setProgressTintList(ColorStateList.valueOf(color));
@@ -86,6 +88,7 @@ public class MiniPlayerFragment extends Fragment {
                             cover.setImageBitmap(PlayerActivity.getArtWork());
                             artist.setText(PlayerActivity.getArtistsName());
                             songTitle.setText(PlayerActivity.getTrackName());
+//                            layout.setBackground(PlayerActivity.getBlurredArtWork().getDrawable());
                         }
                         if (!PlayerActivity.isPrepared) {
                             view.setVisibility(View.GONE);

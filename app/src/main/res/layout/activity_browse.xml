@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/gradient_background"
     tools:context=".Activities.BrowseActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -28,6 +28,7 @@
         android:id="@+id/navbar_bottom_browse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#0b0b0b"
         app:itemIconTint="@drawable/selector"
         app:itemTextAppearanceActive="@style/navbar_active"
         app:itemTextAppearanceInactive="@style/navbar_inactive"

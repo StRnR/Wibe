@@ -51,6 +51,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     public static MediaPlayer mediaPlayer = new MediaPlayer();
     public static Bitmap artWork;
+    public static ImageView img;
     public static String mArtistString;
     public static String mTrackNameString;
     static Track track;
@@ -381,8 +382,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
                                 }
                             });
-                            layout.setBackgroundColor(Color.BLACK);
-                            ImageView img = new ImageView(PlayerActivity.this);
+                            layout.setBackgroundColor(getColor(R.color.background));
+                            img = new ImageView(PlayerActivity.this);
                             loaded.resize(width, height).centerCrop().transform(new BlurTransformation(PlayerActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new Callback() {
                                 @Override
                                 public void onSuccess() {
@@ -624,4 +625,9 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public static Bitmap getArtWork() {
         return artWork;
     }
+
+    public static ImageView getBlurredArtWork() {
+        return img;
+    }
+
 }
