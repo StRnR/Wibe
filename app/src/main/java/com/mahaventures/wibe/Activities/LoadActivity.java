@@ -22,7 +22,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoadActivity extends AppCompatActivity {
-    public static String homePageId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class LoadActivity extends AppCompatActivity {
                 public void onResponse(Call<InitModel> call, Response<InitModel> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         if (response.body().loggedIn != null && response.body().loggedIn) {
-                            homePageId = response.body().homePageId;
+                            StaticTools.homePageId = response.body().homePageId;
                             StaticTools.LogErrorMessage("token: " + StaticTools.token);
                             startActivity(new Intent(LoadActivity.this, SearchActivity.class));
                             finish();

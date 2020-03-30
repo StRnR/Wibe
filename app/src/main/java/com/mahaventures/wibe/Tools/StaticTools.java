@@ -16,12 +16,15 @@ import androidx.palette.graphics.Palette;
 
 import com.mahaventures.wibe.Activities.ConfirmEmailActivity;
 import com.mahaventures.wibe.Activities.LoadActivity;
+import com.mahaventures.wibe.Activities.MainActivity;
 import com.mahaventures.wibe.Activities.PlayerActivity;
+import com.mahaventures.wibe.Activities.SearchActivity;
 import com.mahaventures.wibe.Models.NewModels.Album;
 import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.Models.NewModels.Collection;
 import com.mahaventures.wibe.Models.NewModels.MyModels.BrowseItem;
 import com.mahaventures.wibe.Models.NewModels.Playlist;
+import com.mahaventures.wibe.Models.NewModels.ProfileModels.InitModel;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.User;
 import com.mahaventures.wibe.Models.UserRole;
@@ -51,6 +54,7 @@ public class StaticTools {
     private final static int MinimumPasswordLength = 6;
     private static boolean cvb;
     public static String token;
+    public static String homePageId;
 
     public static void ShowToast(Context context, String message, int length) {
         Toast toast = Toast.makeText(context, message, length);
@@ -229,7 +233,7 @@ public class StaticTools {
     }
 
     public static String getHPI() {
-        return LoadActivity.homePageId;
+        return homePageId;
     }
 
     public static List<BrowseItem> getBrowseItems(Collection collection) {
@@ -352,5 +356,30 @@ public class StaticTools {
             aL.add(0, t);
         }
         return aL;
+    }
+
+    public static void setHPI(Context context) {
+        PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
+        Call<InitModel> call = service.Init(StaticTools.getToken());
+        call.enqueue(new Callback<InitModel>() {
+            @Override
+            public void onResponse(Call<InitModel> call, Response<InitModel> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    if (response.body().loggedIn != null && response.body().loggedIn) {
+                        homePageId = response.body().homePageId;
+                        StaticTools.LogErrorMessage("token: " + StaticTools.token);
+                        context.startActivity(new Intent(context, SearchActivity.class));
+                    } else
+                        context.startActivity(new Intent(context, MainActivity.class));
+                } else if (response.code() == 401) {
+                    context.startActivity(new Intent(context, MainActivity.class));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<InitModel> call, Throwable t) {
+                StaticTools.ServerError(context, t.getMessage());
+            }
+        });
     }
 }

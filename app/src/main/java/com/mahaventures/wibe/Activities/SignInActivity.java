@@ -70,6 +70,8 @@ public class SignInActivity extends AppCompatActivity {
                             SavedInfo info = new SavedInfo(token, email);
                             info.save();
                             StaticTools.token = token;
+                            if (StaticTools.homePageId == null)
+                                StaticTools.setHPI(SignInActivity.this);
                             SignInActivity.this.startActivity(new Intent(SignInActivity.this, SearchActivity.class));
                             finish();
                         } catch (Exception e) {
