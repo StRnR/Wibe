@@ -15,7 +15,6 @@ import android.widget.Toast;
 import androidx.palette.graphics.Palette;
 
 import com.mahaventures.wibe.Activities.ConfirmEmailActivity;
-import com.mahaventures.wibe.Activities.LoadActivity;
 import com.mahaventures.wibe.Activities.MainActivity;
 import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Activities.SearchActivity;
@@ -232,10 +231,6 @@ public class StaticTools {
         return String.format("Bearer %s", token);
     }
 
-    public static String getHPI() {
-        return homePageId;
-    }
-
     public static List<BrowseItem> getBrowseItems(Collection collection) {
         List<BrowseItem> list = new ArrayList<>();
         for (Track track : collection.tracks.data) {
@@ -358,28 +353,20 @@ public class StaticTools {
         return aL;
     }
 
-    public static void setHPI(Context context) {
+    public static String getHPI() {
         PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
-        Call<InitModel> call = service.Init(StaticTools.getToken());
+        Call<InitModel> call = service.Init(getToken());
         call.enqueue(new Callback<InitModel>() {
             @Override
             public void onResponse(Call<InitModel> call, Response<InitModel> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    if (response.body().loggedIn != null && response.body().loggedIn) {
-                        homePageId = response.body().homePageId;
-                        StaticTools.LogErrorMessage("token: " + StaticTools.token);
-                        context.startActivity(new Intent(context, SearchActivity.class));
-                    } else
-                        context.startActivity(new Intent(context, MainActivity.class));
-                } else if (response.code() == 401) {
-                    context.startActivity(new Intent(context, MainActivity.class));
-                }
+                if (response.isSuccessful())
+                    homePageId = response.body() != null ? response.body().homePageId : "";
             }
 
             @Override
             public void onFailure(Call<InitModel> call, Throwable t) {
-                StaticTools.ServerError(context, t.getMessage());
             }
         });
+        return homePageId;
     }
 }

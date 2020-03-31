@@ -41,6 +41,12 @@ public class AlbumActivity extends AppCompatActivity {
     public static FrameLayout albumFragmentContainer;
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        MiniPlayerFragment.isPrepared = true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
@@ -152,6 +158,8 @@ public class AlbumActivity extends AppCompatActivity {
                 StaticTools.ServerError(AlbumActivity.this, t.getMessage());
             }
         });
+
+        MiniPlayerFragment.isPrepared = true;
     }
 
     @Override

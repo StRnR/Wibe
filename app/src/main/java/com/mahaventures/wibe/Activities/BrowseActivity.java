@@ -88,11 +88,10 @@ public class BrowseActivity extends AppCompatActivity {
         }
         MiniPlayerFragment.isPrepared = true;
         recyclerView = findViewById(R.id.main_recyclerview_browse);
-        if (StaticTools.homePageId != null) {
+        if (StaticTools.homePageId != null && !StaticTools.homePageId.equals("")) {
             doShit(StaticTools.homePageId);
         } else {
-            StaticTools.setHPI(BrowseActivity.this);
-            doShit(StaticTools.homePageId);
+            doShit(StaticTools.getHPI());
         }
     }
 
