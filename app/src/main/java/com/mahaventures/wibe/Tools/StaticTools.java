@@ -395,7 +395,7 @@ public class StaticTools {
                     }
                 } else timer.cancel();
             }
-        }, 0, 49);
+        }, 10, 49);
         return tracks.stream().anyMatch(track -> track.id.equals(trackId));
     }
 }
