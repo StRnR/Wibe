@@ -114,9 +114,7 @@ public class AlbumActivity extends AppCompatActivity {
             parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
         });
 
-        backBtn.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        backBtn.setOnClickListener(v -> onBackPressed());
 
 
         String id = getIntent().getStringExtra("id");
@@ -128,7 +126,6 @@ public class AlbumActivity extends AppCompatActivity {
             public void onResponse(Call<Album> call, Response<Album> response) {
                 StaticTools.LogErrorMessage(String.valueOf(response.code()));
                 if (response.isSuccessful()) {
-                    String s1 = response.toString();
                     albumTitle.setText(response.body() != null ? response.body().name : "");
                     Picasso.get().load(response.body() != null ? response.body().image.medium.url : "").into(albumArtwork);
                 }
@@ -144,7 +141,7 @@ public class AlbumActivity extends AppCompatActivity {
         call.enqueue(new Callback<Tracks>() {
             @Override
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response.body() != null) {
                     tracks.addAll(response.body().data);
                     albumArtist.setText(response.body().data.get(0).artists.data.get(0).name);
                     SongsRecyclerPlaylistAdapter adapter = new SongsRecyclerPlaylistAdapter(response.body().data, AlbumActivity.this);

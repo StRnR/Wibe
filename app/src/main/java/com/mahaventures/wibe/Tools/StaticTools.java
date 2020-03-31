@@ -55,6 +55,7 @@ public class StaticTools {
     public static String homePageId;
     public static List<Track> tracks;
     public static MySong mySong;
+    public static boolean isPrepared;
 
     public static void ShowToast(Context context, String message, int length) {
         Toast toast = Toast.makeText(context, message, length);
@@ -358,15 +359,17 @@ public class StaticTools {
     }
 
     public static List<Track> GetMySongs() {
+        isPrepared = false;
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         String url = "https://api.musicify.ir/profile/tracks?include=track.album,track.artists";
-        Call<MySong> call = service.GetMySongs(StaticTools.getToken(), url);
+        Call<MySong> call = service.GetMySongs(getToken(), url);
         call.enqueue(new Callback<MySong>() {
             @Override
             public void onResponse(Call<MySong> call, Response<MySong> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     tracks = response.body().data.stream().map(x -> x.track).collect(Collectors.toList());
                     mySong = response.body();
+                    isPrepared = true;
                 }
             }
 

@@ -159,7 +159,7 @@ public class SignUpActivity extends AppCompatActivity {
                         } catch (Exception e) {
 
                         }
-                        StaticTools.LogErrorMessage(response.errorBody().toString() + " signup error");
+                        StaticTools.LogErrorMessage(response.errorBody().toString() + " signUp error");
                     }
                 }
 

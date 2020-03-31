@@ -16,6 +16,9 @@ import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Tools.StaticTools;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MySongsActivity extends AppCompatActivity {
     public static FragmentManager fragmentManager;
     public static FrameLayout mysongsFragmentContainer;
@@ -84,9 +87,20 @@ public class MySongsActivity extends AppCompatActivity {
         if (StaticTools.mySong == null || StaticTools.tracks == null) {
             StaticTools.GetMySongs();
         }
-        PlayerActivity.queue = (StaticTools.tracks != null) ? StaticTools.tracks : StaticTools.GetMySongs();
-        MySongsAdapter adapter = new MySongsAdapter(StaticTools.mySong, MySongsActivity.this);
-        recyclerView.setAdapter(adapter);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (StaticTools.isPrepared) {
+                    PlayerActivity.queue = (StaticTools.tracks != null) ? StaticTools.tracks : StaticTools.GetMySongs();
+                    MySongsAdapter adapter = new MySongsAdapter(StaticTools.mySong, MySongsActivity.this);
+                    runOnUiThread(() -> {
+                        recyclerView.setAdapter(adapter);
+                    });
+                    timer.cancel();
+                }
+            }
+        }, 0, 100);
     }
 
     @Override
