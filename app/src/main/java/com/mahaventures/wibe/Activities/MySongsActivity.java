@@ -100,7 +100,7 @@ public class MySongsActivity extends AppCompatActivity {
                     timer.cancel();
                 }
             }
-        }, 0, 100);
+        }, 0, 50);
     }
 
     @Override

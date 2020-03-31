@@ -383,6 +383,19 @@ public class StaticTools {
     public static boolean IsAdded(String trackId) {
         if (tracks == null)
             GetMySongs();
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (!isPrepared) {
+                    try {
+                        Thread.sleep(50);
+                    } catch (Exception e) {
+
+                    }
+                } else timer.cancel();
+            }
+        }, 0, 49);
         return tracks.stream().anyMatch(track -> track.id.equals(trackId));
     }
 }
