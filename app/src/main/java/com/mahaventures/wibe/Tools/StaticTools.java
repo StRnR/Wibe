@@ -15,9 +15,7 @@ import android.widget.Toast;
 import androidx.palette.graphics.Palette;
 
 import com.mahaventures.wibe.Activities.ConfirmEmailActivity;
-import com.mahaventures.wibe.Activities.MainActivity;
 import com.mahaventures.wibe.Activities.PlayerActivity;
-import com.mahaventures.wibe.Activities.SearchActivity;
 import com.mahaventures.wibe.Models.NewModels.Album;
 import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.Models.NewModels.Collection;
@@ -320,9 +318,6 @@ public class StaticTools {
         Intent intent = new Intent(context, PlayerActivity.class);
         PlayerActivity.trackNumber = 0;
         Collections.rotate(PlayerActivity.queue, PlayerActivity.queue.size() - PlayerActivity.queue.indexOf(PlayerActivity.queue.stream().filter(t -> t.id.equals(track.id)).findFirst().get()));
-//        rotate(PlayerActivity.queue, PlayerActivity.queue.indexOf(PlayerActivity.queue.stream().filter(t -> t.id.equals(track.id)).findFirst().get()));
-//        PlayerActivity.queue.removeIf(track1 -> track1.id.equals(track.id));
-//        PlayerActivity.queue.add(0, track);
         Intent bcIntent = new Intent(context, PlaySongBroadcastReceiver.class)
                 .setAction("pay");
         context.sendBroadcast(bcIntent);
@@ -340,17 +335,6 @@ public class StaticTools {
 //        context.startActivity(intent);
         ShowToast(context, message, 0);
         LogErrorMessage(message);
-    }
-
-    static <T> List<T> rotate(List<T> aL, int shift) {
-        if (aL.size() == 0)
-            return aL;
-        for (int i = shift; i < aL.size() - 1; i++) {
-            T t = aL.get(i);
-            aL.remove(i);
-            aL.add(0, t);
-        }
-        return aL;
     }
 
     public static String getHPI() {

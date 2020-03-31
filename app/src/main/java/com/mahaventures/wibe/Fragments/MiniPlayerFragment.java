@@ -81,16 +81,15 @@ public class MiniPlayerFragment extends Fragment {
                         } else {
                             playBtn.setBackgroundResource(R.drawable.ic_play);
                         }
-                        if (isPrepared) {
+                        if (isPrepared || songTitle.getText().toString().equals("")) {
                             counter = 0;
                             isPrepared = false;
                             isLoaded = true;
                             cover.setImageBitmap(PlayerActivity.getArtWork());
                             artist.setText(PlayerActivity.getArtistsName());
                             songTitle.setText(PlayerActivity.getTrackName());
-//                            layout.setBackground(PlayerActivity.getBlurredArtWork().getDrawable());
                         }
-                        if (!PlayerActivity.isPrepared) {
+                        if (!PlayerActivity.meta) {
                             view.setVisibility(View.GONE);
                         } else {
                             view.setVisibility(View.VISIBLE);

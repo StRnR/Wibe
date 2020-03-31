@@ -32,6 +32,10 @@ public class BrowseActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     @Override
+    public void onBackPressed() {
+    }
+
+    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_browse);
@@ -93,10 +97,6 @@ public class BrowseActivity extends AppCompatActivity {
         } else {
             doShit(StaticTools.getHPI());
         }
-    }
-
-    @Override
-    public void onBackPressed() {
     }
 
     private void doShit(String homePageId) {

@@ -77,6 +77,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     int sp;
     boolean repeated;
     boolean shuffle;
+    public static boolean meta;
 
     @Override
     public void onBackPressed() {
@@ -93,6 +94,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         isPrepared = false;
+        meta = false;
         MiniPlayerFragment.context = this;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && notificationManager != null) {
             notificationManager.cancelAll();
@@ -332,11 +334,13 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         String trackName = track.name;
         mTrackNameString = trackName;
         songTitleTxt.setText(trackName);
+        meta = true;
     }
 
     private void doShit(int i) {
         try {
             mediaPlayer.release();
+            meta = false;
             MiniPlayerFragment.isLoaded = false;
             track = queue.get(trackNumber);
             setMeta();
