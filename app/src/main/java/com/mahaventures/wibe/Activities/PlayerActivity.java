@@ -335,6 +335,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         mTrackNameString = trackName;
         songTitleTxt.setText(trackName);
         meta = true;
+        MiniPlayerFragment.isPrepared = true;
     }
 
     private void doShit(int i) {

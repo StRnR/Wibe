@@ -13,17 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mahaventures.wibe.Adapters.MySongsAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
-import com.mahaventures.wibe.Models.NewModels.MySong;
 import com.mahaventures.wibe.R;
-import com.mahaventures.wibe.Services.GetDataService;
-import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
-
-import java.util.stream.Collectors;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MySongsActivity extends AppCompatActivity {
     public static FragmentManager fragmentManager;
@@ -90,24 +81,12 @@ public class MySongsActivity extends AppCompatActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        String url = "https://api.musicify.ir/profile/tracks?include=track.album,track.artists";
-        Call<MySong> call = service.GetMySongs(StaticTools.getToken(), url);
-        call.enqueue(new Callback<MySong>() {
-            @Override
-            public void onResponse(Call<MySong> call, Response<MySong> response) {
-                if (response.isSuccessful()) {
-                    PlayerActivity.queue = response.body().data.stream().map(x -> x.track).collect(Collectors.toList());
-                    MySongsAdapter adapter = new MySongsAdapter(response.body(), MySongsActivity.this);
-                    recyclerView.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MySong> call, Throwable t) {
-
-            }
-        });
+        if (StaticTools.mySong == null || StaticTools.tracks == null) {
+            StaticTools.GetMySongs();
+        }
+        PlayerActivity.queue = (StaticTools.tracks != null) ? StaticTools.tracks : StaticTools.GetMySongs();
+        MySongsAdapter adapter = new MySongsAdapter(StaticTools.mySong, MySongsActivity.this);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

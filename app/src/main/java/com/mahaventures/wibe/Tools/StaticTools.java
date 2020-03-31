@@ -20,6 +20,7 @@ import com.mahaventures.wibe.Models.NewModels.Album;
 import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.Models.NewModels.Collection;
 import com.mahaventures.wibe.Models.NewModels.MyModels.BrowseItem;
+import com.mahaventures.wibe.Models.NewModels.MySong;
 import com.mahaventures.wibe.Models.NewModels.Playlist;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.InitModel;
 import com.mahaventures.wibe.Models.NewModels.Track;
@@ -52,6 +53,8 @@ public class StaticTools {
     private static boolean cvb;
     public static String token;
     public static String homePageId;
+    public static List<Track> tracks;
+    public static MySong mySong;
 
     public static void ShowToast(Context context, String message, int length) {
         Toast toast = Toast.makeText(context, message, length);
@@ -352,5 +355,25 @@ public class StaticTools {
             }
         });
         return homePageId;
+    }
+
+    public static List<Track> GetMySongs() {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        String url = "https://api.musicify.ir/profile/tracks?include=track.album,track.artists";
+        Call<MySong> call = service.GetMySongs(StaticTools.getToken(), url);
+        call.enqueue(new Callback<MySong>() {
+            @Override
+            public void onResponse(Call<MySong> call, Response<MySong> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    tracks = response.body().data.stream().map(x -> x.track).collect(Collectors.toList());
+                    mySong = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MySong> call, Throwable t) {
+            }
+        });
+        return tracks;
     }
 }
