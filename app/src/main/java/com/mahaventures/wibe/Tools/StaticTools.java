@@ -377,7 +377,7 @@ public class StaticTools {
         return tracks;
     }
 
-    public static boolean isAdded(String trackId) {
+    public static boolean IsAdded(String trackId) {
         if (tracks == null)
             GetMySongs();
         return tracks.stream().anyMatch(track -> track.id.equals(trackId));
