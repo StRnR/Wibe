@@ -95,7 +95,9 @@ public class BrowseActivity extends AppCompatActivity {
         if (StaticTools.homePageId != null && !StaticTools.homePageId.equals("")) {
             doShit(StaticTools.homePageId);
         } else {
-            doShit(StaticTools.getHPI());
+            if (!StaticTools.getHPI().equals(""))
+                doShit(StaticTools.getHPI());
+            else StaticTools.ShowToast(BrowseActivity.this, "server error", 0);
         }
     }
 
