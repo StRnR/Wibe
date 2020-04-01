@@ -65,7 +65,7 @@
         android:id="@+id/navbar_bottom_mysongs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/topBackground"
+        android:background="@color/darkBackground"
         app:itemIconTint="@drawable/selector"
         app:itemTextAppearanceActive="@style/navbar_active"
         app:itemTextAppearanceInactive="@style/navbar_inactive"
