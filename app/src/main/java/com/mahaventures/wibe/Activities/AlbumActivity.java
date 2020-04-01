@@ -166,7 +166,11 @@ public class AlbumActivity extends AppCompatActivity {
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     tracks.addAll(response.body().data);
-                    albumArtist.setText(response.body().data.get(0).artists.data.get(0).name);
+                    try {
+                        albumArtist.setText(response.body().data.get(0).artists.data.get(0).name);
+                    }catch (Exception e){
+                        albumArtist.setText("Unknown");
+                    }
                     SongsRecyclerPlaylistAdapter adapter = new SongsRecyclerPlaylistAdapter(response.body().data, AlbumActivity.this);
                     recyclerView.setAdapter(adapter);
                     shuffleBtn.setEnabled(true);
