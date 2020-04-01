@@ -3,6 +3,7 @@ package com.mahaventures.wibe.Activities;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
@@ -24,14 +25,17 @@ import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.NewModels.Tracks;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
+import com.mahaventures.wibe.Tools.AlphaTransformation;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import jp.wasabeef.picasso.transformations.BlurTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -130,7 +134,25 @@ public class AlbumActivity extends AppCompatActivity {
                 StaticTools.LogErrorMessage(String.valueOf(response.code()));
                 if (response.isSuccessful()) {
                     albumTitle.setText(response.body() != null ? response.body().name : "");
-                    Picasso.get().load(response.body() != null ? response.body().image.medium.url : "").into(albumArtwork);
+                    RequestCreator requestCreator = Picasso.get().load(response.body() != null ? response.body().image.medium.url : "");
+                    requestCreator.into(albumArtwork);
+                    DisplayMetrics displayMetrics = new DisplayMetrics();
+                    getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                    int height = displayMetrics.heightPixels;
+                    int width = displayMetrics.widthPixels;
+                    ImageView img = new ImageView(AlbumActivity.this);
+                    float shadow = 0.5F;
+                    requestCreator.resize(width, height).centerCrop().transform(new BlurTransformation(AlbumActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new com.squareup.picasso.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            blurredArtwork.setBackgroundDrawable(img.getDrawable());
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+
+                        }
+                    });
                 }
             }
 
