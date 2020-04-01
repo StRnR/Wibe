@@ -631,10 +631,11 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         return artWork;
     }
 
-    public static Drawable getBlurredArtWork() {
-        if (img != null)
-            return img.getDrawable();
-        else return null;
+    public static String getBlurredArtWork() {
+        if (track != null) {
+            return track.image.medium.url;
+        }
+        return "";
     }
 
 }

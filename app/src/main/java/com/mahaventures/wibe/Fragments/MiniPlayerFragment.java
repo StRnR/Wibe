@@ -20,10 +20,14 @@ import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.MiniPlayerBroadCastReceiver;
+import com.mahaventures.wibe.Tools.AlphaTransformation;
 import com.mahaventures.wibe.Tools.StaticTools;
+import com.squareup.picasso.Picasso;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class MiniPlayerFragment extends Fragment {
 
@@ -86,9 +90,24 @@ public class MiniPlayerFragment extends Fragment {
                             isPrepared = false;
                             isLoaded = true;
                             cover.setImageBitmap(PlayerActivity.getArtWork());
-                            if (PlayerActivity.getBlurredArtWork() != null) {
+                            if (!PlayerActivity.getBlurredArtWork().equals("")) {
                                 try {
-                                    layout.setBackgroundDrawable(PlayerActivity.getBlurredArtWork());
+                                    //todo witdh height
+                                    int height = 200;
+                                    int width = 800;
+                                    ImageView img = new ImageView(getActivity());
+                                    float shadow = 0.5F;
+                                    Picasso.get().load(PlayerActivity.getBlurredArtWork()).resize(width, height).centerCrop().transform(new BlurTransformation(getActivity(), 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new com.squareup.picasso.Callback() {
+                                        @Override
+                                        public void onSuccess() {
+                                            layout.setBackgroundDrawable(img.getDrawable());
+                                        }
+
+                                        @Override
+                                        public void onError(Exception e) {
+
+                                        }
+                                    });
                                 } catch (Exception e) {
 
                                 }
