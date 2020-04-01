@@ -98,8 +98,6 @@ public class AlbumActivity extends AppCompatActivity {
             }
         });
 
-        //todo: blur image artwork
-//        blurredArtwork =
         fragmentManager = getSupportFragmentManager();
         if (findViewById(R.id.fragment_container_album) != null) {
             if (savedInstanceState != null)
