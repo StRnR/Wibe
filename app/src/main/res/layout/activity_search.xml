@@ -96,7 +96,7 @@
         android:id="@+id/navbar_bottom_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/topBackground"
+        android:background="@color/darkBackground"
         android:elevation="10dp"
         app:itemIconTint="@drawable/selector"
         app:itemTextAppearanceActive="@style/navbar_active"

@@ -18,6 +18,7 @@
         android:id="@+id/img_gradient_blur_playlist"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/gradient_playlist_fader"
         app:layout_constraintBottom_toBottomOf="@id/img_blur_playlist"
         app:layout_constraintTop_toTopOf="@id/img_blur_playlist" />
 
@@ -130,7 +131,7 @@
         android:id="@+id/navbar_bottom_playlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/topBackground"
+        android:background="@color/darkBackground"
         android:elevation="10dp"
         app:itemIconTint="@drawable/selector"
         app:itemTextAppearanceActive="@style/navbar_active"
