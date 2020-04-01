@@ -28,15 +28,15 @@ public class LoadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load);
-//        InputStream stream = null;
-//        try {
-//            stream = getAssets().open("loading_gif.gif");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        GifWebView view = new GifWebView(this, "file:///android_asset/loading_gif.gif");
-//
-//        setContentView(view);
+        InputStream stream = null;
+        try {
+            stream = getAssets().open("loading_gif.gif");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        GifWebView view = new GifWebView(this, "file:///android_asset/loading_gif.gif");
+
+        setContentView(view);
         SugarContext.init(this);
         SavedInfo info = SavedInfo.last(SavedInfo.class);
 //        startActivity(new Intent(MainActivity.this, SearchActivity.class));
