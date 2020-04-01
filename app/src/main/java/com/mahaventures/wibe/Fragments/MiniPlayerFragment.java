@@ -86,6 +86,7 @@ public class MiniPlayerFragment extends Fragment {
                             isPrepared = false;
                             isLoaded = true;
                             cover.setImageBitmap(PlayerActivity.getArtWork());
+                            layout.setBackgroundDrawable(PlayerActivity.getBlurredArtWork());
                             artist.setText(PlayerActivity.getArtistsName());
                             songTitle.setText(PlayerActivity.getTrackName());
                         }

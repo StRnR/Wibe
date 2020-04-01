@@ -631,8 +631,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         return artWork;
     }
 
-    public static ImageView getBlurredArtWork() {
-        return img;
+    public static Drawable getBlurredArtWork() {
+        return img.getDrawable();
     }
 
 }
