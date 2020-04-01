@@ -7,6 +7,20 @@
     android:background="@drawable/gradient_background"
     tools:context=".Activities.PlaylistActivity">
 
+    <ImageView
+        android:id="@+id/img_blur_playlist"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/layout_relative_playlist"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_gradient_blur_playlist"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/img_blur_playlist"
+        app:layout_constraintTop_toTopOf="@id/img_blur_playlist" />
+
     <Button
         android:id="@+id/btn_back_playlist"
         android:layout_width="24dp"
@@ -92,7 +106,6 @@
         android:id="@+id/layout_relative_playlist"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
         app:layout_constraintBottom_toTopOf="@+id/fragment_container_playlist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,14 +116,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="25dp"
+            android:paddingTop="32dp"
             android:scrollbars="vertical" />
     </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/fragment_container_playlist"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/navbar_bottom_playlist" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
