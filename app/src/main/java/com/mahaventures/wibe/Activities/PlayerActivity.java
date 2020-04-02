@@ -318,7 +318,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         songTimeTxt.setText("");
         if (mediaPlayer != null && isPrepared)
             mediaPlayer.seekTo(0);
-        playBtn.setEnabled(false);
     }
 
     @Override
@@ -340,6 +339,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     private void doShit(int i) {
         try {
+            playBtn.setEnabled(false);
             mediaPlayer.release();
             meta = false;
             MiniPlayerFragment.isLoaded = false;
