@@ -69,6 +69,14 @@ public class MySongsActivity extends AppCompatActivity {
             return false;
         });
 
+        Timer timerRevive = new Timer();
+        timerRevive.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                reviveActivity();
+            }
+        }, 1000, 1000);
+
 
         fragmentManager = getSupportFragmentManager();
         if (findViewById(R.id.fragment_container_mysongs) != null) {
@@ -101,6 +109,10 @@ public class MySongsActivity extends AppCompatActivity {
                 }
             }
         }, 0, 50);
+    }
+
+    private void reviveActivity() {
+        int a = 2;
     }
 
     @Override

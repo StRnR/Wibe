@@ -51,7 +51,7 @@ public class LoadActivity extends AppCompatActivity {
                         if (response.body().loggedIn != null && response.body().loggedIn) {
                             StaticTools.homePageId = response.body().homePageId;
                             StaticTools.LogErrorMessage("token: " + StaticTools.token);
-                            startActivity(new Intent(LoadActivity.this, SearchActivity.class));
+                            startActivity(new Intent(LoadActivity.this, BrowseActivity.class));
                             finish();
                         } else
                             startActivity(new Intent(LoadActivity.this, MainActivity.class));

@@ -21,6 +21,8 @@ import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,6 +83,14 @@ public class BrowseActivity extends AppCompatActivity {
             return false;
         });
 
+        Timer timerRevive = new Timer();
+        timerRevive.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                reviveActivity();
+            }
+        }, 1000, 1000);
+
         fragmentManager = getSupportFragmentManager();
         if (findViewById(R.id.fragment_container_browse) != null) {
             if (savedInstanceState != null)
@@ -95,7 +105,7 @@ public class BrowseActivity extends AppCompatActivity {
         if (StaticTools.homePageId != null && !StaticTools.homePageId.equals("")) {
             doShit(StaticTools.homePageId);
         } else {
-            if (!StaticTools.getHPI().equals(""))
+            if (StaticTools.getHPI() != null && !StaticTools.getHPI().equals(""))
                 doShit(StaticTools.getHPI());
             else StaticTools.ShowToast(BrowseActivity.this, "server error", 0);
         }
@@ -124,5 +134,9 @@ public class BrowseActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mainAdapter);
+    }
+
+    private void reviveActivity() {
+        int a = 2;
     }
 }

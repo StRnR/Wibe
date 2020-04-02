@@ -17,7 +17,10 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mahaventures.wibe.Models.DBModels.SavedInfo;
+import com.mahaventures.wibe.Models.NewModels.ProfileModels.AuthenticationResponseModel;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.RegisterResponseModel;
+import com.mahaventures.wibe.Models.NewModels.ProfileModels.SignInRequestModel;
 import com.mahaventures.wibe.Models.NewModels.ProfileModels.SignUpRequestModel;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
@@ -29,11 +32,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity {
+    Button signUpButton;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        Button signUpButton = findViewById(R.id.btn_signup);
+        signUpButton = findViewById(R.id.btn_signup);
         Button backBtn = findViewById(R.id.btn_back_signup);
         Button showPassBtn = findViewById(R.id.btn_showpass_signup);
         EditText nameTxt = findViewById(R.id.txt_edit_name_signup);
@@ -147,8 +152,7 @@ public class SignUpActivity extends AppCompatActivity {
                     signUpButton.setText(R.string.sign_up_text);
                     if (response.isSuccessful()) {
                         StaticTools.ShowToast(SignUpActivity.this, "User registered successfully", 1);
-                        Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
-                        SignUpActivity.this.startActivity(intent);
+                        signIn(email, pass);
                         finish();
                     } else {
                         try {
@@ -171,6 +175,49 @@ public class SignUpActivity extends AppCompatActivity {
                     StaticTools.ServerError(SignUpActivity.this, t.getMessage());
                 }
             });
+        });
+    }
+
+    private void signIn(String email, String pass) {
+        PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
+        SignInRequestModel model = new SignInRequestModel(email, pass, SignUpActivity.this);
+        Call<AuthenticationResponseModel> call = service.Authenticate(model);
+        call.enqueue(new Callback<AuthenticationResponseModel>() {
+            @Override
+            public void onResponse(Call<AuthenticationResponseModel> call, Response<AuthenticationResponseModel> response) {
+                signUpButton.setEnabled(true);
+                signUpButton.setText(R.string.sign_up_text);
+                if (response.isSuccessful()) {
+                    try {
+                        String token = response.body() != null ? response.body().meta.token : "";
+                        SavedInfo.deleteAll(SavedInfo.class);
+                        SavedInfo info = new SavedInfo(token, email);
+                        info.save();
+                        StaticTools.token = token;
+                        if (StaticTools.homePageId == null)
+                            StaticTools.getHPI();
+                        SignUpActivity.this.startActivity(new Intent(SignUpActivity.this, BrowseActivity.class));
+                        finish();
+                    } catch (Exception e) {
+                        StaticTools.LogErrorMessage(e.getMessage() + " sign in token error or db saving error");
+                    }
+                } else {
+                    try {
+                        String s = new String(response.errorBody() != null ? response.errorBody().bytes() : new byte[0]);
+                        StaticTools.ShowToast(SignUpActivity.this, String.format("sign in failed: %s", response.errorBody()), 1);
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthenticationResponseModel> call, Throwable t) {
+//                    StaticTools.ShowToast(SignInActivity.this, "server error", 0);
+//                    signInButton.setText(R.string.sign_in_text);
+//                    signInButton.setEnabled(true);
+                StaticTools.ServerError(SignUpActivity.this, t.getMessage());
+            }
         });
     }
 }

@@ -72,7 +72,7 @@ public class SignInActivity extends AppCompatActivity {
                             StaticTools.token = token;
                             if (StaticTools.homePageId == null)
                                 StaticTools.getHPI();
-                            SignInActivity.this.startActivity(new Intent(SignInActivity.this, SearchActivity.class));
+                            SignInActivity.this.startActivity(new Intent(SignInActivity.this, BrowseActivity.class));
                             finish();
                         } catch (Exception e) {
                             StaticTools.LogErrorMessage(e.getMessage() + " sign in token error or db saving error");

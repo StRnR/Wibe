@@ -95,10 +95,7 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.setAdapter(tmpAdapter);
         searchText = findViewById(R.id.txt_edit_search);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_search);
-
-
         bottomNavigationView.setSelectedItemId(R.id.nav_search);
-
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.nav_browse:
@@ -117,6 +114,14 @@ public class SearchActivity extends AppCompatActivity {
             }
             return false;
         });
+        Timer timerRevive = new Timer();
+        timerRevive.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                reviveActivity();
+            }
+        }, 1000, 1000);
+
 
         fragmentManager = getSupportFragmentManager();
         if (findViewById(R.id.fragment_container_search) != null) {
@@ -172,53 +177,6 @@ public class SearchActivity extends AppCompatActivity {
                     clearTxtBtn.setVisibility(View.VISIBLE);
                 }
 
-                timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        String txt = searchText.getText().toString();
-                        if (!txt.equals("")) {
-                            GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-                            String url = String.format("https://musicify.ir/api/search?query=%s&include=tracks.artists", txt);
-                            Call<GeneralSearch> call = service.SearchAll(url);
-                            call.enqueue(new Callback<GeneralSearch>() {
-                                @Override
-                                public void onResponse(Call<GeneralSearch> call, Response<GeneralSearch> response) {
-                                    if (response.isSuccessful()) {
-                                        if (response.body() != null) {
-                                            try {
-                                                List<Track> tracks = response.body().tracks.data;
-                                                SearchAdapter adapter = new SearchAdapter(tracks, SearchActivity.this);
-                                                recyclerView.setAdapter(adapter);
-                                                PlayerActivity.queue = new ArrayList<>();
-                                                PlayerActivity.queue.clear();
-                                                PlayerActivity.queue.addAll(tracks);
-
-                                            } catch (Exception e) {
-                                                StaticTools.LogErrorMessage(e.getMessage() + " wtf is going on");
-                                            }
-                                        }
-                                    } else {
-                                        try {
-                                            String s1 = new String(response.errorBody().bytes());
-                                            StaticTools.LogErrorMessage(s1);
-                                        } catch (Exception e) {
-                                            StaticTools.LogErrorMessage(e.getMessage() + " wtf");
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<GeneralSearch> call, Throwable t) {
-                                    StaticTools.ServerError(SearchActivity.this, t.getMessage());
-                                }
-                            });
-
-                        }
-                    }
-                }, 600);
-
-
             }
 
             @Override
@@ -231,6 +189,48 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    private void search() {
+        String txt = searchText.getText().toString();
+        if (!txt.equals("")) {
+            GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+            String url = String.format("https://musicify.ir/api/search?query=%s&include=tracks.artists", txt);
+            Call<GeneralSearch> call = service.SearchAll(url);
+            call.enqueue(new Callback<GeneralSearch>() {
+                @Override
+                public void onResponse(Call<GeneralSearch> call, Response<GeneralSearch> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body() != null) {
+                            try {
+                                List<Track> tracks = response.body().tracks.data;
+                                SearchAdapter adapter = new SearchAdapter(tracks, SearchActivity.this);
+                                recyclerView.setAdapter(adapter);
+                                PlayerActivity.queue = new ArrayList<>();
+                                PlayerActivity.queue.clear();
+                                PlayerActivity.queue.addAll(tracks);
+
+                            } catch (Exception e) {
+                                StaticTools.LogErrorMessage(e.getMessage() + " wtf is going on");
+                            }
+                        }
+                    } else {
+                        try {
+                            String s1 = new String(response.errorBody().bytes());
+                            StaticTools.LogErrorMessage(s1);
+                        } catch (Exception e) {
+                            StaticTools.LogErrorMessage(e.getMessage() + " wtf");
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<GeneralSearch> call, Throwable t) {
+                    StaticTools.ServerError(SearchActivity.this, t.getMessage());
+                }
+            });
+
+        }
+    }
+
 
     private void closeKeyboard() {
         View view = this.getCurrentFocus();
@@ -238,5 +238,8 @@ public class SearchActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+    private void reviveActivity() {
+        int a = 2;
     }
 }
