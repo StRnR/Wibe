@@ -15,8 +15,10 @@ import com.mahaventures.wibe.Adapters.BrowseMainAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Collection;
 import com.mahaventures.wibe.Models.NewModels.Page;
+import com.mahaventures.wibe.Models.NewModels.ProfileModels.InitModel;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
+import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 
@@ -27,6 +29,8 @@ import java.util.TimerTask;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.mahaventures.wibe.Tools.StaticTools.getToken;
 
 public class BrowseActivity extends AppCompatActivity {
     public static FragmentManager fragmentManager;
@@ -105,10 +109,26 @@ public class BrowseActivity extends AppCompatActivity {
         if (StaticTools.homePageId != null && !StaticTools.homePageId.equals("")) {
             doShit(StaticTools.homePageId);
         } else {
-            if (StaticTools.getHPI() != null && !StaticTools.getHPI().equals(""))
-                doShit(StaticTools.getHPI());
-            else StaticTools.ShowToast(BrowseActivity.this, "server error", 0);
+            getHPI();
         }
+    }
+
+    private void getHPI() {
+        PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
+        Call<InitModel> call = service.Init(getToken());
+        call.enqueue(new Callback<InitModel>() {
+            @Override
+            public void onResponse(Call<InitModel> call, Response<InitModel> response) {
+                if (response.isSuccessful()) {
+                    String s = response.body() != null ? response.body().homePageId : "";
+                    doShit(s);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<InitModel> call, Throwable t) {
+            }
+        });
     }
 
     private void doShit(String homePageId) {

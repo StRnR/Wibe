@@ -342,20 +342,42 @@ public class StaticTools {
     }
 
     public static String getHPI() {
+        if (homePageId != null)
+            return homePageId;
         PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
         Call<InitModel> call = service.Init(getToken());
+        final String[] s = new String[1];
         call.enqueue(new Callback<InitModel>() {
             @Override
             public void onResponse(Call<InitModel> call, Response<InitModel> response) {
-                if (response.isSuccessful())
-                    homePageId = response.body() != null ? response.body().homePageId : "";
+                if (response.isSuccessful()) {
+                    s[0] = response.body() != null ? response.body().homePageId : "";
+                }
             }
 
             @Override
             public void onFailure(Call<InitModel> call, Throwable t) {
             }
         });
-        return homePageId;
+        if (s[0] != null)
+            return s[0];
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (s[0] == null) {
+                    try {
+                        Thread.sleep(50);
+                    } catch (Exception e) {
+
+                    }
+                } else {
+                    timer.cancel();
+                }
+
+            }
+        }, 10, 49);
+        return s[0];
     }
 
     public static List<Track> GetMySongs() {
