@@ -105,6 +105,10 @@ public class MySongsActivity extends AppCompatActivity {
                     runOnUiThread(() -> {
                         recyclerView.setAdapter(adapter);
                     });
+                    if (StaticTools.mySong.data.size()==0)
+                    {
+                        //todo arshia benevis hanooz chizi add nakardi
+                    }
                     timer.cancel();
                 }
             }
