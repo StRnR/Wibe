@@ -21,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mahaventures.wibe.Adapters.SongsRecyclerPlaylistAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Playlist;
+import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.Models.NewModels.Tracks;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
@@ -30,6 +31,10 @@ import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,6 +43,7 @@ import retrofit2.Response;
 public class PlaylistActivity extends AppCompatActivity {
     public static FrameLayout playlistFragmentContainer;
     public static FragmentManager fragmentManager;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +90,9 @@ public class PlaylistActivity extends AppCompatActivity {
         TextView playlistTitle = findViewById(R.id.txt_title_playlist);
         TextView playlistOwner = findViewById(R.id.txt_owner_playlist);
         TextView description = findViewById(R.id.txt_playlist_description);
+        List<Track> tracks = new ArrayList<>();
+        shuffleBtn.setEnabled(false);
+
 
 
         final View parent = (View) backBtn.getParent();
@@ -127,8 +136,8 @@ public class PlaylistActivity extends AppCompatActivity {
 
                         }
                     });
-
-                    playlistTitle.setText(response.body().name);
+                    name = response.body().name;
+                    playlistTitle.setText(name);
                 } else {
                     try {
                         StaticTools.ShowToast(PlaylistActivity.this, response.errorBody().string(), 1);
@@ -145,6 +154,12 @@ public class PlaylistActivity extends AppCompatActivity {
             }
         });
 
+        shuffleBtn.setOnClickListener(v -> {
+            if (tracks.size()!=0){
+                Collections.shuffle(tracks);
+                StaticTools.PlayQueue(PlaylistActivity.this, tracks);
+            }
+        });
 
         String url = String.format("https://api.musicify.ir/playlists/%s/tracks?include=artists", id);
         Call<Tracks> call = service.getPlaylistTracks(StaticTools.getToken(), url);
@@ -152,6 +167,8 @@ public class PlaylistActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
                 if (response.isSuccessful()) {
+                    tracks.addAll(response.body().data);
+                    shuffleBtn.setEnabled(true);
                     SongsRecyclerPlaylistAdapter adapter = new SongsRecyclerPlaylistAdapter(response.body().data, PlaylistActivity.this);
                     recyclerView.setAdapter(adapter);
                 }

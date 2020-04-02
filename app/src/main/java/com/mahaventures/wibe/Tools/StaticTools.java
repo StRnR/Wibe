@@ -293,7 +293,7 @@ public class StaticTools {
         }, 100);
     }
 
-    public static void PlayQueue(Context context, String artist, List<Track> tracks) {
+    public static void PlayQueue(Context context, List<Track> tracks) {
         Intent intent = new Intent(context, PlayerActivity.class);
         PlayerActivity.trackNumber = 0;
         if (PlayerActivity.queue != null) {

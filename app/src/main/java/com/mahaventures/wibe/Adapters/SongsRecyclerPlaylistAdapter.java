@@ -47,7 +47,7 @@ public class SongsRecyclerPlaylistAdapter extends RecyclerView.Adapter<SongsRecy
             tracks.addAll(result);
             tracks.removeIf(t -> t.id.equals(track.id));
             tracks.add(0, track);
-            StaticTools.PlayQueue(context, StaticTools.getArtistsName(track), tracks);
+            StaticTools.PlayQueue(context, tracks);
         });
         Picasso.get().load(track.image.medium.url).into(holder.songImg);
         holder.artist.setText(StaticTools.getArtistsName(track));

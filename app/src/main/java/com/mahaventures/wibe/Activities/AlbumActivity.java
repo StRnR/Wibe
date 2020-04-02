@@ -94,7 +94,7 @@ public class AlbumActivity extends AppCompatActivity {
         shuffleBtn.setOnClickListener(v -> {
             if (tracks.size() > 0) {
                 Collections.shuffle(tracks);
-                StaticTools.PlayQueue(AlbumActivity.this, albumArtist.getText().toString(), tracks);
+                StaticTools.PlayQueue(AlbumActivity.this, tracks);
             }
         });
 
