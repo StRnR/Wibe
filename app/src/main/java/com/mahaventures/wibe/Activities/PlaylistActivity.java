@@ -116,7 +116,7 @@ public class PlaylistActivity extends AppCompatActivity {
                     int width = displayMetrics.widthPixels;
                     ImageView img = new ImageView(PlaylistActivity.this);
                     float shadow = 0.5F;
-                    requestCreator.resize(width, height).centerCrop().transform(new BlurTransformation(PlaylistActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new com.squareup.picasso.Callback() {
+                    requestCreator.resize(blurredArtwork.getWidth(), blurredArtwork.getHeight()).centerCrop().transform(new BlurTransformation(PlaylistActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new com.squareup.picasso.Callback() {
                         @Override
                         public void onSuccess() {
                             blurredArtwork.setBackgroundDrawable(img.getDrawable());

@@ -97,7 +97,7 @@ public class MiniPlayerFragment extends Fragment {
                                     int width = 800;
                                     ImageView img = new ImageView(getActivity());
                                     float shadow = 0.5F;
-                                    Picasso.get().load(PlayerActivity.getBlurredArtWork()).resize(width, height).centerCrop().transform(new BlurTransformation(getActivity(), 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new com.squareup.picasso.Callback() {
+                                    Picasso.get().load(PlayerActivity.getBlurredArtWork()).resize(layout.getWidth(), layout.getHeight()).centerCrop().transform(new BlurTransformation(getActivity(), 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new com.squareup.picasso.Callback() {
                                         @Override
                                         public void onSuccess() {
                                             layout.setBackgroundDrawable(img.getDrawable());
