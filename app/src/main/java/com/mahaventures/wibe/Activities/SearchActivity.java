@@ -189,6 +189,7 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    //todo call this method on button pressed
     private void search() {
         String txt = searchText.getText().toString();
         if (!txt.equals("")) {
