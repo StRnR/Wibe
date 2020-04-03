@@ -7,15 +7,55 @@
     android:background="@drawable/gradient_background"
     tools:context=".Activities.BrowseActivity">
 
+    <Button
+        android:id="@+id/btn_global_browse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/nexa_bold"
+        android:text="Global"
+        android:textAllCaps="false"
+        android:textColor="@color/wibeSea"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_local_browse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/nexa_bold"
+        android:text="Local"
+        android:textAllCaps="false"
+        android:textColor="@color/icon_grey"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@id/btn_global_browse"
+        app:layout_constraintTop_toTopOf="@id/btn_global_browse" />
+
+    <Button
+        android:id="@+id/btn_user_browse"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/ic_user"
+        android:backgroundTint="@color/icon_grey"
+        app:layout_constraintBottom_toBottomOf="@id/btn_global_browse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_global_browse" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_recyclerview_browse"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@id/fragment_container_browse"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/btn_global_browse" />
 
     <FrameLayout
         android:id="@+id/fragment_container_browse"
