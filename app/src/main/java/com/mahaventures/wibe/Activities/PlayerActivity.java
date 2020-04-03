@@ -138,44 +138,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         Button shuffleBtn = findViewById(R.id.btn_shuffle_player);
         Button repeatBtn = findViewById(R.id.btn_repeat_player);
 
-
-        shuffleBtn.setOnClickListener(v -> {
-            if (mediaPlayer != null) {
-                shuffle = !shuffle;
-                shuffleBtn.setBackgroundResource(shuffle ? R.drawable.ic_random_blue : R.drawable.ic_random);
-                if (!shuffle) {
-                    mediaPlayer.stop();
-                    Collections.shuffle(queue);
-                    firstOfAll();
-                    doShit(0);
-                }
-            }
-        });
-
-        repeatBtn.setOnClickListener(v -> {
-            if (repeated)
-                repeatBtn.setBackgroundResource(R.drawable.ic_repeat);
-            else
-                repeatBtn.setBackgroundResource(R.drawable.ic_repeat_blue);
-            repeated = !repeated;
-        });
-
-        setDragActions();
-
-        skipBtn.setOnClickListener(v -> {
-            next();
-            setMeta();
-        });
-        rewindBtn.setOnClickListener(v -> {
-            previous();
-            setMeta();
-        });
-
-        firstOfAll();
-
-        //play song
-        doShit(trackNumber);
-
         final View parent = (View) minimizeBtn.getParent();
         parent.post(() -> {
             final Rect rect = new Rect();
@@ -220,6 +182,42 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             fourthParent.setTouchDelegate(new TouchDelegate(rect, repeatBtn));
         });
 
+        shuffleBtn.setOnClickListener(v -> {
+            if (mediaPlayer != null) {
+                shuffle = !shuffle;
+                shuffleBtn.setBackgroundResource(shuffle ? R.drawable.ic_random_blue : R.drawable.ic_random);
+                if (!shuffle) {
+                    mediaPlayer.stop();
+                    Collections.shuffle(queue);
+                    firstOfAll();
+                    doShit(0);
+                }
+            }
+        });
+
+        repeatBtn.setOnClickListener(v -> {
+            if (repeated)
+                repeatBtn.setBackgroundResource(R.drawable.ic_repeat);
+            else
+                repeatBtn.setBackgroundResource(R.drawable.ic_repeat_blue);
+            repeated = !repeated;
+        });
+
+        setDragActions();
+
+        skipBtn.setOnClickListener(v -> {
+            next();
+            setMeta();
+        });
+        rewindBtn.setOnClickListener(v -> {
+            previous();
+            setMeta();
+        });
+
+        firstOfAll();
+
+        //play song
+        doShit(trackNumber);
 
         int color = Color.rgb(255, 255, 255);
         songSeekBar.setProgressTintList(ColorStateList.valueOf(color));

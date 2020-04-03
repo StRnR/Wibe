@@ -15,8 +15,8 @@
 
     <Button
         android:id="@+id/btn_minimize_player"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="60dp"
         android:background="@drawable/ic_minimize"

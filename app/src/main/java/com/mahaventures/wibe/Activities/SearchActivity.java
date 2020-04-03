@@ -137,6 +137,7 @@ public class SearchActivity extends AppCompatActivity {
 
         searchText.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                search();
                 closeKeyboard();
             }
             return false;
@@ -240,6 +241,7 @@ public class SearchActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
     private void reviveActivity() {
         int a = 2;
     }

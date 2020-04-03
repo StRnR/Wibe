@@ -92,9 +92,6 @@ public class MiniPlayerFragment extends Fragment {
                             cover.setImageBitmap(PlayerActivity.getArtWork());
                             if (!PlayerActivity.getBlurredArtWork().equals("")) {
                                 try {
-                                    //todo witdh height
-                                    int height = 200;
-                                    int width = 800;
                                     ImageView img = new ImageView(getActivity());
                                     float shadow = 0.5F;
                                     Picasso.get().load(PlayerActivity.getBlurredArtWork()).resize(layout.getWidth(), layout.getHeight()).centerCrop().transform(new BlurTransformation(getActivity(), 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new com.squareup.picasso.Callback() {

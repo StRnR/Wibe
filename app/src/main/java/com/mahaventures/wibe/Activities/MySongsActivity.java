@@ -2,7 +2,9 @@ package com.mahaventures.wibe.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -50,6 +52,7 @@ public class MySongsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_songs);
+        TextView emptyTxt = findViewById(R.id.txt_empty_mysongs);
         mysongsFragmentContainer = findViewById(R.id.fragment_container_mysongs);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_mysongs);
         bottomNavigationView.setSelectedItemId(R.id.nav_mysongs);
@@ -105,9 +108,10 @@ public class MySongsActivity extends AppCompatActivity {
                     runOnUiThread(() -> {
                         recyclerView.setAdapter(adapter);
                     });
-                    if (StaticTools.mySong.data.size()==0)
-                    {
-                        //todo arshia benevis hanooz chizi add nakardi
+                    if (StaticTools.mySong.data.size() == 0) {
+                        emptyTxt.setVisibility(View.VISIBLE);
+                    } else {
+                        emptyTxt.setVisibility(View.GONE);
                     }
                     timer.cancel();
                 }
