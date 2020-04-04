@@ -22,8 +22,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mahaventures.wibe.Adapters.SearchAlbumAdapter;
+import com.mahaventures.wibe.Adapters.SearchArtistAdapter;
 import com.mahaventures.wibe.Adapters.SearchTrackAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
+import com.mahaventures.wibe.Models.NewModels.Album;
+import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.Models.NewModels.GeneralSearch;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
@@ -216,6 +220,13 @@ public class SearchActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         if (response.body() != null) {
                             try {
+                                List<Album> albums = response.body().albums.data;
+                                albums = albums.stream().limit(3).collect(Collectors.toList());
+                                SearchAlbumAdapter albumAdapter = new SearchAlbumAdapter(SearchActivity.this,albums);
+                                albumsRecycleView.setAdapter(albumAdapter);
+                                List<Artist> artists = response.body().artists.data;
+                                artists = artists.stream().limit(3).collect(Collectors.toList());
+                                SearchArtistAdapter artistAdapter = new SearchArtistAdapter();
                                 List<Track> tracks = response.body().tracks.data;
                                 tracks = tracks.stream().limit(4).collect(Collectors.toList());
                                 SearchTrackAdapter adapter = new SearchTrackAdapter(tracks, SearchActivity.this);
