@@ -1,6 +1,7 @@
 package com.mahaventures.wibe.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mahaventures.wibe.Activities.ArtistActivity;
 import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.R;
 import com.squareup.picasso.Picasso;
@@ -42,7 +44,10 @@ public class SearchArtistAdapter extends RecyclerView.Adapter<SearchArtistAdapte
     }
 
     private void goToArtist(String id) {
-        //todo
+        Intent intent = new Intent(context, ArtistActivity.class);
+        intent.putExtra("id", id);
+        //todo uncomment when artist activity complete
+//        context.startActivity(intent);
     }
 
     @Override
