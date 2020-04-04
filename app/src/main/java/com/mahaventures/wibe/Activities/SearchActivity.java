@@ -92,7 +92,7 @@ public class SearchActivity extends AppCompatActivity {
         tracksRecycleView.setLayoutManager(layoutManager);
         clearTxtBtn = findViewById(R.id.btn_clear_search);
         TextView searchHeader = findViewById(R.id.txt_header_search);
-        resCategory = findViewById(R.id.txt_result_category_search);
+        resCategory = findViewById(R.id.txt_songs_header_search);
         tracksRecycleView.setAdapter(null);
         SearchTrackAdapter tmpAdapter = new SearchTrackAdapter(null, SearchActivity.this);
         tracksRecycleView.setAdapter(tmpAdapter);
