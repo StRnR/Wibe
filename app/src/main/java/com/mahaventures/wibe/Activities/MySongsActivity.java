@@ -107,12 +107,12 @@ public class MySongsActivity extends AppCompatActivity {
                     MySongsAdapter adapter = new MySongsAdapter(StaticTools.mySong, MySongsActivity.this);
                     runOnUiThread(() -> {
                         recyclerView.setAdapter(adapter);
+                        if (StaticTools.mySong.data.size() == 0) {
+                            emptyTxt.setVisibility(View.VISIBLE);
+                        } else {
+                            emptyTxt.setVisibility(View.GONE);
+                        }
                     });
-                    if (StaticTools.mySong.data.size() == 0) {
-                        emptyTxt.setVisibility(View.VISIBLE);
-                    } else {
-                        emptyTxt.setVisibility(View.GONE);
-                    }
                     timer.cancel();
                 }
             }

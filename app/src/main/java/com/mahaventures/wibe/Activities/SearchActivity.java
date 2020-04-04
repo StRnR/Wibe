@@ -97,8 +97,8 @@ public class SearchActivity extends AppCompatActivity {
         albumsRecycleView = findViewById(R.id.recycler_albums_search);
         artistsRecycleView = findViewById(R.id.recycler_artists_search);
         tracksLayoutManager = new GridLayoutManager(this, 1);
-        albumsLayoutManager = new GridLayoutManager(this, 1);
-        artistsLayoutManager = new GridLayoutManager(this, 1);
+        albumsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        artistsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         tracksRecycleView.setHasFixedSize(true);
         albumsRecycleView.setHasFixedSize(true);
         artistsRecycleView.setHasFixedSize(true);
@@ -223,7 +223,7 @@ public class SearchActivity extends AppCompatActivity {
                             try {
                                 List<Album> albums = response.body().albums.data;
                                 albums = albums.stream().limit(3).collect(Collectors.toList());
-                                SearchAlbumAdapter albumAdapter = new SearchAlbumAdapter(SearchActivity.this,albums);
+                                SearchAlbumAdapter albumAdapter = new SearchAlbumAdapter(SearchActivity.this, albums);
                                 albumsRecycleView.setAdapter(albumAdapter);
                                 List<Artist> artists = response.body().artists.data;
                                 artists = artists.stream().limit(3).collect(Collectors.toList());
