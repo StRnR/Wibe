@@ -227,7 +227,8 @@ public class SearchActivity extends AppCompatActivity {
                                 albumsRecycleView.setAdapter(albumAdapter);
                                 List<Artist> artists = response.body().artists.data;
                                 artists = artists.stream().limit(3).collect(Collectors.toList());
-                                SearchArtistAdapter artistAdapter = new SearchArtistAdapter();
+                                SearchArtistAdapter artistAdapter = new SearchArtistAdapter(SearchActivity.this, artists);
+                                artistsRecycleView.setAdapter(artistAdapter);
                                 List<Track> tracks = response.body().tracks.data;
                                 tracks = tracks.stream().limit(4).collect(Collectors.toList());
                                 SearchTrackAdapter adapter = new SearchTrackAdapter(tracks, SearchActivity.this);
