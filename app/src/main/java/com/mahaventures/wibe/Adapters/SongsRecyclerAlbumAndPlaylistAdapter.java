@@ -20,13 +20,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SongsRecyclerPlaylistAdapter extends RecyclerView.Adapter<SongsRecyclerPlaylistAdapter.PlaylistSongsViewHolder> {
+public class SongsRecyclerAlbumAndPlaylistAdapter extends RecyclerView.Adapter<SongsRecyclerAlbumAndPlaylistAdapter.PlaylistSongsViewHolder> {
 
     private List<Track> result;
     private Context context;
 
 
-    public SongsRecyclerPlaylistAdapter(List<Track> result, Context context) {
+    public SongsRecyclerAlbumAndPlaylistAdapter(List<Track> result, Context context) {
         this.result = result;
         this.context = context;
     }
@@ -39,7 +39,7 @@ public class SongsRecyclerPlaylistAdapter extends RecyclerView.Adapter<SongsRecy
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SongsRecyclerPlaylistAdapter.PlaylistSongsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SongsRecyclerAlbumAndPlaylistAdapter.PlaylistSongsViewHolder holder, int position) {
         Track track = result.get(position);
         holder.setIsRecyclable(false);
         holder.cardView.setOnClickListener(v -> {

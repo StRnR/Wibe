@@ -95,7 +95,7 @@ public class ConfirmEmailActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         try {
-                            StaticTools.ShowToast(ConfirmEmailActivity.this, response.errorBody().string(), 0);
+                            StaticTools.ShowToast(ConfirmEmailActivity.this, response.errorBody() != null ? response.errorBody().string() : "", 0);
                             Log.wtf("verify error", response.errorBody().string());
                         } catch (Exception e) {
                             Log.wtf("exception", e.getMessage());

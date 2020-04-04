@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.mahaventures.wibe.Adapters.SongsRecyclerPlaylistAdapter;
+import com.mahaventures.wibe.Adapters.SongsRecyclerAlbumAndPlaylistAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Album;
 import com.mahaventures.wibe.Models.NewModels.Track;
@@ -77,7 +77,7 @@ public class AlbumActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(null);
-        SongsRecyclerPlaylistAdapter tmpAdapter = new SongsRecyclerPlaylistAdapter(null, AlbumActivity.this);
+        SongsRecyclerAlbumAndPlaylistAdapter tmpAdapter = new SongsRecyclerAlbumAndPlaylistAdapter(null, AlbumActivity.this);
         recyclerView.setAdapter(tmpAdapter);
         Button backBtn = findViewById(R.id.btn_back_album);
         Button shuffleBtn = findViewById(R.id.btn_shuffle_album);
@@ -171,7 +171,7 @@ public class AlbumActivity extends AppCompatActivity {
                     }catch (Exception e){
                         albumArtist.setText("Unknown");
                     }
-                    SongsRecyclerPlaylistAdapter adapter = new SongsRecyclerPlaylistAdapter(response.body().data, AlbumActivity.this);
+                    SongsRecyclerAlbumAndPlaylistAdapter adapter = new SongsRecyclerAlbumAndPlaylistAdapter(response.body().data, AlbumActivity.this);
                     recyclerView.setAdapter(adapter);
                     shuffleBtn.setEnabled(true);
                 }

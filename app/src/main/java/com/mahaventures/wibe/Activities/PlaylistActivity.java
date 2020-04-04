@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.mahaventures.wibe.Adapters.SongsRecyclerPlaylistAdapter;
+import com.mahaventures.wibe.Adapters.SongsRecyclerAlbumAndPlaylistAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Playlist;
 import com.mahaventures.wibe.Models.NewModels.Track;
@@ -81,7 +81,7 @@ public class PlaylistActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(null);
-        SongsRecyclerPlaylistAdapter tmpAdapter = new SongsRecyclerPlaylistAdapter(null, PlaylistActivity.this);
+        SongsRecyclerAlbumAndPlaylistAdapter tmpAdapter = new SongsRecyclerAlbumAndPlaylistAdapter(null, PlaylistActivity.this);
         recyclerView.setAdapter(tmpAdapter);
         Button backBtn = findViewById(R.id.btn_back_playlist);
         Button shuffleBtn = findViewById(R.id.btn_shuffle_playlist);
@@ -169,7 +169,7 @@ public class PlaylistActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     tracks.addAll(response.body().data);
                     shuffleBtn.setEnabled(true);
-                    SongsRecyclerPlaylistAdapter adapter = new SongsRecyclerPlaylistAdapter(response.body().data, PlaylistActivity.this);
+                    SongsRecyclerAlbumAndPlaylistAdapter adapter = new SongsRecyclerAlbumAndPlaylistAdapter(response.body().data, PlaylistActivity.this);
                     recyclerView.setAdapter(adapter);
                 }
             }

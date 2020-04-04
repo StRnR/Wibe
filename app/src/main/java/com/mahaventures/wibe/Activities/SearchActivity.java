@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.mahaventures.wibe.Adapters.SearchAdapter;
+import com.mahaventures.wibe.Adapters.SearchTrackAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.GeneralSearch;
 import com.mahaventures.wibe.Models.NewModels.Track;
@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -91,7 +92,7 @@ public class SearchActivity extends AppCompatActivity {
         TextView searchHeader = findViewById(R.id.txt_header_search);
         resCategory = findViewById(R.id.txt_result_category_search);
         recyclerView.setAdapter(null);
-        SearchAdapter tmpAdapter = new SearchAdapter(null, SearchActivity.this);
+        SearchTrackAdapter tmpAdapter = new SearchTrackAdapter(null, SearchActivity.this);
         recyclerView.setAdapter(tmpAdapter);
         searchText = findViewById(R.id.txt_edit_search);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_search);
@@ -204,12 +205,12 @@ public class SearchActivity extends AppCompatActivity {
                         if (response.body() != null) {
                             try {
                                 List<Track> tracks = response.body().tracks.data;
-                                SearchAdapter adapter = new SearchAdapter(tracks, SearchActivity.this);
+                                tracks = tracks.stream().limit(4).collect(Collectors.toList());
+                                SearchTrackAdapter adapter = new SearchTrackAdapter(tracks, SearchActivity.this);
                                 recyclerView.setAdapter(adapter);
                                 PlayerActivity.queue = new ArrayList<>();
                                 PlayerActivity.queue.clear();
                                 PlayerActivity.queue.addAll(tracks);
-
                             } catch (Exception e) {
                                 StaticTools.LogErrorMessage(e.getMessage() + " wtf is going on");
                             }

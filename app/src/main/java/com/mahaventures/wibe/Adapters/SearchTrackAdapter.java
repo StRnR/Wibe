@@ -25,13 +25,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchSongsViewHolder> {
+public class SearchTrackAdapter extends RecyclerView.Adapter<SearchTrackAdapter.SearchSongsViewHolder> {
 
     private List<Track> result;
     private Context context;
 
 
-    public SearchAdapter(List<Track> result, Context context) {
+    public SearchTrackAdapter(List<Track> result, Context context) {
         this.result = result;
         this.context = context;
     }
