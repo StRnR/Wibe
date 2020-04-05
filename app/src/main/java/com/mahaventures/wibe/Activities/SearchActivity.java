@@ -58,7 +58,12 @@ public class SearchActivity extends AppCompatActivity {
     private Timer timer;
     Button clearTxtBtn;
     EditText searchText;
-    TextView resCategory;
+    TextView songsHeader;
+    TextView albumsHeader;
+    TextView artistsHeader;
+    TextView songsShowAll;
+    TextView albumsShowAll;
+    TextView artistsShowAll;
 
     @Override
     public void onBackPressed() {
@@ -85,6 +90,7 @@ public class SearchActivity extends AppCompatActivity {
             return false;
         });
         MiniPlayerFragment.isPrepared = true;
+
     }
 
     @Override
@@ -107,7 +113,12 @@ public class SearchActivity extends AppCompatActivity {
         artistsRecycleView.setLayoutManager(artistsLayoutManager);
         clearTxtBtn = findViewById(R.id.btn_clear_search);
         TextView searchHeader = findViewById(R.id.txt_header_search);
-        resCategory = findViewById(R.id.txt_songs_header_search);
+        songsHeader = findViewById(R.id.txt_songs_header_search);
+        albumsHeader = findViewById(R.id.txt_albums_header_search);
+        artistsHeader = findViewById(R.id.txt_artists_header_search);
+        songsShowAll = findViewById(R.id.txt_showall_songs_search);
+        albumsShowAll = findViewById(R.id.txt_showall_albums_search);
+        artistsShowAll = findViewById(R.id.txt_showall_artists_search);
         tracksRecycleView.setAdapter(null);
         SearchTrackAdapter tmpAdapter = new SearchTrackAdapter(null, SearchActivity.this);
         tracksRecycleView.setAdapter(tmpAdapter);
@@ -155,8 +166,14 @@ public class SearchActivity extends AppCompatActivity {
 
         searchText.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                search();
                 closeKeyboard();
+                search();
+                songsHeader.setVisibility(View.VISIBLE);
+                albumsHeader.setVisibility(View.VISIBLE);
+                artistsHeader.setVisibility(View.VISIBLE);
+                songsShowAll.setVisibility(View.VISIBLE);
+                albumsShowAll.setVisibility(View.VISIBLE);
+                artistsShowAll.setVisibility(View.VISIBLE);
             }
             return false;
         });
@@ -188,7 +205,6 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                resCategory.setVisibility(View.VISIBLE);
                 clearTxtBtn.setVisibility(View.VISIBLE);
                 if (searchText.getText().toString().equals("")) {
                     clearTxtBtn.setVisibility(View.INVISIBLE);

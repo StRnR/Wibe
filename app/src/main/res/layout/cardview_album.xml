@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="88dp"
+    android:layout_width="100dp"
     android:layout_height="wrap_content"
     android:layout_marginEnd="16dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view_album_tile"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:outlineProvider="none">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/darkBackground"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/img_artwork_album_tile"
-                android:layout_width="88dp"
-                android:layout_height="88dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_alignParentTop="true"
                 android:background="@drawable/loadingmusic" />
 
