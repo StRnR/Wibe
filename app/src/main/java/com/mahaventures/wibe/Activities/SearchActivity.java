@@ -263,8 +263,8 @@ public class SearchActivity extends AppCompatActivity {
                                 List<Track> tracks = response.body().tracks.data;
                                 tracks = tracks.stream().limit(4).collect(Collectors.toList());
                                 SearchTrackAdapter adapter = new SearchTrackAdapter(tracks, SearchActivity.this);
-                                tracksRecycleView.setAdapter(adapter);
                                 searchTracks = new ArrayList<>(response.body().tracks.data);
+                                tracksRecycleView.setAdapter(adapter);
                             } catch (Exception e) {
                                 StaticTools.LogErrorMessage(e.getMessage() + " wtf is going on");
                             }
