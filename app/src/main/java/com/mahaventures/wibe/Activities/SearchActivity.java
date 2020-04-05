@@ -125,6 +125,7 @@ public class SearchActivity extends AppCompatActivity {
         searchText = findViewById(R.id.txt_edit_search);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_search);
         bottomNavigationView.setSelectedItemId(R.id.nav_search);
+        //alo
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.nav_browse:
