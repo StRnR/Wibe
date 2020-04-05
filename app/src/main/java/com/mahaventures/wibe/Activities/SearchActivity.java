@@ -62,8 +62,6 @@ public class SearchActivity extends AppCompatActivity {
     TextView albumsHeader;
     TextView artistsHeader;
     TextView songsShowAll;
-    TextView albumsShowAll;
-    TextView artistsShowAll;
     public static List<Track> searchTracks;
 
     @Override
@@ -116,9 +114,7 @@ public class SearchActivity extends AppCompatActivity {
         songsHeader = findViewById(R.id.txt_songs_header_search);
         albumsHeader = findViewById(R.id.txt_albums_header_search);
         artistsHeader = findViewById(R.id.txt_artists_header_search);
-        songsShowAll = findViewById(R.id.txt_showall_songs_search);
-        albumsShowAll = findViewById(R.id.txt_showall_albums_search);
-        artistsShowAll = findViewById(R.id.txt_showall_artists_search);
+        songsShowAll = findViewById(R.id.txt_showmore_songs_search);
         tracksRecycleView.setAdapter(null);
         SearchTrackAdapter tmpAdapter = new SearchTrackAdapter(null, SearchActivity.this);
         tracksRecycleView.setAdapter(tmpAdapter);
@@ -172,8 +168,6 @@ public class SearchActivity extends AppCompatActivity {
                 albumsHeader.setVisibility(View.VISIBLE);
                 artistsHeader.setVisibility(View.VISIBLE);
                 songsShowAll.setVisibility(View.VISIBLE);
-                albumsShowAll.setVisibility(View.VISIBLE);
-                artistsShowAll.setVisibility(View.VISIBLE);
             }
             return false;
         });
