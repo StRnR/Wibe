@@ -43,8 +43,7 @@ public class SongsRecyclerAlbumAndPlaylistAdapter extends RecyclerView.Adapter<S
         Track track = result.get(position);
         holder.setIsRecyclable(false);
         holder.cardView.setOnClickListener(v -> {
-            List<Track> tracks = new ArrayList<>();
-            tracks.addAll(result);
+            List<Track> tracks = new ArrayList<>(result);
             tracks.removeIf(t -> t.id.equals(track.id));
             tracks.add(0, track);
             StaticTools.PlayQueue(context, tracks);
