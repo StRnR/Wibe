@@ -1,6 +1,7 @@
 package com.mahaventures.wibe.Activities;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,9 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
+import com.mahaventures.wibe.Tools.AlphaTransformation;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
+import jp.wasabeef.picasso.transformations.BlurTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,7 +52,25 @@ public class ArtistActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Artist> call, Response<Artist> response) {
                 if (response.isSuccessful()) {
-                    //todo set parameters
+                    Artist artist = response.body() != null ? response.body() : new Artist();
+                    artistName.setText(artist.name);
+                    RequestCreator requestCreator =  Picasso.get().load(artist.image.medium.url);
+                    requestCreator.into(artistArtwork);
+                    DisplayMetrics displayMetrics = new DisplayMetrics();
+                    getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                    ImageView img = new ImageView(ArtistActivity.this);
+                    float shadow = 0.5F;
+                    requestCreator.resize(artistBlurred.getWidth(), artistBlurred.getHeight()).centerCrop().transform(new BlurTransformation(ArtistActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new com.squareup.picasso.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            artistBlurred.setBackgroundDrawable(img.getDrawable());
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+
+                        }
+                    });
                 }
             }
 
