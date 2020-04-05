@@ -16,12 +16,14 @@ import retrofit2.Response;
 
 public class ArtistActivity extends AppCompatActivity {
     private String id;
+    //todo text view ha ro inja begir
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist);
         id = getIntent().getStringExtra("id");
+        //todo inja vasl kon be xml
         getArtistData(id);
     }
 
