@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mahaventures.wibe.Activities.PlayerActivity;
+import com.mahaventures.wibe.Activities.SearchActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
@@ -19,6 +21,7 @@ import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -52,6 +55,8 @@ public class SearchTrackAdapter extends RecyclerView.Adapter<SearchTrackAdapter.
         String artist = StaticTools.getArtistsName(track);
         SearchSongsViewHolder.artist.setText(artist);
         SearchSongsViewHolder.cardView.setOnClickListener(v -> {
+            PlayerActivity.queue = new ArrayList<>();
+            PlayerActivity.queue.addAll(SearchActivity.searchTracks);
             StaticTools.PlayTrackInQueue(context, artist, track);
         });
         SearchSongsViewHolder.addBtn.setOnClickListener(v -> {

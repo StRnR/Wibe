@@ -58,12 +58,8 @@ public class SearchActivity extends AppCompatActivity {
     private Timer timer;
     Button clearTxtBtn;
     EditText searchText;
-    TextView songsHeader;
-    TextView albumsHeader;
-    TextView artistsHeader;
-    TextView songsShowAll;
-    TextView albumsShowAll;
-    TextView artistsShowAll;
+    TextView resCategory;
+    public static List<Track> searchTracks;
 
     @Override
     public void onBackPressed() {
@@ -90,13 +86,12 @@ public class SearchActivity extends AppCompatActivity {
             return false;
         });
         MiniPlayerFragment.isPrepared = true;
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StaticTools.LogErrorMessage("search activity started");
+        StaticTools.ShowToast(SearchActivity.this, "onCreate", 1);
         setContentView(R.layout.activity_search);
         searchFragmentContainer = findViewById(R.id.fragment_container_search);
         tracksRecycleView = findViewById(R.id.recycler_songs_search);
@@ -113,12 +108,7 @@ public class SearchActivity extends AppCompatActivity {
         artistsRecycleView.setLayoutManager(artistsLayoutManager);
         clearTxtBtn = findViewById(R.id.btn_clear_search);
         TextView searchHeader = findViewById(R.id.txt_header_search);
-        songsHeader = findViewById(R.id.txt_songs_header_search);
-        albumsHeader = findViewById(R.id.txt_albums_header_search);
-        artistsHeader = findViewById(R.id.txt_artists_header_search);
-        songsShowAll = findViewById(R.id.txt_showall_songs_search);
-        albumsShowAll = findViewById(R.id.txt_showall_albums_search);
-        artistsShowAll = findViewById(R.id.txt_showall_artists_search);
+        resCategory = findViewById(R.id.txt_songs_header_search);
         tracksRecycleView.setAdapter(null);
         SearchTrackAdapter tmpAdapter = new SearchTrackAdapter(null, SearchActivity.this);
         tracksRecycleView.setAdapter(tmpAdapter);
@@ -167,14 +157,8 @@ public class SearchActivity extends AppCompatActivity {
 
         searchText.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                closeKeyboard();
                 search();
-                songsHeader.setVisibility(View.VISIBLE);
-                albumsHeader.setVisibility(View.VISIBLE);
-                artistsHeader.setVisibility(View.VISIBLE);
-                songsShowAll.setVisibility(View.VISIBLE);
-                albumsShowAll.setVisibility(View.VISIBLE);
-                artistsShowAll.setVisibility(View.VISIBLE);
+                closeKeyboard();
             }
             return false;
         });
@@ -206,6 +190,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                resCategory.setVisibility(View.VISIBLE);
                 clearTxtBtn.setVisibility(View.VISIBLE);
                 if (searchText.getText().toString().equals("")) {
                     clearTxtBtn.setVisibility(View.INVISIBLE);
@@ -223,6 +208,36 @@ public class SearchActivity extends AppCompatActivity {
                     clearTxtBtn.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        StaticTools.ShowToast(SearchActivity.this, "onStart", 1);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        StaticTools.ShowToast(SearchActivity.this, "onDestroy", 1);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        StaticTools.ShowToast(SearchActivity.this, "onResume", 1);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        StaticTools.ShowToast(SearchActivity.this, "onPause", 1);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        StaticTools.ShowToast(SearchActivity.this, "onStop", 1);
     }
 
     //todo call this method on button pressed
@@ -250,9 +265,7 @@ public class SearchActivity extends AppCompatActivity {
                                 tracks = tracks.stream().limit(4).collect(Collectors.toList());
                                 SearchTrackAdapter adapter = new SearchTrackAdapter(tracks, SearchActivity.this);
                                 tracksRecycleView.setAdapter(adapter);
-                                PlayerActivity.queue = new ArrayList<>();
-                                PlayerActivity.queue.clear();
-                                PlayerActivity.queue.addAll(tracks);
+                                searchTracks = new ArrayList<>(response.body().tracks.data);
                             } catch (Exception e) {
                                 StaticTools.LogErrorMessage(e.getMessage() + " wtf is going on");
                             }
@@ -275,7 +288,6 @@ public class SearchActivity extends AppCompatActivity {
 
         }
     }
-
 
     private void closeKeyboard() {
         View view = this.getCurrentFocus();
