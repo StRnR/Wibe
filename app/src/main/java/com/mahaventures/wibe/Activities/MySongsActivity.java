@@ -15,15 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mahaventures.wibe.Adapters.MySongsAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
+import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Tools.StaticTools;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MySongsActivity extends AppCompatActivity {
     public static FragmentManager fragmentManager;
     public static FrameLayout mysongsFragmentContainer;
+    public static  List<Track> mySongTracks;
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -103,7 +106,7 @@ public class MySongsActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (StaticTools.isPrepared) {
-                    PlayerActivity.queue = (StaticTools.tracks != null) ? StaticTools.tracks : StaticTools.GetMySongs();
+                    mySongTracks = (StaticTools.tracks != null) ? StaticTools.tracks : StaticTools.GetMySongs();
                     MySongsAdapter adapter = new MySongsAdapter(StaticTools.mySong, MySongsActivity.this);
                     runOnUiThread(() -> {
                         recyclerView.setAdapter(adapter);
