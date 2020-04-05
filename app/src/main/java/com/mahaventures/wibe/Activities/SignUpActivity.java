@@ -153,7 +153,6 @@ public class SignUpActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         StaticTools.ShowToast(SignUpActivity.this, "User registered successfully", 1);
                         signIn(email, pass);
-                        finish();
                     } else {
                         try {
                             if (response.errorBody() != null) {
