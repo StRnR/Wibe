@@ -24,9 +24,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ArtistActivity extends AppCompatActivity {
-    public static TextView artistName;
-    public static ImageView artistArtwork;
-    public static ImageView artistBlurred;
+    TextView artistName;
+    ImageView artistArtwork;
+    ImageView artistBlurred;
+    RecyclerView songsRv;
+    RecyclerView albumsRv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,8 @@ public class ArtistActivity extends AppCompatActivity {
         TextView songsHeader = findViewById(R.id.txt_songs_header_artist);
         TextView albumsHeader = findViewById(R.id.txt_albums_header_search);
         TextView songsShowMore = findViewById(R.id.txt_showmore_songs_artist);
-        RecyclerView songsRv = findViewById(R.id.recycler_songs_artist);
-        RecyclerView albumsRv = findViewById(R.id.recycler_albums_artist);
+        songsRv = findViewById(R.id.recycler_songs_artist);
+        albumsRv = findViewById(R.id.recycler_albums_artist);
         getArtistData(id);
     }
 
@@ -54,7 +56,7 @@ public class ArtistActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Artist artist = response.body() != null ? response.body() : new Artist();
                     artistName.setText(artist.name);
-                    RequestCreator requestCreator =  Picasso.get().load(artist.image.medium.url);
+                    RequestCreator requestCreator = Picasso.get().load(artist.image.medium.url);
                     requestCreator.into(artistArtwork);
                     DisplayMetrics displayMetrics = new DisplayMetrics();
                     getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
