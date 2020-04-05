@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:outlineProvider="none"
+        app:cardBackgroundColor="@color/transparent"
         app:cardPreventCornerOverlap="false">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/darkBackground"
             android:orientation="vertical">
 
             <ImageView
@@ -23,7 +23,7 @@
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="32dp" />
+                android:layout_marginStart="24dp" />
 
             <TextView
                 android:id="@+id/txt_title_relative_song"
@@ -62,7 +62,7 @@
                 android:layout_height="13dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="24dp"
                 android:background="@drawable/ic_add" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
