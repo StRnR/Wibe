@@ -26,7 +26,7 @@ import java.util.TimerTask;
 public class MySongsActivity extends AppCompatActivity {
     public static FragmentManager fragmentManager;
     public static FrameLayout mysongsFragmentContainer;
-    public static  List<Track> mySongTracks;
+    public static List<Track> mySongTracks;
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -120,6 +120,12 @@ public class MySongsActivity extends AppCompatActivity {
                 }
             }
         }, 0, 50);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MiniPlayerFragment.isPrepared = true;
     }
 
     private void reviveActivity() {

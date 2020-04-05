@@ -234,6 +234,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         StaticTools.ShowToast(SearchActivity.this, "onResume", 1);
+        MiniPlayerFragment.isPrepared = true;
     }
 
     @Override
