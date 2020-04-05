@@ -40,7 +40,7 @@ public class ArtistActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Artist> call, Throwable t) {
-
+                StaticTools.ServerError(ArtistActivity.this, t.getMessage());
             }
         });
     }
