@@ -90,7 +90,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StaticTools.LogErrorMessage("search activity started");
+        StaticTools.ShowToast(SearchActivity.this, "onCreate", 1);
         setContentView(R.layout.activity_search);
         searchFragmentContainer = findViewById(R.id.fragment_container_search);
         tracksRecycleView = findViewById(R.id.recycler_songs_search);
@@ -208,6 +208,36 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        StaticTools.ShowToast(SearchActivity.this, "onStart", 1);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        StaticTools.ShowToast(SearchActivity.this, "onDestroy", 1);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        StaticTools.ShowToast(SearchActivity.this, "onResume", 1);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        StaticTools.ShowToast(SearchActivity.this, "onPause", 1);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        StaticTools.ShowToast(SearchActivity.this, "onStop", 1);
+    }
+
     //todo call this method on button pressed
     private void search() {
         String txt = searchText.getText().toString();
@@ -258,7 +288,6 @@ public class SearchActivity extends AppCompatActivity {
 
         }
     }
-
 
     private void closeKeyboard() {
         View view = this.getCurrentFocus();
