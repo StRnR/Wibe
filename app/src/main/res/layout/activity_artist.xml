@@ -82,7 +82,7 @@
                 android:text="Songs"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:visibility="invisible" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/txt_showmore_songs_artist"
@@ -117,14 +117,16 @@
                 android:text="Albums"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:visibility="invisible" />
+                android:visibility="visible" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_albums_artist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_albums_header_artist"
-                android:layout_marginTop="24dp" />
+                android:layout_marginTop="24dp"
+                android:clipToPadding="false"
+                android:paddingStart="24dp" />
 
         </RelativeLayout>
     </ScrollView>
