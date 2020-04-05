@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Activities.AlbumActivity;
+import com.mahaventures.wibe.Activities.ArtistActivity;
 import com.mahaventures.wibe.Activities.PlaylistActivity;
 import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.Models.NewModels.MyModels.ArtistWithTracks;
@@ -104,36 +105,9 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
 
     //todo after adding artist
     private void artist(String id) {
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        ;
-        Call<Artist> artistCall = service.getArtist(StaticTools.getToken(), id);
-        ArtistWithTracks artist = new ArtistWithTracks();
-        artistCall.enqueue(new Callback<Artist>() {
-            @Override
-            public void onResponse(Call<Artist> call, Response<Artist> response) {
-                if (response.isSuccessful())
-                    artist.artist = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<Artist> call, Throwable t) {
-
-            }
-        });
-        String url = String.format("https://api.musicify.ir/artists/%s/tracks?include=artists", id);
-        Call<Tracks> call = service.getArtistTracks(StaticTools.getToken(), url);
-        call.enqueue(new Callback<Tracks>() {
-            @Override
-            public void onResponse(Call<Tracks> call, Response<Tracks> response) {
-                if (response.isSuccessful())
-                    artist.tracks = response.body().data;
-            }
-
-            @Override
-            public void onFailure(Call<Tracks> call, Throwable t) {
-
-            }
-        });
+        Intent intent = new Intent(context, ArtistActivity.class);
+        intent.putExtra("id", id);
+        context.startActivity(intent);
     }
 
     private void album(String id) {
