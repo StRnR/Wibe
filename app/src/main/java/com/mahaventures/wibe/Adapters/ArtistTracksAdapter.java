@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mahaventures.wibe.Activities.ArtistActivity;
 import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Activities.SearchActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
@@ -28,38 +29,36 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchTrackAdapter extends RecyclerView.Adapter<SearchTrackAdapter.SearchSongsViewHolder> {
-
+public class ArtistTracksAdapter extends RecyclerView.Adapter<ArtistTracksAdapter.ArtistTracksViewHolder> {
     private List<Track> result;
     private Context context;
 
-
-    public SearchTrackAdapter(List<Track> result, Context context) {
+    public ArtistTracksAdapter(List<Track> result, Context context) {
         this.result = result;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public SearchSongsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ArtistTracksViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_song, parent, false);
-        return new SearchSongsViewHolder(view);
+        return new ArtistTracksAdapter.ArtistTracksViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchSongsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ArtistTracksViewHolder holder, int position) {
         Track track = result.get(position);
-        Picasso.get().load(track.image.medium.url).into(SearchSongsViewHolder.songImg);
-        SearchSongsViewHolder.songTitle.setText(track.name);
+        Picasso.get().load(track.image.medium.url).into(SearchTrackAdapter.SearchSongsViewHolder.songImg);
+        ArtistTracksAdapter.ArtistTracksViewHolder.songTitle.setText(track.name);
         holder.setIsRecyclable(false);
         String artist = StaticTools.getArtistsName(track);
-        SearchSongsViewHolder.artist.setText(artist);
-        SearchSongsViewHolder.cardView.setOnClickListener(v -> {
-            PlayerActivity.queue = new ArrayList<>(SearchActivity.searchTracks);
+        ArtistTracksAdapter.ArtistTracksViewHolder.artist.setText(artist);
+        ArtistTracksAdapter.ArtistTracksViewHolder.cardView.setOnClickListener(v -> {
+            PlayerActivity.queue = new ArrayList<>(ArtistActivity.tracks);
             StaticTools.PlayTrackInQueue(context, artist, track);
         });
-        SearchSongsViewHolder.addBtn.setOnClickListener(v -> {
-            SearchSongsViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
+        ArtistTracksAdapter.ArtistTracksViewHolder.addBtn.setOnClickListener(v -> {
+            ArtistTracksAdapter.ArtistTracksViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
             addToMySongs(track.id);
         });
     }
@@ -83,17 +82,17 @@ public class SearchTrackAdapter extends RecyclerView.Adapter<SearchTrackAdapter.
 
     @Override
     public int getItemCount() {
-        return result != null ? result.size() : 0;
+        return result.size();
     }
 
-    static class SearchSongsViewHolder extends RecyclerView.ViewHolder {
+    static class ArtistTracksViewHolder extends RecyclerView.ViewHolder {
         static CardView cardView;
         static ImageView songImg;
         static TextView songTitle;
         static TextView artist;
         static Button addBtn;
 
-        SearchSongsViewHolder(@NonNull View itemView) {
+        ArtistTracksViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.card_view_song);
             songImg = itemView.findViewById(R.id.img_cover_relative_song);

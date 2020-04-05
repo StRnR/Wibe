@@ -46,8 +46,7 @@ public class SearchArtistAdapter extends RecyclerView.Adapter<SearchArtistAdapte
     private void goToArtist(String id) {
         Intent intent = new Intent(context, ArtistActivity.class);
         intent.putExtra("id", id);
-        //todo uncomment when artist activity complete
-//        context.startActivity(intent);
+        context.startActivity(intent);
     }
 
     @Override

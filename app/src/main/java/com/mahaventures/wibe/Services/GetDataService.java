@@ -1,6 +1,7 @@
 package com.mahaventures.wibe.Services;
 
 import com.mahaventures.wibe.Models.NewModels.Album;
+import com.mahaventures.wibe.Models.NewModels.Albums;
 import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.Models.NewModels.ArtistsSearch;
 import com.mahaventures.wibe.Models.NewModels.GeneralSearch;
@@ -56,6 +57,9 @@ public interface GetDataService {
 
     @GET
     Call<Tracks> getArtistTracks(@Header("Authorization") String auth, @Url String url);
+
+    @GET
+    Call<Albums> getArtistAlbums(@Header("Authorization") String auth, @Url String url);
 
     @GET("playlists/{id}/")
     Call<Playlist> getPlaylist(@Header("Authorization") String auth, @Path("id") String id);
