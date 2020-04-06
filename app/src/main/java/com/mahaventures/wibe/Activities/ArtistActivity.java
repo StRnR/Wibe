@@ -118,6 +118,9 @@ public class ArtistActivity extends AppCompatActivity {
             rect.right += 50;
             parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
         });
+        backBtn.setOnClickListener(v -> {
+            onBackPressed();
+        });
         songsShowMore.setOnClickListener(v -> {
             if (isMore) {
                 getArtistSongs(id);
