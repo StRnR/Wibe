@@ -51,6 +51,7 @@
         android:layout_marginEnd="24dp"
         android:background="@drawable/gradient_playlist_fader"
         android:fontFamily="@font/nexa_bold"
+        android:gravity="center"
         android:maxLines="2"
         android:textColor="@color/white"
         android:textSize="36sp"

@@ -1,17 +1,26 @@
 package com.mahaventures.wibe.Activities;
 
+import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.TouchDelegate;
+import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mahaventures.wibe.Adapters.ArtistTracksAdapter;
 import com.mahaventures.wibe.Adapters.SearchAlbumAdapter;
+import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.Models.NewModels.Albums;
 import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.Models.NewModels.Track;
@@ -43,10 +52,18 @@ public class ArtistActivity extends AppCompatActivity {
     ImageView artistBlurred;
     RecyclerView songsRv;
     RecyclerView albumsRv;
+    public static FragmentManager fragmentManager;
+    public static FrameLayout artistFragmentContainer;
     public static List<Track> tracks;
     private int pagesCount = 2;
     private int count;
     boolean isMore;
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        MiniPlayerFragment.isPrepared = true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +79,45 @@ public class ArtistActivity extends AppCompatActivity {
         songsShowMore = findViewById(R.id.txt_showmore_songs_artist);
         isMore = false;
         songsShowMore.setClickable(true);
+        artistFragmentContainer = findViewById(R.id.fragment_container_artist);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_artist);
+        bottomNavigationView.setSelectedItemId(R.id.nav_search);
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.nav_browse:
+                    startActivity(new Intent(getApplicationContext(), BrowseActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                case R.id.nav_search:
+                    startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                case R.id.nav_mysongs:
+                    startActivity(new Intent(getApplicationContext(), MySongsActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+            }
+            return false;
+        });
+        fragmentManager = getSupportFragmentManager();
+        if (findViewById(R.id.fragment_container_artist) != null) {
+            if (savedInstanceState != null)
+                return;
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            MiniPlayerFragment miniPlayerFragment = new MiniPlayerFragment();
+            fragmentTransaction.add(R.id.fragment_container_artist, miniPlayerFragment);
+            fragmentTransaction.commit();
+        }
+        final View parent = (View) backBtn.getParent();
+        parent.post(() -> {
+            final Rect rect = new Rect();
+            backBtn.getHitRect(rect);
+            rect.top -= 50;
+            rect.left -= 50;
+            rect.bottom += 50;
+            rect.right += 50;
+            parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
+        });
         songsShowMore.setOnClickListener(v -> {
             if (isMore) {
                 getArtistSongs(id);
