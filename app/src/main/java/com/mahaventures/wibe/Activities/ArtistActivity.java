@@ -1,7 +1,6 @@
 package com.mahaventures.wibe.Activities;
 
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Adapters.ArtistTracksAdapter;
 import com.mahaventures.wibe.Adapters.SearchAlbumAdapter;
-import com.mahaventures.wibe.Adapters.SearchTrackAdapter;
 import com.mahaventures.wibe.Models.NewModels.Albums;
 import com.mahaventures.wibe.Models.NewModels.Artist;
 import com.mahaventures.wibe.Models.NewModels.Track;
@@ -120,15 +118,22 @@ public class ArtistActivity extends AppCompatActivity {
                     Artist artist = response.body() != null ? response.body() : new Artist();
                     artistName.setText(artist.name);
                     RequestCreator requestCreator = Picasso.get().load(artist.image.medium.url);
-                    requestCreator.into(artistArtwork);
-                    DisplayMetrics displayMetrics = new DisplayMetrics();
-                    getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-                    ImageView img = new ImageView(ArtistActivity.this);
-                    float shadow = 0.5F;
-                    requestCreator.resize(artistBlurred.getWidth(), artistBlurred.getHeight()).centerCrop().transform(new BlurTransformation(ArtistActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new com.squareup.picasso.Callback() {
+                    requestCreator.into(artistArtwork, new com.squareup.picasso.Callback() {
                         @Override
                         public void onSuccess() {
-                            artistBlurred.setBackgroundDrawable(img.getDrawable());
+                            ImageView img = new ImageView(ArtistActivity.this);
+                            float shadow = 0.5F;
+                            requestCreator.resize(artistBlurred.getWidth(), artistBlurred.getHeight()).centerCrop().transform(new BlurTransformation(ArtistActivity.this, 6, 6)).transform(new AlphaTransformation(shadow)).into(img, new com.squareup.picasso.Callback() {
+                                @Override
+                                public void onSuccess() {
+                                    artistBlurred.setBackgroundDrawable(img.getDrawable());
+                                }
+
+                                @Override
+                                public void onError(Exception e) {
+
+                                }
+                            });
                         }
 
                         @Override
