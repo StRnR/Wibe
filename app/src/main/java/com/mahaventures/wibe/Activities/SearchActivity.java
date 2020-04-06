@@ -38,6 +38,7 @@ import com.mahaventures.wibe.Tools.StaticTools;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
@@ -63,6 +64,9 @@ public class SearchActivity extends AppCompatActivity {
     TextView artistsHeader;
     TextView songsShowAll;
     public static List<Track> searchTracks;
+    private int pagesCount = 2;
+    private int count;
+    boolean isMore;
 
     @Override
     public void onBackPressed() {
@@ -115,6 +119,43 @@ public class SearchActivity extends AppCompatActivity {
         albumsHeader = findViewById(R.id.txt_albums_header_search);
         artistsHeader = findViewById(R.id.txt_artists_header_search);
         songsShowAll = findViewById(R.id.txt_showmore_songs_search);
+        songsShowAll.setClickable(true);
+        songsShowAll.setOnClickListener(v -> {
+            try {
+                if (isMore) {
+                    showLess();
+                    return;
+                }
+                count = 0;
+                searchTracks = new ArrayList<>();
+                for (int i = 0; i < pagesCount; i++) {
+                    getAllSongs(i + 1);
+                }
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        if (count == pagesCount) {
+                            runOnUiThread(() -> {
+                                songsShowAll.setClickable(true);
+                                songsShowAll.setText("Show Less");
+                                SearchTrackAdapter adapter = new SearchTrackAdapter(searchTracks, SearchActivity.this);
+                                tracksRecycleView.setAdapter(adapter);
+                                isMore = true;
+                            });
+                            timer.cancel();
+                        } else {
+                            runOnUiThread(() -> {
+                                songsShowAll.setText("Loading...");
+                                songsShowAll.setClickable(false);
+                            });
+                        }
+                    }
+                }, 0, 50);
+            } catch (Exception e) {
+
+            }
+        });
         tracksRecycleView.setAdapter(null);
         SearchTrackAdapter tmpAdapter = new SearchTrackAdapter(null, SearchActivity.this);
         tracksRecycleView.setAdapter(tmpAdapter);
@@ -218,6 +259,85 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    private void getAllSongs(int i) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        String url = String.format(Locale.getDefault(), "https://musicify.ir/api/search?query=%s&include=tracks.artists&page=%d", searchText.getText().toString(), i);
+        Call<GeneralSearch> call = service.SearchAll(url);
+        call.enqueue(new Callback<GeneralSearch>() {
+            @Override
+            public void onResponse(Call<GeneralSearch> call, Response<GeneralSearch> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        try {
+                            searchTracks.addAll(response.body().tracks.data);
+                            count++;
+                        } catch (Exception e) {
+                            StaticTools.LogErrorMessage(e.getMessage() + " wtf is going on");
+                        }
+                    }
+                } else {
+                    try {
+                        String s1 = new String(response.errorBody().bytes());
+                        StaticTools.LogErrorMessage(s1);
+                    } catch (Exception e) {
+                        StaticTools.LogErrorMessage(e.getMessage() + " wtf");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GeneralSearch> call, Throwable t) {
+                StaticTools.ServerError(SearchActivity.this, t.getMessage());
+            }
+        });
+    }
+
+    private void showLess() {
+        count = 0;
+        runOnUiThread(() -> {
+            songsShowAll.setText("Loading...");
+            songsShowAll.setClickable(false);
+        });
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        String url = String.format("https://musicify.ir/api/search?query=%s&include=tracks.artists", searchText.getText().toString());
+        Call<GeneralSearch> call = service.SearchAll(url);
+        call.enqueue(new Callback<GeneralSearch>() {
+            @Override
+            public void onResponse(Call<GeneralSearch> call, Response<GeneralSearch> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        try {
+                            List<Track> tracks = response.body().tracks.data;
+                            tracks = tracks.stream().limit(4).collect(Collectors.toList());
+                            SearchTrackAdapter adapter = new SearchTrackAdapter(tracks, SearchActivity.this);
+                            searchTracks = new ArrayList<>(response.body().tracks.data);
+                            tracksRecycleView.setAdapter(adapter);
+                            runOnUiThread(() -> {
+                                songsShowAll.setText("Show More");
+                                songsShowAll.setClickable(true);
+                                isMore = false;
+                            });
+                        } catch (Exception e) {
+                            StaticTools.LogErrorMessage(e.getMessage() + " wtf is going on");
+                        }
+                    }
+                } else {
+                    try {
+                        String s1 = new String(response.errorBody().bytes());
+                        StaticTools.LogErrorMessage(s1);
+                    } catch (Exception e) {
+                        StaticTools.LogErrorMessage(e.getMessage() + " wtf");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GeneralSearch> call, Throwable t) {
+                StaticTools.ServerError(SearchActivity.this, t.getMessage());
+            }
+        });
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -275,6 +395,11 @@ public class SearchActivity extends AppCompatActivity {
                                 SearchTrackAdapter adapter = new SearchTrackAdapter(tracks, SearchActivity.this);
                                 searchTracks = new ArrayList<>(response.body().tracks.data);
                                 tracksRecycleView.setAdapter(adapter);
+                                runOnUiThread(() -> {
+                                    songsShowAll.setText("Show More");
+                                    songsShowAll.setClickable(true);
+                                    isMore = false;
+                                });
                             } catch (Exception e) {
                                 StaticTools.LogErrorMessage(e.getMessage() + " wtf is going on");
                             }

@@ -64,12 +64,12 @@ public class ArtistActivity extends AppCompatActivity {
         songsShowMore.setClickable(true);
         songsShowMore.setOnClickListener(v -> {
             if (isMore) {
-                showLess(id);
+                getArtistSongs(id);
                 return;
             }
             count = 0;
+            tracks = new ArrayList<>();
             for (int i = 0; i < pagesCount; i++) {
-                tracks = new ArrayList<>();
                 getAllSongs(id, i + 1);
             }
             Timer timer = new Timer();
@@ -105,10 +105,6 @@ public class ArtistActivity extends AppCompatActivity {
         getArtistData(id);
         getArtistSongs(id);
         getArtistAlbums(id);
-    }
-
-    private void showLess(String id) {
-        getArtistSongs(id);
     }
 
     private void getAllSongs(String id, int i) {
@@ -153,6 +149,7 @@ public class ArtistActivity extends AppCompatActivity {
     }
 
     private void getArtistSongs(String id) {
+        count = 0;
         runOnUiThread(() -> {
             songsShowMore.setText("Loading...");
             songsShowMore.setClickable(false);
