@@ -45,6 +45,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.inject.Inject;
+
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class PlayerActivity extends AppCompatActivity implements Playable {
