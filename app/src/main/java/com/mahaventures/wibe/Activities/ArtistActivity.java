@@ -38,6 +38,7 @@ import retrofit2.Response;
 
 public class ArtistActivity extends AppCompatActivity {
     TextView artistName;
+    TextView songsShowMore;
     ImageView artistArtwork;
     ImageView artistBlurred;
     RecyclerView songsRv;
@@ -45,6 +46,7 @@ public class ArtistActivity extends AppCompatActivity {
     public static List<Track> tracks;
     private int pagesCount = 2;
     private int count;
+    boolean isMore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +59,14 @@ public class ArtistActivity extends AppCompatActivity {
         Button backBtn = findViewById(R.id.btn_back_artist);
         TextView songsHeader = findViewById(R.id.txt_songs_header_artist);
         TextView albumsHeader = findViewById(R.id.txt_albums_header_search);
-        TextView songsShowMore = findViewById(R.id.txt_showmore_songs_artist);
+        songsShowMore = findViewById(R.id.txt_showmore_songs_artist);
+        isMore = false;
         songsShowMore.setClickable(true);
         songsShowMore.setOnClickListener(v -> {
+            if (isMore) {
+                showLess(id);
+                return;
+            }
             count = 0;
             for (int i = 0; i < pagesCount; i++) {
                 tracks = new ArrayList<>();
@@ -72,9 +79,10 @@ public class ArtistActivity extends AppCompatActivity {
                     if (count == pagesCount) {
                         runOnUiThread(() -> {
                             songsShowMore.setClickable(true);
-                            songsShowMore.setText("Show More");
+                            songsShowMore.setText("Show Less");
                             ArtistTracksAdapter adapter = new ArtistTracksAdapter(tracks, ArtistActivity.this);
                             songsRv.setAdapter(adapter);
+                            isMore = true;
                         });
                         timer.cancel();
                     } else {
@@ -97,6 +105,10 @@ public class ArtistActivity extends AppCompatActivity {
         getArtistData(id);
         getArtistSongs(id);
         getArtistAlbums(id);
+    }
+
+    private void showLess(String id) {
+        getArtistSongs(id);
     }
 
     private void getAllSongs(String id, int i) {
@@ -141,6 +153,10 @@ public class ArtistActivity extends AppCompatActivity {
     }
 
     private void getArtistSongs(String id) {
+        runOnUiThread(() -> {
+            songsShowMore.setText("Loading...");
+            songsShowMore.setClickable(false);
+        });
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         String url = String.format("https://api.musicify.ir/artists/%s/tracks?include=artists", id);
         Call<Tracks> call = service.getArtistTracks(StaticTools.getToken(), url);
@@ -148,6 +164,11 @@ public class ArtistActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
                 if (response.isSuccessful()) {
+                    runOnUiThread(() -> {
+                        songsShowMore.setText("Show More");
+                        songsShowMore.setClickable(true);
+                        isMore = false;
+                    });
                     tracks = response.body().data.stream().limit(5).collect(Collectors.toList());
                     ArtistTracksAdapter adapter = new ArtistTracksAdapter(tracks, ArtistActivity.this);
                     songsRv.setAdapter(adapter);
