@@ -96,7 +96,7 @@
                 android:text="Show More"
                 android:textColor="@color/text_grey"
                 android:textSize="14sp"
-                android:visibility="invisible" />
+                android:visibility="visible" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_songs_artist"

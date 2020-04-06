@@ -1,6 +1,5 @@
 package com.mahaventures.wibe.DI;
 
-import android.app.Activity;
 import android.app.Application;
 
 import com.mahaventures.wibe.BaseApplication;
@@ -12,12 +11,14 @@ import dagger.android.support.AndroidSupportInjectionModule;
 
 @Component(modules = {
         AndroidSupportInjectionModule.class,
+        ActivityBuildersModule.class
 })
 public interface AppComponent extends AndroidInjector<BaseApplication> {
     @Component.Builder
     interface Builder {
         @BindsInstance
         Builder application(Application application);
+
         AppComponent build();
     }
 }

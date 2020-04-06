@@ -24,7 +24,11 @@ import com.mahaventures.wibe.Tools.StaticTools;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
@@ -39,6 +43,8 @@ public class ArtistActivity extends AppCompatActivity {
     RecyclerView songsRv;
     RecyclerView albumsRv;
     public static List<Track> tracks;
+    private int pagesCount = 2;
+    private int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,34 @@ public class ArtistActivity extends AppCompatActivity {
         TextView songsHeader = findViewById(R.id.txt_songs_header_artist);
         TextView albumsHeader = findViewById(R.id.txt_albums_header_search);
         TextView songsShowMore = findViewById(R.id.txt_showmore_songs_artist);
+        songsShowMore.setClickable(true);
+        songsShowMore.setOnClickListener(v -> {
+            count = 0;
+            for (int i = 0; i < pagesCount; i++) {
+                tracks = new ArrayList<>();
+                getAllSongs(id, i + 1);
+            }
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    if (count == pagesCount) {
+                        runOnUiThread(() -> {
+                            songsShowMore.setClickable(true);
+                            songsShowMore.setText("Show More");
+                            ArtistTracksAdapter adapter = new ArtistTracksAdapter(tracks, ArtistActivity.this);
+                            songsRv.setAdapter(adapter);
+                        });
+                        timer.cancel();
+                    } else {
+                        runOnUiThread(() -> {
+                            songsShowMore.setText("Loading...");
+                            songsShowMore.setClickable(false);
+                        });
+                    }
+                }
+            }, 0, 50);
+        });
         songsRv = findViewById(R.id.recycler_songs_artist);
         GridLayoutManager tracksLayoutManager = new GridLayoutManager(this, 1);
         songsRv.setLayoutManager(tracksLayoutManager);
@@ -63,6 +97,26 @@ public class ArtistActivity extends AppCompatActivity {
         getArtistData(id);
         getArtistSongs(id);
         getArtistAlbums(id);
+    }
+
+    private void getAllSongs(String id, int i) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        String url = String.format(Locale.getDefault(), "https://api.musicify.ir/artists/%s/tracks?include=artists&page=%d", id, i);
+        Call<Tracks> call = service.getArtistTracks(StaticTools.getToken(), url);
+        call.enqueue(new Callback<Tracks>() {
+            @Override
+            public void onResponse(Call<Tracks> call, Response<Tracks> response) {
+                if (response.isSuccessful()) {
+                    tracks.addAll(response.body().data);
+                    count++;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Tracks> call, Throwable t) {
+                StaticTools.ServerError(ArtistActivity.this, t.getMessage());
+            }
+        });
     }
 
     private void getArtistAlbums(String id) {
@@ -105,7 +159,6 @@ public class ArtistActivity extends AppCompatActivity {
                 StaticTools.ServerError(ArtistActivity.this, t.getMessage());
             }
         });
-
     }
 
     private void getArtistData(String id) {

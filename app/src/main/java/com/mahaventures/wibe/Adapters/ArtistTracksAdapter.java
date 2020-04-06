@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.Activities.ArtistActivity;
 import com.mahaventures.wibe.Activities.PlayerActivity;
-import com.mahaventures.wibe.Activities.SearchActivity;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
@@ -48,7 +47,7 @@ public class ArtistTracksAdapter extends RecyclerView.Adapter<ArtistTracksAdapte
     @Override
     public void onBindViewHolder(@NonNull ArtistTracksViewHolder holder, int position) {
         Track track = result.get(position);
-        Picasso.get().load(track.image.medium.url).into(SearchTrackAdapter.SearchSongsViewHolder.songImg);
+        Picasso.get().load(track.image.medium.url).into(ArtistTracksAdapter.ArtistTracksViewHolder.songImg);
         ArtistTracksAdapter.ArtistTracksViewHolder.songTitle.setText(track.name);
         holder.setIsRecyclable(false);
         String artist = StaticTools.getArtistsName(track);
