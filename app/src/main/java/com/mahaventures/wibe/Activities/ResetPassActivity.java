@@ -45,60 +45,9 @@ public class ResetPassActivity extends AppCompatActivity {
         });
 
         resetPassBtn.setOnClickListener(v -> {
-            GetDataService getDataService = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-            Call<ResetPasswordResponseModel> call = getDataService.GetResetPasswordId(SignInActivity.Email);
-            call.enqueue(new Callback<ResetPasswordResponseModel>() {
-                @Override
-                public void onResponse(Call<ResetPasswordResponseModel> call, Response<ResetPasswordResponseModel> response) {
-                    if (response.isSuccessful()) {
-                        ResetPass(response.body().getId(), newPassTxt.getText().toString(), codeTxt.getText().toString());
-                    } else {
-                        try {
-                            StaticTools.ShowToast(ResetPassActivity.this, response.errorBody().string(), 0);
-                            Log.wtf("verify error", response.errorBody().string());
-                        } catch (Exception e) {
-                            Log.wtf("exception", e.getMessage());
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResetPasswordResponseModel> call, Throwable t) {
-                    StaticTools.OnFailure(ResetPassActivity.this);
-                }
-            });
+            GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
 
         });
-
         backBtn.setOnClickListener(v -> ResetPassActivity.super.onBackPressed());
-
-
-    }
-
-    private void ResetPass(int id, String newPass, String code) {
-        PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
-        ResetPassword resetPassword = new ResetPassword(id, code, newPass);
-        Call<ResetPassword> call = service.ResetPassword(resetPassword);
-        call.enqueue(new Callback<ResetPassword>() {
-            @Override
-            public void onResponse(Call<ResetPassword> call, Response<ResetPassword> response) {
-                if (response.isSuccessful()) {
-                    StaticTools.ShowToast(ResetPassActivity.this, "pass reseted", 0);
-                } else {
-                    try {
-                        StaticTools.ShowToast(ResetPassActivity.this, response.errorBody().string(), 0);
-                        Log.wtf("treset pass error", response.errorBody().string());
-                    } catch (Exception e) {
-                        Log.wtf("exception", e.getMessage());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResetPassword> call, Throwable t) {
-                StaticTools.OnFailure(ResetPassActivity.this);
-            }
-        });
-
     }
 }
