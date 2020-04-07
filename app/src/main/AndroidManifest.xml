@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-
+        <activity android:name=".Activities.MyProfileActivity"></activity>
 
         <receiver android:name=".Services.NotificationActionService" />
         <receiver android:name=".Services.MiniPlayerBroadCastReceiver" />
@@ -46,7 +46,6 @@
             android:name=".Activities.ArtistActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Activities.OnServerFailureActivity"
             android:screenOrientation="portrait"
