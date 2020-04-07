@@ -29,11 +29,11 @@ public interface PostDataService {
     @POST("profile/tracks")
     Call<Void> AddToMySongs(@Header("Authorization") String s, @Query("track_id") String trackId);
 
+    @POST("profile/tracks")
+    Call<Void> ConfirmEmail(@Header("Authorization") String s, @Query("track_id") String trackId);
+
     @POST("init/")
     Call<InitModel> Init(@Header("Authorization") String s);
-
-    @POST("users/verify/email/")
-    Call<Void> ConfirmEmail(@Header("Authorization") String s, @Body EmailVerification code);
 
     @POST("users/verify/password/")
     Call<ResetPassword> ResetPassword(@Body ResetPassword data);

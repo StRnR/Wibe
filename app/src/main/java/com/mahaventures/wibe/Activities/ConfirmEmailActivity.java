@@ -82,34 +82,34 @@ public class ConfirmEmailActivity extends AppCompatActivity {
             }, 0, 1000);
             StaticTools.SendVerificationEmail(ConfirmEmailActivity.this, key, false);
         });
-        confirmBtn.setOnClickListener(v -> {
-            confirmBtn.setEnabled(false);
-            PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
-            Call call = service.ConfirmEmail("Bearer " + key, new EmailVerification(confirmTxt.getText().toString()));
-            call.enqueue(new Callback() {
-                @Override
-                public void onResponse(Call call, Response response) {
-                    confirmBtn.setEnabled(true);
-                    if (response.isSuccessful()) {
-                        Intent intent = new Intent(ConfirmEmailActivity.this, TmpActivity.class);
-                        startActivity(intent);
-                    } else {
-                        try {
-                            StaticTools.ShowToast(ConfirmEmailActivity.this, response.errorBody() != null ? response.errorBody().string() : "", 0);
-                            Log.wtf("verify error", response.errorBody().string());
-                        } catch (Exception e) {
-                            Log.wtf("exception", e.getMessage());
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call call, Throwable t) {
-                    confirmBtn.setEnabled(true);
-                    StaticTools.OnFailure(ConfirmEmailActivity.this);
-                }
-            });
-        });
+//        confirmBtn.setOnClickListener(v -> {
+//            confirmBtn.setEnabled(false);
+//            PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
+//            Call call = service.ConfirmEmail("Bearer " + key, new EmailVerification(confirmTxt.getText().toString()));
+//            call.enqueue(new Callback() {
+//                @Override
+//                public void onResponse(Call call, Response response) {
+//                    confirmBtn.setEnabled(true);
+//                    if (response.isSuccessful()) {
+//                        Intent intent = new Intent(ConfirmEmailActivity.this, TmpActivity.class);
+//                        startActivity(intent);
+//                    } else {
+//                        try {
+//                            StaticTools.ShowToast(ConfirmEmailActivity.this, response.errorBody() != null ? response.errorBody().string() : "", 0);
+//                            Log.wtf("verify error", response.errorBody().string());
+//                        } catch (Exception e) {
+//                            Log.wtf("exception", e.getMessage());
+//                        }
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call call, Throwable t) {
+//                    confirmBtn.setEnabled(true);
+//                    StaticTools.OnFailure(ConfirmEmailActivity.this);
+//                }
+//            });
+//        });
     }
 
     private boolean check() {
