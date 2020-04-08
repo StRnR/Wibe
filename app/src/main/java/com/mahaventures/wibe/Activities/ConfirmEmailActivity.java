@@ -82,6 +82,7 @@ public class ConfirmEmailActivity extends AppCompatActivity {
             }, 0, 1000);
             StaticTools.SendVerificationEmail(ConfirmEmailActivity.this, key, false);
         });
+
 //        confirmBtn.setOnClickListener(v -> {
 //            confirmBtn.setEnabled(false);
 //            PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
