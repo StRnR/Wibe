@@ -152,7 +152,8 @@ public class SignUpActivity extends AppCompatActivity {
                     signUpButton.setText(R.string.sign_up_text);
                     if (response.isSuccessful()) {
                         StaticTools.ShowToast(SignUpActivity.this, "User registered successfully", 1);
-//                        signIn(email, pass);
+                        StaticTools.setName(nameTxt.getText().toString());
+//                        signIn(email, pass,nameTxt.getText().toString());
                         startActivity(new Intent(SignUpActivity.this, ConfirmEmailActivity.class));
                     } else {
                         try {
@@ -178,7 +179,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void signIn(String email, String pass) {
+    private void signIn(String email, String pass,String name) {
         PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
         SignInRequestModel model = new SignInRequestModel(email, pass, SignUpActivity.this);
         Call<AuthenticationResponseModel> call = service.Authenticate(model);
@@ -191,7 +192,7 @@ public class SignUpActivity extends AppCompatActivity {
                     try {
                         String token = response.body() != null ? response.body().meta.token : "";
                         SavedInfo.deleteAll(SavedInfo.class);
-                        SavedInfo info = new SavedInfo(token, email);
+                        SavedInfo info = new SavedInfo(token, email,name);
                         info.save();
                         StaticTools.token = token;
                         if (StaticTools.homePageId == null)
