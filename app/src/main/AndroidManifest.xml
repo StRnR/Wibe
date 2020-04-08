@@ -21,7 +21,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".Activities.MyProfileActivity"></activity>
+        <activity android:name=".Activities.ChangePasswordActivity"></activity>
+        <activity android:name=".Activities.MyProfileActivity" />
 
         <receiver android:name=".Services.NotificationActionService" />
         <receiver android:name=".Services.MiniPlayerBroadCastReceiver" />

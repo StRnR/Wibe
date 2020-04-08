@@ -56,6 +56,15 @@ public class StaticTools {
     public static List<Track> tracks;
     public static MySong mySong;
     public static boolean isPrepared;
+    public static String name;
+
+    public static String getName() {
+        return name;
+    }
+
+    public static void setName(String name) {
+        StaticTools.name = name;
+    }
 
     public static void ShowToast(Context context, String message, int length) {
         Toast toast = Toast.makeText(context, message, length);

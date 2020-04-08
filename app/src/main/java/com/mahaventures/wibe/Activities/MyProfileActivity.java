@@ -26,12 +26,14 @@ public class MyProfileActivity extends AppCompatActivity {
         name.setEnabled(false);
         name.setCursorVisible(false);
         name.setKeyListener(null);
+        name.setText(SavedInfo.last(SavedInfo.class).getName());
 
         email = findViewById(R.id.txt_edit_email_my_profile);
         email.setFocusable(false);
         email.setEnabled(false);
         email.setCursorVisible(false);
         email.setKeyListener(null);
+        email.setText(SavedInfo.last(SavedInfo.class).getEmail());
 
         signOutBtn.setOnClickListener(v -> {
             SavedInfo.deleteAll(SavedInfo.class);
