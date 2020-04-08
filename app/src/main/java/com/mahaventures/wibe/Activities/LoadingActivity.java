@@ -21,8 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoadActivity extends AppCompatActivity {
-
+public class LoadingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,26 +50,26 @@ public class LoadActivity extends AppCompatActivity {
                         if (response.body().loggedIn != null && response.body().loggedIn) {
                             StaticTools.homePageId = response.body().homePageId;
                             StaticTools.LogErrorMessage("token: " + StaticTools.token);
-                            startActivity(new Intent(LoadActivity.this, BrowseActivity.class));
+                            startActivity(new Intent(LoadingActivity.this, BrowseActivity.class));
                             finish();
                         } else
-                            startActivity(new Intent(LoadActivity.this, MainActivity.class));
+                            startActivity(new Intent(LoadingActivity.this, MainActivity.class));
                         {
                             finish();
                         }
                     } else if (response.code() == 401) {
-                        startActivity(new Intent(LoadActivity.this, MainActivity.class));
+                        startActivity(new Intent(LoadingActivity.this, MainActivity.class));
                         finish();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<InitModel> call, Throwable t) {
-                    StaticTools.ServerError(LoadActivity.this, t.getMessage());
+                    StaticTools.ServerError(LoadingActivity.this, t.getMessage());
                 }
             });
         } else {
-            startActivity(new Intent(LoadActivity.this, MainActivity.class));
+            startActivity(new Intent(LoadingActivity.this, MainActivity.class));
             finish();
         }
     }

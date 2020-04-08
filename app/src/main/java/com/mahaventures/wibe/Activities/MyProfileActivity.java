@@ -20,7 +20,7 @@ public class MyProfileActivity extends AppCompatActivity {
         Button signOutBtn = findViewById(R.id.btn_signout);
         signOutBtn.setOnClickListener(v -> {
             SavedInfo.deleteAll(SavedInfo.class);
-            startActivity(new Intent(this, LoadActivity.class));
+            startActivity(new Intent(this, LoadingActivity.class));
         });
     }
 }
