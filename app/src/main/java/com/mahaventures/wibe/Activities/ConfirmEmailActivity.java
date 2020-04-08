@@ -5,7 +5,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mahaventures.wibe.Models.EmailVerification;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
@@ -30,6 +28,7 @@ import retrofit2.Response;
 public class ConfirmEmailActivity extends AppCompatActivity {
     final int duration = 60;
     int sec = duration;
+    Button confirmBtn;
 
     @Override
     public void onBackPressed() {
@@ -43,7 +42,7 @@ public class ConfirmEmailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_confirmemail);
         Button backBtn = findViewById(R.id.btn_back_confirmemail);
         Button resendBtn = findViewById(R.id.btn_resend_confirmemail);
-        Button confirmBtn = findViewById(R.id.btn_confirmemail);
+        confirmBtn = findViewById(R.id.btn_confirmemail);
         EditText confirmTxt = findViewById(R.id.txt_edit_confirmemail);
         SpannableString content = new SpannableString("RESEND CODE");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -80,36 +79,38 @@ public class ConfirmEmailActivity extends AppCompatActivity {
                     }
                 }
             }, 0, 1000);
-            StaticTools.SendVerificationEmail(ConfirmEmailActivity.this, key, false);
+            confirmBtn.setEnabled(true);
+            confirmBtn.setText("Let’s Go!");
+            sendVerification();
         });
-//        confirmBtn.setOnClickListener(v -> {
-//            confirmBtn.setEnabled(false);
-//            PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
-//            Call call = service.ConfirmEmail("Bearer " + key, new EmailVerification(confirmTxt.getText().toString()));
-//            call.enqueue(new Callback() {
-//                @Override
-//                public void onResponse(Call call, Response response) {
-//                    confirmBtn.setEnabled(true);
-//                    if (response.isSuccessful()) {
-//                        Intent intent = new Intent(ConfirmEmailActivity.this, TmpActivity.class);
-//                        startActivity(intent);
-//                    } else {
-//                        try {
-//                            StaticTools.ShowToast(ConfirmEmailActivity.this, response.errorBody() != null ? response.errorBody().string() : "", 0);
-//                            Log.wtf("verify error", response.errorBody().string());
-//                        } catch (Exception e) {
-//                            Log.wtf("exception", e.getMessage());
-//                        }
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call call, Throwable t) {
-//                    confirmBtn.setEnabled(true);
-//                    StaticTools.OnFailure(ConfirmEmailActivity.this);
-//                }
-//            });
-//        });
+
+        confirmBtn.setOnClickListener(v -> {
+            confirmBtn.setEnabled(false);
+            confirmBtn.setText("Check your Email...");
+            sendVerification();
+        });
+
+
+    }
+
+    private void sendVerification() {
+        PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
+        Call call = service.VerifyEmail(StaticTools.getToken());
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.isSuccessful()){
+                    StaticTools.ShowToast(ConfirmEmailActivity.this, "Email sent", 1);
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                confirmBtn.setEnabled(true);
+                confirmBtn.setText("Let’s Go!");
+                StaticTools.ServerError(ConfirmEmailActivity.this, t.getMessage());
+            }
+        });
     }
 
     private boolean check() {
