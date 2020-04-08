@@ -11,4 +11,9 @@ public class ChangePasswordRequestModel {
     @SerializedName("new_password")
     @Expose
     public String new_password;
+
+    public ChangePasswordRequestModel(String old_password, String new_password) {
+        this.old_password = old_password;
+        this.new_password = new_password;
+    }
 }
