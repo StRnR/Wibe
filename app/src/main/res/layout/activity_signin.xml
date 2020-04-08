@@ -12,8 +12,8 @@
         android:id="@+id/btn_back_signin"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,12 +23,10 @@
         style="@style/Bold1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="120dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="24dp"
         android:text="Sign in"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -36,12 +34,10 @@
         style="@style/Regular2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="14dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="24dp"
         android:text="Welcome back ! Enter your credentials to check out the latest hits."
-        app:layout_constraintEnd_toEndOf="@+id/txt_signin"
-        app:layout_constraintStart_toStartOf="@+id/txt_signin"
         app:layout_constraintTop_toBottomOf="@+id/txt_signin" />
 
     <EditText
@@ -49,17 +45,15 @@
         style="@style/Regular1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="60dp"
-        android:layout_marginRight="32dp"
-        android:drawableLeft="@drawable/ic_email"
+        android:layout_marginEnd="24dp"
+        android:drawableStart="@drawable/ic_email"
         android:drawablePadding="10dp"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:textColorHint="@color/white"
         android:theme="@style/UserAuthenticationEditText"
-        app:layout_constraintLeft_toLeftOf="@id/txt_signinguide"
-        app:layout_constraintRight_toRightOf="@id/txt_signinguide"
         app:layout_constraintTop_toBottomOf="@id/txt_signinguide" />
 
     <EditText
@@ -67,17 +61,15 @@
         style="@style/Regular1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
-        android:layout_marginRight="32dp"
-        android:drawableLeft="@drawable/ic_password"
+        android:layout_marginEnd="24dp"
+        android:drawableStart="@drawable/ic_password"
         android:drawablePadding="10dp"
         android:hint="Password"
         android:inputType="textPassword"
         android:textColorHint="@color/white"
         android:theme="@style/UserAuthenticationEditText"
-        app:layout_constraintLeft_toLeftOf="@id/txt_signinguide"
-        app:layout_constraintRight_toRightOf="@id/txt_signinguide"
         app:layout_constraintTop_toBottomOf="@id/txt_edit_email_signin" />
 
     <Button
@@ -108,13 +100,11 @@
         style="@style/Bold2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginLeft="35dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="64dp"
-        android:layout_marginRight="35dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/gradient_blue"
         android:text="Sign In"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_forgotpass_signin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

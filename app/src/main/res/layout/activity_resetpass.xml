@@ -8,31 +8,12 @@
     android:orientation="vertical"
     tools:context=".Activities.ResetPassActivity">
 
-    <EditText
-        android:id="@+id/txt_code_resetpass"
-        style="@style/Regular1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="116dp"
-        android:layout_marginRight="32dp"
-        android:drawableLeft="@drawable/ic_password"
-        android:drawablePadding="10dp"
-        android:hint="Code"
-        android:inputType="textPassword"
-        android:paddingLeft="6dp"
-        android:textColorHint="@color/white"
-        android:theme="@style/UserAuthenticationEditText"
-        app:layout_constraintLeft_toLeftOf="@id/txt_resetpassguide"
-        app:layout_constraintRight_toRightOf="@id/txt_resetpassguide"
-        app:layout_constraintTop_toBottomOf="@id/txt_resetpassguide" />
-
     <Button
         android:id="@+id/btn_back_resetpass"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,12 +23,10 @@
         style="@style/Bold1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="70dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="24dp"
         android:text="Reset password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_back_resetpass" />
 
     <TextView
@@ -55,12 +34,10 @@
         style="@style/Regular2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="14dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="24dp"
         android:text="Enter a new password for your account:"
-        app:layout_constraintEnd_toEndOf="@+id/txt_resetpass"
-        app:layout_constraintStart_toStartOf="@+id/txt_resetpass"
         app:layout_constraintTop_toBottomOf="@+id/txt_resetpass" />
 
     <EditText
@@ -68,18 +45,16 @@
         style="@style/Regular1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="49dp"
-        android:layout_marginRight="32dp"
-        android:drawableLeft="@drawable/ic_password"
+        android:layout_marginEnd="24dp"
+        android:drawableStart="@drawable/ic_password"
         android:drawablePadding="10dp"
         android:hint="Password"
         android:inputType="textPassword"
-        android:paddingLeft="6dp"
+        android:paddingStart="6dp"
         android:textColorHint="@color/white"
         android:theme="@style/UserAuthenticationEditText"
-        app:layout_constraintLeft_toLeftOf="@id/txt_resetpassguide"
-        app:layout_constraintRight_toRightOf="@id/txt_resetpassguide"
         app:layout_constraintTop_toBottomOf="@id/txt_resetpassguide" />
 
     <TextView
@@ -87,9 +62,9 @@
         style="@style/Regular2"
         android:layout_width="match_parent"
         android:layout_height="85dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
         android:background="@color/darkStrnr"
         android:drawableLeft="@drawable/ic_error"
         android:drawablePadding="15dp"
@@ -97,9 +72,7 @@
         android:paddingLeft="10dp"
         android:text="New password can not be the same as the old one."
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="@+id/txt_resetpass"
         app:layout_constraintHorizontal_bias="0.453"
-        app:layout_constraintStart_toStartOf="@+id/txt_resetpass"
         app:layout_constraintTop_toBottomOf="@+id/txt_edit_pass_resetpass" />
 
     <Button
@@ -107,9 +80,9 @@
         style="@style/Bold2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginLeft="35dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
-        android:layout_marginRight="35dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="100dp"
         android:background="@drawable/gradient_blue"
         android:text="Confirm"
