@@ -35,6 +35,12 @@ public class SignUpActivity extends AppCompatActivity {
     Button signUpButton;
 
     @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
@@ -153,7 +159,7 @@ public class SignUpActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         StaticTools.ShowToast(SignUpActivity.this, "User registered successfully", 1);
                         StaticTools.setName(nameTxt.getText().toString());
-                        signIn(email, pass,nameTxt.getText().toString());
+                        signIn(email, pass, nameTxt.getText().toString());
 //                        startActivity(new Intent(SignUpActivity.this, ConfirmEmailActivity.class));
                     } else {
                         try {
@@ -179,7 +185,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void signIn(String email, String pass,String name) {
+    private void signIn(String email, String pass, String name) {
         PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
         SignInRequestModel model = new SignInRequestModel(email, pass, SignUpActivity.this);
         Call<AuthenticationResponseModel> call = service.Authenticate(model);
@@ -192,7 +198,7 @@ public class SignUpActivity extends AppCompatActivity {
                     try {
                         String token = response.body() != null ? response.body().meta.token : "";
                         SavedInfo.deleteAll(SavedInfo.class);
-                        SavedInfo info = new SavedInfo(token, email,name);
+                        SavedInfo info = new SavedInfo(token, email, name);
                         info.save();
                         StaticTools.token = token;
                         if (StaticTools.homePageId == null)

@@ -60,6 +60,11 @@ public class ArtistActivity extends AppCompatActivity {
     boolean isMore;
 
     @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         MiniPlayerFragment.isPrepared = true;

@@ -1,5 +1,6 @@
 package com.mahaventures.wibe.Activities;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.TouchDelegate;
@@ -20,6 +21,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChangePasswordActivity extends AppCompatActivity {
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MyProfileActivity.class));
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 public void onResponse(Call call, Response response) {
                     if (response.isSuccessful()) {
                         StaticTools.ShowToast(ChangePasswordActivity.this, "password changed!", 0);
+                        ChangePasswordActivity.this.startActivity(new Intent(ChangePasswordActivity.this, SignInActivity.class));
                     }
                 }
 

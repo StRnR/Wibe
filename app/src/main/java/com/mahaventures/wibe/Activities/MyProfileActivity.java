@@ -19,6 +19,12 @@ public class MyProfileActivity extends AppCompatActivity {
     EditText email;
 
     @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, BrowseActivity.class));
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);

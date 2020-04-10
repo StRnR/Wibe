@@ -184,6 +184,6 @@ public class PlaylistActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         startActivity(new Intent(PlaylistActivity.this, BrowseActivity.class));
-        this.finish();
+        finish();
     }
 }

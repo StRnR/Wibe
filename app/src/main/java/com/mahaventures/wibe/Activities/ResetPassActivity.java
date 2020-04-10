@@ -2,7 +2,6 @@ package com.mahaventures.wibe.Activities;
 
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
@@ -11,17 +10,9 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mahaventures.wibe.Models.ResetPassword;
-import com.mahaventures.wibe.Models.ResponseModels.ResetPasswordResponseModel;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.Services.GetDataService;
-import com.mahaventures.wibe.Services.PostDataService;
 import com.mahaventures.wibe.Tools.RetrofitClientInstance;
-import com.mahaventures.wibe.Tools.StaticTools;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ResetPassActivity extends AppCompatActivity {
     @Override
