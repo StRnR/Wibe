@@ -11,22 +11,35 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mahaventures.wibe.Adapters.MySongsAdapter;
 import com.mahaventures.wibe.Fragments.MiniPlayerFragment;
+import com.mahaventures.wibe.Models.NewModels.MySong;
 import com.mahaventures.wibe.Models.NewModels.Track;
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.Services.GetDataService;
+import com.mahaventures.wibe.Tools.RetrofitClientInstance;
 import com.mahaventures.wibe.Tools.StaticTools;
 
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MySongsActivity extends AppCompatActivity {
     public static FragmentManager fragmentManager;
     public static FrameLayout mysongsFragmentContainer;
     public static List<Track> mySongTracks;
+    public static MySong mySong;
+    TextView emptyTxt;
+    RecyclerView recyclerView;
+    SwipeRefreshLayout refreshLayout;
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -55,7 +68,9 @@ public class MySongsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_songs);
-        TextView emptyTxt = findViewById(R.id.txt_empty_mysongs);
+        refreshLayout = findViewById(R.id.mySong_sr);
+        refreshLayout.setOnRefreshListener(this::GetMySongs);
+        emptyTxt = findViewById(R.id.txt_empty_mysongs);
         mysongsFragmentContainer = findViewById(R.id.fragment_container_mysongs);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_mysongs);
         bottomNavigationView.setSelectedItemId(R.id.nav_mysongs);
@@ -94,32 +109,38 @@ public class MySongsActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
         MiniPlayerFragment.isPrepared = true;
-        RecyclerView recyclerView = findViewById(R.id.recycler_mysongs);
+        recyclerView = findViewById(R.id.recycler_mysongs);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-        if (StaticTools.mySong == null || StaticTools.tracks == null) {
-            StaticTools.GetMySongs();
-        }
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        GetMySongs();
+    }
+
+    private void GetMySongs() {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        String url = "https://api.musicify.ir/profile/tracks?include=track.album,track.artists";
+        Call<MySong> call = service.GetMySongs(StaticTools.getToken(), url);
+        call.enqueue(new Callback<MySong>() {
             @Override
-            public void run() {
-                if (StaticTools.isPrepared) {
-                    mySongTracks = (StaticTools.tracks != null) ? StaticTools.tracks : StaticTools.GetMySongs();
-                    MySongsAdapter adapter = new MySongsAdapter(StaticTools.mySong, MySongsActivity.this);
-                    runOnUiThread(() -> {
-                        recyclerView.setAdapter(adapter);
-                        if (StaticTools.mySong.data.size() == 0) {
-                            emptyTxt.setVisibility(View.VISIBLE);
-                        } else {
-                            emptyTxt.setVisibility(View.GONE);
-                        }
-                    });
-                    timer.cancel();
+            public void onResponse(Call<MySong> call, Response<MySong> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    mySongTracks = response.body().data.stream().map(x -> x.track).collect(Collectors.toList());
+                    if (mySongTracks.size() == 0) {
+                        emptyTxt.setVisibility(View.VISIBLE);
+                    } else {
+                        emptyTxt.setVisibility(View.GONE);
+                    }
+                    mySong = response.body();
+                    MySongsAdapter adapter = new MySongsAdapter(mySong, MySongsActivity.this);
+                    recyclerView.setAdapter(adapter);
+                    refreshLayout.setRefreshing(false);
                 }
             }
-        }, 0, 50);
+
+            @Override
+            public void onFailure(Call<MySong> call, Throwable t) {
+            }
+        });
     }
 
     @Override

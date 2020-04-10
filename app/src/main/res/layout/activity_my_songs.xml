@@ -1,91 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mySong_sr"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
-    tools:context=".Activities.MySongsActivity">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_songs_mysongs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="28dp"
-        android:background="@color/transparent"
-        android:fontFamily="@font/nexa_bold"
-        android:text="Songs"
-        android:textAllCaps="false"
-        android:textColor="@color/wibeSea"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_artists_mysongs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:background="@color/transparent"
-        android:fontFamily="@font/nexa_bold"
-        android:text="Artists"
-        android:textAllCaps="false"
-        android:textColor="@color/text_grey"
-        android:textSize="24sp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/btn_songs_mysongs"
-        app:layout_constraintTop_toTopOf="@id/btn_songs_mysongs" />
-
-    <RelativeLayout
-        android:id="@+id/layout_relative_mysongs"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_container_mysongs"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_songs_mysongs">
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_background"
+        tools:context=".Activities.MySongsActivity">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_mysongs"
+        <Button
+            android:id="@+id/btn_songs_mysongs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="28dp"
+            android:background="@color/transparent"
+            android:fontFamily="@font/nexa_bold"
+            android:text="Songs"
+            android:textAllCaps="false"
+            android:textColor="@color/wibeSea"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_artists_mysongs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:background="@color/transparent"
+            android:fontFamily="@font/nexa_bold"
+            android:text="Artists"
+            android:textAllCaps="false"
+            android:textColor="@color/text_grey"
+            android:textSize="24sp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@id/btn_songs_mysongs"
+            app:layout_constraintTop_toTopOf="@id/btn_songs_mysongs" />
+
+        <RelativeLayout
+            android:id="@+id/layout_relative_mysongs"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_container_mysongs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_songs_mysongs">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_mysongs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:clipToPadding="false"
+                android:paddingTop="40dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txt_empty_mysongs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:clipToPadding="false"
-            android:paddingTop="40dp" />
-    </RelativeLayout>
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/nexa_bold"
+            android:gravity="center"
+            android:text="My Songs is empty!"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/navbar_bottom_mysongs"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txt_empty_mysongs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/nexa_bold"
-        android:gravity="center"
-        android:text="My Songs is empty!"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/navbar_bottom_mysongs"
-        app:layout_constraintTop_toTopOf="parent" />
+        <FrameLayout
+            android:id="@+id/fragment_container_mysongs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/navbar_bottom_mysongs" />
 
-    <FrameLayout
-        android:id="@+id/fragment_container_mysongs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/navbar_bottom_mysongs" />
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navbar_bottom_mysongs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/darkBackground"
+            app:itemIconTint="@drawable/selector"
+            app:itemTextAppearanceActive="@style/navbar_active"
+            app:itemTextAppearanceInactive="@style/navbar_inactive"
+            app:itemTextColor="@drawable/selector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/bottom_navbar" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navbar_bottom_mysongs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/darkBackground"
-        app:itemIconTint="@drawable/selector"
-        app:itemTextAppearanceActive="@style/navbar_active"
-        app:itemTextAppearanceInactive="@style/navbar_inactive"
-        app:itemTextColor="@drawable/selector"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_navbar" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

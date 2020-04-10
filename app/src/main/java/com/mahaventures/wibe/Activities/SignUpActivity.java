@@ -153,8 +153,8 @@ public class SignUpActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         StaticTools.ShowToast(SignUpActivity.this, "User registered successfully", 1);
                         StaticTools.setName(nameTxt.getText().toString());
-//                        signIn(email, pass,nameTxt.getText().toString());
-                        startActivity(new Intent(SignUpActivity.this, ConfirmEmailActivity.class));
+                        signIn(email, pass,nameTxt.getText().toString());
+//                        startActivity(new Intent(SignUpActivity.this, ConfirmEmailActivity.class));
                     } else {
                         try {
                             if (response.errorBody() != null) {

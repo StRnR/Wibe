@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.palette.graphics.Palette;
 
 import com.mahaventures.wibe.Activities.ConfirmEmailActivity;
+import com.mahaventures.wibe.Activities.MySongsActivity;
 import com.mahaventures.wibe.Activities.PlayerActivity;
 import com.mahaventures.wibe.Models.NewModels.Album;
 import com.mahaventures.wibe.Models.NewModels.Artist;
@@ -411,22 +412,31 @@ public class StaticTools {
         return tracks;
     }
 
-    public static boolean IsAdded(String trackId) {
-        if (tracks == null)
-            GetMySongs();
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (!isPrepared) {
-                    try {
-                        Thread.sleep(50);
-                    } catch (Exception e) {
-
+    public static boolean IsAdded(String trackId) throws Exception {
+        if (MySongsActivity.mySongTracks != null) {
+            return MySongsActivity.mySongTracks.stream().anyMatch(track -> track.id.equals(trackId));
+        } else {
+            GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+            String url = "https://api.musicify.ir/profile/tracks?include=track.album,track.artists";
+            Call<MySong> call = service.GetMySongs(getToken(), url);
+            call.enqueue(new Callback<MySong>() {
+                @Override
+                public void onResponse(Call<MySong> call, Response<MySong> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        MySongsActivity.mySongTracks = response.body().data.stream().map(x -> x.track).collect(Collectors.toList());
+                        try {
+                            throw new Exception("try again! (Self exception)");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                } else timer.cancel();
-            }
-        }, 10, 49);
-        return tracks.stream().anyMatch(track -> track.id.equals(trackId));
+                }
+
+                @Override
+                public void onFailure(Call<MySong> call, Throwable t) {
+                }
+            });
+        }
+        return false;
     }
 }
