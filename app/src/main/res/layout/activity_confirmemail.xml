@@ -10,10 +10,10 @@
 
     <Button
         android:id="@+id/btn_back_confirmemail"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,12 +23,10 @@
         style="@style/Bold1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="120dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="24dp"
         android:text="Confirm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -36,13 +34,11 @@
         style="@style/Regular2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="14dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="24dp"
         android:lineHeight="25sp"
         android:text="We’ve emailed you a 6 digit code, please enter it here:"
-        app:layout_constraintEnd_toEndOf="@+id/txt_confirmemail"
-        app:layout_constraintStart_toStartOf="@+id/txt_confirmemail"
         app:layout_constraintTop_toBottomOf="@+id/txt_confirmemail" />
 
     <EditText
@@ -50,15 +46,13 @@
         style="@style/Regular1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="24dp"
         android:hint="Confirm code"
         android:inputType="number"
         android:textColorHint="@color/white"
         android:theme="@style/UserAuthenticationEditText"
-        app:layout_constraintLeft_toLeftOf="@id/txt_confirmemailguide"
-        app:layout_constraintRight_toRightOf="@id/txt_confirmemailguide"
         app:layout_constraintTop_toBottomOf="@id/txt_confirmemailguide" />
 
 
@@ -81,13 +75,11 @@
         style="@style/Bold2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="64dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/gradient_blue"
         android:text="Let’s Go!"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_resend_confirmemail" />
 </androidx.constraintlayout.widget.ConstraintLayout>
