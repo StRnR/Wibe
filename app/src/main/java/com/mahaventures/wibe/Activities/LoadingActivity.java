@@ -34,7 +34,6 @@ public class LoadingActivity extends AppCompatActivity {
 //        setContentView(view);
         SugarContext.init(this);
         SavedInfo info = SavedInfo.last(SavedInfo.class);
-//        startActivity(new Intent(MainActivity.this, SearchActivity.class));
         if (info != null) {
             StaticTools.token = info.getToken();
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
@@ -48,9 +47,8 @@ public class LoadingActivity extends AppCompatActivity {
                             StaticTools.LogErrorMessage("token: " + StaticTools.token);
                             startActivity(new Intent(LoadingActivity.this, BrowseActivity.class));
                             finish();
-                        } else
+                        } else {
                             startActivity(new Intent(LoadingActivity.this, MainActivity.class));
-                        {
                             finish();
                         }
                     } else if (response.code() == 401) {

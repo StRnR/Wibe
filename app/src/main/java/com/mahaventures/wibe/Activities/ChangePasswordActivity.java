@@ -62,12 +62,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         StaticTools.ShowToast(ChangePasswordActivity.this, "password changed!", 0);
                         ChangePasswordActivity.this.startActivity(new Intent(ChangePasswordActivity.this, SignInActivity.class));
+                    } else {
+                        StaticTools.ShowToast(ChangePasswordActivity.this, "password is invalid", 0);
                     }
                 }
 
                 @Override
                 public void onFailure(Call call, Throwable t) {
-
+                    StaticTools.ServerError(ChangePasswordActivity.this, t.getMessage());
                 }
             });
         });

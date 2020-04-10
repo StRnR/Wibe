@@ -345,23 +345,18 @@ public class StaticTools {
     }
 
     public static void ServerError(Context context, String message) {
-//        Intent intent = new Intent(context, OnServerFailureActivity.class);
-//        context.startActivity(intent);
         ShowToast(context, message, 0);
         LogErrorMessage(message);
     }
 
-    public static String getHPI() {
-        if (homePageId != null)
-            return homePageId;
+    public static void getHPI() {
         PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
         Call<InitModel> call = service.Init(getToken());
-        final String[] s = new String[1];
         call.enqueue(new Callback<InitModel>() {
             @Override
             public void onResponse(Call<InitModel> call, Response<InitModel> response) {
-                if (response.isSuccessful()) {
-                    s[0] = response.body() != null ? response.body().homePageId : "";
+                if (response.isSuccessful() && response.body() != null) {
+                    homePageId = response.body().homePageId;
                 }
             }
 
@@ -369,25 +364,6 @@ public class StaticTools {
             public void onFailure(Call<InitModel> call, Throwable t) {
             }
         });
-        if (s[0] != null)
-            return s[0];
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (s[0] == null) {
-                    try {
-                        Thread.sleep(50);
-                    } catch (Exception e) {
-
-                    }
-                } else {
-                    timer.cancel();
-                }
-
-            }
-        }, 10, 49);
-        return s[0];
     }
 
     public static List<Track> GetMySongs() {
