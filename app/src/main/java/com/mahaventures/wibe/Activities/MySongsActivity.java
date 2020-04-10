@@ -68,7 +68,7 @@ public class MySongsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_songs);
-        refreshLayout = findViewById(R.id.browse_sr);
+        refreshLayout = findViewById(R.id.mySong_sr);
         refreshLayout.setOnRefreshListener(this::GetMySongs);
         emptyTxt = findViewById(R.id.txt_empty_mysongs);
         mysongsFragmentContainer = findViewById(R.id.fragment_container_mysongs);
@@ -131,8 +131,9 @@ public class MySongsActivity extends AppCompatActivity {
                         emptyTxt.setVisibility(View.GONE);
                     }
                     mySong = response.body();
-                    MySongsAdapter adapter = new MySongsAdapter(StaticTools.mySong, MySongsActivity.this);
+                    MySongsAdapter adapter = new MySongsAdapter(mySong, MySongsActivity.this);
                     recyclerView.setAdapter(adapter);
+                    refreshLayout.setRefreshing(false);
                 }
             }
 
