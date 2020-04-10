@@ -31,7 +31,7 @@ public class SearchArtistAdapter extends RecyclerView.Adapter<SearchArtistAdapte
     @NonNull
     @Override
     public SearchArtistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_album, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_artist, parent, false);
         return new SearchArtistAdapter.SearchArtistViewHolder(view);
     }
 
@@ -61,9 +61,9 @@ public class SearchArtistAdapter extends RecyclerView.Adapter<SearchArtistAdapte
 
         SearchArtistViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardView = itemView.findViewById(R.id.card_view_album_tile);
-            albumImg = itemView.findViewById(R.id.img_artwork_album_tile);
-            artist = itemView.findViewById(R.id.txt_artist_album_tile);
+            cardView = itemView.findViewById(R.id.card_view_artist_tile);
+            albumImg = itemView.findViewById(R.id.img_cover_artist_tile);
+            artist = itemView.findViewById(R.id.txt_name_artist_tile);
         }
     }
 }

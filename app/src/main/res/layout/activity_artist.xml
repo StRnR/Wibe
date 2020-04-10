@@ -23,12 +23,11 @@
         app:layout_constraintBottom_toBottomOf="@id/img_blur_artist"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_artwork_artist_page"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginTop="28dp"
-        android:background="@drawable/loadingmusic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
