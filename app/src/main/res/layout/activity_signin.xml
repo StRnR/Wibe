@@ -92,8 +92,8 @@
         android:textColor="@color/white"
         android:textSize="10sp"
         android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="@id/txt_signinguide"
-        app:layout_constraintRight_toRightOf="@id/txt_signinguide"
+        app:layout_constraintEnd_toEndOf="@id/txt_signinguide"
+        app:layout_constraintStart_toStartOf="@id/txt_signinguide"
         app:layout_constraintTop_toBottomOf="@+id/txt_edit_pass_signin" />
 
     <Button

@@ -86,15 +86,28 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_edit_email_my_profile" />
 
     <Button
+        android:id="@+id/btn_change_pass_my_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/darkBackground"
+        android:fontFamily="@font/nexa_light"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_edit_pass_my_profile" />
+
+    <Button
         android:id="@+id/btn_signout"
         style="@style/Bold2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/gradient_blue"
         android:text="Sign Out"
-        app:layout_constraintTop_toBottomOf="@+id/txt_edit_pass_my_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_change_pass_my_profile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
