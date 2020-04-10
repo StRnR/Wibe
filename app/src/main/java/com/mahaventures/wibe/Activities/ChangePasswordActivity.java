@@ -3,6 +3,7 @@ package com.mahaventures.wibe.Activities;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
@@ -51,6 +52,30 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
         backBtn.setOnClickListener(v -> {
             onBackPressed();
+        });
+
+        showOldPassBtn.setOnClickListener(v -> {
+            if (oldPass.getTransformationMethod() != null) {
+                oldPass.setTransformationMethod(null);
+                showOldPassBtn.setBackground(getDrawable(R.drawable.ic_visibility_blue));
+                oldPass.setSelection(oldPass.getText().toString().length());
+            } else {
+                oldPass.setTransformationMethod(new PasswordTransformationMethod());
+                showOldPassBtn.setBackground(getDrawable(R.drawable.ic_visibility));
+                oldPass.setSelection(oldPass.getText().toString().length());
+            }
+        });
+
+        showNewPassBtn.setOnClickListener(v -> {
+            if (newPass.getTransformationMethod() != null) {
+                newPass.setTransformationMethod(null);
+                showNewPassBtn.setBackground(getDrawable(R.drawable.ic_visibility_blue));
+                newPass.setSelection(newPass.getText().toString().length());
+            } else {
+                newPass.setTransformationMethod(new PasswordTransformationMethod());
+                showNewPassBtn.setBackground(getDrawable(R.drawable.ic_visibility));
+                newPass.setSelection(newPass.getText().toString().length());
+            }
         });
 
         confirmButton.setOnClickListener(v -> {
