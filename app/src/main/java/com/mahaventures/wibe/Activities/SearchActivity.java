@@ -341,32 +341,32 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        StaticTools.ShowToast(SearchActivity.this, "onStart", 1);
+//        StaticTools.ShowToast(SearchActivity.this, "onStart", 1);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        StaticTools.ShowToast(SearchActivity.this, "onDestroy", 1);
+//        StaticTools.ShowToast(SearchActivity.this, "onDestroy", 1);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        StaticTools.ShowToast(SearchActivity.this, "onResume", 1);
+//        StaticTools.ShowToast(SearchActivity.this, "onResume", 1);
         MiniPlayerFragment.isPrepared = true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        StaticTools.ShowToast(SearchActivity.this, "onPause", 1);
+//        StaticTools.ShowToast(SearchActivity.this, "onPause", 1);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        StaticTools.ShowToast(SearchActivity.this, "onStop", 1);
+//        StaticTools.ShowToast(SearchActivity.this, "onStop", 1);
     }
 
     //todo call this method on button pressed
