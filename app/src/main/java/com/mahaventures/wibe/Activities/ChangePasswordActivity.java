@@ -22,11 +22,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
-        //todo correct id
-        EditText newPass = findViewById(R.id.recycler_playlist);
-        EditText oldPass = findViewById(R.id.recycler_playlist);
-        Button button = findViewById(R.id.recycler_playlist);
-        button.setOnClickListener(v -> {
+        EditText newPass = findViewById(R.id.txt_edit_new_pass_change_pass);
+        EditText oldPass = findViewById(R.id.txt_edit_old_pass_change_pass);
+        Button confirmButton = findViewById(R.id.btn_confirm_change_pass);
+        Button showNewPassBtn = findViewById(R.id.btn_show_new_pass_change_pass);
+        Button showOldPassBtn = findViewById(R.id.btn_show_old_pass_change_pass);
+        confirmButton.setOnClickListener(v -> {
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
             Call call = service.ChangePassword(StaticTools.getToken(), new ChangePasswordRequestModel(oldPass.getText().toString(), newPass.getText().toString()));
             call.enqueue(new Callback() {
