@@ -6,7 +6,7 @@
     android:layout_marginEnd="16dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_view_album_tile"
+        android:id="@+id/card_view_artist_tile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:outlineProvider="none"
@@ -17,18 +17,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/img_artwork_album_tile"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_cover_artist_tile"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_alignParentTop="true"
-                android:background="@drawable/loadingmusic" />
+                app:civ_border_color="@color/transparent" />
 
             <TextView
-                android:id="@+id/txt_title_album_tile"
+                android:id="@+id/txt_name_artist_tile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/img_artwork_album_tile"
+                android:layout_below="@+id/img_cover_artist_tile"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
@@ -37,20 +37,6 @@
                 android:maxLines="1"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/txt_artist_album_tile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_title_album_tile"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/nexa_bold"
-                android:gravity="center"
-                android:lineSpacingExtra="15sp"
-                android:maxLines="1"
-                android:textColor="@color/text_grey"
-                android:textSize="10sp" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
