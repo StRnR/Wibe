@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mahaventures.wibe.Adapters.BrowseMainAdapter;
@@ -36,6 +37,7 @@ public class BrowseActivity extends AppCompatActivity {
     public static FragmentManager fragmentManager;
     public FrameLayout browseFragmentContainer;
     RecyclerView recyclerView;
+    SwipeRefreshLayout refreshLayout;
 
     @Override
     public void onBackPressed() {
@@ -74,6 +76,8 @@ public class BrowseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
+        refreshLayout = findViewById(R.id.browse_sr);
+        refreshLayout.setOnRefreshListener(this::getHPI);
         browseFragmentContainer = findViewById(R.id.fragment_container_browse);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_browse);
         bottomNavigationView.setSelectedItemId(R.id.nav_browse);
@@ -161,6 +165,7 @@ public class BrowseActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mainAdapter);
+        refreshLayout.setRefreshing(false);
     }
 
     private void reviveActivity() {
