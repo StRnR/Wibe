@@ -186,9 +186,8 @@ public class AlbumActivity extends AppCompatActivity {
         MiniPlayerFragment.isPrepared = true;
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        startActivity(new Intent(AlbumActivity.this, BrowseActivity.class));
-//        this.finish();
-//    }
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

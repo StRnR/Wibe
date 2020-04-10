@@ -32,7 +32,8 @@ public class ConfirmEmailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(ConfirmEmailActivity.this, SignUpActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     @Override
