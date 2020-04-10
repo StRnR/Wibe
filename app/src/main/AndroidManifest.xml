@@ -78,7 +78,7 @@
             android:name=".Activities.PlayerActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.Player" />
         <activity
             android:name=".Activities.SignInActivity"
             android:screenOrientation="portrait"
