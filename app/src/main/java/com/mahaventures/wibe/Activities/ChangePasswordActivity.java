@@ -41,9 +41,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
             rect.right += 50;
             parent.setTouchDelegate(new TouchDelegate(rect, backBtn));
         });
+
         backBtn.setOnClickListener(v -> {
             onBackPressed();
         });
+
         confirmButton.setOnClickListener(v -> {
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
             Call call = service.ChangePassword(StaticTools.getToken(), new ChangePasswordRequestModel(oldPass.getText().toString(), newPass.getText().toString()));
@@ -51,7 +53,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call call, Response response) {
                     if (response.isSuccessful()) {
-                        //todo
+                        StaticTools.ShowToast(ChangePasswordActivity.this, "password changed!", 0);
                     }
                 }
 
