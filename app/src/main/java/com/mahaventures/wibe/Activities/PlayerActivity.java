@@ -50,7 +50,7 @@ import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class PlayerActivity extends AppCompatActivity implements Playable {
 
-    public static MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer = new MediaPlayer();
     public static Bitmap artWork;
     public static ImageView img;
     public static String mArtistString;
@@ -317,6 +317,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     }
 
     private void setMeta() {
+        if (track == null)
+            return;
         String artist = StaticTools.getArtistsName(track);
         mArtistString = artist;
         artistTxt.setText(artist);
