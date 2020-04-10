@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,13 +46,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.inject.Inject;
-
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class PlayerActivity extends AppCompatActivity implements Playable {
 
-    public static MediaPlayer mediaPlayer = new MediaPlayer();
+    public static MediaPlayer mediaPlayer;
     public static Bitmap artWork;
     public static ImageView img;
     public static String mArtistString;
@@ -253,15 +252,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         songSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (!fromUser && sd != 0 && Math.abs(sd - sp) <= 500) {
-                    if (repeated) {
-                        if (isPrepared) {
-                            mediaPlayer.seekTo(0);
-                            mediaPlayer.start();
-                            pos = 0;
-                        }
-                    } else next();
-                }
                 if (fromUser && isPrepared) {
                     try {
                         pos = progress;
@@ -510,6 +500,15 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 }, 0, 500);
             });
             mediaPlayer.prepareAsync();
+            mediaPlayer.setOnCompletionListener(mp -> {
+                if (repeated) {
+                    if (isPrepared) {
+                        mediaPlayer.seekTo(0);
+                        mediaPlayer.start();
+                        pos = 0;
+                    }
+                } else next();
+            });
         } catch (Exception e) {
             StaticTools.LogErrorMessage(e.getMessage() + " inja player activity");
             try {
@@ -521,6 +520,14 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 StaticTools.LogErrorMessage(e1.getMessage() + " kir khord dg");
             }
         }
+    }
+
+    private int getDuration(String url) {
+        MediaMetadataRetriever metaRetriever = new MediaMetadataRetriever();
+        metaRetriever.setDataSource(url);
+        String duration = metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+        long dur = Long.parseLong(duration);
+        return (int) dur;
     }
 
     private void previous() {
