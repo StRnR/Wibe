@@ -21,8 +21,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".Activities.ChangePasswordActivity"></activity>
-        <activity android:name=".Activities.MyProfileActivity" />
 
         <receiver android:name=".Services.NotificationActionService" />
         <receiver android:name=".Services.MiniPlayerBroadCastReceiver" />
@@ -43,6 +41,14 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.mahaventures.wibe" />
 
+        <activity
+            android:name=".Activities.ChangePasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.MyProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.ArtistActivity"
             android:screenOrientation="portrait"

@@ -3,6 +3,8 @@ package com.mahaventures.wibe.Activities;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +33,7 @@ public class MyProfileActivity extends AppCompatActivity {
         SugarContext.init(this);
         Button signOutBtn = findViewById(R.id.btn_signout);
         Button backBtn = findViewById(R.id.btn_back_my_profile);
+        Button changePassBtn = findViewById(R.id.btn_change_pass_my_profile);
         name = findViewById(R.id.txt_edit_name_my_profile);
         name.setFocusable(false);
         name.setEnabled(false);
@@ -45,6 +48,12 @@ public class MyProfileActivity extends AppCompatActivity {
         email.setKeyListener(null);
         email.setText(SavedInfo.last(SavedInfo.class).getEmail());
 
+        SpannableString content = new SpannableString("CHANGE PASSWORD");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        changePassBtn.setText(content);
+        changePassBtn.setOnClickListener(v -> {
+            startActivity(new Intent(this, ChangePasswordActivity.class));
+        });
         final View parent = (View) backBtn.getParent();
         parent.post(() -> {
             final Rect rect = new Rect();

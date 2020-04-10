@@ -2,6 +2,7 @@ package com.mahaventures.wibe.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -76,6 +77,7 @@ public class BrowseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
+        Button myProfileBtn = findViewById(R.id.btn_user_browse);
         refreshLayout = findViewById(R.id.browse_sr);
         refreshLayout.setOnRefreshListener(this::getHPI);
         browseFragmentContainer = findViewById(R.id.fragment_container_browse);
@@ -95,6 +97,10 @@ public class BrowseActivity extends AppCompatActivity {
                     return true;
             }
             return false;
+        });
+
+        myProfileBtn.setOnClickListener(v -> {
+            BrowseActivity.this.startActivity(new Intent(BrowseActivity.this, MyProfileActivity.class));
         });
 
         Timer timerRevive = new Timer();
