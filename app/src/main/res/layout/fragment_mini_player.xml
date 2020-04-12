@@ -7,7 +7,7 @@
     android:layout_height="85dp"
     android:background="#90121416"
     android:visibility="gone"
-    tools:context=".Fragments.MiniPlayerFragment">
+    tools:context=".fragments.MiniPlayerFragment">
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/progressbar_miniplayer"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/landing_bg"
     android:orientation="vertical"
-    tools:context=".Activities.MainActivity">
+    tools:context=".activities.MainActivity">
 
     <TextView
         android:id="@+id/txt_intro"

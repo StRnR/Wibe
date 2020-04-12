@@ -1,7 +1,7 @@
 package com.mahaventures.wibe;
 
 
-import com.mahaventures.wibe.DI.DaggerAppComponent;
+import com.mahaventures.wibe.di.DaggerAppComponent;
 
 import dagger.android.AndroidInjector;
 import dagger.android.support.DaggerApplication;

@@ -22,11 +22,11 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
 
-        <receiver android:name=".Services.NotificationActionService" />
-        <receiver android:name=".Services.MiniPlayerBroadCastReceiver" />
-        <receiver android:name=".Services.PlaySongBroadcastReceiver" />
+        <receiver android:name=".services.NotificationActionService" />
+        <receiver android:name=".services.MiniPlayerBroadCastReceiver" />
+        <receiver android:name=".services.PlaySongBroadcastReceiver" />
 
-        <service android:name=".Services.OnClearFromRecentService" />
+        <service android:name=".services.OnClearFromRecentService" />
 
         <meta-data
             android:name="DATABASE"
@@ -42,71 +42,71 @@
             android:value="com.mahaventures.wibe" />
 
         <activity
-            android:name=".Activities.ChangePasswordActivity"
+            android:name=".activities.ChangePasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.MyProfileActivity"
+            android:name=".activities.MyProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.ArtistActivity"
+            android:name=".activities.ArtistActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.OnServerFailureActivity"
+            android:name=".activities.OnServerFailureActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.AlbumActivity"
+            android:name=".activities.AlbumActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.PlaylistActivity"
+            android:name=".activities.PlaylistActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.SearchActivity"
+            android:name=".activities.SearchActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.BrowseActivity"
+            android:name=".activities.BrowseActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.MySongsActivity"
+            android:name=".activities.MySongsActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.PlayerActivity"
+            android:name=".activities.PlayerActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Player" />
         <activity
-            android:name=".Activities.SignInActivity"
+            android:name=".activities.SignInActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.ConfirmEmailActivity"
+            android:name=".activities.ConfirmEmailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.SignUpActivity"
+            android:name=".activities.SignUpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.ForgotPassActivity"
+            android:name=".activities.ForgotPassActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.LoadingActivity"
+            android:name=".activities.LoadingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -116,11 +116,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.ResetPassActivity"
+            android:name=".activities.ResetPassActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activities.TmpActivity"
+            android:name=".activities.TmpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
