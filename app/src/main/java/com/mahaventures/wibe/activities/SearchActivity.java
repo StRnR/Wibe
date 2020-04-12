@@ -39,6 +39,7 @@ import com.mahaventures.wibe.tools.StaticTools;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
@@ -270,7 +271,7 @@ public class SearchActivity extends AppCompatActivity {
                     }
                 } else {
                     try {
-                        String s1 = new String(response.errorBody().bytes());
+                        String s1 = new String(response.errorBody() != null ? response.errorBody().bytes() : new byte[0]);
                         StaticTools.LogErrorMessage(s1);
                     } catch (Exception e) {
                         StaticTools.LogErrorMessage(e.getMessage() + " wtf");
@@ -316,7 +317,7 @@ public class SearchActivity extends AppCompatActivity {
                     }
                 } else {
                     try {
-                        String s1 = new String(response.errorBody().bytes());
+                        String s1 = new String(response.errorBody() != null ? response.errorBody().bytes() : new byte[0]);
                         StaticTools.LogErrorMessage(s1);
                     } catch (Exception e) {
                         StaticTools.LogErrorMessage(e.getMessage() + " wtf");
@@ -399,7 +400,7 @@ public class SearchActivity extends AppCompatActivity {
                         }
                     } else {
                         try {
-                            String s1 = new String(response.errorBody().bytes());
+                            String s1 = new String(response.errorBody() != null ? response.errorBody().bytes() : new byte[0]);
                             StaticTools.LogErrorMessage(s1);
                         } catch (Exception e) {
                             StaticTools.LogErrorMessage(e.getMessage() + " wtf");
@@ -420,7 +421,7 @@ public class SearchActivity extends AppCompatActivity {
         View view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 

@@ -42,6 +42,7 @@ import com.squareup.picasso.Target;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -565,7 +566,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     private BroadcastReceiver miniPlayerBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String action = intent.getExtras().getString("action_name");
+            String action = Objects.requireNonNull(intent.getExtras()).getString("action_name");
             if (action != null) {
                 switch (action) {
                     case MiniPlayerFragment.ACTION_PLAY:
@@ -587,7 +588,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     private BroadcastReceiver playSongBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String action = intent.getExtras().getString("play_song_action");
+            String action = Objects.requireNonNull(intent.getExtras()).getString("play_song_action");
             if (action != null && action.equals("pay")) {
 //                PlayerActivity.this.finish();
                 PlayerActivity.this.finish();
@@ -599,7 +600,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String action = intent.getExtras().getString("actionname");
+            String action = Objects.requireNonNull(intent.getExtras()).getString("actionname");
             if (action != null) {
                 switch (action) {
                     case CreateNotificationService.ACTION_PREVIOUS:

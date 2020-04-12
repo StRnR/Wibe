@@ -163,7 +163,7 @@ public class StaticTools {
     }
 
     public static String getSongDuration(int seconds) {
-        String second = "";
+        String second;
         if (String.valueOf(seconds % 60).length() == 1) {
             second = String.format(Locale.getDefault(), "0%d", seconds % 60);
         } else {

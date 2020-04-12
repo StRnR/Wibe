@@ -174,7 +174,7 @@ public class ArtistActivity extends AppCompatActivity {
         call.enqueue(new Callback<Tracks>() {
             @Override
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response.body() != null) {
                     tracks.addAll(response.body().data);
                     count++;
                 }
@@ -194,7 +194,7 @@ public class ArtistActivity extends AppCompatActivity {
         call.enqueue(new Callback<Albums>() {
             @Override
             public void onResponse(Call<Albums> call, Response<Albums> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response.body() != null) {
                     SearchAlbumAdapter albumAdapter = new SearchAlbumAdapter(ArtistActivity.this, response.body().data);
                     albumsRv.setAdapter(albumAdapter);
                 }
@@ -220,7 +220,7 @@ public class ArtistActivity extends AppCompatActivity {
         call.enqueue(new Callback<Tracks>() {
             @Override
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful()&& response.body() != null) {
                     runOnUiThread(() -> {
                         songsShowMore.setText("Show More");
                         songsShowMore.setClickable(true);

@@ -112,7 +112,7 @@ public class PlaylistActivity extends AppCompatActivity {
         playlistCall.enqueue(new Callback<Playlist>() {
             @Override
             public void onResponse(Call<Playlist> call, Response<Playlist> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful()&& response.body() != null) {
                     RequestCreator requestCreator = Picasso.get().load(response.body().image.medium.url);
                     requestCreator.into(playlistArtwork);
                     DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -162,7 +162,7 @@ public class PlaylistActivity extends AppCompatActivity {
         call.enqueue(new Callback<Tracks>() {
             @Override
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful()&& response.body() != null) {
                     tracks.addAll(response.body().data);
                     shuffleBtn.setEnabled(true);
                     SongsRecyclerAlbumAndPlaylistAdapter adapter = new SongsRecyclerAlbumAndPlaylistAdapter(response.body().data, PlaylistActivity.this);

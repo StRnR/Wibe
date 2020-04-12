@@ -127,12 +127,12 @@ public class MiniPlayerFragment extends Fragment {
             if (context != null) {
                 Intent intent = new Intent(context, MiniPlayerBroadCastReceiver.class)
                         .setAction(ACTION_NEXT);
-                getActivity().sendBroadcast(intent);
+                Objects.requireNonNull(getActivity()).sendBroadcast(intent);
                 Timer timer1 = new Timer();
                 timer1.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        getActivity().startActivity(new Intent(getActivity(), PlayerActivity.class));
+                        Objects.requireNonNull(getActivity()).startActivity(new Intent(getActivity(), PlayerActivity.class));
                     }
                 }, 100);
             }
@@ -142,7 +142,7 @@ public class MiniPlayerFragment extends Fragment {
             if (context != null) {
                 Intent intent = new Intent(context, MiniPlayerBroadCastReceiver.class)
                         .setAction(ACTION_PLAY);
-                getActivity().sendBroadcast(intent);
+                Objects.requireNonNull(getActivity()).sendBroadcast(intent);
             }
         });
 
@@ -151,7 +151,7 @@ public class MiniPlayerFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), PlayerActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                 if (isLoaded)
-                    getActivity().startActivity(intent);
+                    Objects.requireNonNull(getActivity()).startActivity(intent);
             } catch (Exception e) {
                 StaticTools.LogErrorMessage(e.getMessage());
             }
