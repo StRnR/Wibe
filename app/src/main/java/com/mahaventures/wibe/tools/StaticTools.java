@@ -196,12 +196,12 @@ public class StaticTools {
 
     public static void addToMySong(Context context, String id) {
         PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
-        Call call = service.AddToMySongs(StaticTools.getToken(), id);
+        Call call = service.AddToMySongs(getToken(), id);
         call.enqueue(new retrofit2.Callback() {
             @Override
             public void onResponse(Call call, Response response) {
                 if (response.isSuccessful())
-                    StaticTools.ShowToast(context, "added", 0);
+                    StaticTools.ShowToast(context, "Added", 0);
             }
 
             @Override

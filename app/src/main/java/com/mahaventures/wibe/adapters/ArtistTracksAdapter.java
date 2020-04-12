@@ -16,17 +16,11 @@ import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.activities.ArtistActivity;
 import com.mahaventures.wibe.activities.PlayerActivity;
 import com.mahaventures.wibe.models.Track;
-import com.mahaventures.wibe.services.PostDataService;
-import com.mahaventures.wibe.tools.RetrofitClientInstance;
 import com.mahaventures.wibe.tools.StaticTools;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ArtistTracksAdapter extends RecyclerView.Adapter<ArtistTracksAdapter.ArtistTracksViewHolder> {
     private List<Track> result;
@@ -63,20 +57,7 @@ public class ArtistTracksAdapter extends RecyclerView.Adapter<ArtistTracksAdapte
     }
 
     private void addToMySongs(String id) {
-        PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
-        Call<Void> call = service.AddToMySongs(StaticTools.getToken(), id);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful())
-                    StaticTools.ShowToast(context, "added", 0);
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-
-            }
-        });
+        StaticTools.addToMySong(context, id);
     }
 
     @Override
