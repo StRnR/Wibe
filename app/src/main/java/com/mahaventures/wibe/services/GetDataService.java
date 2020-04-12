@@ -8,7 +8,6 @@ import com.mahaventures.wibe.models.GeneralSearch;
 import com.mahaventures.wibe.models.MySong;
 import com.mahaventures.wibe.models.Page;
 import com.mahaventures.wibe.models.Playlist;
-import com.mahaventures.wibe.models.ResponseModels.ResetPasswordResponseModel;
 import com.mahaventures.wibe.models.Track;
 import com.mahaventures.wibe.models.Tracks;
 import com.mahaventures.wibe.models.TracksResult;
@@ -21,8 +20,6 @@ import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 public interface GetDataService {
-    @GET("users/me/")
-    Call<User> GetUserInfo(@Header("Authorization") String s);
 
     @GET("users/verify/email/")
     Call<Void> SendVerificationEmail(@Header("Authorization") String s);
@@ -32,9 +29,6 @@ public interface GetDataService {
 
     @GET("pages/{id}/")
     Call<Page> GetPage(@Path("id") String id);
-
-    @GET("users/verify/password/")
-    Call<ResetPasswordResponseModel> GetResetPasswordId(@Query("email") String email);
 
     @GET("artists/search/")
     Call<ArtistsSearch> SearchArtists(@Header("Authorization") String auth, @Query("query") String query);
