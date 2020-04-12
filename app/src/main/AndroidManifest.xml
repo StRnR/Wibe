@@ -30,10 +30,10 @@
 
         <meta-data
             android:name="DATABASE"
-            android:value="DB.db" />
+            android:value="db.db" />
         <meta-data
             android:name="VERSION"
-            android:value="2" />
+            android:value="1" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />

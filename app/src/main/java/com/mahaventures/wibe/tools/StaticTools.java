@@ -49,7 +49,6 @@ public class StaticTools {
     private final static int MinimumPasswordLength = 6;
     public static String token;
     public static String homePageId;
-    public static List<Track> tracks;
     private static String name;
 
     public static String getName() {
@@ -278,7 +277,7 @@ public class StaticTools {
     }
 
     public static void ServerError(Context context, String message) {
-        ShowToast(context, message, 0);
+        ShowToast(context, "Please try again later...", 0);
         LogErrorMessage(message);
     }
 

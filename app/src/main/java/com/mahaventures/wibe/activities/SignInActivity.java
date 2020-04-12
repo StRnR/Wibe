@@ -28,8 +28,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignInActivity extends AppCompatActivity {
-    public static String Email;
-
     @Override
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));
@@ -90,9 +88,8 @@ public class SignInActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<AuthenticationResponseModel> call, Throwable t) {
-//                    StaticTools.ShowToast(SignInActivity.this, "server error", 0);
-//                    signInButton.setText(R.string.sign_in_text);
-//                    signInButton.setEnabled(true);
+                    signInButton.setText(R.string.sign_in_text);
+                    signInButton.setEnabled(true);
                     StaticTools.ServerError(SignInActivity.this, t.getMessage());
                 }
             });
