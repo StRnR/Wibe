@@ -11,8 +11,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mahaventures.wibe.models.ChangePasswordRequestModel;
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.models.ChangePasswordRequestModel;
 import com.mahaventures.wibe.services.PostDataService;
 import com.mahaventures.wibe.tools.RetrofitClientInstance;
 import com.mahaventures.wibe.tools.StaticTools;

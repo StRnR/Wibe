@@ -5,9 +5,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mahaventures.wibe.models.SavedInfo;
-import com.mahaventures.wibe.models.InitModel;
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.models.InitModel;
+import com.mahaventures.wibe.models.SavedInfo;
 import com.mahaventures.wibe.services.PostDataService;
 import com.mahaventures.wibe.tools.RetrofitClientInstance;
 import com.mahaventures.wibe.tools.StaticTools;

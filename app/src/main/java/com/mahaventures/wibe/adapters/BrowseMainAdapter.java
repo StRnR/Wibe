@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mahaventures.wibe.models.Collection;
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.models.Collection;
 import com.mahaventures.wibe.tools.StaticTools;
 
 import java.util.List;

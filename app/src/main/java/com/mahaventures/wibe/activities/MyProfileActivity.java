@@ -12,8 +12,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mahaventures.wibe.models.SavedInfo;
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.models.SavedInfo;
 import com.orm.SugarContext;
 
 public class MyProfileActivity extends AppCompatActivity {

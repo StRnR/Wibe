@@ -16,9 +16,9 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.activities.PlayerActivity;
 import com.mahaventures.wibe.models.Track;
-import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.services.MiniPlayerBroadCastReceiver;
 import com.mahaventures.wibe.tools.AlphaTransformation;
 import com.mahaventures.wibe.tools.StaticTools;

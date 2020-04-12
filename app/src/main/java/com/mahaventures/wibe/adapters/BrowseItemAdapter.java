@@ -13,12 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.activities.AlbumActivity;
 import com.mahaventures.wibe.activities.ArtistActivity;
 import com.mahaventures.wibe.activities.PlaylistActivity;
 import com.mahaventures.wibe.models.BrowseItem;
 import com.mahaventures.wibe.models.Track;
-import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.services.GetDataService;
 import com.mahaventures.wibe.tools.RetrofitClientInstance;
 import com.mahaventures.wibe.tools.StaticTools;

@@ -12,9 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.activities.AlbumActivity;
 import com.mahaventures.wibe.models.Album;
-import com.mahaventures.wibe.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

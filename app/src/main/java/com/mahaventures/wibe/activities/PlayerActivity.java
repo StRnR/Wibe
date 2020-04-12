@@ -26,10 +26,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.interfaces.Playable;
 import com.mahaventures.wibe.models.Track;
-import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.services.CreateNotificationService;
 import com.mahaventures.wibe.services.OnClearFromRecentService;
 import com.mahaventures.wibe.tools.AlphaTransformation;

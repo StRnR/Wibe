@@ -1,4 +1,4 @@
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<selector>
 
 <!--    <item android:drawable="@drawable/red_scrubber_control_disabled_holo" android:state_enabled="false"/>-->
 <!--    <item android:drawable="@drawable/red_scrubber_control_pressed_holo" android:state_pressed="true"/>-->

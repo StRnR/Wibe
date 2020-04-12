@@ -8,10 +8,10 @@ import com.mahaventures.wibe.models.GeneralSearch;
 import com.mahaventures.wibe.models.MySong;
 import com.mahaventures.wibe.models.Page;
 import com.mahaventures.wibe.models.Playlist;
+import com.mahaventures.wibe.models.ResponseModels.ResetPasswordResponseModel;
 import com.mahaventures.wibe.models.Track;
 import com.mahaventures.wibe.models.Tracks;
 import com.mahaventures.wibe.models.TracksResult;
-import com.mahaventures.wibe.models.ResponseModels.ResetPasswordResponseModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

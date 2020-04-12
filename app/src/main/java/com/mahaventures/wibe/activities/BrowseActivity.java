@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.adapters.BrowseMainAdapter;
 import com.mahaventures.wibe.fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.models.Collection;
-import com.mahaventures.wibe.models.Page;
 import com.mahaventures.wibe.models.InitModel;
-import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.models.Page;
 import com.mahaventures.wibe.services.GetDataService;
 import com.mahaventures.wibe.services.PostDataService;
 import com.mahaventures.wibe.tools.RetrofitClientInstance;

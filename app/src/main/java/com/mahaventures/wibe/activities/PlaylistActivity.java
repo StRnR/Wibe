@@ -18,12 +18,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.adapters.SongsRecyclerAlbumAndPlaylistAdapter;
 import com.mahaventures.wibe.fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.models.Playlist;
 import com.mahaventures.wibe.models.Track;
 import com.mahaventures.wibe.models.Tracks;
-import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.services.GetDataService;
 import com.mahaventures.wibe.tools.AlphaTransformation;
 import com.mahaventures.wibe.tools.RetrofitClientInstance;

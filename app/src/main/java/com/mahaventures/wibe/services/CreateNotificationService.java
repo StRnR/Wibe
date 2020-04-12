@@ -12,8 +12,8 @@ import android.support.v4.media.session.MediaSessionCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.mahaventures.wibe.models.Track;
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.models.Track;
 import com.mahaventures.wibe.tools.StaticTools;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;

@@ -4,9 +4,9 @@ import com.mahaventures.wibe.models.AuthenticationResponseModel;
 import com.mahaventures.wibe.models.ChangePasswordRequestModel;
 import com.mahaventures.wibe.models.InitModel;
 import com.mahaventures.wibe.models.RegisterResponseModel;
+import com.mahaventures.wibe.models.RequestModels.LoginRequestModel;
 import com.mahaventures.wibe.models.SignInRequestModel;
 import com.mahaventures.wibe.models.SignUpRequestModel;
-import com.mahaventures.wibe.models.RequestModels.LoginRequestModel;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
