@@ -25,6 +25,8 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
         SugarContext.init(this);
         SavedInfo info = SavedInfo.last(SavedInfo.class);
+        PlayerActivity.shuffle = false;
+        PlayerActivity.repeated = false;
         if (info != null) {
             StaticTools.token = info.getToken();
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);

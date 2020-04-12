@@ -75,8 +75,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public static int trackNumber;
     private TextView songTitleTxt;
     private  TextView artistTxt;
-    private boolean repeated;
-    private boolean shuffle;
+    public static boolean repeated;
+    public static boolean shuffle;
     public static boolean meta;
 
     @Override
