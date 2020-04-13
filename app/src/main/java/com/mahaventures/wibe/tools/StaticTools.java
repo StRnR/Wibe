@@ -51,6 +51,23 @@ public class StaticTools {
     public static String homePageId;
     private static String name;
 
+    public static final String AlbumActivityTag = "album";
+    public static final String ArtistActivityTag = "artist";
+    public static final String BrowseActivityTag = "browse";
+    public static final String ChangePasswordActivityTag = "change";
+    public static final String ConfirmEmailActivityTag = "email";
+    public static final String ForgotPassActivityTag = "forgot";
+    public static final String LoadingActivityTag = "loading";
+    public static final String MainActivityTag = "main";
+    public static final String MyProfileActivityTag = "profile";
+    public static final String MySongsActivityTag = "songs";
+    public static final String PlayerActivityTag = "player";
+    public static final String PlaylistActivityTag = "playlist";
+    public static final String ResetPassActivityTag = "reset";
+    public static final String SearchActivityTag = "search";
+    public static final String SignInActivityTag = "login";
+    public static final String SignUpActivityTag = "register";
+
     public static String getName() {
         return name;
     }
