@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.activities.AlbumActivity;
 import com.mahaventures.wibe.activities.ArtistActivity;
+import com.mahaventures.wibe.activities.BrowseActivity;
 import com.mahaventures.wibe.activities.PlaylistActivity;
 import com.mahaventures.wibe.models.BrowseItem;
 import com.mahaventures.wibe.models.Track;
@@ -29,6 +30,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.mahaventures.wibe.tools.StaticTools.BrowseActivityTag;
 
 public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.CollectionViewHolder> {
     private List<BrowseItem> items;
@@ -96,6 +99,7 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
     private void playlist(String id) {
         Intent intent = new Intent(context, PlaylistActivity.class);
         intent.putExtra("id", id);
+        intent.putExtra("from", BrowseActivityTag);
         context.startActivity(intent);
     }
 
@@ -104,12 +108,14 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
     private void artist(String id) {
         Intent intent = new Intent(context, ArtistActivity.class);
         intent.putExtra("id", id);
+        intent.putExtra("from", BrowseActivityTag);
         context.startActivity(intent);
     }
 
     private void album(String id) {
         Intent intent = new Intent(context, AlbumActivity.class);
         intent.putExtra("id", id);
+        intent.putExtra("from", BrowseActivityTag);
         context.startActivity(intent);
     }
 

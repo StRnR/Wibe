@@ -32,6 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.mahaventures.wibe.tools.StaticTools.BrowseActivityTag;
 import static com.mahaventures.wibe.tools.StaticTools.getToken;
 
 public class BrowseActivity extends AppCompatActivity {
@@ -97,7 +98,11 @@ public class BrowseActivity extends AppCompatActivity {
             return false;
         });
 
-        myProfileBtn.setOnClickListener(v -> BrowseActivity.this.startActivity(new Intent(BrowseActivity.this, MyProfileActivity.class)));
+        myProfileBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(BrowseActivity.this, MyProfileActivity.class);
+            intent.putExtra("from", BrowseActivityTag);
+            startActivity(intent);
+        });
 
         Timer timerRevive = new Timer();
         timerRevive.schedule(new TimerTask() {

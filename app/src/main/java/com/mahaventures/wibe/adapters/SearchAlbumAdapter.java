@@ -18,7 +18,7 @@ import com.mahaventures.wibe.models.Album;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
+//todo get activity
 public class SearchAlbumAdapter extends RecyclerView.Adapter<SearchAlbumAdapter.SearchAlbumViewHolder> {
 
     private Context context;

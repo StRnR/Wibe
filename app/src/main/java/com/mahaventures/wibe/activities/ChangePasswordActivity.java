@@ -21,11 +21,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.mahaventures.wibe.tools.StaticTools.ChangePasswordActivityTag;
+
 public class ChangePasswordActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MyProfileActivity.class));
+        Intent intent = new Intent(this, MyProfileActivity.class);
+        intent.putExtra("from", ChangePasswordActivityTag);
+        startActivity(intent);
         finish();
     }
 
