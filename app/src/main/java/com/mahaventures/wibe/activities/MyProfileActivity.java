@@ -16,6 +16,8 @@ import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.models.SavedInfo;
 import com.orm.SugarContext;
 
+import static com.mahaventures.wibe.tools.StaticTools.MyProfileActivityTag;
+
 public class MyProfileActivity extends AppCompatActivity {
     EditText name;
     EditText email;
@@ -51,7 +53,11 @@ public class MyProfileActivity extends AppCompatActivity {
         SpannableString content = new SpannableString("CHANGE PASSWORD");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         changePassBtn.setText(content);
-        changePassBtn.setOnClickListener(v -> startActivity(new Intent(this, ChangePasswordActivity.class)));
+        changePassBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ChangePasswordActivity.class);
+            intent.putExtra("from", MyProfileActivityTag);
+            startActivity(intent);
+        });
         final View parent = (View) backBtn.getParent();
         parent.post(() -> {
             final Rect rect = new Rect();
@@ -65,7 +71,9 @@ public class MyProfileActivity extends AppCompatActivity {
         backBtn.setOnClickListener(v -> onBackPressed());
         signOutBtn.setOnClickListener(v -> {
             SavedInfo.deleteAll(SavedInfo.class);
-            startActivity(new Intent(this, LoadingActivity.class));
+            Intent intent = new Intent(this, LoadingActivity.class);
+            intent.putExtra("from", MyProfileActivityTag);
+            startActivity(intent);
         });
 
     }
