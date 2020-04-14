@@ -18,15 +18,21 @@ import com.mahaventures.wibe.models.Album;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import static com.mahaventures.wibe.tools.StaticTools.ArtistActivityTag;
+import static com.mahaventures.wibe.tools.StaticTools.SearchActivityTag;
+
 //todo get activity
 public class SearchAlbumAdapter extends RecyclerView.Adapter<SearchAlbumAdapter.SearchAlbumViewHolder> {
 
     private Context context;
     private List<Album> albums;
+    private int selector;
 
-    public SearchAlbumAdapter(Context context, List<Album> albums) {
+    public SearchAlbumAdapter(Context context, List<Album> albums, int selector) {
         this.context = context;
         this.albums = albums;
+        this.selector = selector;
     }
 
     @NonNull
@@ -49,7 +55,11 @@ public class SearchAlbumAdapter extends RecyclerView.Adapter<SearchAlbumAdapter.
     private void goToAlbum(String id) {
         Intent intent = new Intent(context, AlbumActivity.class);
         intent.putExtra("id", id);
-        context.startActivity(intent);
+        if (selector == 1)
+            intent.putExtra("from", SearchActivityTag);
+        else
+            intent.putExtra("from", ArtistActivityTag);
+            context.startActivity(intent);
     }
 
     @Override

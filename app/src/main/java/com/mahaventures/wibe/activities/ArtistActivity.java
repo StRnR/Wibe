@@ -195,7 +195,7 @@ public class ArtistActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Albums> call, Response<Albums> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    SearchAlbumAdapter albumAdapter = new SearchAlbumAdapter(ArtistActivity.this, response.body().data);
+                    SearchAlbumAdapter albumAdapter = new SearchAlbumAdapter(ArtistActivity.this, response.body().data, 2);
                     albumsRv.setAdapter(albumAdapter);
                 }
             }
@@ -220,7 +220,7 @@ public class ArtistActivity extends AppCompatActivity {
         call.enqueue(new Callback<Tracks>() {
             @Override
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
-                if (response.isSuccessful()&& response.body() != null) {
+                if (response.isSuccessful() && response.body() != null) {
                     runOnUiThread(() -> {
                         songsShowMore.setText("Show More");
                         songsShowMore.setClickable(true);
