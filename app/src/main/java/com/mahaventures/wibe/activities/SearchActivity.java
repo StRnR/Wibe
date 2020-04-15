@@ -94,7 +94,6 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StaticTools.ShowToast(SearchActivity.this, "onCreate", 1);
         setContentView(R.layout.activity_search);
         FrameLayout searchFragmentContainer = findViewById(R.id.fragment_container_search);
         tracksRecycleView = findViewById(R.id.recycler_songs_search);
