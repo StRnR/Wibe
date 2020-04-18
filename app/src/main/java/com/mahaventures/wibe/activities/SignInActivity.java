@@ -66,7 +66,7 @@ public class SignInActivity extends AppCompatActivity {
                         try {
                             String token = response.body() != null ? response.body().meta.token : "";
                             SavedInfo.deleteAll(SavedInfo.class);
-                            SavedInfo info = new SavedInfo(StaticTools.getName(), email, token);
+                            SavedInfo info = new SavedInfo(StaticTools.getName(), token, email);
                             info.save();
                             StaticTools.token = token;
                             if (StaticTools.homePageId == null)

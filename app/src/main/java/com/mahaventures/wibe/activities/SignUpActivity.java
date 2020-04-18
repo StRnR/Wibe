@@ -198,7 +198,7 @@ public class SignUpActivity extends AppCompatActivity {
                     try {
                         String token = response.body() != null ? response.body().meta.token : "";
                         SavedInfo.deleteAll(SavedInfo.class);
-                        SavedInfo info = new SavedInfo(name, email, token);
+                        SavedInfo info = new SavedInfo(name, token, email);
                         info.save();
                         StaticTools.token = token;
                         if (StaticTools.homePageId == null)
