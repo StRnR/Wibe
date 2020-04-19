@@ -22,7 +22,7 @@ public class ResetPassActivity extends AppCompatActivity {
         Button backBtn = findViewById(R.id.btn_back_resetpass);
         Button resetPassBtn = findViewById(R.id.btn_resetpass);
         EditText newPassTxt = findViewById(R.id.txt_edit_pass_resetpass);
-
+        newPassTxt.setSelection(0);
         final View parent = (View) backBtn.getParent();
         parent.post(() -> {
             final Rect rect = new Rect();

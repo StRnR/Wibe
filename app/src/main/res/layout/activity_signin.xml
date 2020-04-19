@@ -24,21 +24,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="24dp"
         android:text="Sign in"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_signinguide"
-        style="@style/Regular2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="24dp"
-        android:text="Welcome back ! Enter your credentials to check out the latest hits."
-        app:layout_constraintTop_toBottomOf="@+id/txt_signin" />
 
     <EditText
         android:id="@+id/txt_edit_email_signin"
@@ -46,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:drawableStart="@drawable/ic_email"
         android:drawablePadding="10dp"
@@ -54,7 +43,7 @@
         android:inputType="textEmailAddress"
         android:textColorHint="@color/white"
         android:theme="@style/UserAuthenticationEditText"
-        app:layout_constraintTop_toBottomOf="@id/txt_signinguide" />
+        app:layout_constraintTop_toBottomOf="@id/txt_signin" />
 
     <EditText
         android:id="@+id/txt_edit_pass_signin"
@@ -87,14 +76,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/darkBackground"
+        android:background="@color/transparent"
         android:fontFamily="@font/nexa_light"
         android:textColor="@color/white"
         android:textSize="10sp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@id/txt_signinguide"
-        app:layout_constraintStart_toStartOf="@id/txt_signinguide"
-        app:layout_constraintTop_toBottomOf="@+id/txt_edit_pass_signin" />
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/txt_edit_pass_signin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
         android:id="@+id/btn_signin"
@@ -102,7 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/gradient_blue"
         android:text="Sign In"

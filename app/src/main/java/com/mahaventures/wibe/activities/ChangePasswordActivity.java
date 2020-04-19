@@ -43,6 +43,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         Button showNewPassBtn = findViewById(R.id.btn_show_new_pass_change_pass);
         Button showOldPassBtn = findViewById(R.id.btn_show_old_pass_change_pass);
         Button backBtn = findViewById(R.id.btn_back_change_password);
+        oldPass.setSelection(0);
         final View parent = (View) backBtn.getParent();
         parent.post(() -> {
             final Rect rect = new Rect();

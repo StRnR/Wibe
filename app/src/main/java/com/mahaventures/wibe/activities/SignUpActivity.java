@@ -55,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
         weaknessTxt.setVisibility(View.GONE);
         bar.setVisibility(View.GONE);
         bar.setMax(10);
-
+        nameTxt.setSelection(0);
         passwordTxt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -45,6 +45,7 @@ public class SignInActivity extends AppCompatActivity {
         Button forgotPassBtn = findViewById(R.id.btn_forgotpass_signin);
         EditText emailTxt = findViewById(R.id.txt_edit_email_signin);
         EditText passTxt = findViewById(R.id.txt_edit_pass_signin);
+        emailTxt.setSelection(0);
         SpannableString content = new SpannableString("FORGOT PASSWORD");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         forgotPassBtn.setText(content);

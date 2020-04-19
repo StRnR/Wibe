@@ -25,7 +25,7 @@ public class ForgotPassActivity extends AppCompatActivity {
         Button backBtn = findViewById(R.id.btn_back_forgotpass);
         Button sendResetLinkBtn = findViewById(R.id.btn_sendresetlink);
         EditText emailTxt = findViewById(R.id.txt_edit_email_forgotpass);
-
+        emailTxt.setSelection(0);
         final View parent = (View) backBtn.getParent();
         parent.post(() -> {
             final Rect rect = new Rect();
