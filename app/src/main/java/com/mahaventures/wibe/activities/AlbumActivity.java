@@ -83,7 +83,6 @@ public class AlbumActivity extends AppCompatActivity {
         ImageView blurredArtwork = findViewById(R.id.img_blur_album);
         TextView albumTitle = findViewById(R.id.txt_title_album);
         TextView albumArtist = findViewById(R.id.txt_owner_album);
-        TextView description = findViewById(R.id.txt_album_description);
 
         shuffleBtn.setEnabled(false);
 

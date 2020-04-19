@@ -87,7 +87,6 @@ public class PlaylistActivity extends AppCompatActivity {
         ImageView blurredArtwork = findViewById(R.id.img_blur_playlist);
         TextView playlistTitle = findViewById(R.id.txt_title_playlist);
         TextView playlistOwner = findViewById(R.id.txt_owner_playlist);
-        TextView description = findViewById(R.id.txt_playlist_description);
         List<Track> tracks = new ArrayList<>();
         shuffleBtn.setEnabled(false);
 

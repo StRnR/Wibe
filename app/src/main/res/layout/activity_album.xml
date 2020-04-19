@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@color/lightBackground"
     tools:context=".activities.AlbumActivity">
 
     <ImageView
@@ -34,43 +34,50 @@
 
     <Button
         android:id="@+id/btn_shuffle_album"
-        android:layout_width="90dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/shuffle_rounded_rectangle"
-        android:drawableStart="@drawable/ic_random_white"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/shuffle_circle_bg"
         android:fontFamily="@font/nexa_bold"
-        android:paddingStart="10dp"
-        android:text="shuffle"
-        android:textColor="@color/white"
-        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_owner_album"
+        app:layout_constraintEnd_toStartOf="@id/btn_play_album"
+        app:layout_constraintTop_toTopOf="@id/txt_title_album" />
+
+    <Button
+        android:id="@+id/btn_play_album"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/play_circle_bg"
+        android:fontFamily="@font/nexa_bold"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_owner_album"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btn_back_album" />
+        app:layout_constraintTop_toTopOf="@id/txt_title_album" />
 
     <ImageView
         android:id="@+id/img_artwork_album"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="24dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/loadingmusic"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_back_album" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_title_album"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/nexa_bold"
         android:maxLines="2"
         android:textColor="@color/white"
         android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/img_artwork_album"
-        app:layout_constraintTop_toTopOf="@id/img_artwork_album" />
+        app:layout_constraintEnd_toStartOf="@id/btn_shuffle_album"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_artwork_album" />
 
     <TextView
         android:id="@+id/txt_owner_album"
@@ -87,21 +94,6 @@
         app:layout_constraintStart_toStartOf="@id/txt_title_album"
         app:layout_constraintTop_toBottomOf="@id/txt_title_album" />
 
-    <TextView
-        android:id="@+id/txt_album_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/nexa_light"
-        android:lineHeight="25sp"
-        android:lineSpacingExtra="13sp"
-        android:maxLines="1"
-        android:textColor="@color/text_grey"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/txt_title_album"
-        app:layout_constraintStart_toStartOf="@id/txt_title_album"
-        app:layout_constraintTop_toBottomOf="@id/txt_owner_album" />
-
     <RelativeLayout
         android:id="@+id/layout_relative_album"
         android:layout_width="match_parent"
@@ -110,7 +102,7 @@
         app:layout_constraintBottom_toTopOf="@+id/fragment_container_album"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_artwork_album">
+        app:layout_constraintTop_toBottomOf="@+id/txt_owner_album">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_album"

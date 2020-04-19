@@ -71,10 +71,10 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public static int maxProgress;
     public static List<Track> queue;
     private ImageView artwork;
-    private  ConstraintLayout layout;
+    private ConstraintLayout layout;
     public static int trackNumber;
     private TextView songTitleTxt;
-    private  TextView artistTxt;
+    private TextView artistTxt;
     public static boolean repeated;
     public static boolean shuffle;
     public static boolean meta;
