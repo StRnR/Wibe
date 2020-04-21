@@ -78,6 +78,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public static boolean repeated;
     public static boolean shuffle;
     public static boolean meta;
+    public static String from;
 
     @Override
     public void onBackPressed() {
