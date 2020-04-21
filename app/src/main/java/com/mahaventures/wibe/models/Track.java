@@ -31,4 +31,7 @@ public class Track {
     @SerializedName("duration")
     @Expose
     public int duration;
+    @SerializedName("is_favorite")
+    @Expose
+    public boolean is_favorite;
 }

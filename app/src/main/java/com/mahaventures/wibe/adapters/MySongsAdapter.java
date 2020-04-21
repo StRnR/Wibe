@@ -48,7 +48,13 @@ public class MySongsAdapter extends RecyclerView.Adapter<MySongsAdapter.MySongVi
             StaticTools.PlayTrackInQueue(context, StaticTools.getArtistsName(track.track), track.track);
         });
         MySongViewHolder.artist.setText(StaticTools.getArtistsName(track.track));
-        MySongViewHolder.addBtn.setOnClickListener(v -> StaticTools.addToMySong(context, track.track.id));
+        if (!track.track.is_favorite) {
+            //todo item not added icon
+            MySongViewHolder.addBtn.setOnClickListener(v -> StaticTools.addToMySong(context, track.track.id));
+        } else {
+            //todo item is added icon
+            MySongViewHolder.addBtn.setOnClickListener(v -> StaticTools.deleteFromMySong(context, track.track.id));
+        }
         MySongViewHolder.songTitle.setText(track.track.name);
     }
 

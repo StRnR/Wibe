@@ -24,6 +24,7 @@ import com.mahaventures.wibe.models.InitModel;
 import com.mahaventures.wibe.models.MySong;
 import com.mahaventures.wibe.models.Playlist;
 import com.mahaventures.wibe.models.Track;
+import com.mahaventures.wibe.services.DeleteDataService;
 import com.mahaventures.wibe.services.GetDataService;
 import com.mahaventures.wibe.services.PlaySongBroadcastReceiver;
 import com.mahaventures.wibe.services.PostDataService;
@@ -218,6 +219,23 @@ public class StaticTools {
             public void onResponse(Call call, Response response) {
                 if (response.isSuccessful())
                     StaticTools.ShowToast(context, "Added", 0);
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
+    }
+
+    public static void deleteFromMySong(Context context, String id) {
+        DeleteDataService service = RetrofitClientInstance.getRetrofitInstance().create(DeleteDataService.class);
+        Call call = service.DeleteFromMySong(getToken(), id);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.isSuccessful())
+                    StaticTools.ShowToast(context, "Deleted", 0);
             }
 
             @Override
