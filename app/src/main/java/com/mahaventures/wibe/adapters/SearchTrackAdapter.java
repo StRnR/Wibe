@@ -52,14 +52,17 @@ public class SearchTrackAdapter extends RecyclerView.Adapter<SearchTrackAdapter.
             PlayerActivity.queue = new ArrayList<>(SearchActivity.searchTracks);
             StaticTools.PlayTrackInQueue(context, artist, track);
         });
-        SearchSongsViewHolder.addBtn.setOnClickListener(v -> {
-            SearchSongsViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
-            addToMySongs(track.id);
-        });
-    }
-
-    private void addToMySongs(String id) {
-        StaticTools.addToMySong(context, id);
+        if (!track.is_favorite) {
+            SearchSongsViewHolder.addBtn.setOnClickListener(v -> {
+                SearchSongsViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
+                StaticTools.addToMySong(context, track.id);
+            });
+        } else {
+            SearchSongsViewHolder.addBtn.setOnClickListener(v -> {
+                //todo change icon
+                StaticTools.deleteFromMySong(context, track.id);
+            });
+        }
     }
 
     @Override
