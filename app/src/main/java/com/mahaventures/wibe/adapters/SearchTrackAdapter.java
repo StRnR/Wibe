@@ -49,6 +49,7 @@ public class SearchTrackAdapter extends RecyclerView.Adapter<SearchTrackAdapter.
         String artist = StaticTools.getArtistsName(track);
         SearchSongsViewHolder.artist.setText(artist);
         SearchSongsViewHolder.cardView.setOnClickListener(v -> {
+            PlayerActivity.from = "playing from search results";
             PlayerActivity.queue = new ArrayList<>(SearchActivity.searchTracks);
             StaticTools.PlayTrackInQueue(context, artist, track);
         });

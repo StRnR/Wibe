@@ -47,6 +47,7 @@ public class ArtistTracksAdapter extends RecyclerView.Adapter<ArtistTracksAdapte
         String artist = StaticTools.getArtistsName(track);
         ArtistTracksAdapter.ArtistTracksViewHolder.artist.setText(artist);
         ArtistTracksAdapter.ArtistTracksViewHolder.cardView.setOnClickListener(v -> {
+            PlayerActivity.from = String.format("playing from %s", artist);
             PlayerActivity.queue = new ArrayList<>(ArtistActivity.tracks);
             StaticTools.PlayTrackInQueue(context, artist, track);
         });

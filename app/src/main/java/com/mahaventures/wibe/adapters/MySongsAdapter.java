@@ -46,6 +46,7 @@ public class MySongsAdapter extends RecyclerView.Adapter<MySongsAdapter.MySongVi
         MySongViewHolder.cardView.setOnClickListener(v -> {
             PlayerActivity.queue = MySongsActivity.mySongTracks;
             StaticTools.PlayTrackInQueue(context, StaticTools.getArtistsName(track.track), track.track);
+            PlayerActivity.from = "playing from my songs";
         });
         MySongViewHolder.artist.setText(StaticTools.getArtistsName(track.track));
         if (!track.track.is_favorite) {

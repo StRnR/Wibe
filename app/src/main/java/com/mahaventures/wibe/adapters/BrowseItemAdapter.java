@@ -17,6 +17,7 @@ import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.activities.AlbumActivity;
 import com.mahaventures.wibe.activities.ArtistActivity;
 import com.mahaventures.wibe.activities.BrowseActivity;
+import com.mahaventures.wibe.activities.PlayerActivity;
 import com.mahaventures.wibe.activities.PlaylistActivity;
 import com.mahaventures.wibe.models.BrowseItem;
 import com.mahaventures.wibe.models.Track;
@@ -86,6 +87,7 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
             public void onResponse(Call<Track> call, Response<Track> response) {
                 if (response.isSuccessful()) {
                     StaticTools.PlayTrack(context, StaticTools.getArtistsName(response.body()), response.body());
+                    PlayerActivity.from = "playing from browse";
                 }
             }
 
