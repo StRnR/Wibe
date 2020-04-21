@@ -77,18 +77,26 @@ public class AlbumActivity extends AppCompatActivity {
         recyclerView.setAdapter(null);
         Button backBtn = findViewById(R.id.btn_back_album);
         Button shuffleBtn = findViewById(R.id.btn_shuffle_album);
+        Button playBtn = findViewById(R.id.btn_play_album);
         ImageView albumArtwork = findViewById(R.id.img_artwork_album);
         ImageView blurredArtwork = findViewById(R.id.img_blur_album);
         TextView albumTitle = findViewById(R.id.txt_title_album);
         TextView albumArtist = findViewById(R.id.txt_owner_album);
 
         shuffleBtn.setEnabled(false);
+        playBtn.setEnabled(false);
 
         List<Track> tracks = new ArrayList<>();
 
         shuffleBtn.setOnClickListener(v -> {
             if (tracks.size() > 0) {
-                Collections.shuffle(tracks);
+                List<Track> tmpTracks = new ArrayList<>(tracks);
+                Collections.shuffle(tmpTracks);
+                StaticTools.PlayQueue(AlbumActivity.this, tmpTracks);
+            }
+        });
+        playBtn.setOnClickListener(v -> {
+            if (tracks.size() > 0) {
                 StaticTools.PlayQueue(AlbumActivity.this, tracks);
             }
         });
@@ -169,6 +177,7 @@ public class AlbumActivity extends AppCompatActivity {
                     SongsRecyclerAlbumAndPlaylistAdapter adapter = new SongsRecyclerAlbumAndPlaylistAdapter(response.body().data, AlbumActivity.this, albumTitle.getText().toString());
                     recyclerView.setAdapter(adapter);
                     shuffleBtn.setEnabled(true);
+                    playBtn.setEnabled(true);
                 }
             }
 
