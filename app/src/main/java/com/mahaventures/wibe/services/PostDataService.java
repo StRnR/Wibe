@@ -34,5 +34,5 @@ public interface PostDataService {
     Call<InitModel> Init(@Header("Authorization") String s);
 
     @POST("profile/reset-password/")
-    Call<Void> ResetPassword(@Header("Authorization") String s, @Query("profile") String profile);
+    Call<Void> ResetPassword(@Header("Authorization") String s, @Query("email") String email);
 }

@@ -16,6 +16,8 @@ import com.mahaventures.wibe.tools.RetrofitClientInstance;
 import com.mahaventures.wibe.tools.StaticTools;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ForgotPassActivity extends AppCompatActivity {
     @Override
@@ -43,7 +45,22 @@ public class ForgotPassActivity extends AppCompatActivity {
                 return;
             }
             PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
-            Call call = service.ResetPassword(StaticTools.getToken(), "");
+            Call call = service.ResetPassword(StaticTools.getToken(), emailTxt.getText().toString());
+            call.enqueue(new Callback() {
+                @Override
+                public void onResponse(Call call, Response response) {
+                    if (response.isSuccessful()){
+                        StaticTools.ShowToast(ForgotPassActivity.this, "email sent", 0);
+                    }else {
+                        StaticTools.ShowToast(ForgotPassActivity.this, "this email is not registered", 0);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call call, Throwable t) {
+
+                }
+            });
         });
 
         backBtn.setOnClickListener(v -> ForgotPassActivity.super.onBackPressed());
