@@ -51,13 +51,13 @@ public class ArtistTracksAdapter extends RecyclerView.Adapter<ArtistTracksAdapte
             StaticTools.PlayTrackInQueue(context, artist, track);
         });
         if (!track.is_favorite) {
+            ArtistTracksAdapter.ArtistTracksViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
             ArtistTracksAdapter.ArtistTracksViewHolder.addBtn.setOnClickListener(v -> {
-                ArtistTracksAdapter.ArtistTracksViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
                 StaticTools.addToMySong(context, track.id);
             });
         } else {
+            //todo change icon
             ArtistTracksAdapter.ArtistTracksViewHolder.addBtn.setOnClickListener(v -> {
-                //todo change icon
                 StaticTools.deleteFromMySong(context, track.id);
             });
         }
