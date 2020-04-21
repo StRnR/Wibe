@@ -302,7 +302,11 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     }
 
     private void firstOfAll() {
-        //todo set from text
+        if (from != null) {
+            //todo set from text
+        }else {
+            //todo set ""
+        }
         songDurationTxt.setText("");
         songTimeTxt.setText("");
         if (mediaPlayer != null && isPrepared)
