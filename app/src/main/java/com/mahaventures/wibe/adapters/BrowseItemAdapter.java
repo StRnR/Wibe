@@ -106,7 +106,6 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
     }
 
 
-    //todo after adding artist
     private void artist(String id) {
         Intent intent = new Intent(context, ArtistActivity.class);
         intent.putExtra("id", id);
