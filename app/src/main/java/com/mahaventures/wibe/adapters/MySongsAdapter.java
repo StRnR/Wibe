@@ -50,11 +50,17 @@ public class MySongsAdapter extends RecyclerView.Adapter<MySongsAdapter.MySongVi
         });
         MySongViewHolder.artist.setText(StaticTools.getArtistsName(track.track));
         if (!track.track.is_favorite) {
-            //todo item not added icon
-            MySongViewHolder.addBtn.setOnClickListener(v -> StaticTools.addToMySong(context, track.track.id));
+            MySongViewHolder.addBtn.setBackgroundResource(R.drawable.ic_add);
+            MySongViewHolder.addBtn.setOnClickListener(v -> {
+                MySongViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
+                StaticTools.addToMySong(context, track.track.id);
+            });
         } else {
-            //todo item is added icon
-            MySongViewHolder.addBtn.setOnClickListener(v -> StaticTools.deleteFromMySong(context, track.track.id));
+            MySongViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
+            MySongViewHolder.addBtn.setOnClickListener(v -> {
+                MySongViewHolder.addBtn.setBackgroundResource(R.drawable.ic_add);
+                StaticTools.deleteFromMySong(context, track.track.id);
+            });
         }
         MySongViewHolder.songTitle.setText(track.track.name);
     }

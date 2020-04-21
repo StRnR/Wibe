@@ -22,7 +22,6 @@ import java.util.List;
 import static com.mahaventures.wibe.tools.StaticTools.ArtistActivityTag;
 import static com.mahaventures.wibe.tools.StaticTools.SearchActivityTag;
 
-//todo get activity
 public class SearchAlbumAdapter extends RecyclerView.Adapter<SearchAlbumAdapter.SearchAlbumViewHolder> {
 
     private Context context;
