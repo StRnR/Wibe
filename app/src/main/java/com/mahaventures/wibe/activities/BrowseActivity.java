@@ -87,13 +87,13 @@ public class BrowseActivity extends AppCompatActivity {
                 case R.id.nav_browse:
                     return true;
                 case R.id.nav_search:
-                    Intent intent = new Intent(new Intent(getApplicationContext(), SearchActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
                     return true;
                 case R.id.nav_mysongs:
-                    Intent intent1 = new Intent(new Intent(getApplicationContext(), MySongsActivity.class));
+                    Intent intent1 = new Intent(getApplicationContext(), MySongsActivity.class);
                     intent1.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent1);
                     overridePendingTransition(0, 0);

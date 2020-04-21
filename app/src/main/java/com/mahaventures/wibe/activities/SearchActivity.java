@@ -76,7 +76,7 @@ public class SearchActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.nav_browse:
-                    Intent intent = new Intent(new Intent(getApplicationContext(), BrowseActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), BrowseActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
@@ -84,7 +84,7 @@ public class SearchActivity extends AppCompatActivity {
                 case R.id.nav_search:
                     return true;
                 case R.id.nav_mysongs:
-                    Intent intent1 = new Intent(new Intent(getApplicationContext(), MySongsActivity.class));
+                    Intent intent1 = new Intent(getApplicationContext(), MySongsActivity.class);
                     intent1.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent1);
                     overridePendingTransition(0, 0);
