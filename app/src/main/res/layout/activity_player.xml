@@ -30,6 +30,7 @@
         android:layout_marginTop="36dp"
         android:fontFamily="@font/nexa_bold"
         android:gravity="center_horizontal"
+        android:text="PLAYING FROM"
         android:textColor="#ffffff"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
