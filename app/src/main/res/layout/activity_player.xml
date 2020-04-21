@@ -18,16 +18,16 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="60dp"
         android:background="@drawable/ic_minimize"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/txt_srcname_mainplayer"
+        app:layout_constraintTop_toTopOf="@id/txt_playersrc" />
 
     <TextView
         android:id="@+id/txt_playersrc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="44dp"
         android:fontFamily="@font/nexa_bold"
         android:gravity="center_horizontal"
         android:text="PLAYING FROM"
