@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mahaventures.wibe.R;
+import com.mahaventures.wibe.activities.PlayerActivity;
 import com.mahaventures.wibe.models.Track;
 import com.mahaventures.wibe.tools.StaticTools;
 import com.squareup.picasso.Picasso;
@@ -24,11 +25,13 @@ public class SongsRecyclerAlbumAndPlaylistAdapter extends RecyclerView.Adapter<S
 
     private List<Track> result;
     private Context context;
+    private String name;
 
 
-    public SongsRecyclerAlbumAndPlaylistAdapter(List<Track> result, Context context) {
+    public SongsRecyclerAlbumAndPlaylistAdapter(List<Track> result, Context context, String name) {
         this.result = result;
         this.context = context;
+        this.name = name;
     }
 
     @NonNull
@@ -46,6 +49,7 @@ public class SongsRecyclerAlbumAndPlaylistAdapter extends RecyclerView.Adapter<S
             List<Track> tracks = new ArrayList<>(result);
             tracks.removeIf(t -> t.id.equals(track.id));
             tracks.add(0, track);
+            PlayerActivity.from = name;
             StaticTools.PlayQueue(context, tracks);
         });
         Picasso.get().load(track.image.medium.url).into(holder.songImg);

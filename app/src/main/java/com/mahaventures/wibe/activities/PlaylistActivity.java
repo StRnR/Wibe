@@ -79,8 +79,6 @@ public class PlaylistActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(null);
-        SongsRecyclerAlbumAndPlaylistAdapter tmpAdapter = new SongsRecyclerAlbumAndPlaylistAdapter(null, PlaylistActivity.this);
-        recyclerView.setAdapter(tmpAdapter);
         Button backBtn = findViewById(R.id.btn_back_playlist);
         Button shuffleBtn = findViewById(R.id.btn_shuffle_playlist);
         ImageView playlistArtwork = findViewById(R.id.img_artwork_playlist);
@@ -89,7 +87,6 @@ public class PlaylistActivity extends AppCompatActivity {
         TextView playlistOwner = findViewById(R.id.txt_owner_playlist);
         List<Track> tracks = new ArrayList<>();
         shuffleBtn.setEnabled(false);
-
 
 
         final View parent = (View) backBtn.getParent();
@@ -111,7 +108,7 @@ public class PlaylistActivity extends AppCompatActivity {
         playlistCall.enqueue(new Callback<Playlist>() {
             @Override
             public void onResponse(Call<Playlist> call, Response<Playlist> response) {
-                if (response.isSuccessful()&& response.body() != null) {
+                if (response.isSuccessful() && response.body() != null) {
                     RequestCreator requestCreator = Picasso.get().load(response.body().image.medium.url);
                     requestCreator.into(playlistArtwork);
                     DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -150,7 +147,7 @@ public class PlaylistActivity extends AppCompatActivity {
         });
 
         shuffleBtn.setOnClickListener(v -> {
-            if (tracks.size()!=0){
+            if (tracks.size() != 0) {
                 Collections.shuffle(tracks);
                 StaticTools.PlayQueue(PlaylistActivity.this, tracks);
             }
@@ -161,10 +158,10 @@ public class PlaylistActivity extends AppCompatActivity {
         call.enqueue(new Callback<Tracks>() {
             @Override
             public void onResponse(Call<Tracks> call, Response<Tracks> response) {
-                if (response.isSuccessful()&& response.body() != null) {
+                if (response.isSuccessful() && response.body() != null) {
                     tracks.addAll(response.body().data);
                     shuffleBtn.setEnabled(true);
-                    SongsRecyclerAlbumAndPlaylistAdapter adapter = new SongsRecyclerAlbumAndPlaylistAdapter(response.body().data, PlaylistActivity.this);
+                    SongsRecyclerAlbumAndPlaylistAdapter adapter = new SongsRecyclerAlbumAndPlaylistAdapter(response.body().data, PlaylistActivity.this, playlistTitle.getText().toString());
                     recyclerView.setAdapter(adapter);
                 }
             }

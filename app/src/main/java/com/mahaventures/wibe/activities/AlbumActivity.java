@@ -75,8 +75,6 @@ public class AlbumActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(null);
-        SongsRecyclerAlbumAndPlaylistAdapter tmpAdapter = new SongsRecyclerAlbumAndPlaylistAdapter(null, AlbumActivity.this);
-        recyclerView.setAdapter(tmpAdapter);
         Button backBtn = findViewById(R.id.btn_back_album);
         Button shuffleBtn = findViewById(R.id.btn_shuffle_album);
         ImageView albumArtwork = findViewById(R.id.img_artwork_album);
@@ -168,7 +166,7 @@ public class AlbumActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         albumArtist.setText("Unknown");
                     }
-                    SongsRecyclerAlbumAndPlaylistAdapter adapter = new SongsRecyclerAlbumAndPlaylistAdapter(response.body().data, AlbumActivity.this);
+                    SongsRecyclerAlbumAndPlaylistAdapter adapter = new SongsRecyclerAlbumAndPlaylistAdapter(response.body().data, AlbumActivity.this, albumTitle.getText().toString());
                     recyclerView.setAdapter(adapter);
                     shuffleBtn.setEnabled(true);
                 }
