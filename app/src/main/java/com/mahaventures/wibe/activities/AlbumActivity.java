@@ -92,11 +92,13 @@ public class AlbumActivity extends AppCompatActivity {
             if (tracks.size() > 0) {
                 List<Track> tmpTracks = new ArrayList<>(tracks);
                 Collections.shuffle(tmpTracks);
+                PlayerActivity.from = albumTitle.getText().toString();
                 StaticTools.PlayQueue(AlbumActivity.this, tmpTracks);
             }
         });
         playBtn.setOnClickListener(v -> {
             if (tracks.size() > 0) {
+                PlayerActivity.from = albumTitle.getText().toString();
                 StaticTools.PlayQueue(AlbumActivity.this, tracks);
             }
         });

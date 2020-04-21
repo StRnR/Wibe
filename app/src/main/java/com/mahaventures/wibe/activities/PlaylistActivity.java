@@ -151,11 +151,13 @@ public class PlaylistActivity extends AppCompatActivity {
             if (tracks.size() > 0) {
                 List<Track> tmpTracks = new ArrayList<>(tracks);
                 Collections.shuffle(tmpTracks);
+                PlayerActivity.from = playlistTitle.getText().toString();
                 StaticTools.PlayQueue(PlaylistActivity.this, tmpTracks);
             }
         });
         playBtn.setOnClickListener(v -> {
             if (tracks.size() != 0) {
+                PlayerActivity.from = playlistTitle.getText().toString();
                 StaticTools.PlayQueue(PlaylistActivity.this, tracks);
             }
         });
