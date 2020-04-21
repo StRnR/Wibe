@@ -332,27 +332,4 @@ public class StaticTools {
             }
         });
     }
-
-    public static boolean IsAdded(String trackId) {
-        if (MySongsActivity.mySongTracks != null) {
-            return MySongsActivity.mySongTracks.stream().anyMatch(track -> track.id.equals(trackId));
-        } else {
-            GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-            String url = "https://api.musicify.ir/profile/tracks?include=track.album,track.artists";
-            Call<MySong> call = service.GetMySongs(getToken(), url);
-            call.enqueue(new Callback<MySong>() {
-                @Override
-                public void onResponse(Call<MySong> call, Response<MySong> response) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        MySongsActivity.mySongTracks = response.body().data.stream().map(x -> x.track).collect(Collectors.toList());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<MySong> call, Throwable t) {
-                }
-            });
-        }
-        return false;
-    }
 }
