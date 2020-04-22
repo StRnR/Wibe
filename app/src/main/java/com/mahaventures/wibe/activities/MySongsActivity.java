@@ -141,6 +141,8 @@ public class MySongsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<MySong> call, Throwable t) {
+                StaticTools.ServerError(MySongsActivity.this, t.getMessage());
+                refreshLayout.setRefreshing(false);
             }
         });
     }

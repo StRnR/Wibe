@@ -46,7 +46,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
     implementation 'com.github.satyan:sugar:1.5'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'androidx.exifinterface:exifinterface:1.1.0'
+    implementation 'androidx.exifinterface:exifinterface:1.2.0'
     implementation 'jp.wasabeef:picasso-transformations:2.2.1'
     implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
     // session

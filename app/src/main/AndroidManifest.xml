@@ -71,11 +71,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.BrowseActivity"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.MySongsActivity"
+            android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
