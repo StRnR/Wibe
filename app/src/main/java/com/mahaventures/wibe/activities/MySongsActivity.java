@@ -69,7 +69,7 @@ public class MySongsActivity extends AppCompatActivity {
         refreshLayout = findViewById(R.id.mySong_sr);
         refreshLayout.setOnRefreshListener(this::GetMySongs);
         emptyTxt = findViewById(R.id.txt_empty_mysongs);
-        FrameLayout mysongsFragmentContainer = findViewById(R.id.fragment_container_mysongs);
+        FrameLayout mySongsFragmentContainer = findViewById(R.id.fragment_container_mysongs);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_mysongs);
         bottomNavigationView.setSelectedItemId(R.id.nav_mysongs);
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
