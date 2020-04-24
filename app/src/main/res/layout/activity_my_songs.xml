@@ -42,23 +42,14 @@
             app:layout_constraintStart_toEndOf="@id/btn_songs_mysongs"
             app:layout_constraintTop_toTopOf="@id/btn_songs_mysongs" />
 
-        <RelativeLayout
-            android:id="@+id/layout_relative_mysongs"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_mysongs"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/fragment_container_mysongs"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_songs_mysongs">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_mysongs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:clipToPadding="false"
-                android:paddingTop="40dp" />
-        </RelativeLayout>
+            android:clipToPadding="false"
+            android:paddingTop="40dp"
+            app:layout_constraintBottom_toTopOf="@id/fragment_container_mysongs"
+            app:layout_constraintTop_toBottomOf="@+id/btn_songs_mysongs" />
 
         <TextView
             android:id="@+id/txt_empty_mysongs"
