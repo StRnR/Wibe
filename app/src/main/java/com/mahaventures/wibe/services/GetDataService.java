@@ -10,7 +10,6 @@ import com.mahaventures.wibe.models.Page;
 import com.mahaventures.wibe.models.Playlist;
 import com.mahaventures.wibe.models.Track;
 import com.mahaventures.wibe.models.Tracks;
-import com.mahaventures.wibe.models.TracksResult;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -20,9 +19,6 @@ import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 public interface GetDataService {
-
-    @GET("users/verify/email/")
-    Call<Void> SendVerificationEmail(@Header("Authorization") String s);
 
     @GET
     Call<MySong> GetMySongs(@Header("Authorization") String s, @Url String url);
@@ -36,17 +32,11 @@ public interface GetDataService {
     @GET
     Call<Album> getAlbum(@Header("Authorization") String auth, @Url String url);
 
-//    @GET("albums/{id}/tracks/")
-//    Call<Tracks> getAlbumTracks(@Path("id") String id);
-
     @GET
     Call<Tracks> getAlbumTracks(@Header("Authorization") String auth, @Url String url);
 
     @GET("artists/{id}/")
     Call<Artist> getArtist(@Header("Authorization") String auth, @Path("id") String id);
-
-//    @GET("artists/{id}/tracks/")
-//    Call<Album> getArtistTracks(@Path("id") String id);
 
     @GET
     Call<Tracks> getArtistTracks(@Header("Authorization") String auth, @Url String url);
@@ -57,21 +47,12 @@ public interface GetDataService {
     @GET("playlists/{id}/")
     Call<Playlist> getPlaylist(@Header("Authorization") String auth, @Path("id") String id);
 
-//    @GET("playlist/{id}/tracks/")
-//    Call<Tracks> getPlaylistTracks(@Path("id") String id);
-
     @GET
     Call<Tracks> getPlaylistTracks(@Header("Authorization") String auth, @Url String url);
 
     @GET
-    Call<Track> getTrack(@Url String url);
+    Call<Track> getTrack(@Header("Authorization") String auth, @Url String url);
 
     @GET
-    Call<TracksResult> SearchTracks(@Url String url);
-
-    @GET
-    Call<GeneralSearch> SearchAll(@Url String url);
-
-    @GET
-    Call<Track> GetTrackById(@Url String url);
+    Call<GeneralSearch> SearchAll(@Header("Authorization") String auth, @Url String url);
 }

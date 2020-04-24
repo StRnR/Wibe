@@ -49,19 +49,11 @@ public class MySongsAdapter extends RecyclerView.Adapter<MySongsAdapter.MySongVi
             PlayerActivity.from = "my songs";
         });
         MySongViewHolder.artist.setText(StaticTools.getArtistsName(track.track));
-        if (!track.track.is_favorite) {
+        MySongViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
+        MySongViewHolder.addBtn.setOnClickListener(v -> {
             MySongViewHolder.addBtn.setBackgroundResource(R.drawable.ic_add);
-            MySongViewHolder.addBtn.setOnClickListener(v -> {
-                MySongViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
-                StaticTools.addToMySong(context, track.track.id);
-            });
-        } else {
-            MySongViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
-            MySongViewHolder.addBtn.setOnClickListener(v -> {
-                MySongViewHolder.addBtn.setBackgroundResource(R.drawable.ic_add);
-                StaticTools.deleteFromMySong(context, track.track.id);
-            });
-        }
+            StaticTools.deleteFromMySong(context, track.track.id);
+        });
         MySongViewHolder.songTitle.setText(track.track.name);
     }
 

@@ -259,7 +259,7 @@ public class SearchActivity extends AppCompatActivity {
     private void getAllSongs(int i) {
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         String url = String.format(Locale.getDefault(), "https://musicify.ir/api/search?query=%s&include=tracks.artists&page=%d", searchText.getText().toString(), i);
-        Call<GeneralSearch> call = service.SearchAll(url);
+        Call<GeneralSearch> call = service.SearchAll(StaticTools.getToken(), url);
         call.enqueue(new Callback<GeneralSearch>() {
             @Override
             public void onResponse(Call<GeneralSearch> call, Response<GeneralSearch> response) {
@@ -297,7 +297,7 @@ public class SearchActivity extends AppCompatActivity {
         });
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         String url = String.format("https://musicify.ir/api/search?query=%s&include=tracks.artists", searchText.getText().toString());
-        Call<GeneralSearch> call = service.SearchAll(url);
+        Call<GeneralSearch> call = service.SearchAll(StaticTools.getToken(), url);
         call.enqueue(new Callback<GeneralSearch>() {
             @Override
             public void onResponse(Call<GeneralSearch> call, Response<GeneralSearch> response) {
@@ -372,7 +372,7 @@ public class SearchActivity extends AppCompatActivity {
         if (!txt.equals("")) {
             GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
             String url = String.format("https://musicify.ir/api/search?query=%s&include=tracks.artists", txt);
-            Call<GeneralSearch> call = service.SearchAll(url);
+            Call<GeneralSearch> call = service.SearchAll(StaticTools.getToken(), url);
             call.enqueue(new Callback<GeneralSearch>() {
                 @Override
                 public void onResponse(Call<GeneralSearch> call, Response<GeneralSearch> response) {

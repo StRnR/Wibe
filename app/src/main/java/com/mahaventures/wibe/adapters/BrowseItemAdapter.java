@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.activities.AlbumActivity;
 import com.mahaventures.wibe.activities.ArtistActivity;
-import com.mahaventures.wibe.activities.BrowseActivity;
 import com.mahaventures.wibe.activities.PlayerActivity;
 import com.mahaventures.wibe.activities.PlaylistActivity;
 import com.mahaventures.wibe.models.BrowseItem;
@@ -81,7 +80,7 @@ public class BrowseItemAdapter extends RecyclerView.Adapter<BrowseItemAdapter.Co
     private void track(String id) {
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         String url = String.format("https://api.musicify.ir/tracks/%s?include=artists", id);
-        Call<Track> call = service.getTrack(url);
+        Call<Track> call = service.getTrack(StaticTools.getToken(), url);
         call.enqueue(new Callback<Track>() {
             @Override
             public void onResponse(Call<Track> call, Response<Track> response) {
