@@ -170,6 +170,7 @@ public class PlaylistActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     tracks.addAll(response.body().data);
                     shuffleBtn.setEnabled(true);
+                    playBtn.setEnabled(true);
                     SongsRecyclerAlbumAndPlaylistAdapter adapter = new SongsRecyclerAlbumAndPlaylistAdapter(response.body().data, PlaylistActivity.this, playlistTitle.getText().toString());
                     recyclerView.setAdapter(adapter);
                 }
