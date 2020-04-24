@@ -188,11 +188,12 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             if (mediaPlayer != null) {
                 shuffle = !shuffle;
                 shuffleBtn.setBackgroundResource(shuffle ? R.drawable.ic_random_blue : R.drawable.ic_random);
-                if (!shuffle) {
-                    mediaPlayer.stop();
+                if (shuffle) {
+                    queue.removeIf(t -> t.id.equals(track.id));
                     Collections.shuffle(queue);
+                    queue.add(0, track);
                     firstOfAll();
-                    doShit(0);
+                    doShit(1);
                 }
             }
         });

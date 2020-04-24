@@ -14,18 +14,15 @@ import android.widget.Toast;
 
 import androidx.palette.graphics.Palette;
 
-import com.mahaventures.wibe.activities.MySongsActivity;
 import com.mahaventures.wibe.activities.PlayerActivity;
 import com.mahaventures.wibe.models.Album;
 import com.mahaventures.wibe.models.Artist;
 import com.mahaventures.wibe.models.BrowseItem;
 import com.mahaventures.wibe.models.Collection;
 import com.mahaventures.wibe.models.InitModel;
-import com.mahaventures.wibe.models.MySong;
 import com.mahaventures.wibe.models.Playlist;
 import com.mahaventures.wibe.models.Track;
 import com.mahaventures.wibe.services.DeleteDataService;
-import com.mahaventures.wibe.services.GetDataService;
 import com.mahaventures.wibe.services.PlaySongBroadcastReceiver;
 import com.mahaventures.wibe.services.PostDataService;
 
@@ -240,7 +237,7 @@ public class StaticTools {
 
             @Override
             public void onFailure(Call call, Throwable t) {
-
+                ServerError(context, t.getMessage());
             }
         });
     }
@@ -313,7 +310,7 @@ public class StaticTools {
 
     public static void ServerError(Context context, String message) {
         ShowToast(context, "Please try again later...", 0);
-        LogErrorMessage(message);
+        LogErrorMessage(String.format("Server Error: %s", message));
     }
 
     public static void getHPI() {
