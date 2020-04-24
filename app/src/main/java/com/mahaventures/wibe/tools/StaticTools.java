@@ -334,6 +334,13 @@ public class StaticTools {
         });
     }
 
+    public static void stop() {
+        if (component == null) {
+            component = DaggerPlayerComponent.builder().build();
+        }
+        component.playerBuilder().stop();
+    }
+
     public static MediaPlayer getPlayer() {
         if (component == null) {
             component = DaggerPlayerComponent.builder().build();

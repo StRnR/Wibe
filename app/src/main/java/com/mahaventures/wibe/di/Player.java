@@ -15,4 +15,8 @@ public class Player {
     public MediaPlayer getPlayer() {
         return player;
     }
+
+    public void stop() {
+        player.stop();
+    }
 }

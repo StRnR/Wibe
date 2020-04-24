@@ -51,7 +51,7 @@ import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class PlayerActivity extends AppCompatActivity implements Playable {
 
-    private static MediaPlayer mediaPlayer = StaticTools.getPlayer();
+    private static MediaPlayer mediaPlayer = new MediaPlayer();
     private static Bitmap artWork;
     private ImageView img;
     public static String mArtistString;
