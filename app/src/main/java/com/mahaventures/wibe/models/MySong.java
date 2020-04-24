@@ -9,7 +9,7 @@ public class MySong {
     @SerializedName("data")
     @Expose
     public List<MySongTrack> data;
-    @SerializedName("meta")
-    @Expose
-    public Meta meta;
+//    @SerializedName("meta")
+//    @Expose
+//    public Meta meta;
 }

@@ -13,5 +13,4 @@ public class MySongTrack {
     @SerializedName("track")
     @Expose
     public Track track;
-
 }
