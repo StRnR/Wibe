@@ -89,7 +89,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 public void onResponse(Call call, Response response) {
                     if (response.isSuccessful()) {
                         StaticTools.ShowToast(ChangePasswordActivity.this, "password changed!", 0);
-                        ChangePasswordActivity.this.startActivity(new Intent(ChangePasswordActivity.this, SignInActivity.class));
+                        startActivity(new Intent(ChangePasswordActivity.this, SignInActivity.class));
+                        finish();
                     } else {
                         StaticTools.ShowToast(ChangePasswordActivity.this, "password is invalid", 0);
                     }

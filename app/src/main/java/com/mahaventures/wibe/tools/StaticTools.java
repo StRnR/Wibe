@@ -6,6 +6,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import androidx.palette.graphics.Palette;
 
 import com.mahaventures.wibe.activities.PlayerActivity;
+import com.mahaventures.wibe.di.DaggerPlayerComponent;
+import com.mahaventures.wibe.di.PlayerComponent;
 import com.mahaventures.wibe.models.Album;
 import com.mahaventures.wibe.models.Artist;
 import com.mahaventures.wibe.models.BrowseItem;
@@ -48,6 +51,7 @@ public class StaticTools {
     public static String token;
     public static String homePageId;
     private static String name;
+    private static PlayerComponent component;
 
     public static final String AlbumActivityTag = "album";
     public static final String ArtistActivityTag = "artist";
@@ -328,5 +332,12 @@ public class StaticTools {
             public void onFailure(Call<InitModel> call, Throwable t) {
             }
         });
+    }
+
+    public static MediaPlayer getPlayer() {
+        if (component == null) {
+            component = DaggerPlayerComponent.builder().build();
+        }
+        return component.playerBuilder().getPlayer();
     }
 }
