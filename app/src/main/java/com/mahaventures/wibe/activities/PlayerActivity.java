@@ -139,7 +139,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         Button shuffleBtn = findViewById(R.id.btn_shuffle_player);
         Button repeatBtn = findViewById(R.id.btn_repeat_player);
 
-        repeatBtn.setBackgroundResource(repeated ? R.drawable.ic_repeat : R.drawable.ic_repeat_blue);
+        repeatBtn.setBackgroundResource(repeated ? R.drawable.ic_repeat_blue : R.drawable.ic_repeat);
         shuffleBtn.setBackgroundResource(shuffle ? R.drawable.ic_random_blue : R.drawable.ic_random);
 
         final View parent = (View) minimizeBtn.getParent();
