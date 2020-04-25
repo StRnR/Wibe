@@ -123,7 +123,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         }
 
         srcTxt = findViewById(R.id.txt_srcname_mainplayer);
-        TextView srcNameTxt = findViewById(R.id.txt_srcname_mainplayer);
         songTitleTxt = findViewById(R.id.txt_title_mainplayer);
         artistTxt = findViewById(R.id.txt_artist_mainplayer);
         songTimeTxt = findViewById(R.id.txt_songtime_mainplayer);
