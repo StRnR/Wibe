@@ -123,7 +123,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         }
 
         srcTxt = findViewById(R.id.txt_srcname_mainplayer);
-        TextView srcNameTxt = findViewById(R.id.txt_srcname_mainplayer);
         songTitleTxt = findViewById(R.id.txt_title_mainplayer);
         artistTxt = findViewById(R.id.txt_artist_mainplayer);
         songTimeTxt = findViewById(R.id.txt_songtime_mainplayer);
@@ -140,7 +139,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         Button shuffleBtn = findViewById(R.id.btn_shuffle_player);
         Button repeatBtn = findViewById(R.id.btn_repeat_player);
 
-        repeatBtn.setBackgroundResource(repeated ? R.drawable.ic_repeat : R.drawable.ic_repeat_blue);
+        repeatBtn.setBackgroundResource(repeated ? R.drawable.ic_repeat_blue : R.drawable.ic_repeat);
         shuffleBtn.setBackgroundResource(shuffle ? R.drawable.ic_random_blue : R.drawable.ic_random);
 
         final View parent = (View) minimizeBtn.getParent();
