@@ -15,18 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mahaventures.wibe.R;
 import com.mahaventures.wibe.activities.MySongsActivity;
 import com.mahaventures.wibe.activities.PlayerActivity;
-import com.mahaventures.wibe.models.MySong;
-import com.mahaventures.wibe.models.MySongTrack;
+import com.mahaventures.wibe.models.Track;
 import com.mahaventures.wibe.tools.StaticTools;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class MySongsAdapter extends RecyclerView.Adapter<MySongsAdapter.MySongViewHolder> {
 
-    private MySong mySong;
+    private List<Track> tracks;
     private Context context;
 
-    public MySongsAdapter(MySong mySong, Context context) {
-        this.mySong = mySong;
+    public MySongsAdapter(List<Track> tracks, Context context) {
+        this.tracks = tracks;
         this.context = context;
     }
 
@@ -40,26 +41,26 @@ public class MySongsAdapter extends RecyclerView.Adapter<MySongsAdapter.MySongVi
     @Override
     public void onBindViewHolder(@NonNull MySongViewHolder holder, int position) {
         MySongViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
-        MySongTrack track = mySong.data.get(position);
+        Track track = tracks.get(position);
         holder.setIsRecyclable(false);
-        Picasso.get().load(track.track.image.medium.url).into(MySongViewHolder.songImg);
+        Picasso.get().load(track.image.medium.url).into(MySongViewHolder.songImg);
         MySongViewHolder.cardView.setOnClickListener(v -> {
             PlayerActivity.queue = MySongsActivity.mySongTracks;
-            StaticTools.PlayTrackInQueue(context, StaticTools.getArtistsName(track.track), track.track);
+            StaticTools.PlayTrackInQueue(context, StaticTools.getArtistsName(track), track);
             PlayerActivity.from = "my songs";
         });
-        MySongViewHolder.artist.setText(StaticTools.getArtistsName(track.track));
+        MySongViewHolder.artist.setText(StaticTools.getArtistsName(track));
         MySongViewHolder.addBtn.setBackgroundResource(R.drawable.ic_added);
         MySongViewHolder.addBtn.setOnClickListener(v -> {
             MySongViewHolder.addBtn.setBackgroundResource(R.drawable.ic_add);
-            StaticTools.deleteFromMySong(context, track.track.id);
+            StaticTools.deleteFromMySong(context, track.id);
         });
-        MySongViewHolder.songTitle.setText(track.track.name);
+        MySongViewHolder.songTitle.setText(track.name);
     }
 
     @Override
     public int getItemCount() {
-        return mySong.data.size();
+        return tracks.size();
     }
 
 

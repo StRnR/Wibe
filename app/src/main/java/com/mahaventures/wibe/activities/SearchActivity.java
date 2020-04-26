@@ -6,7 +6,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -201,19 +200,16 @@ public class SearchActivity extends AppCompatActivity {
         MiniPlayerFragment.isPrepared = true;
 
 
-        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    closeKeyboard();
-                    search();
-                    songsHeader.setVisibility(View.VISIBLE);
-                    albumsHeader.setVisibility(View.VISIBLE);
-                    artistsHeader.setVisibility(View.VISIBLE);
-                    songsShowAll.setVisibility(View.VISIBLE);
-                }
-                return false;
+        searchText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                closeKeyboard();
+                search();
+                songsHeader.setVisibility(View.VISIBLE);
+                albumsHeader.setVisibility(View.VISIBLE);
+                artistsHeader.setVisibility(View.VISIBLE);
+                songsShowAll.setVisibility(View.VISIBLE);
             }
+            return false;
         });
 
         final View parent = (View) clearTxtBtn.getParent();

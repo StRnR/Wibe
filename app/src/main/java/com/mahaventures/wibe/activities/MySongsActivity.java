@@ -23,9 +23,9 @@ import com.mahaventures.wibe.services.GetDataService;
 import com.mahaventures.wibe.tools.RetrofitClientInstance;
 import com.mahaventures.wibe.tools.StaticTools;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
@@ -33,33 +33,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MySongsActivity extends AppCompatActivity {
-    public static List<Track> mySongTracks;
-    private static MySong mySong;
+    public static List<Track> mySongTracks = new ArrayList<>();
     private TextView emptyTxt;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
+    private int total;
+    private int current;
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_mysongs);
-        bottomNavigationView.setSelectedItemId(R.id.nav_mysongs);
-        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
-            switch (menuItem.getItemId()) {
-                case R.id.nav_browse:
-                    startActivity(new Intent(getApplicationContext(), BrowseActivity.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-                case R.id.nav_search:
-                    startActivity(new Intent(getApplicationContext(), SearchActivity.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-                case R.id.nav_mysongs:
-                    return true;
-            }
-            return false;
-        });
-        MiniPlayerFragment.isPrepared = true;
+    public void onBackPressed() {
     }
 
     @Override
@@ -91,16 +73,7 @@ public class MySongsActivity extends AppCompatActivity {
             }
             return false;
         });
-
-        Timer timerRevive = new Timer();
-        timerRevive.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                reviveActivity();
-            }
-        }, 1000, 1000);
-
-
+        current = 0;
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (findViewById(R.id.fragment_container_mysongs) != null) {
             if (savedInstanceState != null)
@@ -115,27 +88,58 @@ public class MySongsActivity extends AppCompatActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (!recyclerView.canScrollVertically(1)) {
+                if (current < total) {
+                    GetMySongs();
+                }
+            }
+        });
         GetMySongs();
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_mysongs);
+        bottomNavigationView.setSelectedItemId(R.id.nav_mysongs);
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.nav_browse:
+                    startActivity(new Intent(getApplicationContext(), BrowseActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                case R.id.nav_search:
+                    startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                case R.id.nav_mysongs:
+                    return true;
+            }
+            return false;
+        });
+        MiniPlayerFragment.isPrepared = true;
+    }
+
     private void GetMySongs() {
+        current++;
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        String url = "https://api.musicify.ir/profile/tracks?include=track.album,track.artists";
+        String url = String.format(Locale.getDefault(), "https://api.musicify.ir/profile/tracks?include=track.album,track.artists&page=%d", current);
         Call<MySong> call = service.GetMySongs(StaticTools.getToken(), url);
         call.enqueue(new Callback<MySong>() {
             @Override
             public void onResponse(Call<MySong> call, Response<MySong> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    mySongTracks = response.body().data.stream().map(x -> x.track).collect(Collectors.toList());
+                    mySongTracks.addAll(response.body().data.stream().map(x -> x.track).collect(Collectors.toList()));
                     if (mySongTracks.size() == 0) {
                         emptyTxt.setVisibility(View.VISIBLE);
                     } else {
                         emptyTxt.setVisibility(View.GONE);
                     }
-                    mySong = response.body();
-                    MySongsAdapter adapter = new MySongsAdapter(mySong, MySongsActivity.this);
+                    MySongsAdapter adapter = new MySongsAdapter(mySongTracks, MySongsActivity.this);
                     recyclerView.setAdapter(adapter);
                     refreshLayout.setRefreshing(false);
+                    total = response.body().meta.pagination.totalPages;
                 }
             }
 
@@ -151,13 +155,5 @@ public class MySongsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         MiniPlayerFragment.isPrepared = true;
-    }
-
-    private void reviveActivity() {
-        int a = 2;
-    }
-
-    @Override
-    public void onBackPressed() {
     }
 }
