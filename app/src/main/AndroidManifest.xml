@@ -82,6 +82,8 @@
         <activity
             android:name=".activities.PlayerActivity"
             android:launchMode="singleInstance"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Player" />
         <activity
