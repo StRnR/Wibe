@@ -37,8 +37,8 @@ public class MySongsActivity extends AppCompatActivity {
     private TextView emptyTxt;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
-    private int total;
-    private int current;
+    private int total = 1;
+    private int current = 0;
 
     @Override
     public void onBackPressed() {
@@ -73,7 +73,6 @@ public class MySongsActivity extends AppCompatActivity {
             }
             return false;
         });
-        current = 0;
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (findViewById(R.id.fragment_container_mysongs) != null) {
             if (savedInstanceState != null)
@@ -90,7 +89,8 @@ public class MySongsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (!recyclerView.canScrollVertically(1)) {
-                if (current < total) {
+                if (current <= total) {
+                    current++;
                     GetMySongs();
                 }
             }
@@ -122,7 +122,6 @@ public class MySongsActivity extends AppCompatActivity {
     }
 
     private void GetMySongs() {
-        current++;
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         String url = String.format(Locale.getDefault(), "https://api.musicify.ir/profile/tracks?include=track.album,track.artists&page=%d", current);
         Call<MySong> call = service.GetMySongs(StaticTools.getToken(), url);
