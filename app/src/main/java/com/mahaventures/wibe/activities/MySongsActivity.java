@@ -39,6 +39,8 @@ public class MySongsActivity extends AppCompatActivity {
     private SwipeRefreshLayout refreshLayout;
     private int total = 1;
     private int current = 0;
+    private int x;
+    private int y;
 
     @Override
     public void onBackPressed() {
@@ -49,7 +51,11 @@ public class MySongsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_songs);
         refreshLayout = findViewById(R.id.mySong_sr);
-        refreshLayout.setOnRefreshListener(this::GetMySongs);
+        refreshLayout.setOnRefreshListener(() -> {
+            mySongTracks.clear();
+            current = 0;
+            GetMySongs();
+        });
         emptyTxt = findViewById(R.id.txt_empty_mysongs);
         FrameLayout mySongsFragmentContainer = findViewById(R.id.fragment_container_mysongs);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_mysongs);
@@ -88,9 +94,10 @@ public class MySongsActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            x = scrollX;
+            y = scrollY;
             if (!recyclerView.canScrollVertically(1)) {
                 if (current <= total) {
-                    current++;
                     GetMySongs();
                 }
             }
@@ -122,6 +129,7 @@ public class MySongsActivity extends AppCompatActivity {
     }
 
     private void GetMySongs() {
+        current++;
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         String url = String.format(Locale.getDefault(), "https://api.musicify.ir/profile/tracks?include=track.album,track.artists&page=%d", current);
         Call<MySong> call = service.GetMySongs(StaticTools.getToken(), url);
@@ -138,6 +146,7 @@ public class MySongsActivity extends AppCompatActivity {
                     }
                     MySongsAdapter adapter = new MySongsAdapter(mySongTracks, MySongsActivity.this);
                     recyclerView.setAdapter(adapter);
+                    recyclerView.scrollTo(x, y);
                     refreshLayout.setRefreshing(false);
                     total = response.body().meta.pagination.totalPages;
                 }
