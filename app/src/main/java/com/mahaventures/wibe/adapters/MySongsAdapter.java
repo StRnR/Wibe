@@ -19,6 +19,7 @@ import com.mahaventures.wibe.models.Track;
 import com.mahaventures.wibe.tools.StaticTools;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MySongsAdapter extends RecyclerView.Adapter<MySongsAdapter.MySongViewHolder> {
@@ -45,7 +46,7 @@ public class MySongsAdapter extends RecyclerView.Adapter<MySongsAdapter.MySongVi
         holder.setIsRecyclable(false);
         Picasso.get().load(track.image.medium.url).into(MySongViewHolder.songImg);
         MySongViewHolder.cardView.setOnClickListener(v -> {
-            PlayerActivity.queue = MySongsActivity.mySongTracks;
+            PlayerActivity.queue = new ArrayList<>(MySongsActivity.mySongTracks);
             StaticTools.PlayTrackInQueue(context, StaticTools.getArtistsName(track), track);
             PlayerActivity.from = "my songs";
         });

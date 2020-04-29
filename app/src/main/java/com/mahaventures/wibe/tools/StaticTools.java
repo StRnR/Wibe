@@ -278,8 +278,7 @@ public class StaticTools {
             PlayerActivity.queue.clear();
             PlayerActivity.queue.addAll(tracks);
         } else {
-            PlayerActivity.queue = new ArrayList<>();
-            PlayerActivity.queue.addAll(tracks);
+            PlayerActivity.queue = new ArrayList<>(tracks);
         }
 
         Intent bcIntent = new Intent(context, PlaySongBroadcastReceiver.class)
