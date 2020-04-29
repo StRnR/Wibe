@@ -131,7 +131,7 @@ public class MySongsActivity extends AppCompatActivity {
             public void onResponse(Call<MySong> call, Response<MySong> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     mySongTracks.addAll(response.body().data.stream().map(x -> x.track).collect(Collectors.toList()));
-                    mySongTracks.stream().distinct().collect(Collectors.toList());
+                    mySongTracks = mySongTracks.stream().distinct().collect(Collectors.toList());
                     if (mySongTracks.size() == 0) {
                         emptyTxt.setVisibility(View.VISIBLE);
                     } else {
