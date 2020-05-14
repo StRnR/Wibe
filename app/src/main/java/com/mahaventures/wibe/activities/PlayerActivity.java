@@ -111,15 +111,15 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             StaticTools.LogErrorMessage("register fucked up");
         }
 
-        if (mediaPlayer != null) {
-            try {
-                mediaPlayer.stop();
-                mediaPlayer.reset();
-                mediaPlayer.release();
-            } catch (Exception e) {
-                StaticTools.LogErrorMessage(e.getMessage());
-            }
-        }
+//        if (mediaPlayer != null) {
+//            try {
+//                mediaPlayer.stop();
+//                mediaPlayer.reset();
+//                mediaPlayer.release();
+//            } catch (Exception e) {
+//                StaticTools.LogErrorMessage(e.getMessage());
+//            }
+//        }
 
         srcTxt = findViewById(R.id.txt_srcname_mainplayer);
         songTitleTxt = findViewById(R.id.txt_title_mainplayer);
