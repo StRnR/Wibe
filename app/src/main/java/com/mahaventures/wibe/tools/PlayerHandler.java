@@ -3,6 +3,8 @@ package com.mahaventures.wibe.tools;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 
+import com.mahaventures.wibe.fragments.MiniPlayerFragment;
+
 public class PlayerHandler {
     private static MediaPlayer mediaPlayer = new MediaPlayer();
     private static boolean isPrepared;
@@ -51,6 +53,8 @@ public class PlayerHandler {
     private static void prepared() {
         isPrepared = true;
         mediaPlayer.start();
+        MiniPlayerFragment.isPrepared = true;
+        MiniPlayerFragment.isLoaded = true;
     }
 
     public static void pause() throws Exception {
