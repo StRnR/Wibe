@@ -23,7 +23,6 @@ public class LoadingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
-        startActivity(new Intent(this, TmpActivity.class));
         SugarContext.init(this);
         SavedInfo info = SavedInfo.last(SavedInfo.class);
         PlayerActivity.shuffle = false;

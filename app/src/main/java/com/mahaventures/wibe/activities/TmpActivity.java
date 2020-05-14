@@ -11,6 +11,7 @@ import com.mahaventures.wibe.tools.PlayerHandler;
 public class TmpActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override
@@ -31,7 +32,7 @@ public class TmpActivity extends AppCompatActivity {
         try {
             PlayerHandler.setUrl("https://cdn.musicify.ir/Track/5e4/736/64a/5e473664adecb7129300df34/file/original/e31fc3846b5c1ddff3695b1b0a121d1667de4227e2a23a931c5985f23c9162a2.mp3");
         } catch (Exception e) {
-
+            e.getMessage();
         }
     }
 }

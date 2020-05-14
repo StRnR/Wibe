@@ -46,9 +46,9 @@ public class MySongsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         try {
-            PlayerHandler.stop();
+            PlayerHandler.start();
         } catch (Exception e) {
-
+            e.getMessage();
         }
     }
 
@@ -56,6 +56,11 @@ public class MySongsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_songs);
+        try {
+            PlayerHandler.stop();
+        } catch (Exception e) {
+
+        }
         refreshLayout = findViewById(R.id.mySong_sr);
         refreshLayout.setOnRefreshListener(() -> {
             mySongTracks.clear();
