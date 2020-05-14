@@ -20,6 +20,7 @@ import com.mahaventures.wibe.fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.models.MySong;
 import com.mahaventures.wibe.models.Track;
 import com.mahaventures.wibe.services.GetDataService;
+import com.mahaventures.wibe.tools.PlayerHandler;
 import com.mahaventures.wibe.tools.RetrofitClientInstance;
 import com.mahaventures.wibe.tools.StaticTools;
 
@@ -44,6 +45,11 @@ public class MySongsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        try {
+            PlayerHandler.stop();
+        } catch (Exception e) {
+
+        }
     }
 
     @Override
@@ -56,6 +62,7 @@ public class MySongsActivity extends AppCompatActivity {
             current = 0;
             GetMySongs();
         });
+        refreshLayout.setEnabled(false);
         emptyTxt = findViewById(R.id.txt_empty_mysongs);
         FrameLayout mySongsFragmentContainer = findViewById(R.id.fragment_container_mysongs);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_mysongs);
@@ -148,6 +155,7 @@ public class MySongsActivity extends AppCompatActivity {
                     recyclerView.setAdapter(adapter);
                     recyclerView.scrollTo(x, y);
                     refreshLayout.setRefreshing(false);
+                    refreshLayout.setEnabled(true);
                     total = response.body().meta.pagination.totalPages;
                 }
             }
@@ -156,6 +164,7 @@ public class MySongsActivity extends AppCompatActivity {
             public void onFailure(Call<MySong> call, Throwable t) {
                 StaticTools.ServerError(MySongsActivity.this, t.getMessage());
                 refreshLayout.setRefreshing(false);
+                refreshLayout.setEnabled(true);
             }
         });
     }

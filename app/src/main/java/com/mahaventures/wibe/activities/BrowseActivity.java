@@ -79,6 +79,7 @@ public class BrowseActivity extends AppCompatActivity {
         Button myProfileBtn = findViewById(R.id.btn_user_browse);
         refreshLayout = findViewById(R.id.browse_sr);
         refreshLayout.setOnRefreshListener(this::getHPI);
+        refreshLayout.setEnabled(false);
         FrameLayout browseFragmentContainer = findViewById(R.id.fragment_container_browse);
         BottomNavigationView bottomNavigationView = findViewById(R.id.navbar_bottom_browse);
         bottomNavigationView.setSelectedItemId(R.id.nav_browse);
@@ -135,7 +136,7 @@ public class BrowseActivity extends AppCompatActivity {
     }
 
     private void getHPI() {
-        refreshLayout.setRefreshing(false);
+        refreshLayout.setEnabled(false);
         PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
         Call<InitModel> call = service.Init(getToken());
         call.enqueue(new Callback<InitModel>() {
@@ -150,13 +151,12 @@ public class BrowseActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<InitModel> call, Throwable t) {
                 StaticTools.ServerError(BrowseActivity.this, t.getMessage());
-                refreshLayout.setRefreshing(true);
             }
         });
     }
 
     private void doShit(String homePageId) {
-        refreshLayout.setRefreshing(false);
+        refreshLayout.setEnabled(false);
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<Page> call = service.GetPage(homePageId);
         call.enqueue(new Callback<Page>() {
@@ -169,7 +169,8 @@ public class BrowseActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Page> call, Throwable t) {
                 StaticTools.ServerError(BrowseActivity.this, t.getMessage());
-                refreshLayout.setRefreshing(true);
+                refreshLayout.setRefreshing(false);
+                refreshLayout.setEnabled(true);
             }
         });
     }
@@ -180,7 +181,8 @@ public class BrowseActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mainAdapter);
-        refreshLayout.setRefreshing(true);
+        refreshLayout.setRefreshing(false);
+        refreshLayout.setEnabled(true);
     }
 
     private void reviveActivity() {
