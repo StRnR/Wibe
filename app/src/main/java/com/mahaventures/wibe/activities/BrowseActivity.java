@@ -76,7 +76,7 @@ public class BrowseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
-        startActivity(new Intent(this, TmpActivity.class));
+//        startActivity(new Intent(this, TmpActivity.class));
         Button myProfileBtn = findViewById(R.id.btn_user_browse);
         refreshLayout = findViewById(R.id.browse_sr);
         refreshLayout.setOnRefreshListener(this::getHPI);
