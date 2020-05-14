@@ -316,10 +316,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     private void doShit(int i) {
         try {
             playBtn.setEnabled(false);
-            PlayerHandler.release();
             meta = false;
-            MiniPlayerFragment.isLoaded = false;
-            track = queue.get(trackNumber);
+            track = queue.get(i);
             setMeta();
             songSeekBar.setProgress(0);
             StaticTools.LogTimedMessage("track set");
@@ -332,6 +330,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
                 loaded.into(artwork, new Callback() {
                     @Override
                     public void onSuccess() {
+                        PlayerHandler.setArtwork(artwork.getDrawable());
                         StaticTools.LogTimedMessage("artwork bitmap loaded");
                         float shadow = 0.5F;
                         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -414,7 +413,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         unregisterReceiver(broadcastReceiver);
         unregisterReceiver(miniPlayerBroadcastReceiver);
         unregisterReceiver(playSongBroadcastReceiver);
-        PlayerHandler.release();
     }
 
     private void createChannel() {
@@ -434,26 +432,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             onTrackPlay();
             playBtn.setBackground(getDrawable(R.drawable.ic_pause));
             PlayerHandler.start();
-//            PlayerHandler.getMediaPlayer().setOnCompletionListener(mp -> {
-//                if (repeated) {
-//                    if (isPrepared) {
-//                        PlayerHandler.seekTo(0);
-//                        try {
-//                            PlayerHandler.start();
-//                        } catch (Exception e) {
-//                            StaticTools.LogErrorMessage(e.getMessage());
-//                        }
-//                    }
-//                } else next();
-//            });
-//        } catch (Exception e) {
-//            StaticTools.LogErrorMessage(e.getMessage() + " inja player activity");
-//            try {
-//                PlayerHandler.reset();
-//                PlayerHandler.prepare(track != null ? track.file : null);
-//            } catch (Exception e1) {
-//                StaticTools.LogErrorMessage(e1.getMessage() + " kir khord dg");
-//            }
         } catch (Exception e) {
             StaticTools.LogErrorMessage(e.getMessage());
         }
@@ -479,9 +457,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         if (trackNumber < queue.size() - 1) {
             trackNumber++;
             doShit(trackNumber);
-        } else {
-//            pauseMedia();
-//            PlayerActivity.this.onBackPressed();
         }
     }
 
@@ -524,7 +499,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         public void onReceive(Context context, Intent intent) {
             String action = Objects.requireNonNull(intent.getExtras()).getString("play_song_action");
             if (action != null && action.equals("pay")) {
-//                PlayerActivity.this.finish();
                 PlayerActivity.this.finish();
                 MiniPlayerFragment.isLoaded = false;
             }

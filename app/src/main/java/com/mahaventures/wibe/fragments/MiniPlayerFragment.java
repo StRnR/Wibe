@@ -21,6 +21,7 @@ import com.mahaventures.wibe.activities.PlayerActivity;
 import com.mahaventures.wibe.models.Track;
 import com.mahaventures.wibe.services.MiniPlayerBroadCastReceiver;
 import com.mahaventures.wibe.tools.AlphaTransformation;
+import com.mahaventures.wibe.tools.PlayerHandler;
 import com.mahaventures.wibe.tools.StaticTools;
 import com.squareup.picasso.Picasso;
 
@@ -44,7 +45,6 @@ public class MiniPlayerFragment extends Fragment {
     private int counter;
 
     public MiniPlayerFragment() {
-        // Required empty public constructor
         isPrepared = true;
     }
 
@@ -139,10 +139,19 @@ public class MiniPlayerFragment extends Fragment {
         });
 
         playBtn.setOnClickListener(v -> {
-            if (context != null) {
-                Intent intent = new Intent(context, MiniPlayerBroadCastReceiver.class)
-                        .setAction(ACTION_PLAY);
-                Objects.requireNonNull(getActivity()).sendBroadcast(intent);
+//            if (context != null) {
+//                Intent intent = new Intent(context, MiniPlayerBroadCastReceiver.class)
+//                        .setAction(ACTION_PLAY);
+//                Objects.requireNonNull(getActivity()).sendBroadcast(intent);
+//            }
+            try {
+                if (PlayerHandler.isPlaying()) {
+                    PlayerHandler.pause();
+                } else {
+                    PlayerHandler.start();
+                }
+            } catch (Exception e) {
+
             }
         });
 

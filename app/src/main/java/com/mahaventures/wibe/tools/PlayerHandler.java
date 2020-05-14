@@ -1,13 +1,19 @@
 package com.mahaventures.wibe.tools;
 
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 
 public class PlayerHandler {
     private static MediaPlayer mediaPlayer = new MediaPlayer();
     private static boolean isPrepared;
+    private static Drawable artwork;
 
-    public static MediaPlayer getMediaPlayer() {
-        return mediaPlayer;
+    public static Drawable getArtwork() {
+        return artwork;
+    }
+
+    public static void setArtwork(Drawable artwork) {
+        PlayerHandler.artwork = artwork;
     }
 
     public static boolean isPlaying() {
@@ -24,6 +30,7 @@ public class PlayerHandler {
 
     public static void prepare(String url) throws Exception {
         isPrepared = false;
+        mediaPlayer.reset();
         mediaPlayer.setDataSource(url);
         mediaPlayer.setOnPreparedListener(mp -> {
             prepared();
@@ -66,16 +73,8 @@ public class PlayerHandler {
         }
     }
 
-    public static void release() {
-        mediaPlayer.release();
-    }
-
     public static int getDuration() {
         return mediaPlayer.getDuration();
-    }
-
-    public static void prepareAsync() {
-        mediaPlayer.prepareAsync();
     }
 
     public static void reset() {
