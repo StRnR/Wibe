@@ -11,8 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.media.MediaMetadataRetriever;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -34,6 +32,7 @@ import com.mahaventures.wibe.services.CreateNotificationService;
 import com.mahaventures.wibe.services.OnClearFromRecentService;
 import com.mahaventures.wibe.tools.AlphaTransformation;
 import com.mahaventures.wibe.tools.OnSwipeTouchListener;
+import com.mahaventures.wibe.tools.PlayerHandler;
 import com.mahaventures.wibe.tools.StaticTools;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -43,21 +42,15 @@ import com.squareup.picasso.Target;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class PlayerActivity extends AppCompatActivity implements Playable {
-
-    private static MediaPlayer mediaPlayer = new MediaPlayer();
     private static Bitmap artWork;
     private ImageView img;
     public static String mArtistString;
     public static String mTrackNameString;
     private static Track track;
-    private int pos;
     private SeekBar songSeekBar;
     private boolean isPlaying;
     private Button playBtn;
@@ -110,16 +103,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         } catch (Exception e) {
             StaticTools.LogErrorMessage("register fucked up");
         }
-
-//        if (mediaPlayer != null) {
-//            try {
-//                mediaPlayer.stop();
-//                mediaPlayer.reset();
-//                mediaPlayer.release();
-//            } catch (Exception e) {
-//                StaticTools.LogErrorMessage(e.getMessage());
-//            }
-//        }
 
         srcTxt = findViewById(R.id.txt_srcname_mainplayer);
         songTitleTxt = findViewById(R.id.txt_title_mainplayer);
@@ -186,16 +169,14 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         });
 
         shuffleBtn.setOnClickListener(v -> {
-            if (mediaPlayer != null) {
-                shuffle = !shuffle;
-                shuffleBtn.setBackgroundResource(shuffle ? R.drawable.ic_random_blue : R.drawable.ic_random);
-                if (shuffle) {
-                    queue.removeIf(t -> t.id.equals(track.id));
-                    Collections.shuffle(queue);
-                    queue.add(0, track);
-                    firstOfAll();
-                    doShit(1);
-                }
+            shuffle = !shuffle;
+            shuffleBtn.setBackgroundResource(shuffle ? R.drawable.ic_random_blue : R.drawable.ic_random);
+            if (shuffle) {
+                queue.removeIf(t -> t.id.equals(track.id));
+                Collections.shuffle(queue);
+                queue.add(0, track);
+                firstOfAll();
+                doShit(1);
             }
         });
 
@@ -241,7 +222,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
 
         playBtn.setOnClickListener(v -> {
-            if (mediaPlayer.isPlaying()) {
+            if (PlayerHandler.isPlaying()) {
                 pauseMedia();
             } else {
                 playMedia();
@@ -255,9 +236,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser && isPrepared) {
                     try {
-                        pos = progress;
-                        mediaPlayer.seekTo(progress);
-                        mediaPlayer.start();
+                        PlayerHandler.seekTo(progress);
+                        PlayerHandler.start();
                     } catch (Exception e) {
                         StaticTools.LogErrorMessage(e.getMessage() + " seekBar change");
                     }
@@ -310,8 +290,8 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         }
         songDurationTxt.setText("");
         songTimeTxt.setText("");
-        if (mediaPlayer != null && isPrepared)
-            mediaPlayer.seekTo(0);
+        if (PlayerHandler.isPrepared())
+            PlayerHandler.seekTo(0);
     }
 
     @Override
@@ -336,22 +316,15 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     private void doShit(int i) {
         try {
             playBtn.setEnabled(false);
-            mediaPlayer.release();
+            PlayerHandler.release();
             meta = false;
             MiniPlayerFragment.isLoaded = false;
             track = queue.get(trackNumber);
             setMeta();
             songSeekBar.setProgress(0);
             StaticTools.LogTimedMessage("track set");
-            MiniPlayerFragment.miniTrack = track;
-            try {
-                mediaPlayer = new MediaPlayer();
-                mediaPlayer.setDataSource(track != null ? track.file : null);
-                playMedia();
-                playBtn.setEnabled(true);
-            } catch (Exception e) {
-                StaticTools.LogErrorMessage(e.getMessage());
-            }
+            PlayerHandler.prepare(track != null ? track.file : null);
+            playBtn.setEnabled(true);
 
             new Thread(() -> runOnUiThread(() -> {
                 RequestCreator loaded = Picasso.get().load(track.image.medium.url);
@@ -425,9 +398,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     public void onTrackPause() {
         CreateNotificationService.createNotification(PlayerActivity.this, track,
                 R.drawable.ic_play_arrow_black_24dp, trackNumber, queue.size());
-//        play.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-//        title.setText(tracks.get(position).getTitle());
-        isPlaying = false;
     }
 
     @Override
@@ -444,7 +414,7 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
         unregisterReceiver(broadcastReceiver);
         unregisterReceiver(miniPlayerBroadcastReceiver);
         unregisterReceiver(playSongBroadcastReceiver);
-        mediaPlayer.release();
+        PlayerHandler.release();
     }
 
     private void createChannel() {
@@ -461,87 +431,43 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     private void playMedia() {
         try {
-            StaticTools.LogTimedMessage("play button pressed");
-            isPlaying = true;
-            MiniPlayerFragment.isPlaying = true;
-            MiniPlayerFragment.isLoaded = true;
             onTrackPlay();
             playBtn.setBackground(getDrawable(R.drawable.ic_pause));
-            mediaPlayer.setOnPreparedListener(mp -> {
-                StaticTools.LogTimedMessage("media player prepared");
-                isPrepared = true;
-                firstOfAll();
-                mediaPlayer.seekTo(pos);
-                mediaPlayer.start();
-                playBtn.setEnabled(true);
-                int duration = mediaPlayer.getDuration();
-                MiniPlayerFragment.isLoaded = true;
-                songDurationTxt.setText(StaticTools.getSongDuration(duration / 1000));
-                Timer mTimer = new Timer();
-                AtomicInteger counter = new AtomicInteger();
-                counter.set(0);
-                mTimer.scheduleAtFixedRate(new TimerTask() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(() -> {
-                            try {
-                                counter.getAndIncrement();
-                                if (counter.get() < 2) {
-                                    songSeekBar.setMax(duration);
-                                    maxProgress = duration;
-                                }
-                                int pos = mediaPlayer.getCurrentPosition();
-                                songSeekBar.setProgress(pos);
-                                progressPosition = pos;
-                                songTimeTxt.setText(StaticTools.getSongDuration(pos / 1000));
-                            } catch (Exception e) {
-                                StaticTools.LogErrorMessage(e.getMessage());
-                            }
-                        });
-                    }
-                }, 0, 500);
-            });
-            mediaPlayer.prepareAsync();
-            mediaPlayer.setOnCompletionListener(mp -> {
-                if (repeated) {
-                    if (isPrepared) {
-                        mediaPlayer.seekTo(0);
-                        mediaPlayer.start();
-                        pos = 0;
-                    }
-                } else next();
-            });
+            PlayerHandler.start();
+//            PlayerHandler.getMediaPlayer().setOnCompletionListener(mp -> {
+//                if (repeated) {
+//                    if (isPrepared) {
+//                        PlayerHandler.seekTo(0);
+//                        try {
+//                            PlayerHandler.start();
+//                        } catch (Exception e) {
+//                            StaticTools.LogErrorMessage(e.getMessage());
+//                        }
+//                    }
+//                } else next();
+//            });
+//        } catch (Exception e) {
+//            StaticTools.LogErrorMessage(e.getMessage() + " inja player activity");
+//            try {
+//                PlayerHandler.reset();
+//                PlayerHandler.prepare(track != null ? track.file : null);
+//            } catch (Exception e1) {
+//                StaticTools.LogErrorMessage(e1.getMessage() + " kir khord dg");
+//            }
         } catch (Exception e) {
-            StaticTools.LogErrorMessage(e.getMessage() + " inja player activity");
-            try {
-                mediaPlayer.reset();
-                mediaPlayer = new MediaPlayer();
-                mediaPlayer.setDataSource(track != null ? track.file : null);
-                playMedia();
-            } catch (Exception e1) {
-                StaticTools.LogErrorMessage(e1.getMessage() + " kir khord dg");
-            }
+            StaticTools.LogErrorMessage(e.getMessage());
         }
     }
 
-    private int getDuration(String url) {
-        MediaMetadataRetriever metaRetriever = new MediaMetadataRetriever();
-        metaRetriever.setDataSource(url);
-        String duration = metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-        long dur = Long.parseLong(duration);
-        return (int) dur;
-    }
-
     private void previous() {
-        pos = 0;
         firstOfAll();
         if (trackNumber > 0) {
             trackNumber--;
             doShit(trackNumber);
         } else {
             try {
-                mediaPlayer.seekTo(0);
-                mediaPlayer.start();
+                PlayerHandler.seekTo(0);
+                PlayerHandler.start();
             } catch (Exception e) {
                 StaticTools.LogErrorMessage(e.getMessage() + " previous");
             }
@@ -549,7 +475,6 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
     }
 
     private void next() {
-        pos = 0;
         firstOfAll();
         if (trackNumber < queue.size() - 1) {
             trackNumber++;
@@ -562,12 +487,14 @@ public class PlayerActivity extends AppCompatActivity implements Playable {
 
     private void pauseMedia() {
         StaticTools.LogTimedMessage("pause button pressed");
-        isPlaying = false;
         MiniPlayerFragment.isPlaying = false;
         onTrackPause();
         playBtn.setBackground(getDrawable(R.drawable.ic_play));
-        pos = mediaPlayer.getCurrentPosition();
-        mediaPlayer.stop();
+        try {
+            PlayerHandler.pause();
+        } catch (Exception e) {
+            StaticTools.LogErrorMessage(e.getMessage());
+        }
     }
 
     private BroadcastReceiver miniPlayerBroadcastReceiver = new BroadcastReceiver() {

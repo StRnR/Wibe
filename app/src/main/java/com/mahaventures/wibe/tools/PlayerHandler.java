@@ -2,20 +2,24 @@ package com.mahaventures.wibe.tools;
 
 import android.media.MediaPlayer;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class PlayerHandler {
     private static MediaPlayer mediaPlayer = new MediaPlayer();
     private static boolean isPrepared;
-    private static int pos;
+
+    public static MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
+    public static boolean isPlaying() {
+        return mediaPlayer.isPlaying();
+    }
+
+    public static void seekTo(int position) {
+        mediaPlayer.seekTo(position);
+    }
 
     public static boolean isPrepared() {
         return isPrepared;
-    }
-
-    public static int getPos() {
-        return pos;
     }
 
     public static void prepare(String url) throws Exception {
@@ -23,19 +27,18 @@ public class PlayerHandler {
         mediaPlayer.setDataSource(url);
         mediaPlayer.setOnPreparedListener(mp -> {
             prepared();
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    getPosition();
-                }
-            }, 0, 500);
+//            Timer timer = new Timer();
+//            timer.schedule(new TimerTask() {
+//                @Override
+//                public void run() {
+//                }
+//            }, 0, 500);
         });
         mediaPlayer.prepareAsync();
     }
 
-    private static void getPosition() {
-        pos = mediaPlayer.getCurrentPosition();
+    public static int getCurrentPosition() {
+        return mediaPlayer.getCurrentPosition();
     }
 
     private static void prepared() {
@@ -49,13 +52,33 @@ public class PlayerHandler {
         else throw new Exception("PlayerHandler is not prepared");
     }
 
-    public static void resume() throws Exception {
+    public static void start() throws Exception {
         if (isPrepared) {
             mediaPlayer.start();
         } else throw new Exception("media player is not prepared yet");
     }
 
     public static void stop() {
-        mediaPlayer.stop();
+        try {
+            mediaPlayer.stop();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public static void release() {
+        mediaPlayer.release();
+    }
+
+    public static int getDuration() {
+        return mediaPlayer.getDuration();
+    }
+
+    public static void prepareAsync() {
+        mediaPlayer.prepareAsync();
+    }
+
+    public static void reset() {
+        mediaPlayer.reset();
     }
 }
