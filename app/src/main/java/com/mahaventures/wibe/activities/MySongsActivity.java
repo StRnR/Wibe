@@ -20,7 +20,6 @@ import com.mahaventures.wibe.fragments.MiniPlayerFragment;
 import com.mahaventures.wibe.models.MySong;
 import com.mahaventures.wibe.models.Track;
 import com.mahaventures.wibe.services.GetDataService;
-import com.mahaventures.wibe.tools.PlayerHandler;
 import com.mahaventures.wibe.tools.RetrofitClientInstance;
 import com.mahaventures.wibe.tools.StaticTools;
 
@@ -45,22 +44,12 @@ public class MySongsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        try {
-            PlayerHandler.start();
-        } catch (Exception e) {
-            e.getMessage();
-        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_songs);
-        try {
-            PlayerHandler.stop();
-        } catch (Exception e) {
-
-        }
         refreshLayout = findViewById(R.id.mySong_sr);
         refreshLayout.setOnRefreshListener(() -> {
             mySongTracks.clear();

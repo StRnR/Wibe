@@ -10,7 +10,15 @@ public class PlayerHandler {
     private static boolean isPrepared;
     private static int pos;
 
-    public static void setUrl(String url) throws Exception {
+    public static boolean isPrepared() {
+        return isPrepared;
+    }
+
+    public static int getPos() {
+        return pos;
+    }
+
+    public static void prepare(String url) throws Exception {
         isPrepared = false;
         mediaPlayer.setDataSource(url);
         mediaPlayer.setOnPreparedListener(mp -> {
@@ -35,16 +43,19 @@ public class PlayerHandler {
         mediaPlayer.start();
     }
 
-    public static void stop() throws Exception {
+    public static void pause() throws Exception {
         if (isPrepared)
-            mediaPlayer.stop();
+            mediaPlayer.pause();
         else throw new Exception("PlayerHandler is not prepared");
     }
 
-    public static void start() throws Exception {
+    public static void resume() throws Exception {
         if (isPrepared) {
-            mediaPlayer.seekTo(pos);
             mediaPlayer.start();
         } else throw new Exception("media player is not prepared yet");
+    }
+
+    public static void stop() {
+        mediaPlayer.stop();
     }
 }
