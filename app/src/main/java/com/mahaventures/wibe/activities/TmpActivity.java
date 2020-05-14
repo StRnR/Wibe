@@ -31,7 +31,5 @@ public class TmpActivity extends AppCompatActivity {
         Player player = component.playerBuilder();
         MediaPlayer mediaPlayer = player.getPlayer();
         mediaPlayer.stop();
-
-
     }
 }

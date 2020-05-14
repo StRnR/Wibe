@@ -135,6 +135,7 @@ public class BrowseActivity extends AppCompatActivity {
     }
 
     private void getHPI() {
+        refreshLayout.setRefreshing(false);
         PostDataService service = RetrofitClientInstance.getRetrofitInstance().create(PostDataService.class);
         Call<InitModel> call = service.Init(getToken());
         call.enqueue(new Callback<InitModel>() {
@@ -149,11 +150,13 @@ public class BrowseActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<InitModel> call, Throwable t) {
                 StaticTools.ServerError(BrowseActivity.this, t.getMessage());
+                refreshLayout.setRefreshing(true);
             }
         });
     }
 
     private void doShit(String homePageId) {
+        refreshLayout.setRefreshing(false);
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<Page> call = service.GetPage(homePageId);
         call.enqueue(new Callback<Page>() {
@@ -166,7 +169,7 @@ public class BrowseActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Page> call, Throwable t) {
                 StaticTools.ServerError(BrowseActivity.this, t.getMessage());
-                refreshLayout.setRefreshing(false);
+                refreshLayout.setRefreshing(true);
             }
         });
     }
@@ -177,7 +180,7 @@ public class BrowseActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mainAdapter);
-        refreshLayout.setRefreshing(false);
+        refreshLayout.setRefreshing(true);
     }
 
     private void reviveActivity() {
