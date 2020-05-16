@@ -208,7 +208,8 @@ public class StaticTools {
         for (Playlist playlist : collection.playlists.data) {
             list.add(new BrowseItem(playlist.image.medium.url, playlist.name, BrowseItem.BrowseType.Playlist, playlist.id, playlist.backgroundColor));
         }
-        Collections.shuffle(list);
+        //todo randomize browse list
+//        Collections.shuffle(list);
         return list;
     }
 
